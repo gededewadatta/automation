@@ -1,0 +1,55 @@
+<?xel-method prefix="c" name="formatStock" class="admin.fe.model.FormatElNumber"
+   signature="java.lang.String formatStock(double)"?>
+<zk>
+<style>
+        .breeze .complex-layout, .breeze .complex-layout .z-south, .breeze .complex-layout .z-west {
+            background: #F7F7F7;
+        }
+        .z-borderlayout {  background: #FFFFFF }
+        .complex-layout .z-north { background: #008BB6; }
+        .complex-layout .z-north > div { padding: 5px; }
+        img.complex-layout-header-img { padding: 0 10px; }
+        .complex-layout-header-label {
+            position: relative; top: -30px;
+            padding-left: 40px; font-size: 24px;
+            color: White; font-weight: bold;
+        }
+        .inner-border, .inner-border .z-north, .inner-border .z-west,
+        .inner-border .z-south, .inner-border .z-east { background: #FFFFFF; }
+        .dl-link { text-decoration: none; cursor: pointer; }
+    </style>
+
+<window width="auto" border="none"
+    apply="admin.fe.controller.DashboardController">
+    
+    <div apply="admin.fe.controller.DashboardController">
+        <grid id="hGrid" model="${$composer.stocks }" mold="paging" pageSize="4">
+            <columns>
+                <column label="Stock Name" sort="auto(name)" />
+                <column label="Avg. High" sort="auto(averageHigh)" align="center"/>
+                <column label="Avg. Low" sort="auto(averageLow)" align="center"/>
+                <column label="Avg. Volume" sort="auto(averageVolume)" align="center"/>
+            </columns>
+            <template name="model">
+                <row>
+                    <!-- use custom-attributes to store quarters and stock in row, 
+                        so it can be accessed later when detail onOpen -->              
+                    <custom-attributes quarters="${each.quarters}" stock="${each}" />
+                    <label value="${each.name}" />
+                    <label value="${c:formatStock(each.averageHigh)}" style="color:red;"/>
+                    <label value="${c:formatStock(each.averageLow)}" style="color:green;"/>
+                    <label value="${c:formatStock(each.averageVolume)}" style="font-weight:bold;"/>
+                </row>
+            </template>
+        </grid>
+    </div>
+    <vbox style="float:right;margin:10px 10px 10px 10px">
+    	<div>
+    		<label value="Export To :" />
+    		 <combobox id="combo" autodrop="true" buttonVisible="true"/>
+    	</div>
+    </vbox>
+    
+    
+</window>    
+</zk>

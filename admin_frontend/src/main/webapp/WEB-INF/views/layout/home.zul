@@ -1,0 +1,94 @@
+<zk>
+<style>
+        .breeze .complex-layout, .breeze .complex-layout .z-south, .breeze .complex-layout .z-west {
+            background: #F7F7F7;
+        }
+        .z-borderlayout {  background: #FFFFFF }
+        .complex-layout .z-north { background: #008BB6; }
+        .complex-layout .z-north > div { padding: 5px; }
+        img.complex-layout-header-img { padding: 0 10px; }
+        .complex-layout-header-label {
+            position: relative; top: -30px;
+            padding-left: 40px; font-size: 24px;
+            color: White; font-weight: bold;
+        }
+        .inner-border, .inner-border .z-north, .inner-border .z-west,
+        .inner-border .z-south, .inner-border .z-east { background: #FFFFFF; }
+        .dl-link { text-decoration: none; cursor: pointer; }
+    </style>
+
+<window width="auto" border="none"
+    apply="admin.fe.controller.HomeController">
+    
+    <div>
+			<borderlayout sclass="complex-layout" height="810px">
+			
+				<west width="200px" border="0" flex="true" splittable="true" margins="0,0,0,0">
+					<vlayout spacing="0">
+						<div height="150px">
+		                </div>
+					
+						<tabbox width="400px" mold="accordion">
+							<tabs>
+						        <tab label="Tab 1" />
+						        <tab label="Tab 2" />
+						        <tab label="Tab 3" />
+						    </tabs>
+							<tabpanels>
+								<tabpanel>
+				                            <vbox>
+				                                <toolbarbutton label="form_sample"/>
+				                                <toolbarbutton label="form_sample2" />
+				                                <toolbarbutton
+				                                    label="Statement of Direction" />
+				                                <toolbarbutton label="ZK Team" />
+				                                <toolbarbutton label="Releases" />
+				                                <toolbarbutton label="Calender" />
+				                            </vbox>
+								</tabpanel>
+								<tabpanel>
+					                            <html>
+					                                <![CDATA[ <ul> <li>Productivity</li>
+					                                <li>Security</li> <li>Performance</li>
+					                                <li>Totally Control</li> <li>Auto
+					                                Testing</li> <li>Scalability</li>
+					                                <li>Flexibility</li> </ul> ]]>
+					                            </html>
+								</tabpanel>
+								<tabpanel>
+				                            <html>
+				                                <![CDATA[ <ul> <li>Server+client
+				                                Fusion</li> <li>Ajax-as-a-Service</li>
+				                                <li>The Event Queue</li> <li>jQuery
+				                                Based</li> <li>SEO Friendly</li>
+				                                <li>Auto Testing</li> </ul> ]]>
+				                            </html>
+								</tabpanel>
+							</tabpanels>
+						</tabbox>
+					</vlayout>
+				</west>
+				<center>
+					 <tabbox width="100%" id="tabbox">
+			            <tabs id="tabs">
+				            <tab>
+				            	Dashboard
+				            </tab>
+			            	
+			            </tabs>
+			            	
+			            <tabpanels id="tabpanels">
+			            	<tabpanel>
+			            		<include src="layout/Dashboard.zul"/>
+			            	</tabpanel>
+			            </tabpanels>
+			        </tabbox>
+				</center>
+				
+			</borderlayout>
+			
+					
+	</div>
+    
+</window>    
+</zk>
