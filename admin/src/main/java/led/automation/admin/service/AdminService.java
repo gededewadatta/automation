@@ -3,13 +3,16 @@
  */
 package led.automation.admin.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
  
 
 import led.automation.admin.model.Employee;
 import led.automation.admin.model.Grade;
 import led.automation.admin.model.Question;
-import led.automation.admin.model.SubGrade;
+import led.automation.admin.model.SubGrade; 
+import led.automation.admin.model.Competency;
 import led.automation.admin.model.Departement;
 import led.automation.admin.model.Division;
 
@@ -46,6 +49,8 @@ public interface AdminService {
 	public Division searchDivision(String body);
 
 	public Employee searchEmployee(String body);
+	
+	public Competency searchCompetency(String body);
 	//search data : stop
 	
 	//upload data : start
@@ -53,4 +58,24 @@ public interface AdminService {
 
 	public int uploadEmployee(String body);
 	//upload data : stop
+
+	//generate data : start
+	public List<String> generateEmployee(String body);
+
+	public List<String> generateGrade(String body);
+
+	public List<String> generateSubGrade(String body);
+
+	public List<String> generateQuestion(String body);
+
+	public List<String> generateDepartement(String body);
+
+	public List<String> generateDivision(String body);
+
+	public List<String> generateCompetency(String body);
+	
+	//generate data : start
+	
+	
+	
 }

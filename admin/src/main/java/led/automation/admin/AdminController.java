@@ -4,6 +4,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
+import java.util.List;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -32,9 +34,10 @@ import led.automation.admin.model.Employee;
 import led.automation.admin.model.Grade;
 import led.automation.admin.model.Question;
 import led.automation.admin.model.SubGrade;
+import led.automation.admin.model.Competency;
 import led.automation.admin.model.Departement;
 import led.automation.admin.model.Division;
-import led.automation.admin.service.AdminService;
+import led.automation.admin.service.AdminService; 
 
 /**
  *
@@ -134,6 +137,13 @@ public class AdminController {
 		Division division = adminService.searchDivision(body);
 		return division;
 	}
+	@RequestMapping(value = "/led/api/automation/search/competency", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public Competency searchCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		Competency competency = adminService.searchCompetency(body);
+		return competency;
+	}
 	// search data : stop 
 	 
 	// upload data : start
@@ -147,5 +157,59 @@ public class AdminController {
 	}
 	// upload data : stop
 	
+	//generate data: start
+	@RequestMapping(value = "/led/api/automation/generate/employee", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> generateEmployee(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> employee = adminService.generateEmployee(body);
+		return employee;
+	}
+
+	@RequestMapping(value = "/led/api/automation/generate/grade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> generateGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> grade = adminService.generateGrade(body);
+		return grade;
+	}
+
+	@RequestMapping(value = "/led/api/automation/generate/subgrade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> generateSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> subGrade = adminService.generateSubGrade(body);
+		return subGrade;
+	}
+
+	@RequestMapping(value = "/led/api/automation/generate/question", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> generateQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> question = adminService.generateQuestion(body);
+		return question;
+	}
 	
+	@RequestMapping(value = "/led/api/automation/generate/departement", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> generateDepartement(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> departement = adminService.generateDepartement(body);
+		return departement;
+	}
+	@RequestMapping(value = "/led/api/automation/generate/division", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> generateDivision(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> division = adminService.generateDivision(body);
+		return division;
+	}
+	@RequestMapping(value = "/led/api/automation/generate/competency", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> generateCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> competency = adminService.generateCompetency(body);
+		return competency;
+	}
+	//generate data: stop	
 }

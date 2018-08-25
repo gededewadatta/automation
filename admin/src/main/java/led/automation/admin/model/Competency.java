@@ -24,9 +24,12 @@ public class Competency {
 	@Column(name = "GRADE_CODE")
 	private String gradeCode;
     
-    @Column(name = "COMPETENCY")
-    private String competency;
+    @Column(name = "COMPETENCY_NAME")
+    private String competencyName;
 
+    @Column(name = "COMPETENCY_CODE")
+    private String competencyCode;
+    
     @Column(name = "CREATED_DATE")
     private Date createdDate;
     
@@ -39,7 +42,8 @@ public class Competency {
 	@Override
 	public String toString() {
 		return "Competency [id=" + id + ", departementCode=" + departementCode + ", gradeCode=" + gradeCode
-				+ ", competency=" + competency + ", createdDate=" + createdDate + ", createdBy=" + createdBy + "]";
+				+ ", competencyName=" + competencyName + ", competencyCode=" + competencyCode + ", createdDate="
+				+ createdDate + ", createdBy=" + createdBy + "]";
 	}
 
 	/**
@@ -85,17 +89,31 @@ public class Competency {
 	}
 
 	/**
-	 * @return the competency
+	 * @return the competencyName
 	 */
-	public String getCompetency() {
-		return competency;
+	public String getCompetencyName() {
+		return competencyName;
 	}
 
 	/**
-	 * @param competency the competency to set
+	 * @param competencyName the competencyName to set
 	 */
-	public void setCompetency(String competency) {
-		this.competency = competency;
+	public void setCompetencyName(String competencyName) {
+		this.competencyName = competencyName;
+	}
+
+	/**
+	 * @return the competencyCode
+	 */
+	public String getCompetencyCode() {
+		return competencyCode;
+	}
+
+	/**
+	 * @param competencyCode the competencyCode to set
+	 */
+	public void setCompetencyCode(String competencyCode) {
+		this.competencyCode = competencyCode;
 	}
 
 	/**
@@ -125,7 +143,8 @@ public class Competency {
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-    
+
+	 
     
 	      
 }

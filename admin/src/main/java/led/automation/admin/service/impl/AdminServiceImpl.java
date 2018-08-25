@@ -4,6 +4,7 @@
 package led.automation.admin.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -235,43 +236,184 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Question searchQuestion(String body) {
 		// TODO Auto-generated method stub
-
-		return adminDAO.searchQuestion(body);
+		jsonResponse = new JSONObject(body);
+		 
+		String employeeName = jsonResponse.isNull("")?"":jsonResponse.getString("employee");
+		String gradeCode = null;
+		//get grade : start
+		gradeCode = adminDAO.searchEmployeeByName(employeeName);
+		//get grade : stop
+		
+		//get question : start
+		
+		//get question : stop
+		return adminDAO.searchQuestionByGrade(gradeCode);
 	}
-
+	@Override
+	public Competency searchCompetency(String body) {
+		// TODO Auto-generated method stub
+		
+		jsonResponse = new JSONObject(body);
+		
+		String competencyCode = null;
+		competencyCode = jsonResponse.isNull("competencycode")?"":jsonResponse.getString("competencycode");
+		String competencyName = null;
+		competencyName = jsonResponse.isNull("competencyname")?"":jsonResponse.getString("competencyname");
+		
+		return adminDAO.searchCompetency(competencyCode,competencyName);
+	}
 	@Override
 	public SubGrade searchSubGrade(String body) {
 		// TODO Auto-generated method stub
-
-		return adminDAO.searchSubGrade(body);
+		jsonResponse = new JSONObject(body);
+		String subGradeCode = null;
+		subGradeCode = jsonResponse.isNull("subgradecode")?"":jsonResponse.getString("subgradecode");
+		String subGradeName = null;
+		subGradeName = jsonResponse.isNull("subgradename")?"":jsonResponse.getString("subgradename");
+		
+		return adminDAO.searchSubGrade(subGradeCode,subGradeName);
 	}
 
 	@Override
 	public Grade searchGrade(String body) {
 		// TODO Auto-generated method stub
-
-		return adminDAO.searchGrade(body);
+		String gradeCode = null;
+		String gradeName = null;
+		jsonResponse = new JSONObject(body);
+		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
+		gradeName = jsonResponse.isNull("gradename")?"":jsonResponse.getString("gradename");
+		
+		return adminDAO.searchGrade(gradeCode,gradeName);
 	}
 
 	@Override
 	public Employee searchEmployee(String body) {
 		// TODO Auto-generated method stub
-
-		return adminDAO.searchEmployee(body);
+		String employeeCode = null;
+		String employeeName = null;
+		jsonResponse = new JSONObject(body);
+		
+		employeeCode = jsonResponse.isNull("employeecode")?"":jsonResponse.getString("employeecode");
+		employeeName = jsonResponse.isNull("employeename")?"":jsonResponse.getString("employeename");
+		return adminDAO.searchEmployee(employeeCode,employeeName);
 	}
 
 	@Override
 	public Departement searchDepartement(String body) {
 		// TODO Auto-generated method stub
-		return null;
+		jsonResponse = new JSONObject(body);
+		String departementCode = null;
+		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
+		String departementName = null;
+		departementName = jsonResponse.isNull("departementname")?"":jsonResponse.getString("departementname");
+		return adminDAO.searchDepartement(departementCode,departementName);
 	}
 
 	@Override
 	public Division searchDivision(String body) {
 		// TODO Auto-generated method stub
-		return null;
+		 
+		jsonResponse = new JSONObject(body);
+		String divisionCode = null;
+		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+		String divisionName = null;
+		divisionName = jsonResponse.isNull("divisionname")?"":jsonResponse.getString("divisionname");
+		return adminDAO.searchDivision(divisionCode,divisionName);
+	}
+	// search data : stop
+
+	// generate data : start
+
+	@Override
+	public List<String> generateEmployee(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+		String divisionCode = null;
+		String departementCode = null;
+		String employeeCode = null;
+		
+		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+		employeeCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("employeecode");
+		departementCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("departementcode");
+		return adminDAO.generateEmployee(divisionCode,employeeCode,departementCode);
 	}
 
-	// search data : stop
+	@Override
+	public List<String> generateGrade(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+		String divisionCode = null;
+		String departementCode = null;
+		String company = null;
+		company=jsonResponse.isNull("company")?"":jsonResponse.getString("company");
+		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+		departementCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("departementcode");
+		
+		return adminDAO.generateGrade(company,divisionCode,departementCode);
+	}
+
+	@Override
+	public List<String> generateSubGrade(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+		String divisionCode = null;
+		String departementCode = null;
+		String gradeCode = null;
+		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
+		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
+		
+		return adminDAO.generateSubGrade(divisionCode,departementCode,gradeCode);
+	}
+
+	@Override
+	public List<String> generateQuestion(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+		String departementCode = null;
+		String gradeCode = null;
+		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
+		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
+		
+		return adminDAO.generateQuestion(departementCode,gradeCode);
+	}
+
+	@Override
+	public List<String> generateDepartement(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+		String divisionCode = null;
+		String company = null;
+		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+		company = jsonResponse.isNull("company")?"":jsonResponse.getString("company");
+		
+		return adminDAO.generateDepartement(divisionCode,company);
+	}
+
+	@Override
+	public List<String> generateDivision(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+		String company = null;
+		company = jsonResponse.isNull("company")?"":jsonResponse.getString("company");
+		
+		return adminDAO.generateDivision(company);
+	}
+
+	@Override
+	public List<String> generateCompetency(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+		String divisionCode = null;
+		String gradeCode = null;
+		String departementCode = null;
+		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
+		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
+		
+		return adminDAO.generateCompetency(divisionCode,departementCode,gradeCode);
+	}
+
+	// generate data : stop
 
 }

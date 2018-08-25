@@ -3,6 +3,7 @@
  */
 package led.automation.admin.dao.impl;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 import javax.sql.DataSource;
@@ -18,6 +19,7 @@ import led.automation.admin.repository.*;
  *
  */
 public class AdminDAOImpl implements AdminDAO {
+	
 	@Autowired
 	DataSource dataSource;
 
@@ -41,6 +43,8 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	@Autowired
 	CompetencyRepository competencyRepository;
+	
+	//insert data :start
 	@Override
 	public int insertEmployee(Employee body) {
 		// TODO Auto-generated method stub
@@ -98,28 +102,177 @@ public class AdminDAOImpl implements AdminDAO {
 		return com.getId()>0?1:0;
 	}
 
+	//insert data : stop
 	@Override
-	public Question searchQuestion(String body) {
+	public Departement searchDepartement(String departementCode, String departementName) {
 		// TODO Auto-generated method stub
-		return null;
+		Departement departement = new Departement();
+		if(departementCode.equals("")&&departementName.equals("")) {
+			departement = (Departement) departementRepository.findAll();
+		}
+		else if(departementCode.equals("")&& !departementName.equals("")) {
+			departement = departementRepository.findByDepartementName(departementName);
+		}
+		else if(!departementCode.equals("")&& departementName.equals("")) {
+			departement = departementRepository.findByDepartementCode(departementCode);
+		}else {
+			departement = departementRepository.findByDepartementCodeAndName(departementCode,departementName);
+		}
+			
+		return departement;
 	}
 
 	@Override
-	public SubGrade searchSubGrade(String body) {
+	public Employee searchEmployee(String employeeCode, String employeeName) {
 		// TODO Auto-generated method stub
-		return null;
+		Employee employee = new Employee();
+		if(employeeCode.equals("")&&employeeName.equals("")) {
+			employee = (Employee) employeeRepository.findAll();
+		}
+		else if(employeeCode.equals("")&&!employeeName.equals("")){
+			employee = employeeRepository.findByEmployeeName(employeeName);
+		}
+		else if(!employeeCode.equals("")&& employeeName.equals("")) {
+			employee = employeeRepository.findByEmployeeCode(employeeCode);
+		}else {
+			employee = employeeRepository.findByEmployeeCodeAndName(employeeCode,employeeName);
+		}
+			
+		return employee;
 	}
 
 	@Override
-	public Grade searchGrade(String body) {
+	public Grade searchGrade(String gradeCode, String gradeName) {
 		// TODO Auto-generated method stub
-		return null;
+		Grade grade = new Grade();
+		if(gradeCode.equals("")&&gradeName.equals("")) {
+			grade = (Grade) gradeRepository.findAll();
+		}
+		else if(gradeCode.equals("")&&!gradeName.equals("")){
+			grade = gradeRepository.findByGradeName(gradeName);
+		}
+		else if(!gradeCode.equals("")&& gradeName.equals("")) {
+			grade = gradeRepository.findByGradeCode(gradeCode);
+		}else {
+			grade = gradeRepository.findByGradeCodeAndName(gradeCode,gradeName);
+		}
+			
+		return grade;
 	}
 
 	@Override
-	public Employee searchEmployee(String body) {
+	public SubGrade searchSubGrade(String subGradeCode, String subGradeName) {
 		// TODO Auto-generated method stub
-		return null;
+		SubGrade subGrade = new SubGrade();
+		if(subGradeCode.equals("")&& subGradeName.equals("")) {
+			subGrade = (SubGrade) subGradeRepository.findAll();
+		}
+		else if(subGradeCode.equals("")&&!subGradeName.equals("")){
+			subGrade = subGradeRepository.findBySubGradeName(subGradeName);
+		}
+		else if(!subGradeCode.equals("")&& subGradeName.equals("")) {
+			subGrade = subGradeRepository.findBySubGradeCode(subGradeCode);
+		}else {
+			subGrade = subGradeRepository.findBySubGradeCodeAndName(subGradeCode,subGradeName);
+		}
+			
+		return subGrade;
 	}
+
+	@Override
+	public Competency searchCompetency(String competencyCode, String competencyName) {
+		// TODO Auto-generated method stub
+		Competency competency = new Competency();
+		if(competencyCode.equals("")&&competencyName.equals("")) {
+			competency = (Competency) competencyRepository.findAll();
+		}
+		else if(competencyCode.equals("")&&!competencyName.equals("")){
+			competency = competencyRepository.findByCompetencyName(competencyName);
+		}
+		else if(!competencyCode.equals("")&& competencyName.equals("")) {
+			competency = competencyRepository.findByCompetencyCode(competencyCode);
+		}else {
+			competency = competencyRepository.findByCompetencyCodeAndName(competencyCode,competencyName);
+		}
+			
+		return competency;
+	}
+
+	@Override
+	public Division searchDivision(String divisionCode, String divisionName) {
+		// TODO Auto-generated method stub
+		Division division = new Division();
+		if(divisionCode.equals("")&&divisionName.equals("")) {
+			division = (Division) divisionRepository.findAll();
+		}
+		else if(divisionCode.equals("")&&!divisionName.equals("")){
+			division = divisionRepository.findByDivisionName(divisionName);
+		}
+		else if(!divisionCode.equals("")&& divisionName.equals("")) {
+			division = divisionRepository.findByDivisionCode(divisionCode);
+		}else {
+			division = divisionRepository.findByDivisionCodeAndName(divisionCode,divisionName);
+		}
+			
+		return division;
+	}
+
+	@Override
+	public String searchEmployeeByName(String employeeName) {
+		// TODO Auto-generated method stub
+		String grade = employeeRepository.findByEmployeeName(employeeName).getGradeCode();
+		return grade;
+	}
+
+	@Override
+	public Question searchQuestionByGrade(String gradeCode) {
+		// TODO Auto-generated method stub
+		
+		return questionRepository.findByGrade(gradeCode);
+	}
+
+	@Override
+	public List<String> generateEmployee(String divisionCode, String employeeCode, String departementCode) {
+		// TODO Auto-generated method stub
+		return employeeRepository.generateEmployee(divisionCode,employeeCode,departementCode);
+	}
+
+	@Override
+	public List<String> generateGrade(String company, String divisionCode, String departementCode) {
+		// TODO Auto-generated method stub
+		return gradeRepository.generateGrade(company,divisionCode,departementCode);
+	}
+
+	@Override
+	public List<String> generateCompetency(String divisionCode, String departementCode, String gradeCode) {
+		// TODO Auto-generated method stub
+		return competencyRepository.generateCompetency(divisionCode,departementCode,gradeCode);
+	}
+
+	@Override
+	public List<String> generateDivision(String company) {
+		// TODO Auto-generated method stub
+		return divisionRepository.generateDivision(company);
+	}
+
+	@Override
+	public List<String> generateDepartement(String divisionCode, String company) {
+		// TODO Auto-generated method stub
+		return departementRepository.generateDepartement(divisionCode,company);
+	}
+
+	@Override
+	public List<String> generateQuestion(String departementCode, String gradeCode) {
+		// TODO Auto-generated method stub
+		return questionRepository.generateQuestion(departementCode,gradeCode);
+	}
+
+	@Override
+	public List<String> generateSubGrade(String divisionCode, String departementCode, String gradeCode) {
+		// TODO Auto-generated method stub
+		return subGradeRepository.generateSubGrade(divisionCode,departementCode,gradeCode);
+	}
+	
+	  
 
 }
