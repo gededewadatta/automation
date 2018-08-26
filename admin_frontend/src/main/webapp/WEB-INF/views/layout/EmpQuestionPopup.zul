@@ -1,0 +1,34 @@
+<zk>
+
+    <window width="auto" border="none"
+            apply="">
+
+     <div align="center">
+         <label value="Pertanyaan :"/>
+     </div>
+
+     <div align="center" style="margin-top:20px">
+         <label value="Apa saja yang diperlukan dalam leadership ?"/>
+     </div>
+     <div><radiogroup id="sv1" onCheck="choice1.value = self.selectedItem.label" /></div>
+     <grid style="margin-top:10px">
+         <rows>
+             <row>
+                 <radio id="ra1" label="Option 1" radiogroup="sv1" />
+             </row>
+             <row>
+                 <radio id="ra2" label="Option 2" radiogroup="sv1" />
+             </row>
+             <row>
+                 <radio id="ra3" label="Option 3" radiogroup="sv1" />
+             </row>
+             <row>
+                 <radio id="ra4" label="Option 4" radiogroup="sv1" />
+             </row>
+             <row>
+                 <radio id="ra5" label="Option 5" radiogroup="sv1" />
+             </row>
+         </rows>
+     </grid>
+    </window>
+</zk>

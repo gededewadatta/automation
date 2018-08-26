@@ -1,0 +1,72 @@
+<zk>
+
+    <window width="auto" border="none"
+            apply="">
+
+        <div>
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Employee Id:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idEmployee" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                            <div>
+                                <button/>
+                            </div>
+                        </hbox>
+
+
+                    </row>
+                    <row>
+                        <label value = "Employee Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idEmpName" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                            <div>
+                                <button/>
+                            </div>
+                        </hbox>
+
+                    </row>
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:10px">
+
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
+
+            </div>
+
+            <vbox>
+
+                <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
+                    <columns>
+                        <column label="Select" sort="" />
+                        <column label="Employee Id" sort="" align="center"/>
+                        <column label="Employee Name" sort="" align="center"/>
+                    </columns>
+                    <template name="">
+                        <row>
+                            <label value="" />
+                            <label value="" style="color:red;"/>
+                            <label value="" style="color:green;"/>
+                        </row>
+                    </template>
+                </grid>
+
+            </vbox>
+
+            <div align="center" style="margin-top:10px">
+                <button id="idSelect" label="Select" style="float::center"/>
+            </div>
+
+
+        </div>
+
+    </window>
+</zk>

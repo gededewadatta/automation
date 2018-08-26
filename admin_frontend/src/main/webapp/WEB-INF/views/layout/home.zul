@@ -30,9 +30,9 @@
 					
 						<tabbox width="400px" mold="accordion">
 							<tabs>
-						        <tab label="Tab 1" />
-						        <tab label="Tab 2" />
-						        <tab label="Tab 3" />
+						        <tab label="File Upload" />
+						        <tab label="Maintenance" />
+						        <tab label="Tab 3" onClick="@command('addTabOne',pProgr='layout/common/form_sample')" />
 						    </tabs>
 							<tabpanels>
 								<tabpanel>
@@ -47,22 +47,14 @@
 				                            </vbox>
 								</tabpanel>
 								<tabpanel>
-					                            <html>
-					                                <![CDATA[ <ul> <li>Productivity</li>
-					                                <li>Security</li> <li>Performance</li>
-					                                <li>Totally Control</li> <li>Auto
-					                                Testing</li> <li>Scalability</li>
-					                                <li>Flexibility</li> </ul> ]]>
-					                            </html>
-								</tabpanel>
-								<tabpanel>
-				                            <html>
-				                                <![CDATA[ <ul> <li>Server+client
-				                                Fusion</li> <li>Ajax-as-a-Service</li>
-				                                <li>The Event Queue</li> <li>jQuery
-				                                Based</li> <li>SEO Friendly</li>
-				                                <li>Auto Testing</li> </ul> ]]>
-				                            </html>
+									<vbox>
+										<toolbarbutton id="toolbarLabel1" label="form_sample"/>
+										<toolbarbutton id="toolbarLabel2" label="form_sample2" />
+										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='layout/home')" />
+										<toolbarbutton id="toolbarLabel4" label="ZK Team" />
+										<toolbarbutton id="toolbarLabel5" label="Releases" />
+										<toolbarbutton id="toolbarLabel6" label="Calender" />
+									</vbox>
 								</tabpanel>
 							</tabpanels>
 						</tabbox>
@@ -79,7 +71,7 @@
 			            	
 			            <tabpanels id="tabpanels">
 			            	<tabpanel>
-			            		<include src="layout/Dashboard.zul"/>
+			            		<include src="layout/EmpQuestionPopup.zul"/>
 			            	</tabpanel>
 			            </tabpanels>
 			        </tabbox>
