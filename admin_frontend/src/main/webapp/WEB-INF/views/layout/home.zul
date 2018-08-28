@@ -18,9 +18,9 @@
     </style>
 
 <window width="auto" border="none"
-    apply="admin.fe.controller.HomeController">
+    apply="">
     
-    <div>
+    <div viewModel="@id('vm') @init('admin.fe.controller.HomeController')" apply="org.zkoss.bind.BindComposer">
 			<borderlayout sclass="complex-layout" height="810px">
 			
 				<west width="200px" border="0" flex="true" splittable="true" margins="0,0,0,0">
@@ -38,25 +38,26 @@
 							<tabs>
 						        <tab label="File Upload" />
 						        <tab label="Maintenance" />
-						        <tab label="Tab 3" onClick="@command('addTabOne',pProgr='layout/common/form_sample')" />
+						        <tab label="Report" onClick="@command('addTabOne',pProgr='layout/Report')"/>
 						    </tabs>
 							<tabpanels>
 								<tabpanel>
 				                            <vbox>
-				                                <toolbarbutton label="Employee"/>
-				                                <toolbarbutton label="Question" />
+				                                <toolbarbutton label="Employee" onClick="@command('addTabOne',pProgr='layout/Employee')"/>
+				                                <toolbarbutton label="Question" onClick="@command('addTabOne',pProgr='layout/Question')"/>
 				                            </vbox>
 								</tabpanel>
 								<tabpanel>
 									<vbox>
 										<toolbarbutton id="toolbarLabel1" label="Division"/>
 										<toolbarbutton id="toolbarLabel2" label="Department" />
-										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='layout/home')" />
+										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='layout/Grade')" />
 										<toolbarbutton id="toolbarLabel4" label="Employee" />
 										<toolbarbutton id="toolbarLabel5" label="Question" />
 										<toolbarbutton id="toolbarLabel6" label="Competencies" />
 									</vbox>
 								</tabpanel>
+								<tabpanel/>
 							</tabpanels>
 						</tabbox>
 					</vlayout>
@@ -72,7 +73,7 @@
 			            	
 			            <tabpanels id="tabpanels">
 			            	<tabpanel>
-			            		<include src="layout/EmpQuestionPopup.zul"/>
+			            		<include src="layout/Dashboard.zul"/>
 			            	</tabpanel>
 			            </tabpanels>
 			        </tabbox>
