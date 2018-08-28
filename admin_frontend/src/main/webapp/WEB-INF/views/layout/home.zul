@@ -49,12 +49,12 @@
 								</tabpanel>
 								<tabpanel>
 									<vbox>
-										<toolbarbutton id="toolbarLabel1" label="Division"/>
-										<toolbarbutton id="toolbarLabel2" label="Department" />
+										<toolbarbutton id="toolbarLabel1" label="Division" onClick="@command('addTabOne',pProgr='layout/Division')"/>
+										<toolbarbutton id="toolbarLabel2" label="Department" onClick="@command('addTabOne',pProgr='layout/Department')"/>
 										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='layout/Grade')" />
-										<toolbarbutton id="toolbarLabel4" label="Employee" />
-										<toolbarbutton id="toolbarLabel5" label="Question" />
-										<toolbarbutton id="toolbarLabel6" label="Competencies" />
+										<toolbarbutton id="toolbarLabel4" label="Employee" onClick="@command('addTabOne',pProgr='layout/Employee')"/>
+										<toolbarbutton id="toolbarLabel5" label="Question" onClick="@command('addTabOne',pProgr='layout/Question')"/>
+										<toolbarbutton id="toolbarLabel6" label="Competencies" onClick="@command('addTabOne',pProgr='layout/Competencies')"/>
 									</vbox>
 								</tabpanel>
 								<tabpanel/>
