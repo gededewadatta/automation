@@ -144,7 +144,8 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		jsonResponse = new JSONObject(body);
 		competency = new Competency();
-		competency.setCompetency(jsonResponse.isNull("competency") ? "" : jsonResponse.getString("competency"));
+		competency.setCompetencyCode(jsonResponse.isNull("competencycode") ? "" : jsonResponse.getString("competencycode"));
+		competency.setCompetencyName(jsonResponse.isNull("competencyname") ? "" : jsonResponse.getString("competencyname"));
 		competency.setCreatedBy(createdBy);
 		competency.setCreatedDate(createdDate);
 		competency.setDepartementCode(
@@ -220,7 +221,8 @@ public class AdminServiceImpl implements AdminService {
 		result += adminDAO.insertSubGrade(subGrade);
 		// insert sub grade :stop
 		// insert competency : start
-		competency.setCompetency(jsonResponse.isNull("competency") ? "" : jsonResponse.getString("competency"));
+		competency.setCompetencyCode(jsonResponse.isNull("competencycode") ? "" : jsonResponse.getString("competencycode"));
+		competency.setCompetencyName(jsonResponse.isNull("competencyname") ? "" : jsonResponse.getString("competencyname"));
 		competency.setCreatedBy(createdBy);
 		competency.setCreatedDate(createdDate);
 		competency.setDepartementCode(
