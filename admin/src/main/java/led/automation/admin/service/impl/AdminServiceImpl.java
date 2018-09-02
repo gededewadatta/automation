@@ -3,9 +3,11 @@
  */
 package led.automation.admin.service.impl;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,19 +48,30 @@ public class AdminServiceImpl implements AdminService {
 
 	static String createdBy = "ADMIN";
 	static Date createdDate = new Date();
+	ObjectMapper objectMapper = new ObjectMapper();
 
 	// insert data : start
+//            Maap gw ganti pake object Mapper
 	@Override
 	public String insertEmployee(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
-		employee = new Employee();
-		employee.setEmployeeName(jsonResponse.isNull("employeename") ? "" : jsonResponse.getString("employeename"));
-		employee.setEmployeeCode(jsonResponse.isNull("employeecode") ? "" : jsonResponse.getString("employeecode"));
-		employee.setSubGradeCode(jsonResponse.isNull("subgrade") ? "" : jsonResponse.getString("subgrade"));
-		employee.setGradeCode(jsonResponse.isNull("grade") ? "" : jsonResponse.getString("grade"));
-		employee.setDepartementCode(jsonResponse.isNull("departement") ? "" : jsonResponse.getString("departement"));
-		employee.setDivisionCode(jsonResponse.isNull("division") ? "" : jsonResponse.getString("division"));
+        try {
+            employee = objectMapper.readValue(body,Employee.class);
+            System.out.println("Employee Name is :"+employee.getEmployeeName());
+            System.out.println("Employee Code is :"+employee.getEmployeeCode());
+
+//            jsonResponse = new JSONObject(body);
+//            employee = new Employee();
+//            employee.setEmployeeName(jsonResponse.isNull("employeeName") ? "" : jsonResponse.getString("employeeName"));
+//            employee.setEmployeeCode(jsonResponse.isNull("employeeCode") ? "" : jsonResponse.getString("employeeCode"));
+//            employee.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
+//            employee.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
+//            employee.setDepartementCode(jsonResponse.isNull("departmentCode") ? "" : jsonResponse.getString("departmentCode"));
+//            employee.setDivisionCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		return adminDAO.insertEmployee(employee) == 0 ? "Failure" : "Success";
 	}
 

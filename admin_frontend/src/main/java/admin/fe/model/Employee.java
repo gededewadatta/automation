@@ -15,7 +15,7 @@ import java.util.Date;
  
 public class Employee {
 
-	private String departmentCode;
+	private String departementCode;
 	private String gradeCode;
 	private String divisionCode;
 	private String subGradeCode;
@@ -24,12 +24,12 @@ public class Employee {
 	private Date createdDate;
 	private String createdBy;
 
-	public String getDepartmentCode() {
-		return departmentCode;
+	public String getDepartementCode() {
+		return departementCode;
 	}
 
-	public void setDepartmentCode(String departmentCode) {
-		this.departmentCode = departmentCode;
+	public void setDepartementCode(String departementCode) {
+		this.departementCode = departementCode;
 	}
 
 	public String getGradeCode() {

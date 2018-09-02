@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +73,7 @@ public class EmployeeDetailController extends CommonController {
         SendJSON send = new SendJSON();
 
             System.out.println("Ini Fucking Submit2");
-            emp.setDepartmentCode(idDepartment.getValue());
+            emp.setDepartementCode(idDepartment.getValue());
             emp.setGradeCode(idGrade.getValue());
             emp.setDivisionCode(idDivision.getValue());
             emp.setSubGradeCode(idSubGrade.getValue());
@@ -82,7 +83,20 @@ public class EmployeeDetailController extends CommonController {
             emp.setCreatedBy("Burhan");
 
         try {
-            send.insertEmployee(emp);
+          String result = send.insertEmployee(emp);
+
+          if(result.equals("200")){
+              Messagebox.show("Data Already Saved");
+          }else{
+              Messagebox.show("Data Failed To save");
+              idDepartment.setText("");
+              idGrade.setText("");
+              idDivision.setText("");
+              idSubGrade.setText("");
+              idCEmployeeId.setText("");
+              idEmployeeName.setText("");
+          }
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

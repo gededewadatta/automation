@@ -47,14 +47,11 @@ public class SendJSON {
 				String.class);
 
 		if (responseEntity.getStatusCode() == HttpStatus.OK) {
-			JSONObject jsonObject = new JSONObject(responseEntity.getBody());
 
-			JSONObject result1 = jsonObject.getJSONObject("ResultInsertEmployee");
-			if (result1 != null) {
+			System.out.println("Response isinya adalah :"+responseEntity.getBody());
+			System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-				String code = result1.getString("ResponseCode");
-				result=code;
-			}
+			result = String.valueOf(responseEntity.getStatusCode());
 
 		}
 		return result;
