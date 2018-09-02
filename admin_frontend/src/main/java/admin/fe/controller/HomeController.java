@@ -1,5 +1,7 @@
 package admin.fe.controller;
 
+import admin.fe.engine.PageNavigation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -14,8 +16,12 @@ import org.zkoss.zul.Tabs;
 
 import java.util.Iterator;
 
+@org.springframework.stereotype.Component
 public class HomeController extends SelectorComposer<Component>{
-	
+
+    @Autowired
+    PageNavigation pageNavigation;
+
 	@Wire
     Tabs tabs;
     @Wire
