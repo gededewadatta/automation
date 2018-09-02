@@ -6,7 +6,7 @@ package led.automation.admin.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
- 
+import org.springframework.transaction.annotation.Transactional;
 
 import led.automation.admin.model.Employee;
 import led.automation.admin.model.Grade;
@@ -20,6 +20,7 @@ import led.automation.admin.model.Division;
  * @author gederanadewadatta
  *
  */
+@Transactional(rollbackFor=Exception.class)
 @Service
 public interface AdminService {
 	//insert data : start

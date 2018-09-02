@@ -4,6 +4,9 @@
 package led.automation.admin.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.util.Date;
 
 /**
@@ -11,6 +14,9 @@ import java.util.Date;
  *
  */
 @Entity
+@Table(name = "EMPLOYEE")
+@EntityListeners(AuditingEntityListener.class)
+
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMPLOYEE_SEQ")

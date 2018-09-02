@@ -46,7 +46,7 @@ import led.automation.admin.service.AdminService;
 @RestController
 public class AdminController {
 	@Autowired
-	private AdminService adminService;
+	AdminService adminService;
 
 	@RequestMapping(path = "/test", method = RequestMethod.GET)
 	public TestDTO test() {
