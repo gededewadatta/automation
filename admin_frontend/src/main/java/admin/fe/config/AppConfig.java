@@ -12,6 +12,12 @@ import org.zkoss.zk.au.http.DHtmlUpdateServlet;
 import org.zkoss.zk.ui.http.DHtmlLayoutServlet;
 import org.zkoss.zk.ui.http.HttpSessionListener;
 
+/*
+
+Author Muhammad Burhanudin
+
+ */
+
 @Configuration
 public class AppConfig {
 

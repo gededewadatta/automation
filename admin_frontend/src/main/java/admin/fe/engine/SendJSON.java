@@ -3,6 +3,8 @@
  */
 package admin.fe.engine;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.HTTP;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,14 +23,17 @@ import admin.fe.model.Employee;
  *
  */
 public class SendJSON {
-	@Value("${led.automation.admin.insert.employee}")
-	protected String employeeUrlInsert;
+	@Value("${led.Employee.insert}")
+	protected String employeeInsert;
 
-	public String insertEmployee(Employee emp) {
+	public String insertEmployee(Employee emp) throws JsonProcessingException {
 		String result = null;
-		String input = "{\"EmpName\":\"" + nullString(emp.getName(), 15) + "\"}";
 
-		System.out.println("===== INPUT ==== " + input);
+		ObjectMapper mapper = new ObjectMapper();
+
+		String body = mapper.writeValueAsString(emp);
+
+		System.out.println("===== INPUT ==== " + body);
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -37,8 +42,8 @@ public class SendJSON {
 		headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
 		headers.add("Accept", MediaType.APPLICATION_JSON.toString());
 
-		HttpEntity<String> entity = new HttpEntity<String>(input, headers);
-		ResponseEntity<String> responseEntity = restTemplate.exchange(employeeUrlInsert, HttpMethod.POST, entity,
+		HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+		ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/employee", HttpMethod.POST, entity,
 				String.class);
 
 		if (responseEntity.getStatusCode() == HttpStatus.OK) {

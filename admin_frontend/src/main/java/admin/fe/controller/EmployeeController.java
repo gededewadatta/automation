@@ -9,6 +9,12 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
 
+/*
+
+Author Muhammad Burhanudin
+
+ */
+
 @Controller
 public class EmployeeController extends CommonController {
 
@@ -26,7 +32,6 @@ public class EmployeeController extends CommonController {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
-        System.out.println("Coba");
     }
 
 //    @Command

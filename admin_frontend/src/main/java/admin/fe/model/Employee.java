@@ -4,6 +4,7 @@
 package admin.fe.model;
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -13,58 +14,77 @@ import java.util.Date;
  */
  
 public class Employee {
-	private String id;
-	private String name;
-	private String email;
-	private String date;
-	 
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	/**
-	 * @return the date
-	 */
-	public String getDate() {
-		return date;
-	}
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(String date) {
-		this.date = date;
+
+	private String departmentCode;
+	private String gradeCode;
+	private String divisionCode;
+	private String subGradeCode;
+	private String employeeCode;
+	private String employeeName;
+	private Date createdDate;
+	private String createdBy;
+
+	public String getDepartmentCode() {
+		return departmentCode;
 	}
 
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
+	}
+
+	public String getGradeCode() {
+		return gradeCode;
+	}
+
+	public void setGradeCode(String gradeCode) {
+		this.gradeCode = gradeCode;
+	}
+
+	public String getDivisionCode() {
+		return divisionCode;
+	}
+
+	public void setDivisionCode(String divisionCode) {
+		this.divisionCode = divisionCode;
+	}
+
+	public String getSubGradeCode() {
+		return subGradeCode;
+	}
+
+	public void setSubGradeCode(String subGradeCode) {
+		this.subGradeCode = subGradeCode;
+	}
+
+	public String getEmployeeCode() {
+		return employeeCode;
+	}
+
+	public void setEmployeeCode(String employeeCode) {
+		this.employeeCode = employeeCode;
+	}
+
+	public String getEmployeeName() {
+		return employeeName;
+	}
+
+	public void setEmployeeName(String employeeName) {
+		this.employeeName = employeeName;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
 }

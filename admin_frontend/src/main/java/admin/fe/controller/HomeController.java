@@ -16,6 +16,12 @@ import org.zkoss.zul.Tabs;
 
 import java.util.Iterator;
 
+/*
+
+Author Muhammad Burhanudin
+
+ */
+
 @org.springframework.stereotype.Component
 public class HomeController extends SelectorComposer<Component>{
 
