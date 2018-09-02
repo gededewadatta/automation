@@ -147,10 +147,14 @@ public class AdminController {
 	// search data : stop 
 	 
 	// upload data : start
+	@RequestMapping(value = "/led/api/automation/upload/question", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
 	public int uploadQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request, HttpServletResponse response) {
 		int result = adminService.uploadQuestion(body);
 		return result;
 	}
+	@RequestMapping(value = "/led/api/automation/upload/employee", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
 	public int uploadEmployee(@RequestBody String body, HttpMethod method, HttpServletRequest request, HttpServletResponse response) {
 		int result = adminService.uploadEmployee(body);
 		return result;

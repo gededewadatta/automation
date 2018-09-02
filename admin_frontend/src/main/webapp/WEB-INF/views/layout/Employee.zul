@@ -1,7 +1,6 @@
 <zk>
 
-    <window width="auto" border="none"
-            apply="">
+    <window id="employeeCont" width="auto" border="none" apply="admin.fe.controller.EmployeeController">
 
         <div>
             <grid>
@@ -76,7 +75,7 @@
             </vbox>
 
             <div align="center" style="margin-top:10px">
-                <button id="addButton" label="Add" style="float::center"/>
+                <button id="btnSubmit" label="Add"  style="float::center"/>
             </div>
 
 
