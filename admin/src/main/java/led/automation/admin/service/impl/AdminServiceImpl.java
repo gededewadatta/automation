@@ -78,14 +78,20 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String insertGrade(String body) {
 		// TODO Auto-generated method stub
-		grade = new Grade();
-		jsonResponse = new JSONObject(body);
-		grade.setDepartementCode(
-				jsonResponse.isNull("departementcode") ? "" : jsonResponse.getString("departementcode"));
-		grade.setCreatedBy(createdBy);
-		grade.setCreatedDate(createdDate);
-		grade.setGradeCode(jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode"));
-		grade.setGradeName(jsonResponse.isNull("gradename") ? "" : jsonResponse.getString("gradename"));
+
+		try {
+			grade = objectMapper.readValue(body,Grade.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		grade = new Grade();
+//		jsonResponse = new JSONObject(body);
+//		grade.setDepartementCode(
+//				jsonResponse.isNull("departementcode") ? "" : jsonResponse.getString("departementcode"));
+//		grade.setCreatedBy(createdBy);
+//		grade.setCreatedDate(createdDate);
+//		grade.setGradeCode(jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode"));
+//		grade.setGradeName(jsonResponse.isNull("gradename") ? "" : jsonResponse.getString("gradename"));
 
 		return adminDAO.insertGrade(grade) == 0 ? "Failure" : "Success";
 	}

@@ -3,6 +3,7 @@
  */
 package admin.fe.engine;
 
+import admin.fe.model.Grade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.HTTP;
@@ -57,6 +58,9 @@ public class SendJSON {
 		return result;
 	}
 
+
+
+
 	protected String nullString(Object obj) {
 
 		return nullString(obj, 1000);
@@ -72,6 +76,37 @@ public class SendJSON {
 		if (result.length() > maxLength)
 			result = result.substring(0, maxLength);
 
+		return result;
+	}
+
+	public String insertGrade(Grade grd) throws JsonProcessingException {
+		String result = null;
+
+		ObjectMapper mapper = new ObjectMapper();
+
+		String body = mapper.writeValueAsString(grd);
+
+		System.out.println("===== INPUT ==== " + body);
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		HttpHeaders headers = new HttpHeaders();
+
+		headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+		headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+		HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+		ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/grade", HttpMethod.POST, entity,
+				String.class);
+
+		if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+			System.out.println("Response isinya adalah :"+responseEntity.getBody());
+			System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+			result = String.valueOf(responseEntity.getStatusCode());
+
+		}
 		return result;
 	}
 }
