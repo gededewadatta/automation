@@ -42,7 +42,7 @@ public class EmployeeController extends CommonController {
 //    }
 
     public void onClick$btnSubmit(){
-        System.out.println("Ini button Submit");
+        System.out.println("Ini button Submit2");
         navigateTo("layout/EmployeeDetail.zul",null,self);
     }
 }
