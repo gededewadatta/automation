@@ -1,7 +1,7 @@
 <zk>
 
     <window width="auto" border="none"
-            apply="">
+            apply="admin.fe.controller.CompetenciesDetailController">
 
         <div>
             <grid>

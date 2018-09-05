@@ -1,7 +1,7 @@
 <zk>
 
     <window width="auto" border="none"
-            apply="">
+            apply="admin.fe.controller.QuestionController">
 
         <div>
             <grid>
@@ -89,10 +89,29 @@
 
                     </row>
                     <row>
+                    <label></label>
+                    <vbox>
+                        <hlayout>
+                            <textbox id="idAnswer1" value="${win$composer.inventoryItem.createdDate}" />
+                        </hlayout>
+                    </vbox>
+
+                </row>
+                    <row>
                         <label></label>
                         <vbox>
                             <hlayout>
-                                <textbox id="idAnswer1" value="${win$composer.inventoryItem.createdDate}" />
+                                <textbox id="idAnswer2" value="${win$composer.inventoryItem.createdDate}" />
+                            </hlayout>
+                        </vbox>
+
+                    </row>
+
+                    <row>
+                        <label></label>
+                        <vbox>
+                            <hlayout>
+                                <textbox id="idAnswer3" value="${win$composer.inventoryItem.createdDate}" />
                             </hlayout>
                         </vbox>
 
@@ -101,7 +120,7 @@
                         <label></label>
                         <vbox>
                             <hlayout>
-                                <textbox id="idAnswer2" value="${win$composer.inventoryItem.createdDate}" />
+                                <textbox id="idAnswer4" value="${win$composer.inventoryItem.createdDate}" />
                             </hlayout>
                         </vbox>
 

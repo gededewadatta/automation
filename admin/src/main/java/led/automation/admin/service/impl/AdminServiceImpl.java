@@ -99,20 +99,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String insertQuestion(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
-		question = new Question();
-		question.setGrade(jsonResponse.isNull("grade") ? "" : jsonResponse.getString("grade"));
-		question.setSubGrade(jsonResponse.isNull("subGrade") ? "" : jsonResponse.getString("subGrade"));
-		question.setAnswer1(jsonResponse.isNull("answer1") ? "" : jsonResponse.getString("answer1"));
-		question.setAnswer2(jsonResponse.isNull("answer2") ? "" : jsonResponse.getString("answer2"));
-		question.setAnswer3(jsonResponse.isNull("answer3") ? "" : jsonResponse.getString("answer3"));
-		question.setAnswer4(jsonResponse.isNull("answer4") ? "" : jsonResponse.getString("answer4"));
-		question.setAnswer5(jsonResponse.isNull("answer5") ? "" : jsonResponse.getString("answer5"));
-		question.setCorrectAnswer(jsonResponse.isNull("correctAnswer") ? "" : jsonResponse.getString("correctAnswer"));
-		question.setCreatedDate(createdDate);
-		question.setCreatedBy(createdBy);
-		question.setCompetency(jsonResponse.isNull("competency") ? "" : jsonResponse.getString("competency"));
-		question.setQuestions(jsonResponse.isNull("questions") ? "" : jsonResponse.getString("questions"));
+		try {
+			question = objectMapper.readValue(body,Question.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return adminDAO.insertQuestion(question) == 0 ? "Failure" : "Success";
 	}
 
@@ -161,15 +152,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String insertCompetency(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
-		competency = new Competency();
-		competency.setCompetencyCode(jsonResponse.isNull("competencycode") ? "" : jsonResponse.getString("competencycode"));
-		competency.setCompetencyName(jsonResponse.isNull("competencyname") ? "" : jsonResponse.getString("competencyname"));
-		competency.setCreatedBy(createdBy);
-		competency.setCreatedDate(createdDate);
-		competency.setDepartementCode(
-				jsonResponse.isNull("departementcode") ? "" : jsonResponse.getString("departementcode"));
-		competency.setGradeCode(jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode"));
+		try {
+			competency = objectMapper.readValue(body,Competency.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return adminDAO.insertCompetency(competency) == 0 ? "Failure" : "Success";
 	}
 	// insert data : stop
@@ -310,13 +297,22 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Employee searchEmployee(String body) {
 		// TODO Auto-generated method stub
-		String employeeCode = null;
+		String employeeCode = body;
 		String employeeName = null;
 		jsonResponse = new JSONObject(body);
-		
-		employeeCode = jsonResponse.isNull("employeecode")?"":jsonResponse.getString("employeecode");
-		employeeName = jsonResponse.isNull("employeename")?"":jsonResponse.getString("employeename");
-		return adminDAO.searchEmployee(employeeCode,employeeName);
+
+		try {
+			employee = objectMapper.readValue(body,Employee.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.searchEmployee(employee.getEmployeeCode(),employee.getEmployeeName());
+	}
+
+	@Override
+	public Employee searchEmployeeByCode(String body) {
+		// TODO Auto-generated method stub
+		return adminDAO.searchEmployee(body,"");
 	}
 
 	@Override
