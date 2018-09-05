@@ -10,7 +10,7 @@
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
+                                <textbox id="idDepartment " value="${win$composer.inventoryItem.createdDate}"
                                          constraint="no empty" />
                             </hlayout>
                             <div>
