@@ -18,12 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -37,6 +32,8 @@ public class ProxyController {
 	protected String employeeUrlInsert;
 	@Value("${led.automation.admin.insert.grade}")
 	protected String gradeUrlInsert;
+	@Value("${led.automation.admin.get.employeeTest}")
+	protected String employeeDummyInsert;
 	@Value("${led.automation.admin.insert.subgrade}")
 	protected String subgradeUrlInsert;
 	@Value("${led.automation.admin.insert.question}")
@@ -313,6 +310,14 @@ public class ProxyController {
 	public String gradeInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 			return proxy(gradeUrlInsert , body, method, request, response);
+
+	}
+
+	@RequestMapping(value = "/led/api/automation/get/employee/{employeeCode}", produces = "application/json", method = RequestMethod.GET)
+	@ResponseBody
+	public String employeeTest(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+							  HttpServletResponse response, @PathVariable("employeeCode") String employeeCode) throws URISyntaxException {
+		return proxy(employeeDummyInsert+"/"+employeeCode , body, method, request, response);
 
 	}
 

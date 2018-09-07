@@ -17,7 +17,13 @@ import org.zkoss.zul.ext.Selectable;
 //import demo.getting_started.tutorial.Car;
 //import demo.getting_started.tutorial.CarService;
 //import demo.getting_started.tutorial.CarServiceImpl;
- 
+
+/*
+
+Author Muhammad Burhanudin
+
+ */
+
 public class SearchController extends SelectorComposer<Component> {
  
     private static final long serialVersionUID = 1L;

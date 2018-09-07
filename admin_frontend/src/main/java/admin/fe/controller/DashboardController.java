@@ -8,7 +8,11 @@ import org.zkoss.zul.ListModelList;
 import admin.fe.model.Stock;
 import admin.fe.model.StockModel;
 
+/*
 
+Author Muhammad Burhanudin
+
+ */
 public class DashboardController extends SelectorComposer<Component>{
 	
 	private static final long serialVersionUID = 1L;

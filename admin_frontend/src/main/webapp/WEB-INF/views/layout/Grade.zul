@@ -1,7 +1,7 @@
 <zk>
 
-    <window width="auto" border="none"
-            apply="">
+    <window id="gradeCont" width="auto" border="none"
+            apply="admin.fe.controller.GradeController">
 
         <div>
             <grid>

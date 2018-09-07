@@ -50,6 +50,8 @@ public interface AdminService {
 	public Division searchDivision(String body);
 
 	public Employee searchEmployee(String body);
+
+    public Employee searchEmployeeByCode(String body);
 	
 	public Competency searchCompetency(String body);
 	//search data : stop

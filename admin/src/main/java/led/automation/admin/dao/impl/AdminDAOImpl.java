@@ -48,6 +48,8 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertEmployee(Employee body) {
 		// TODO Auto-generated method stub
+		System.out.println("Dao Employee Name is :"+ body.getEmployeeName());
+		System.out.println("Dao Employee Code is :"+ body.getEmployeeCode());
 		Employee res = new Employee();
 		res = employeeRepository.save(body);
 		return res.getId()==0?0:1;
