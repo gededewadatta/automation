@@ -1,20 +1,13 @@
-package led.automation.admin.model;
+package led.automation.employee.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "SUBMIT_QUESTION")
-@EntityListeners(AuditingEntityListener.class)
-
 public class SubmitQuestion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBMITQUESTION_SEQ")
@@ -24,8 +17,6 @@ public class SubmitQuestion {
 	private String employeeCode;
 	@Column(name="ID_QUESTION")
 	private Long idQuestion;
-	@Column(name="LEVEL_QUESTION")
-	private Long levelQuestion;
 	@Column(name="ATTEMPT_ANSWER")
 	private Long attemptAnswer;
 	@Column(name="ANSWER_STATUS")

@@ -5,13 +5,18 @@ package led.automation.admin.model;
 
 import java.util.Date;
 
-import javax.persistence.*; 
+import javax.persistence.*;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener; 
 
 /**
  * @author gederanadewadatta
  *
  */
 @Entity
+@Table(name = "COMPETENCY")
+@EntityListeners(AuditingEntityListener.class)
+
 public class Competency {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_SEQ")

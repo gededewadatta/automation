@@ -1,4 +1,4 @@
-package led.automation.admin;
+package led.automation.employee;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,7 +15,6 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import led.automation.admin.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -23,21 +22,31 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import led.automation.admin.service.AdminService;
+import led.automation.admin.model.Employee;
+import led.automation.admin.model.Grade;
+import led.automation.admin.model.Question;
+import led.automation.admin.model.SubGrade;
+import led.automation.admin.model.Competency;
+import led.automation.admin.model.Departement;
+import led.automation.admin.model.Division;
+import led.automation.admin.service.AdminService; 
 
 /**
  *
  * @author gede rana dewadatta
  */
 @RestController
-public class AdminController {
+public class EmployeeController {
 	@Autowired
-	AdminService adminService;
-
-	Employee employee;
+	private AdminService adminService;
 
 	@RequestMapping(path = "/test", method = RequestMethod.GET)
 	public TestDTO test() {
@@ -56,7 +65,6 @@ public class AdminController {
 	@ResponseBody
 	public ResponseEntity<String> insertEmployee(@RequestBody String body, HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
-	    System.out.println(body);
 		return ResponseEntity.ok(adminService.insertEmployee(body));
 	}
 
@@ -79,13 +87,6 @@ public class AdminController {
 	public  ResponseEntity<String> insertQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		return ResponseEntity.ok(adminService.insertQuestion(body));
-	}
-
-	@RequestMapping(value = "/led/api/automation/insert/competency", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
-	public  ResponseEntity<String> insertCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-												  HttpServletResponse response) throws URISyntaxException {
-		return ResponseEntity.ok(adminService.insertCompetency(body));
 	}
 
 	// insert data : stop
@@ -121,22 +122,6 @@ public class AdminController {
 		Question question = adminService.searchQuestion(body);
 		return question;
 	}
-
-    @RequestMapping(value = "/led/api/automation/get/employee/{employeeCode}", produces = "application/json", method = RequestMethod.GET)
-    @ResponseBody
-    public Employee searchEmployeeDummy(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-                                   HttpServletResponse response, @PathVariable("employeeCode") String employeeCode) throws URISyntaxException {
-        employee = adminService.searchEmployee(employeeCode);
-        return employee;
-    }
-
-	@RequestMapping(value = "/led/api/automation/search/dashboard", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
-	public List<Dashboard> searchDashboard(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-									   HttpServletResponse response) throws URISyntaxException {
-		List<Dashboard> dashboards = adminService.findDashboard();
-		return dashboards;
-	}
 	
 	@RequestMapping(value = "/led/api/automation/search/departement", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
@@ -162,14 +147,10 @@ public class AdminController {
 	// search data : stop 
 	 
 	// upload data : start
-	@RequestMapping(value = "/led/api/automation/upload/question", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
 	public int uploadQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request, HttpServletResponse response) {
 		int result = adminService.uploadQuestion(body);
 		return result;
 	}
-	@RequestMapping(value = "/led/api/automation/upload/employee", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
 	public int uploadEmployee(@RequestBody String body, HttpMethod method, HttpServletRequest request, HttpServletResponse response) {
 		int result = adminService.uploadEmployee(body);
 		return result;

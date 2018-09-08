@@ -1,27 +1,18 @@
 /**
  * 
  */
-package led.automation.admin.model;
+package led.automation.employee.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
  * @author gederanadewadatta
  *
  */
-@Entity
-@Table(name = "PENDING_QUESTION")
-@EntityListeners(AuditingEntityListener.class)
-
 public class PendingQuestion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBMITQUESTION_SEQ")

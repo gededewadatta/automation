@@ -7,11 +7,13 @@ import java.util.List;
 
 import led.automation.admin.model.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author gederanadewadatta
  *
  */
+@Transactional(rollbackFor=Exception.class)
 @Service
 public interface AdminService {
 	//insert data : start
