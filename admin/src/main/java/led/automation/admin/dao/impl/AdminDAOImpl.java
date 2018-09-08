@@ -3,8 +3,8 @@
  */
 package led.automation.admin.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import javax.sql.DataSource;
 
@@ -22,6 +22,9 @@ public class AdminDAOImpl implements AdminDAO {
 	
 	@Autowired
 	DataSource dataSource;
+
+	@Autowired
+	DashboardRepository dashboardRepository;
 
 	@Autowired
 	QuestionRepository questionRepository;
@@ -105,6 +108,16 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	//insert data : stop
+	@Override
+	public List<Dashboard> findDashboard() {
+		// TODO Auto-generated method stub
+		List<Dashboard> dashboard = new ArrayList<>();
+
+		dashboard = dashboardRepository.findAll();
+
+		return dashboard;
+	}
+
 	@Override
 	public Departement searchDepartement(String departementCode, String departementName) {
 		// TODO Auto-generated method stub

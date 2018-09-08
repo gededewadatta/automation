@@ -8,18 +8,12 @@ import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import led.automation.admin.model.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import led.automation.admin.dao.AdminDAO;
-import led.automation.admin.model.Employee;
-import led.automation.admin.model.Grade;
-import led.automation.admin.model.Question;
-import led.automation.admin.model.SubGrade;
-import led.automation.admin.model.Competency;
-import led.automation.admin.model.Departement;
-import led.automation.admin.model.Division;
 import led.automation.admin.service.AdminService;
 
 /**
@@ -241,6 +235,13 @@ public class AdminServiceImpl implements AdminService {
 	// upload data : stop
 
 	// search data : start
+
+	@Override
+	public List<Dashboard> findDashboard() {
+		// TODO Auto-generated method stub
+		return adminDAO.findDashboard();
+	}
+
 	@Override
 	public Question searchQuestion(String body) {
 		// TODO Auto-generated method stub

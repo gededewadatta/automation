@@ -15,6 +15,7 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import led.automation.admin.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -25,14 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import led.automation.admin.model.Employee;
-import led.automation.admin.model.Grade;
-import led.automation.admin.model.Question;
-import led.automation.admin.model.SubGrade;
-import led.automation.admin.model.Competency;
-import led.automation.admin.model.Departement;
-import led.automation.admin.model.Division;
-import led.automation.admin.service.AdminService; 
+import led.automation.admin.service.AdminService;
 
 /**
  *
@@ -135,6 +129,14 @@ public class AdminController {
         employee = adminService.searchEmployee(employeeCode);
         return employee;
     }
+
+	@RequestMapping(value = "/led/api/automation/search/dashboard", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Dashboard> searchDashboard(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+									   HttpServletResponse response) throws URISyntaxException {
+		List<Dashboard> dashboards = adminService.findDashboard();
+		return dashboards;
+	}
 	
 	@RequestMapping(value = "/led/api/automation/search/departement", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody

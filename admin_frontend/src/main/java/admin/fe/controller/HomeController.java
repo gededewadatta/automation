@@ -38,9 +38,10 @@ public class HomeController extends SelectorComposer<Component>{
     Tabpanel tabpanel;
 	
 	@AfterCompose
-    public void afterCompose(@ContextParam(ContextType.VIEW) Component view){
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws Exception {
+        super.doAfterCompose(view);
         Selectors.wireComponents(view, this, false);
-        
+        view.setAttribute("controller", this, true);
     }
 
     @Command

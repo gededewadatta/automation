@@ -32,8 +32,8 @@ public class ProxyController {
 	protected String employeeUrlInsert;
 	@Value("${led.automation.admin.insert.grade}")
 	protected String gradeUrlInsert;
-	@Value("${led.automation.admin.get.employeeTest}")
-	protected String employeeDummyInsert;
+//	@Value("${led.automation.admin.get.employeeTest}")
+//	protected String employeeDummyInsert;
 	@Value("${led.automation.admin.insert.subgrade}")
 	protected String subgradeUrlInsert;
 	@Value("${led.automation.admin.insert.question}")
@@ -46,6 +46,8 @@ public class ProxyController {
 	protected String competencyUrlInsert;
 	// insert : stop##
 	// search : start##
+	@Value("${led.automation.admin.search.dashboard}")
+	protected String dashboardUrlSearch;
 	@Value("${led.automation.admin.search.employee}")
 	protected String employeeUrlSearch;
 	@Value("${led.automation.admin.search.grade}")
@@ -312,14 +314,14 @@ public class ProxyController {
 			return proxy(gradeUrlInsert , body, method, request, response);
 
 	}
-
-	@RequestMapping(value = "/led/api/automation/get/employee/{employeeCode}", produces = "application/json", method = RequestMethod.GET)
-	@ResponseBody
-	public String employeeTest(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-							  HttpServletResponse response, @PathVariable("employeeCode") String employeeCode) throws URISyntaxException {
-		return proxy(employeeDummyInsert+"/"+employeeCode , body, method, request, response);
-
-	}
+//
+//	@RequestMapping(value = "/led/api/automation/get/employee/{employeeCode}", produces = "application/json", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String employeeTest(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//							  HttpServletResponse response, @PathVariable("employeeCode") String employeeCode) throws URISyntaxException {
+//		return proxy(employeeDummyInsert+"/"+employeeCode , body, method, request, response);
+//
+//	}
 
 	@RequestMapping(value = "/led/api/automation/insert/subgrade", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
@@ -422,6 +424,14 @@ public class ProxyController {
 
 	// update data : stop
 	// search data : start
+	@RequestMapping(value = "/led/api/automation/search/dashboard", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String dashboardSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+								 HttpServletResponse response) throws URISyntaxException {
+		return proxy(dashboardUrlSearch , body, method, request, response);
+
+	}
+
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String employeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,

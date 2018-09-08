@@ -5,15 +5,8 @@ package led.automation.admin.dao;
 
 import java.util.List;
 
+import led.automation.admin.model.*;
 import org.springframework.transaction.annotation.Transactional;
-
-import led.automation.admin.model.Employee;
-import led.automation.admin.model.Grade;
-import led.automation.admin.model.Question;
-import led.automation.admin.model.SubGrade;
-import led.automation.admin.model.Competency;
-import led.automation.admin.model.Departement;
-import led.automation.admin.model.Division;
 
 /**
  * @author gederanadewadatta
@@ -67,7 +60,8 @@ public interface AdminDAO {
 	public List<String> generateQuestion(String departementCode, String gradeCode);
 
 	public List<String> generateSubGrade(String divisionCode, String departementCode, String gradeCode);
- 
+
+	public List<Dashboard> findDashboard();
 
 	 
 

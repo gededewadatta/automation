@@ -5,16 +5,8 @@ package led.automation.admin.service;
 
 import java.util.List;
 
+import led.automation.admin.model.*;
 import org.springframework.stereotype.Service;
- 
-
-import led.automation.admin.model.Employee;
-import led.automation.admin.model.Grade;
-import led.automation.admin.model.Question;
-import led.automation.admin.model.SubGrade; 
-import led.automation.admin.model.Competency;
-import led.automation.admin.model.Departement;
-import led.automation.admin.model.Division;
 
 /**
  * @author gederanadewadatta
@@ -38,6 +30,8 @@ public interface AdminService {
 	public String insertCompetency(String body);
 	//insert data : stop
 	//search data : start
+	public List<Dashboard> findDashboard();
+
 	public Question searchQuestion(String body);
 
 	public SubGrade searchSubGrade(String body);
