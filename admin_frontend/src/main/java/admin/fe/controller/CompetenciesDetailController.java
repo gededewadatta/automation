@@ -40,7 +40,7 @@ public class CompetenciesDetailController extends CommonController {
         cmp.setDepartementCode(idDepartment.getValue());
         cmp.setGradeCode(idGrade.getValue());
         cmp.setCompetencyCode("null");
-        cmp.setCompetencyName("null");
+        cmp.setCompetencyName(idCompetencies.getValue());
         cmp.setCreatedBy("Burhan");
         cmp.setCreatedDate(new Date());
 

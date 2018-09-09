@@ -10,8 +10,7 @@
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDepartment" />
                             </hlayout>
                             <div>
                                 <button/>
@@ -24,8 +23,7 @@
                         <label value = "Grade:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idGrade" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idGrade"  />
                             </hlayout>
                         </hbox>
 
@@ -34,8 +32,7 @@
                         <label value = "Sub Grade:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idSubGrade" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idSubGrade"  />
                             </hlayout>
                         </hbox>
 
@@ -53,21 +50,13 @@
 
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
-                        <column label="Department" sort="" align="center"/>
-                        <column label="Grade" sort="" align="center"/>
+                        <column label="Department" sort="auto(departementCode)" align="center"/>
+                        <column label="Grade" sort="auto(gradeCode)" align="center"/>
                         <column label="Sub Grade" sort="" align="center"/>
-                        <column label="Competencies" sort="" align="center"/>
+                        <column label="Competencies" sort="auto(competencyName)" align="center"/>
                         <column label="Action" sort="" align="center"/>
                     </columns>
-                    <template name="">
-                        <row>
-                            <label value="" />
-                            <label value="" style="color:red;"/>
-                            <label value="" style="color:green;"/>
-                            <label value="" style="font-weight:bold;"/>
-                            <label value="" style="font-weight:bold;"/>
-                        </row>
-                    </template>
+
                 </grid>
 
             </vbox>

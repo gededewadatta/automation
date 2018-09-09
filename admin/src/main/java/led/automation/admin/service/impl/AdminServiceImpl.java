@@ -243,33 +243,31 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Question searchQuestion(String body) {
+	public List<Question> searchQuestion(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
-		 
-		String employeeName = jsonResponse.isNull("")?"":jsonResponse.getString("employee");
-		String gradeCode = null;
-		//get grade : start
-		gradeCode = adminDAO.searchEmployeeByName(employeeName);
+
+		try {
+			question = objectMapper.readValue(body,Question.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		//get grade : stop
-		
+
 		//get question : start
-		
+
 		//get question : stop
-		return adminDAO.searchQuestionByGrade(gradeCode);
+		return adminDAO.searchQuestionByGrade(question.getGrade());
 	}
 	@Override
-	public Competency searchCompetency(String body) {
+	public List<Competency> searchCompetency(String body) {
 		// TODO Auto-generated method stub
-		
-		jsonResponse = new JSONObject(body);
-		
-		String competencyCode = null;
-		competencyCode = jsonResponse.isNull("competencycode")?"":jsonResponse.getString("competencycode");
-		String competencyName = null;
-		competencyName = jsonResponse.isNull("competencyname")?"":jsonResponse.getString("competencyname");
-		
-		return adminDAO.searchCompetency(competencyCode,competencyName);
+
+		try {
+			competency = objectMapper.readValue(body,Competency.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.searchCompetency(competency.getGradeCode());
 	}
 	@Override
 	public SubGrade searchSubGrade(String body) {
@@ -284,24 +282,26 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Grade searchGrade(String body) {
+	public List<Grade> searchGrade(String body) {
 		// TODO Auto-generated method stub
-		String gradeCode = null;
-		String gradeName = null;
-		jsonResponse = new JSONObject(body);
-		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
-		gradeName = jsonResponse.isNull("gradename")?"":jsonResponse.getString("gradename");
+		Grade grd = new Grade();
+		try {
+			grd =  objectMapper.readValue(body,Grade.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+//		String gradeCode = null;
+//		String gradeName = null;
+//		jsonResponse = new JSONObject(body);
+//		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
+//		gradeName = jsonResponse.isNull("gradename")?"":jsonResponse.getString("gradename");
 		
-		return adminDAO.searchGrade(gradeCode,gradeName);
+		return adminDAO.searchGrade(grd.getDepartementCode(),grd.getDivisionCode());
 	}
 
 	@Override
-	public Employee searchEmployee(String body) {
+	public List<Employee> searchEmployee(String body) {
 		// TODO Auto-generated method stub
-		String employeeCode = body;
-		String employeeName = null;
-		jsonResponse = new JSONObject(body);
-
 		try {
 			employee = objectMapper.readValue(body,Employee.class);
 		} catch (IOException e) {
@@ -313,7 +313,8 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Employee searchEmployeeByCode(String body) {
 		// TODO Auto-generated method stub
-		return adminDAO.searchEmployee(body,"");
+//		return adminDAO.searchEmployee(body,"");
+		return null;
 	}
 
 	@Override

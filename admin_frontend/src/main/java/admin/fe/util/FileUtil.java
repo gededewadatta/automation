@@ -2,6 +2,7 @@ package admin.fe.util;
 
 import admin.fe.model.Dashboard;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -10,6 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +30,17 @@ public class FileUtil {
         sheet.setFitToPage(true);
         sheet.setHorizontallyCenter(true);
 
+        Font headerFont = wb.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 10);
+
+        CellStyle headerCellStyle = wb.createCellStyle();
+        headerCellStyle.setFont(headerFont);
+        headerCellStyle.setWrapText(true);
+        headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
+        headerCellStyle.setFillBackgroundColor(HSSFColor.GREY_40_PERCENT.index);
+        headerCellStyle.setShrinkToFit(true);
+        
 
         // header row
         if (header != null)
@@ -49,6 +63,10 @@ public class FileUtil {
                 for (int j = 0; j < records[i].length; j++) {
                     Cell cell = row.createCell(j + recordx);
                     cell.setCellValue((String) records[i][j]);
+                    if(i==0){
+                        cell.setCellStyle(headerCellStyle);
+                    }
+
                 }
             }
         }
@@ -97,9 +115,9 @@ public class FileUtil {
     public static String[][] generateExcelDashBoardBody(
             List<Dashboard> dashboards) {
         String[][] record = new String[dashboards.size() + 1][22];
-        record[0][0] = "No.";
-        record[0][1] = "Nama";
-        record[0][2] = "Jenis Kelamin";
+        record[0][0] = "Employee ID";
+        record[0][1] = "Grade";
+        record[0][2] = "Result";
 
         for (int i = 1; i <= dashboards.size(); i++) {
             Dashboard dashboard = dashboards.get(i - 1);
@@ -108,5 +126,31 @@ public class FileUtil {
             record[i][2] = dashboard.getResult();
         }
         return record;
+    }
+    
+    public static Date getDate(Date date){
+        Date result = new Date();
+        try {
+            if(date == null){
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+
+                String dateString = format.format(result);
+
+                Date date1 = format.parse ( dateString );
+
+                return date1;
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        
+        
+        return result;
+        
+        
     }
 }

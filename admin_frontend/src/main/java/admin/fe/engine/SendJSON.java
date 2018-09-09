@@ -155,104 +155,6 @@ public class SendJSON {
 
 	}
 
-	public List<Dashboard> getDashBoard(){
-
-		String result = null;
-
-		String body = null;
-
-		List<Dashboard> dashboards = new ArrayList<>();
-		try {
-
-			body = mapper.writeValueAsString(new Dashboard());
-
-			System.out.println("===== INPUT ==== " + body);
-
-			RestTemplate restTemplate = new RestTemplate();
-
-			HttpHeaders headers = new HttpHeaders();
-
-			headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
-			headers.add("Accept", MediaType.APPLICATION_JSON.toString());
-
-			HttpEntity<String> entity = new HttpEntity<String>(body, headers);
-			ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/dashboard", HttpMethod.POST, entity,
-					String.class);
-
-			System.out.println("Respon entity value is :"+ responseEntity);
-			System.out.println("Respon entity body value is :"+ responseEntity.getBody());
-
-			String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
-
-			JSONObject jsonResponse = new JSONObject(respons);
-
-			JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
-
-			System.out.println("jsoon Array VAlue is : "+ jsonArray);
-
-			for (int i = 0; i < jsonArray.length(); i++) {
-				Dashboard dashboard = new Dashboard();
-				JSONObject jsonObjVal = jsonArray.getJSONObject(i);
-				System.out.println("Json Object Adalah :"+jsonObjVal);
-
-				dashboard.setEmployeeId(jsonObjVal.getString("employeeId"));
-				dashboard.setGrade(jsonObjVal.getString("grade"));
-				dashboard.setResult(jsonObjVal.getString("result"));
-				dashboards.add(dashboard);
-
-			}
-
-//			String responseValue = responseEntity.getBody().replace("[","");
-//			String responsValue1 = responseValue.replace("]","");
-//			System.out.println("responsValue1 :"+ responsValue1);
-
-//			List<String> arrayJson = Arrays.asList(jsonArray);
-//
-//            for(String test : arrayJson){
-//
-//                System.out.println("Test Value Adalah :"+test);
-//
-//            }
-
-//			List<String> responseValueList = Arrays.asList(responseValue1);
-
-
-
-//			List<String> getValues = Collections.singletonList(responseEntity.getBody());
-
-//			for(String getValue : responseValueList){
-//				try{
-//					Dashboard dashboard1 = mapper.readValue(getValue,Dashboard.class);
-//					dashboards.add(dashboard1);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
-
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
-		return dashboards;
-
-	}
-
-
-	@RequestMapping(value = "/led/api/automation/search/question", consumes = "application/json", method = RequestMethod.GET)
-	public Employee getEmp(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-								   HttpServletResponse response) throws URISyntaxException {
-
-		ObjectMapper obj = new ObjectMapper();
-
-		try {
-			emp =	obj.readValue(body,Employee.class);
-			emp(emp);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return emp;
-	}
-
 	public String insertCompetency(Competency cmp) throws JsonProcessingException {
 		String result = null;
 
@@ -281,4 +183,296 @@ public class SendJSON {
 		}
 		return result;
 	}
+
+
+    //Search//
+
+    public List<Dashboard> getDashBoard(){
+
+        String result = null;
+
+        String body = null;
+
+        List<Dashboard> dashboards = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(new Dashboard());
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/dashboard", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Dashboard dashboard = new Dashboard();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                dashboard.setEmployeeId(jsonObjVal.getString("employeeId"));
+                dashboard.setGrade(jsonObjVal.getString("grade"));
+                dashboard.setResult(jsonObjVal.getString("result"));
+                dashboards.add(dashboard);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return dashboards;
+
+    }
+
+
+    public List<Grade> getGrade(Grade grd){
+
+        String result = null;
+
+        String body = null;
+
+        List<Grade> grades = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(grd);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/grade", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Grade grade = new Grade();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                grade.setDepartementCode(jsonObjVal.getString("departementCode"));
+                grade.setGradeCode(jsonObjVal.getString("gradeCode"));
+                grade.setGradeName(jsonObjVal.getString("gradeName"));
+                grades.add(grade);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return grades;
+
+    }
+
+    public List<Employee> getEmployee(Employee emp){
+
+        String result = null;
+
+        String body = null;
+
+        List<Employee> employees = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(emp);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/employee", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Employee employee = new Employee();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                employee.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                employee.setDepartementCode(jsonObjVal.getString("departementCode"));
+                employee.setGradeCode(jsonObjVal.getString("gradeCode"));
+                employee.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                employee.setEmployeeName(jsonObjVal.getString("employeeName"));
+                employee.setEmployeeCode(jsonObjVal.getString("employeeCode"));
+                employees.add(employee);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return employees;
+
+    }
+
+    public List<Question> getQuestion(Question quest){
+
+        String result = null;
+
+        String body = null;
+
+        List<Question> questions = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(quest);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013//led/api/automation/search/question", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Question question = new Question();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                question.setGrade(jsonObjVal.getString("grade"));
+                question.setSubGrade(jsonObjVal.getString("subGrade"));
+                question.setQuestions(jsonObjVal.getString("questions"));
+                question.setAnswer1(jsonObjVal.getString("answer1"));
+                question.setAnswer2(jsonObjVal.getString("answer2"));
+                question.setAnswer3(jsonObjVal.getString("answer3"));
+                question.setAnswer4(jsonObjVal.getString("answer4"));
+                question.setAnswer5(jsonObjVal.getString("answer5"));
+                question.setCorrectAnswer(jsonObjVal.getString("correctAnswer"));
+                question.setCompetency(jsonObjVal.getString("competency"));
+                question.setLevel(jsonObjVal.getString("level"));
+                questions.add(question);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return questions;
+
+    }
+
+
+    public List<Competency> getCompetency(Competency comp){
+
+        String result = null;
+
+        String body = null;
+
+        List<Competency> competencies = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(comp);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/competency", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Competency competency = new Competency();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                competency.setDepartementCode(jsonObjVal.getString("departementCode"));
+                competency.setGradeCode(jsonObjVal.getString("gradeCode"));
+                competency.setCompetencyName(jsonObjVal.getString("competencyName"));
+                competencies.add(competency);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return competencies;
+
+    }
 }

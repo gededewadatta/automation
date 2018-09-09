@@ -10,8 +10,7 @@
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDivision"  />
                             </hlayout>
                         </hbox>
 
@@ -21,8 +20,7 @@
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDepartment"  />
                             </hlayout>
                             <div>
                                 <button/>
@@ -36,8 +34,7 @@
                         <label value = "Employee:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmployee" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idEmployee" />
                             </hlayout>
                         </hbox>
 
@@ -55,21 +52,12 @@
 
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
-                        <column label="Division" sort="" align="center"/>
-                        <column label="Department" sort="" align="center"/>
-                        <column label="Employee" sort="" align="center"/>
-                        <column label="Employee Id" sort="" align="center"/>
-                        <column label="Action" sort="" align="center"/>
+                        <column label="Division" sort="auto(divisionCode)" align="center"/>
+                        <column label="Department" sort="auto(departementCode)" align="center"/>
+                        <column label="Employee Id" sort="auto(employeeCode)" align="center"/>
+                        <column label="Employee Name" sort="auto(employeeName)" align="center"/>
+                        <column label="Action"  align="center"/>
                     </columns>
-                    <template name="">
-                        <row>
-                            <label value="" />
-                            <label value="" style="color:red;"/>
-                            <label value="" style="color:green;"/>
-                            <label value="" style="font-weight:bold;"/>
-                            <label value="" style="font-weight:bold;"/>
-                        </row>
-                    </template>
                 </grid>
 
             </vbox>

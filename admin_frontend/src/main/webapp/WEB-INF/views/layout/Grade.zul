@@ -8,15 +8,13 @@
                 <rows>
                     <row>
                         Company Name:
-                        <textbox id="titleTextbox" value="${win$composer.inventoryItem.title}"
-                                 constraint="no empty" />
+                        <textbox id="idCompanyName"  />
                     </row>
                     <row>
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDivision" />
                             </hlayout>
                             <div>
                                 <button/>
@@ -29,8 +27,7 @@
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDepartment" />
                             </hlayout>
                             <div>
                                 <button/>
@@ -51,21 +48,12 @@
 
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
-                        <column label="Division" sort="" />
-                        <column label="Department" sort="" align="center"/>
-                        <column label="Grade" sort="" align="center"/>
-                        <column label="Sub Grade" sort="" align="center"/>
-                        <column label="Action" sort="" align="center"/>
+                        <column label="Division" sort="auto(divisionCode)" />
+                        <column label="Department" sort="auto(departementCode)" align="center"/>
+                        <column label="Grade" sort="auto(gradeCode)" align="center"/>
+                        <column label="Sub Grade" sort="auto(gradeName)" align="center"/>
+                        <column label="Action"  align="center"/>
                     </columns>
-                    <template name="">
-                        <row>
-                            <label value="" />
-                            <label value="" style="color:red;"/>
-                            <label value="" style="color:green;"/>
-                            <label value="" style="font-weight:bold;"/>
-                            <label value="" style="font-weight:bold;"/>
-                        </row>
-                    </template>
                 </grid>
 
             </vbox>

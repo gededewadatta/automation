@@ -17,6 +17,7 @@ public class Grade {
 
     Long id;
     private String departementCode;
+    private String divisionCode;
     private String gradeCode;
     private String gradeName;
     private Date createdDate;
@@ -68,5 +69,13 @@ public class Grade {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getDivisionCode() {
+        return divisionCode;
+    }
+
+    public void setDivisionCode(String divisionCode) {
+        this.divisionCode = divisionCode;
     }
 }

@@ -22,7 +22,10 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_SEQ")
     @SequenceGenerator(sequenceName = "grade_seq", allocationSize = 1, name = "GRADE_SEQ")
     Long id;
-	
+
+	@Column(name = "DIVISION_CODE")
+	private String divisionCode;
+
 	@Column(name = "DEPARTEMENT_CODE")
 	private String departementCode;
     
@@ -122,13 +125,27 @@ public class Grade {
 		this.createdBy = createdBy;
 	}
 
+	/**
+	 * @return the divisionCode
+	 */
+	public String getDivisionCode() {
+		return divisionCode;
+	}
+
+	/**
+	 * @param divisionCode the divisionCode to set
+	 */
+	public void setDivisionCode(String divisionCode) {
+		this.divisionCode = divisionCode;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Grade [id=" + id + ", departementCode=" + departementCode + ", gradeCode=" + gradeCode + ", gradeName="
-				+ gradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + "]";
+				+ gradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", divisionCode="+divisionCode+"]";
 	}
  
     

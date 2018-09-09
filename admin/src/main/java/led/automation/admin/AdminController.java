@@ -92,17 +92,17 @@ public class AdminController {
 	// search data : start
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public Employee searchEmployee(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+	public List<Employee> searchEmployee(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		Employee employee = adminService.searchEmployee(body);
+		List<Employee> employee = adminService.searchEmployee(body);
 		return employee;
 	}
 
 	@RequestMapping(value = "/led/api/automation/search/grade", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public Grade searchGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+	public List<Grade> searchGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		Grade grade = adminService.searchGrade(body);
+		List<Grade> grade = adminService.searchGrade(body);
 		return grade;
 	}
 
@@ -116,19 +116,19 @@ public class AdminController {
 
 	@RequestMapping(value = "/led/api/automation/search/question", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public Question searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+	public List<Question> searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		Question question = adminService.searchQuestion(body);
+		List<Question> question = adminService.searchQuestion(body);
 		return question;
 	}
 
-    @RequestMapping(value = "/led/api/automation/get/employee/{employeeCode}", produces = "application/json", method = RequestMethod.GET)
-    @ResponseBody
-    public Employee searchEmployeeDummy(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-                                   HttpServletResponse response, @PathVariable("employeeCode") String employeeCode) throws URISyntaxException {
-        employee = adminService.searchEmployee(employeeCode);
-        return employee;
-    }
+//    @RequestMapping(value = "/led/api/automation/get/employee/{employeeCode}", produces = "application/json", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Employee searchEmployeeDummy(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//                                   HttpServletResponse response, @PathVariable("employeeCode") String employeeCode) throws URISyntaxException {
+//        employee = adminService.searchEmployee(employeeCode);
+//        return employee;
+//    }
 
 	@RequestMapping(value = "/led/api/automation/search/dashboard", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
@@ -154,9 +154,9 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/led/api/automation/search/competency", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public Competency searchCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+	public List<Competency> searchCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		Competency competency = adminService.searchCompetency(body);
+		List<Competency> competency = adminService.searchCompetency(body);
 		return competency;
 	}
 	// search data : stop 

@@ -46,6 +46,7 @@ public class GradeDetailController extends CommonController {
         grd.setGradeName(idGrade.getValue());
         grd.setGradeCode(idSubGrade.getValue());
         grd.setDepartementCode(idDepartment.getValue());
+        grd.setDivisionCode(idDivision.getValue());
         grd.setCreatedDate(new Date());
         grd.setCreatedBy("Burhan");
 

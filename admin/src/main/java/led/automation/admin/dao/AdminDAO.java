@@ -33,19 +33,19 @@ public interface AdminDAO {
 
 	public Departement searchDepartement(String divisionCode, String divisionName);
 
-	public Employee searchEmployee(String employeeCode, String employeeName);
+	public List<Employee> searchEmployee(String employeeCode, String employeeName);
 
-	public Grade searchGrade(String departementCode, String departementName);
+	public List<Grade> searchGrade(String departementCode, String departementName);
 
 	public SubGrade searchSubGrade(String gradeCode, String gradeName);
 
-	public Competency searchCompetency(String gradeCode, String gradeName);
+	public List<Competency> searchCompetency(String gradeCode);
 
 	public Division searchDivision(String divisionCode, String divisionName);
 
 	public String searchEmployeeByName(String employeeName);
 
-	public Question searchQuestionByGrade(String gradeCode);
+	public List<Question> searchQuestionByGrade(String gradeCode);
 
 	public List<String> generateEmployee(String divisionCode, String employeeCode, String departementCode);
 
