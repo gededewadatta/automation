@@ -44,6 +44,8 @@ public class HomeController extends SelectorComposer<Component>{
         view.setAttribute("controller", this, true);
     }
 
+    //dummy add
+
     @Command
     public void addTabOne(@BindingParam("pProgr") String pProgr){
         Boolean tabPresente=false;
