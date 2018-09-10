@@ -8,6 +8,9 @@ import admin.fe.model.Dashboard;
 import admin.fe.model.Grade;
 import org.apache.poi.sl.usermodel.TextBox;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zul.*;
 
 import java.util.List;
@@ -29,7 +32,7 @@ public class GradeController extends CommonController {
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/GradeDetail.zul",null,self);
+        navigateTo("layout/Grade/GradeDetail.zul",null,self);
 
     }
 
@@ -67,6 +70,49 @@ public class GradeController extends CommonController {
                 new Label(grade.getGradeCode()).setParent(row);
                 new Label(grade.getGradeName()).setParent(row);
 
+                Hbox hbox1 = new Hbox();
+
+                Button view = new Button("View");
+                view.addEventListener(Events.ON_CLICK,
+                        new SerializableEventListener() {
+                            /**
+                             *
+                             */
+                            private static final long serialVersionUID = 2726307190666012319L;
+
+                            public void onEvent(Event event) throws Exception {
+                                String eventName = event.getName();
+                                if (eventName.equals(Events.ON_CLICK)) {
+                                    navigateTo("",null,null);
+//                                            getArg(InvestmentModelObj),
+//                                            winBancaFinTransactionSelection);
+                                }
+                            }
+                        });
+                hbox1.appendChild(view);
+
+                Separator separator = new Separator("vertical");
+                separator.setWidth("10px");
+                separator.setParent(hbox1);
+
+                Button edit = new Button("Edit");
+                edit.addEventListener(Events.ON_CLICK,
+                        new SerializableEventListener() {
+                            /**
+                             *
+                             */
+                            private static final long serialVersionUID = 5680895575895846548L;
+
+                            public void onEvent(Event event)
+                                    throws Exception {
+                                String eventName = event.getName();
+                                if (eventName.equals(Events.ON_CLICK)) {
+                                    navigateTo("",null,null);
+                                }
+                            }
+                        });
+                hbox1.appendChild(edit);
+                row.appendChild(hbox1);
             }
         };
     }

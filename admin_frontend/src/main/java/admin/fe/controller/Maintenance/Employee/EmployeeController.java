@@ -10,6 +10,9 @@ import admin.fe.model.Grade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
 
@@ -57,7 +60,7 @@ public class EmployeeController extends CommonController {
 
     public void onClick$btnSubmit(){
         System.out.println("Ini button Submit2");
-        navigateTo("layout/EmployeeDetail.zul",null,self);
+        navigateTo("layout/Employee/EmployeeDetail.zul",null,self);
     }
 
     public void onClick$searchButton(){
@@ -93,6 +96,51 @@ public class EmployeeController extends CommonController {
                 new Label(employee.getDepartementCode()).setParent(row);
                 new Label(employee.getEmployeeCode()).setParent(row);
                 new Label(employee.getEmployeeName()).setParent(row);
+
+                Hbox hbox1 = new Hbox();
+
+                Button view = new Button("View");
+                view.addEventListener(Events.ON_CLICK,
+                        new SerializableEventListener() {
+                            /**
+                             *
+                             */
+                            private static final long serialVersionUID = 2726307190666012319L;
+
+                            public void onEvent(Event event) throws Exception {
+                                String eventName = event.getName();
+                                if (eventName.equals(Events.ON_CLICK)) {
+                                    navigateTo("",null,null);
+//                                            getArg(InvestmentModelObj),
+//                                            winBancaFinTransactionSelection);
+                                }
+                            }
+                        });
+                hbox1.appendChild(view);
+
+                Separator separator = new Separator("vertical");
+                separator.setWidth("10px");
+                separator.setParent(hbox1);
+
+                Button edit = new Button("Edit");
+                edit.addEventListener(Events.ON_CLICK,
+                        new SerializableEventListener() {
+                            /**
+                             *
+                             */
+                            private static final long serialVersionUID = 5680895575895846548L;
+
+                            public void onEvent(Event event)
+                                    throws Exception {
+                                String eventName = event.getName();
+                                if (eventName.equals(Events.ON_CLICK)) {
+                                    navigateTo("",null,null);
+                                }
+                            }
+                        });
+                hbox1.appendChild(edit);
+                row.appendChild(hbox1);
+
 
             }
         };
