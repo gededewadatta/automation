@@ -147,9 +147,9 @@ public class AdminController {
 	}
 	@RequestMapping(value = "/led/api/automation/search/division", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public Division searchDivision(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+	public List<Division> searchDivision(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		Division division = adminService.searchDivision(body);
+		List<Division> division = adminService.searchDivision(body);
 		return division;
 	}
 	@RequestMapping(value = "/led/api/automation/search/competency", produces = "application/json", method = RequestMethod.POST)

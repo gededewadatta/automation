@@ -223,11 +223,11 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public Division searchDivision(String divisionCode, String divisionName) {
+	public List<Division> searchDivision(String divisionCode, String divisionName) {
 		// TODO Auto-generated method stub
-		Division division = new Division();
+		List<Division> division = new ArrayList<>();
 		if(divisionCode.equals("")&&divisionName.equals("")) {
-			division = (Division) divisionRepository.findAll();
+			division = divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){
 			division = divisionRepository.findByDivisionName(divisionName);

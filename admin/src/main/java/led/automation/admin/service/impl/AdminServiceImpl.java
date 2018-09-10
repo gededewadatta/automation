@@ -329,15 +329,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Division searchDivision(String body) {
+	public List<Division> searchDivision(String body) {
 		// TODO Auto-generated method stub
-		 
-		jsonResponse = new JSONObject(body);
-		String divisionCode = null;
-		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
-		String divisionName = null;
-		divisionName = jsonResponse.isNull("divisionname")?"":jsonResponse.getString("divisionname");
-		return adminDAO.searchDivision(divisionCode,divisionName);
+		Division dvs = new Division();
+		try {
+			dvs =  objectMapper.readValue(body,Division.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+//		jsonResponse = new JSONObject(body);
+//		String divisionCode = null;
+//		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+//		String divisionName = null;
+//		divisionName = jsonResponse.isNull("divisionname")?"":jsonResponse.getString("divisionname");
+		return adminDAO.searchDivision(dvs.getDivisonCode(),dvs.getDivisionName());
 	}
 	// search data : stop
 

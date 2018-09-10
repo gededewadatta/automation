@@ -475,4 +475,85 @@ public class SendJSON {
         return competencies;
 
     }
+
+    public List<Division> getDivision(Division dvs){
+
+        String result = null;
+
+        String body = null;
+
+        List<Division> divisions = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(dvs);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/division", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array Value is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Division division = new Division();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                division.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                division.setDivisionName(jsonObjVal.getString("divisionName"));
+                divisions.add(division);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return divisions;
+    }
+
+    public String insertDivision(Division dvs) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(dvs);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/division", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            result = String.valueOf(responseEntity.getStatusCode());
+
+        }
+        return result;
+    }
 }

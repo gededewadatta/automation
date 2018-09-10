@@ -1,0 +1,55 @@
+<zk>
+
+    <window id="divisionCont" width="auto" border="none"
+            apply="admin.fe.controller.Maintenance.Division.DivisionController">
+
+        <div>
+            <grid>
+                <rows>
+                    <row>
+                        Company Name:
+                        <textbox id="idCompanyName"  />
+                    </row>
+                    <row>
+                        <label value = "Division:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDivision" />
+                            </hlayout>
+                            <div>
+                                <button/>
+                            </div>
+                        </hbox>
+
+
+                    </row>
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:10px">
+
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
+
+            </div>
+
+            <vbox>
+
+                <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
+                    <columns>
+                        <column label="Division" sort="auto(divisionCode)" />
+                        <column label="Division Name" sort="auto(divisionName)" align="center"/>
+                        <column label="Action"  align="center"/>
+                    </columns>
+                </grid>
+
+            </vbox>
+
+            <div align="center" style="margin-top:10px">
+                <button id="addButton" label="Add" style="float::center"/>
+            </div>
+
+
+        </div>
+
+    </window>
+</zk>

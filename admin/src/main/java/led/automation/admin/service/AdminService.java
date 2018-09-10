@@ -42,7 +42,7 @@ public interface AdminService {
 
 	public Departement searchDepartement(String body);
 
-	public Division searchDivision(String body);
+	public List<Division> searchDivision(String body);
 
 	public List<Employee> searchEmployee(String body);
 

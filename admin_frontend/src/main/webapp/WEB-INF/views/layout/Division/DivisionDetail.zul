@@ -1,0 +1,40 @@
+<zk>
+
+    <window width="auto" border="none"
+            apply="admin.fe.controller.Maintenance.Division.DivisionDetailController">
+
+        <div>
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Division:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                        </hbox>
+                    </row>
+                    <row>
+                        <label value = "Division Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="nameDivision" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                        </hbox>
+                    </row>
+
+                </rows>
+            </grid>
+            <div align="right" style="margin-top:30px">
+
+                <button id="submitButton" label="Submit" style="float::right"/>
+                <button id="clearButton" label="Clear" style="float::right"/>
+
+            </div>
+
+        </div>
+
+    </window>
+</zk>

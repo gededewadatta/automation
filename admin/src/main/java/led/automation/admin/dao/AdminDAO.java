@@ -41,7 +41,7 @@ public interface AdminDAO {
 
 	public List<Competency> searchCompetency(String gradeCode);
 
-	public Division searchDivision(String divisionCode, String divisionName);
+	public List<Division> searchDivision(String divisionCode, String divisionName);
 
 	public String searchEmployeeByName(String employeeName);
 
