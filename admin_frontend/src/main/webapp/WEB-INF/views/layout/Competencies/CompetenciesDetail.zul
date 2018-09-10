@@ -1,0 +1,75 @@
+<zk>
+
+    <window width="auto" border="none"
+            apply="admin.fe.controller.Maintenance.Competencies.CompetenciesDetailController">
+
+        <div>
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Department:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                            <div>
+                                <button/>
+                            </div>
+                        </hbox>
+                    </row>
+                    <row>
+                        <label value = "Grade:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idGrade" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                            <div>
+                                <button/>
+                            </div>
+                        </hbox>
+
+
+                    </row>
+                    <row>
+                        <label value = "Sub Grade:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idSubGrade" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                        </hbox>
+
+                    </row>
+
+                    <row>
+                        <label value = "Competencies:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idCompetencies" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                        </hbox>
+
+                    </row>
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:30px">
+
+                <button id="addButton" label="Add" style="float::right"/>
+                <button id="deleteButton" label="Delete" style="float::right"/>
+
+            </div>
+
+            <div align="right" style="margin-top:60px">
+
+                <button id="submitButton" label="Submit" style="float::right"/>
+                <button id="clearButton" label="Clear" style="float::right"/>
+
+            </div>
+
+        </div>
+
+    </window>
+</zk>

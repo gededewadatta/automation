@@ -17,7 +17,7 @@ import led.automation.admin.model.Question;
  */
 public interface QuestionRepository extends JpaRepository<Question, Long>{
 	@Query(value = "SELECT * FROM Questions WHERE GRADE = ?1", nativeQuery = true)
-	Question findByGrade(String gradeCode);
+	List<Question> findByGrade(String gradeCode);
 	@Query(value = "SELECT div.division_name,dept.departement_name,g.grade_name,com.competency_name,quest.QUESTIONS"
 			+ " FROM Division div join Departement dept on div.division_name = dept.division_name"
 			+ " join Grade g on dept.departement_code = g.departement_code"

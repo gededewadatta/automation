@@ -41,6 +41,8 @@ public class DashboardController extends CommonController {
 
         ddbLIst = send.getDashBoard();
 
+
+
         count = 1;
         modelList = new ListModelList(ddbLIst);
         hGrid.setModel(modelList);
@@ -66,6 +68,9 @@ public class DashboardController extends CommonController {
 
                     Messagebox.show("Data Already Downloaded");
 
+                }else{
+
+                    Messagebox.show("Data Failed to Download");
                 }
 
 

@@ -292,7 +292,7 @@ public class ProxyController {
 			return responseEntity.getBody();
 		} catch (Exception e) {
 
-			System.out.println("Error proxy to avantrade : " + destPath);
+			System.out.println("Error proxy : " + destPath);
 			e.printStackTrace(System.out);
 		}
 

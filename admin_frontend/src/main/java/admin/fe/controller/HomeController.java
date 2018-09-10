@@ -7,12 +7,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zul.Include;
-import org.zkoss.zul.Tab;
-import org.zkoss.zul.Tabbox;
-import org.zkoss.zul.Tabpanel;
-import org.zkoss.zul.Tabpanels;
-import org.zkoss.zul.Tabs;
+import org.zkoss.zul.*;
 
 import java.util.Iterator;
 
@@ -36,6 +31,8 @@ public class HomeController extends SelectorComposer<Component>{
     Tabpanels tabpanels;
     @Wire
     Tabpanel tabpanel;
+    @Wire
+    Toolbarbutton toolbarbutton;
 	
 	@AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws Exception {
@@ -66,9 +63,16 @@ public class HomeController extends SelectorComposer<Component>{
         if(!tabPresente)
         {
 
+            String label = "";
+            label = pProgr.substring(pProgr.lastIndexOf("/")+1,pProgr.length());
+            int index2 = pProgr.lastIndexOf("/");
+            int index1 = label.lastIndexOf("/");
+            if(label.lastIndexOf("/") > 0){
+                label = label.substring(label.lastIndexOf("/")+1,label.length());
+            }
             Tab newTab = new Tab();
             newTab.setParent(tabs);
-            newTab.setLabel(pProgr);
+            newTab.setLabel(label);
             newTab.setClosable(true);
             newTab.setId(pProgr);
 

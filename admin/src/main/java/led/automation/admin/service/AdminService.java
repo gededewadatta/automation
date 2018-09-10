@@ -34,21 +34,21 @@ public interface AdminService {
 	//search data : start
 	public List<Dashboard> findDashboard();
 
-	public Question searchQuestion(String body);
+	public List<Question> searchQuestion(String body);
 
 	public SubGrade searchSubGrade(String body);
 
-	public Grade searchGrade(String body);
+	public List<Grade> searchGrade(String body);
 
 	public Departement searchDepartement(String body);
 
 	public Division searchDivision(String body);
 
-	public Employee searchEmployee(String body);
+	public List<Employee> searchEmployee(String body);
 
     public Employee searchEmployeeByCode(String body);
 	
-	public Competency searchCompetency(String body);
+	public List<Competency> searchCompetency(String body);
 	//search data : stop
 	
 	//upload data : start

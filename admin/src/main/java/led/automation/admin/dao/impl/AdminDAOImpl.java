@@ -138,11 +138,11 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public Employee searchEmployee(String employeeCode, String employeeName) {
+	public List<Employee> searchEmployee(String employeeCode, String employeeName) {
 		// TODO Auto-generated method stub
-		Employee employee = new Employee();
-		if(employeeCode.equals("")&&employeeName.equals("")) {
-			employee = (Employee) employeeRepository.findAll();
+		List<Employee> employee = new ArrayList<>();
+		if((employeeCode.equals("")||employeeCode == null)&&(employeeName.equals("")||employeeName == null)) {
+			employee = employeeRepository.findAll();
 		}
 		else if(employeeCode.equals("")&&!employeeName.equals("")){
 			employee = employeeRepository.findByEmployeeName(employeeName);
@@ -157,19 +157,19 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public Grade searchGrade(String gradeCode, String gradeName) {
+	public List<Grade> searchGrade(String divisionCode, String departmentCode) {
 		// TODO Auto-generated method stub
-		Grade grade = new Grade();
-		if(gradeCode.equals("")&&gradeName.equals("")) {
-			grade = (Grade) gradeRepository.findAll();
+		List<Grade> grade = new ArrayList<>();
+		if(divisionCode.equals("")&&departmentCode.equals("")) {
+			grade =  gradeRepository.findAll();
 		}
-		else if(gradeCode.equals("")&&!gradeName.equals("")){
-			grade = gradeRepository.findByGradeName(gradeName);
+		else if(divisionCode.equals("")&&!departmentCode.equals("")){
+			grade = gradeRepository.findByDepartmentCode(departmentCode);
 		}
-		else if(!gradeCode.equals("")&& gradeName.equals("")) {
-			grade = gradeRepository.findByGradeCode(gradeCode);
+		else if(!divisionCode.equals("")&& departmentCode.equals("")) {
+			grade = gradeRepository.findByDivisionCode(divisionCode);
 		}else {
-			grade = gradeRepository.findByGradeCodeAndName(gradeCode,gradeName);
+			grade = gradeRepository.findByDivisionCodeAndDivisionName(divisionCode,departmentCode);
 		}
 			
 		return grade;
@@ -194,22 +194,31 @@ public class AdminDAOImpl implements AdminDAO {
 		return subGrade;
 	}
 
+//	@Override
+//	public List<Competency> searchCompetency(String competencyCode, String competencyName) {
+//		// TODO Auto-generated method stub
+//		List<Competency> competency = new ArrayList<>();
+//		if(competencyCode.equals("")&&competencyName.equals("")) {
+//			competency = competencyRepository.findAll();
+//		}
+//		else if(competencyCode.equals("")&&!competencyName.equals("")){
+//			competency = competencyRepository.findByCompetencyName(competencyName);
+//		}
+//		else if(!competencyCode.equals("")&& competencyName.equals("")) {
+//			competency = competencyRepository.findByCompetencyCode(competencyCode);
+//		}else {
+//			competency = competencyRepository.findByCompetencyCodeAndName(competencyCode,competencyName);
+//		}
+//
+//		return competency;
+//	}
+
 	@Override
-	public Competency searchCompetency(String competencyCode, String competencyName) {
+	public List<Competency> searchCompetency(String gradeCode) {
 		// TODO Auto-generated method stub
-		Competency competency = new Competency();
-		if(competencyCode.equals("")&&competencyName.equals("")) {
-			competency = (Competency) competencyRepository.findAll();
-		}
-		else if(competencyCode.equals("")&&!competencyName.equals("")){
-			competency = competencyRepository.findByCompetencyName(competencyName);
-		}
-		else if(!competencyCode.equals("")&& competencyName.equals("")) {
-			competency = competencyRepository.findByCompetencyCode(competencyCode);
-		}else {
-			competency = competencyRepository.findByCompetencyCodeAndName(competencyCode,competencyName);
-		}
-			
+		List<Competency> competency = new ArrayList<>();
+		competency = competencyRepository.findAll();
+
 		return competency;
 	}
 
@@ -235,12 +244,12 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public String searchEmployeeByName(String employeeName) {
 		// TODO Auto-generated method stub
-		String grade = employeeRepository.findByEmployeeName(employeeName).getGradeCode();
-		return grade;
+//		String grade = employeeRepository.findByEmployeeName(employeeName).getGradeCode();
+		return null;
 	}
 
 	@Override
-	public Question searchQuestionByGrade(String gradeCode) {
+	public List<Question> searchQuestionByGrade(String gradeCode) {
 		// TODO Auto-generated method stub
 		
 		return questionRepository.findByGrade(gradeCode);
