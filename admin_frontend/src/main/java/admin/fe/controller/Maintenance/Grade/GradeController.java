@@ -1,4 +1,4 @@
-package admin.fe.controller;
+package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
