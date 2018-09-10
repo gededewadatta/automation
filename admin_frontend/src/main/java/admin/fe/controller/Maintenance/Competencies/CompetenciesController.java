@@ -6,6 +6,9 @@ import admin.fe.engine.SendJSON;
 import admin.fe.model.Competency;
 import admin.fe.model.Employee;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zul.*;
 
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ public class CompetenciesController extends CommonController {
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/CompetenciesDetail.zul",null,self);
+        navigateTo("layout/Competencies/CompetenciesDetail.zul",null,self);
     }
 
     public void onClick$searchButton(){
@@ -65,6 +68,49 @@ public class CompetenciesController extends CommonController {
                 new Label("").setParent(row);
                 new Label(competency.getCompetencyName()).setParent(row);
 
+                Hbox hbox1 = new Hbox();
+
+                Button view = new Button("View");
+                view.addEventListener(Events.ON_CLICK,
+                        new SerializableEventListener() {
+                            /**
+                             *
+                             */
+                            private static final long serialVersionUID = 2726307190666012319L;
+
+                            public void onEvent(Event event) throws Exception {
+                                String eventName = event.getName();
+                                if (eventName.equals(Events.ON_CLICK)) {
+                                    navigateTo("",null,null);
+//                                            getArg(InvestmentModelObj),
+//                                            winBancaFinTransactionSelection);
+                                }
+                            }
+                        });
+                hbox1.appendChild(view);
+
+                Separator separator = new Separator("vertical");
+                separator.setWidth("10px");
+                separator.setParent(hbox1);
+
+                Button edit = new Button("Edit");
+                edit.addEventListener(Events.ON_CLICK,
+                        new SerializableEventListener() {
+                            /**
+                             *
+                             */
+                            private static final long serialVersionUID = 5680895575895846548L;
+
+                            public void onEvent(Event event)
+                                    throws Exception {
+                                String eventName = event.getName();
+                                if (eventName.equals(Events.ON_CLICK)) {
+                                    navigateTo("",null,null);
+                                }
+                            }
+                        });
+                hbox1.appendChild(edit);
+                row.appendChild(hbox1);
             }
         };
     }
