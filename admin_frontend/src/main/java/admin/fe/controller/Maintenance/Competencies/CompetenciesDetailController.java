@@ -1,4 +1,4 @@
-package admin.fe.controller;
+package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.SendJSON;
