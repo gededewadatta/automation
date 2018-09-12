@@ -40,7 +40,7 @@ public interface AdminService {
 
 	public List<Grade> searchGrade(String body);
 
-	public Departement searchDepartement(String body);
+	public List<Departement> searchDepartement(String body);
 
 	public List<Division> searchDivision(String body);
 

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package led.automation.admin.dao.impl;
 
@@ -19,7 +19,7 @@ import led.automation.admin.repository.*;
  *
  */
 public class AdminDAOImpl implements AdminDAO {
-	
+
 	@Autowired
 	DataSource dataSource;
 
@@ -43,10 +43,10 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Autowired
 	DivisionRepository divisionRepository;
-	
+
 	@Autowired
 	CompetencyRepository competencyRepository;
-	
+
 	//insert data :start
 	@Override
 	public int insertEmployee(Employee body) {
@@ -71,7 +71,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		SubGrade subGrade = new SubGrade();
 		subGrade = subGradeRepository.save(body);
-		
+
 		return subGrade.getId()==0?0:1;
 	}
 
@@ -119,11 +119,11 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public Departement searchDepartement(String departementCode, String departementName) {
+	public List<Departement> searchDepartement(String departementCode, String departementName) {
 		// TODO Auto-generated method stub
-		Departement departement = new Departement();
+		List<Departement> departement = new ArrayList<>();
 		if(departementCode.equals("")&&departementName.equals("")) {
-			departement = (Departement) departementRepository.findAll();
+			departement = departementRepository.findAll();
 		}
 		else if(departementCode.equals("")&& !departementName.equals("")) {
 			departement = departementRepository.findByDepartementName(departementName);
@@ -133,7 +133,7 @@ public class AdminDAOImpl implements AdminDAO {
 		}else {
 			departement = departementRepository.findByDepartementCodeAndName(departementCode,departementName);
 		}
-			
+
 		return departement;
 	}
 
@@ -152,7 +152,7 @@ public class AdminDAOImpl implements AdminDAO {
 		}else {
 			employee = employeeRepository.findByEmployeeCodeAndName(employeeCode,employeeName);
 		}
-			
+
 		return employee;
 	}
 
@@ -171,7 +171,7 @@ public class AdminDAOImpl implements AdminDAO {
 		}else {
 			grade = gradeRepository.findByDivisionCodeAndDivisionName(divisionCode,departmentCode);
 		}
-			
+
 		return grade;
 	}
 
@@ -190,7 +190,7 @@ public class AdminDAOImpl implements AdminDAO {
 		}else {
 			subGrade = subGradeRepository.findBySubGradeCodeAndName(subGradeCode,subGradeName);
 		}
-			
+
 		return subGrade;
 	}
 
@@ -226,7 +226,8 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<Division> searchDivision(String divisionCode, String divisionName) {
 		// TODO Auto-generated method stub
 		List<Division> division = new ArrayList<>();
-		if(divisionCode.equals("")&&divisionName.equals("")) {
+		//if(divisionCode.equals("")&&divisionName.equals("")) {
+        if(divisionCode==null&&divisionName==null) {
 			division = divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){
@@ -237,7 +238,7 @@ public class AdminDAOImpl implements AdminDAO {
 		}else {
 			division = divisionRepository.findByDivisionCodeAndName(divisionCode,divisionName);
 		}
-			
+
 		return division;
 	}
 
@@ -251,7 +252,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public List<Question> searchQuestionByGrade(String gradeCode) {
 		// TODO Auto-generated method stub
-		
+
 		return questionRepository.findByGrade(gradeCode);
 	}
 
@@ -296,7 +297,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		return subGradeRepository.generateSubGrade(divisionCode,departementCode,gradeCode);
 	}
-	
-	  
+
+
 
 }

@@ -528,6 +528,59 @@ public class SendJSON {
         return divisions;
     }
 
+    public List<Department> getDepartment (Department dpr){
+
+        String result = null;
+
+        String body = null;
+
+        List<Department> departments = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(dpr);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/department", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array Value is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Department department = new Department();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                department.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                department.setDepartementCode(jsonObjVal.getString("departementCode"));
+                department.setDepartmentName(jsonObjVal.getString("departementName"));
+                departments.add(department);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return departments;
+    }
+
     public String insertDivision(Division dvs) throws JsonProcessingException {
         String result = null;
 
@@ -556,4 +609,33 @@ public class SendJSON {
         }
         return result;
     }
+
+    public String insertDepartment(Department dpr) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(dpr);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/department", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            result = String.valueOf(responseEntity.getStatusCode());
+
+        }
+        return result;
+	}
 }

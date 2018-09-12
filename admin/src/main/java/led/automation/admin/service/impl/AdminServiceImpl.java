@@ -318,14 +318,20 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Departement searchDepartement(String body) {
+	public List<Departement> searchDepartement(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
+		Departement dpr = new Departement();
+		try {
+			dpr =  objectMapper.readValue(body,Departement.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*jsonResponse = new JSONObject(body);
 		String departementCode = null;
 		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
 		String departementName = null;
-		departementName = jsonResponse.isNull("departementname")?"":jsonResponse.getString("departementname");
-		return adminDAO.searchDepartement(departementCode,departementName);
+		departementName = jsonResponse.isNull("departementname")?"":jsonResponse.getString("departementname");*/
+		return adminDAO.searchDepartement(dpr.getDepartementCode(),dpr.getDepartementName());
 	}
 
 	@Override
