@@ -12,6 +12,9 @@
                             <hlayout>
                                 <textbox id="idDivision" />
                             </hlayout>
+                            <hlayout visible="false">
+                                <textbox id="idNum" />
+                            </hlayout>
                             <div>
                                 <button/>
                             </div>

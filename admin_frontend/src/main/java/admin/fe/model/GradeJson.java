@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class GradeJson {
 
+    private String id;
     private String gradeCode;
     private String subGradeCode;
     private String subGradeName;
@@ -75,5 +76,13 @@ public class GradeJson {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

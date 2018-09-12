@@ -63,6 +63,9 @@ public class DepartmentController extends CommonController {
 
                 row.setValue(department);
                 new Label(department.getDivisionCode()).setParent(row);
+                new Label(department.getDepartementCode()).setParent(row);
+                new Label(department.getDepartmentName()).setParent(row);
+                new Label("").setParent(row);
             }
         };
     }

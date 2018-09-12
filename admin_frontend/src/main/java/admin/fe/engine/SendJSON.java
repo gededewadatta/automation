@@ -301,7 +301,11 @@ public class SendJSON {
 
             String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
 
+            System.out.println("respons VAlue is : "+ respons);
+
             JSONObject jsonResponse = new JSONObject(respons);
+
+            System.out.println("Json respons VAlue is : "+ jsonResponse);
 
             JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
 
@@ -312,6 +316,7 @@ public class SendJSON {
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
+                grade.setId(String.valueOf(jsonObjVal.getLong("id")));
                 grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 grade.setDepartementCode(jsonObjVal.getString("departementCode"));
                 grade.setGradeCode(jsonObjVal.getString("gradeCode"));
@@ -636,7 +641,7 @@ public class SendJSON {
             headers.add("Accept", MediaType.APPLICATION_JSON.toString());
 
             HttpEntity<String> entity = new HttpEntity<String>(body, headers);
-            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/department", HttpMethod.POST, entity,
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/departement", HttpMethod.POST, entity,
                     String.class);
 
             System.out.println("Respon entity value is :"+ responseEntity);
@@ -725,4 +730,67 @@ public class SendJSON {
         }
         return result;
 	}
+
+//	End Search
+
+//    Update
+        public String updateGrade(Grade grd) throws JsonProcessingException {
+            String result = null;
+
+            String body = mapper.writeValueAsString(grd);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/update/grade", HttpMethod.POST, entity,
+                    String.class);
+
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+                System.out.println("Response isinya adalah :"+responseEntity.getBody());
+                System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+                result = String.valueOf(responseEntity.getStatusCode());
+
+            }
+            return result;
+        }
+
+    public String updateSubGrade(SubGrade subGrd) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(subGrd);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/update/subgrade", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            result = String.valueOf(responseEntity.getStatusCode());
+
+        }
+        return result;
+    }
+
+
 }
