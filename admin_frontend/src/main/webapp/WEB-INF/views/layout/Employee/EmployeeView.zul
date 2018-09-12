@@ -1,6 +1,6 @@
 <zk>
 
-    <window width="auto" border="none"
+    <window width="auto" border="none" id="employeeViewCont"
             apply="admin.fe.controller.Maintenance.Employee.EmployeeViewController">
 
         <div>
@@ -12,9 +12,6 @@
                             <hlayout>
                                 <label id="idDivision"  />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
                     </row>
                     <row>
@@ -23,9 +20,6 @@
                             <hlayout>
                                 <label id="idDepartment"  />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
                     </row>
                     <row>
@@ -34,9 +28,6 @@
                             <hlayout>
                                 <label id="idGrade"  />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
 
 
@@ -55,7 +46,7 @@
                         <label value = "Employee Id:" />
                         <hbox>
                             <hlayout>
-                                <label id="idCEmployeeId"  />
+                                <label id="idEmployeeId"  />
                             </hlayout>
                         </hbox>
 

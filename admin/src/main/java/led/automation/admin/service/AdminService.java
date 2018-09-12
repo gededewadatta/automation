@@ -38,6 +38,8 @@ public interface AdminService {
 
 	public SubGrade searchSubGrade(String body);
 
+	public List<GradeJson> searchGradeJson(String body);
+
 	public List<Grade> searchGrade(String body);
 
 	public List<Departement> searchDepartement(String body);

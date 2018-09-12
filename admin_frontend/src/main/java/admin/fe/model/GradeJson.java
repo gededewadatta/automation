@@ -1,23 +1,17 @@
-/**
- * 
- */
 package admin.fe.model;
 
 import java.util.Date;
 
-//import javax.persistence.*; 
+public class GradeJson {
 
-/**
- * @author gederanadewadatta
- *
- */
-//@Entity
-public class SubGrade {
-	private String gradeCode;
-	private String subGradeCode;
-	private String subGradeName;
-	private Date createdDate;
-	private String createdBy;
+    private String gradeCode;
+    private String subGradeCode;
+    private String subGradeName;
+    private String departementCode;
+    private String divisionCode;
+    private String gradeName;
+    private Date createdDate;
+    private String createdBy;
 
     public String getGradeCode() {
         return gradeCode;
@@ -41,6 +35,30 @@ public class SubGrade {
 
     public void setSubGradeName(String subGradeName) {
         this.subGradeName = subGradeName;
+    }
+
+    public String getDepartementCode() {
+        return departementCode;
+    }
+
+    public void setDepartementCode(String departementCode) {
+        this.departementCode = departementCode;
+    }
+
+    public String getDivisionCode() {
+        return divisionCode;
+    }
+
+    public void setDivisionCode(String divisionCode) {
+        this.divisionCode = divisionCode;
+    }
+
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
     }
 
     public Date getCreatedDate() {

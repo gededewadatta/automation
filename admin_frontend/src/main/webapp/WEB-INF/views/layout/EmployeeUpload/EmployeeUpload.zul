@@ -1,0 +1,46 @@
+<zk>
+
+    <window id="employeeCont" width="auto" border="none" apply="admin.fe.controller.Maintenance.Employee.EmployeeController">
+
+        <div>
+            <grid>
+                <rows>
+
+                    <row>
+                        <label value = "Uplooad File Employee:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idUpload"  />
+                            </hlayout>
+                            <div>
+                                <button id="uploadButton"/>
+                            </div>
+                        </hbox>
+
+                    </row>
+
+                </rows>
+            </grid>
+            <vbox>
+
+                <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
+                    <columns>
+                        <column label="Division" sort="auto(divisionCode)" align="center"/>
+                        <column label="Department" sort="auto(departementCode)" align="center"/>
+                        <column label="Employee Id" sort="auto(employeeCode)" align="center"/>
+                        <column label="Employee Name" sort="auto(employeeName)" align="center"/>
+                        <column label="Action"  align="center"/>
+                    </columns>
+                </grid>
+
+            </vbox>
+
+            <div align="center" style="margin-top:10px">
+                <button id="btnSubmit" label="Add"  style="float::center"/>
+            </div>
+
+
+        </div>
+
+    </window>
+</zk>

@@ -65,8 +65,6 @@ public class HomeController extends SelectorComposer<Component>{
 
             String label = "";
             label = pProgr.substring(pProgr.lastIndexOf("/")+1,pProgr.length());
-            int index2 = pProgr.lastIndexOf("/");
-            int index1 = label.lastIndexOf("/");
             if(label.lastIndexOf("/") > 0){
                 label = label.substring(label.lastIndexOf("/")+1,label.length());
             }

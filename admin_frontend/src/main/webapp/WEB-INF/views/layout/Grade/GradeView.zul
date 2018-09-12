@@ -1,7 +1,7 @@
 <zk>
 
     <window width="auto" border="none"
-            apply="admin.fe.controller.Maintenance.Grade.GradeDetailController">
+            apply="admin.fe.controller.Maintenance.Grade.GradeViewController">
 
         <div>
             <grid>
@@ -12,9 +12,6 @@
                             <hlayout>
                                 <label id="idDivision"  />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
                     </row>
                     <row>
@@ -23,9 +20,6 @@
                             <hlayout>
                                 <label id="idDepartment"  />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
 
 
@@ -41,6 +35,16 @@
                     </row>
 
                     <row>
+                        <label value = "Grade Name:" />
+                        <hbox>
+                            <hlayout>
+                                <label id="idGradeName"  />
+                            </hlayout>
+                        </hbox>
+
+                    </row>
+
+                    <row>
                         <label value = "Sub Grade:" />
                         <hbox>
                             <hlayout>
@@ -49,6 +53,18 @@
                         </hbox>
 
                     </row>
+
+                    <row>
+                        <label value = "Sub Grade Name:" />
+                        <hbox>
+                            <hlayout>
+                                <label id="idSubGradeName"  />
+                            </hlayout>
+                        </hbox>
+
+                    </row>
+
+
                 </rows>
             </grid>
             <div align="right" style="margin-top:30px">

@@ -4,8 +4,7 @@ import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Dashboard;
-import admin.fe.model.Grade;
+import admin.fe.model.*;
 import org.apache.poi.sl.usermodel.TextBox;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -13,17 +12,24 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zul.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GradeController extends CommonController {
 
+    private Window gradeCont;
+    private AbstractMainWindowTransaction parent;
+
     protected Grid hGrid;
     protected ListModelList modelList;
-    List<Grade> gradeList;
+    List<GradeJson> gradeList;
 
     Textbox idCompanyName;
     Textbox idDivision;
     Textbox idDepartment;
+    SendJSON send = new SendJSON();
+    GradeJson grd = new GradeJson();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -38,8 +44,8 @@ public class GradeController extends CommonController {
 
     public void onClick$searchButton(){
 
-        Grade grd = new Grade();
-        SendJSON send = new SendJSON();
+
+
 
         grd.setDepartementCode(idDepartment.getValue());
         grd.setDivisionCode(idDivision.getValue());
@@ -59,16 +65,16 @@ public class GradeController extends CommonController {
         return new SerializableRowRenderer() {
             @Override
             public void render(Row row, Object data, int index) throws Exception {
-                renderDataRow(row,(Grade)data);
+                renderDataRow(row,(GradeJson)data);
             }
 
-            private void renderDataRow(Row row, Grade grade){
+            private void renderDataRow(Row row, GradeJson gradeJson){
 
-                row.setValue(grade);
-                new Label(grade.getDivisionCode()).setParent(row);
-                new Label(grade.getDepartementCode()).setParent(row);
-                new Label(grade.getGradeCode()).setParent(row);
-                new Label(grade.getGradeName()).setParent(row);
+                row.setValue(gradeJson);
+                new Label(gradeJson.getDivisionCode()).setParent(row);
+                new Label(gradeJson.getDepartementCode()).setParent(row);
+                new Label(gradeJson.getGradeCode()).setParent(row);
+                new Label(gradeJson.getSubGradeCode()).setParent(row);
 
                 Hbox hbox1 = new Hbox();
 
@@ -83,7 +89,7 @@ public class GradeController extends CommonController {
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("",null,null);
+                                        navigateTo("layout/Grade/GradeView.zul",getArg(gradeJson),gradeCont);
 //                                            getArg(InvestmentModelObj),
 //                                            winBancaFinTransactionSelection);
                                 }
@@ -115,6 +121,20 @@ public class GradeController extends CommonController {
                 row.appendChild(hbox1);
             }
         };
+    }
+
+    public Map<String, Object> getArg(GradeJson obj) {
+
+        Map<String, Object> args = new HashMap<String, Object>();
+
+        args.put("divisionCode",obj.getDivisionCode());
+        args.put("departementCode",obj.getDepartementCode());
+        args.put("gradeCode",obj.getGradeCode());
+        args.put("subGradeCode",obj.getSubGradeCode());
+        args.put("gradeName",obj.getGradeName());
+        args.put("subGradeName",obj.getSubGradeName());
+
+        return args;
     }
 
 }

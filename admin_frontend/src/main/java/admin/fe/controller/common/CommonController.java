@@ -15,4 +15,9 @@ public class CommonController extends GenericForwardComposer {
         Executions.createComponents(url, parent, arg);
         from.detach();
     }
+
+    protected void backTo(Component to, Component from) {
+        to.setParent(from.getParent());
+        from.detach();
+    }
 }

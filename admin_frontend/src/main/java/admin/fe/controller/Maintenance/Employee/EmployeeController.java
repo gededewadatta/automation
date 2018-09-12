@@ -16,7 +16,9 @@ import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /*
 
@@ -110,7 +112,7 @@ public class EmployeeController extends CommonController {
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("",null,null);
+                                    navigateTo("layout/Employee/EmployeeView.zul",getArg(employee),employeeCont);
 //                                            getArg(InvestmentModelObj),
 //                                            winBancaFinTransactionSelection);
                                 }
@@ -144,5 +146,19 @@ public class EmployeeController extends CommonController {
 
             }
         };
+    }
+
+    public Map<String, Object> getArg(Employee obj) {
+
+        Map<String, Object> args = new HashMap<String, Object>();
+
+        args.put("divisionCode",obj.getDivisionCode());
+        args.put("departementCode",obj.getDepartementCode());
+        args.put("employeeCode",obj.getEmployeeCode());
+        args.put("employeeName",obj.getEmployeeName());
+        args.put("gradeCode",obj.getGradeCode());
+        args.put("subGradeCode",obj.getSubGradeCode());
+
+        return args;
     }
 }

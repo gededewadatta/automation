@@ -38,6 +38,9 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private Competency competency;
 
+	@Autowired
+	private GradeJson gradeJson;
+
 	private JSONObject jsonResponse;
 
 	static String createdBy = "ADMIN";
@@ -279,6 +282,20 @@ public class AdminServiceImpl implements AdminService {
 		subGradeName = jsonResponse.isNull("subgradename")?"":jsonResponse.getString("subgradename");
 		
 		return adminDAO.searchSubGrade(subGradeCode,subGradeName);
+	}
+
+	@Override
+	public List<GradeJson> searchGradeJson(String body) {
+		// TODO Auto-generated method stub
+		jsonResponse = new JSONObject(body);
+
+		System.out.println(jsonResponse);
+		String departmentCode = "";
+		departmentCode = jsonResponse.isNull("departementCode")?"":jsonResponse.getString("departementCode");
+		String departmentName = "";
+		departmentName = jsonResponse.isNull("divisionCode")?"":jsonResponse.getString("divisionCode");
+
+		return adminDAO.searchGradeJson(departmentCode,departmentName);
 	}
 
 	@Override

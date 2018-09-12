@@ -88,6 +88,11 @@ public class TomcatConfig {
     }
 
     @Bean
+    public GradeJson gradeJson() {
+        return new GradeJson();
+    }
+
+    @Bean
     public SubmitQuestion submitQuestion() {
         return new SubmitQuestion();
     }

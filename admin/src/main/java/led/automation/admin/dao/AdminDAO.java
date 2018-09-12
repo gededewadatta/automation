@@ -39,6 +39,8 @@ public interface AdminDAO {
 
 	public SubGrade searchSubGrade(String gradeCode, String gradeName);
 
+	public List<GradeJson> searchGradeJson(String departementCode, String departementName);
+
 	public List<Competency> searchCompetency(String gradeCode);
 
 	public List<Division> searchDivision(String divisionCode, String divisionName);

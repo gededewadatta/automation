@@ -120,6 +120,35 @@ public class SendJSON {
 		return result;
 	}
 
+    public String insertSubGrade(SubGrade subGrd) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(subGrd);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/subgrade", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            result = String.valueOf(responseEntity.getStatusCode());
+
+        }
+        return result;
+    }
+
 	public String insertQuestion(Question quest) throws JsonProcessingException {
 		String result = null;
 
@@ -243,16 +272,16 @@ public class SendJSON {
     }
 
 
-    public List<Grade> getGrade(Grade grd){
+    public List<GradeJson> getGrade(GradeJson grdJson){
 
         String result = null;
 
         String body = null;
 
-        List<Grade> grades = new ArrayList<>();
+        List<GradeJson> gradeJsons = new ArrayList<>();
         try {
 
-            body = mapper.writeValueAsString(grd);
+            body = mapper.writeValueAsString(grdJson);
 
             System.out.println("===== INPUT ==== " + body);
 
@@ -264,7 +293,7 @@ public class SendJSON {
             headers.add("Accept", MediaType.APPLICATION_JSON.toString());
 
             HttpEntity<String> entity = new HttpEntity<String>(body, headers);
-            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/grade", HttpMethod.POST, entity,
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/gradeJson", HttpMethod.POST, entity,
                     String.class);
 
             System.out.println("Respon entity value is :"+ responseEntity);
@@ -279,7 +308,7 @@ public class SendJSON {
             System.out.println("jsoon Array VAlue is : "+ jsonArray);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                Grade grade = new Grade();
+                GradeJson grade = new GradeJson();
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
@@ -287,7 +316,9 @@ public class SendJSON {
                 grade.setDepartementCode(jsonObjVal.getString("departementCode"));
                 grade.setGradeCode(jsonObjVal.getString("gradeCode"));
                 grade.setGradeName(jsonObjVal.getString("gradeName"));
-                grades.add(grade);
+                grade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                grade.setSubGradeName(jsonObjVal.getString("subGradeName"));
+                gradeJsons.add(grade);
 
             }
 
@@ -295,9 +326,65 @@ public class SendJSON {
             e.printStackTrace();
         }
 
-        return grades;
+        return gradeJsons;
 
     }
+
+    public SubGrade getSubGrade(Grade subGrd){
+
+        String result = null;
+
+        String body = null;
+
+        List<SubGrade> subGrades = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(subGrd);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/subgrade", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+//            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+//            JSONObject jsonResponse = new JSONObject(respons);
+
+//            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+//            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+//
+//            for (int i = 0; i < jsonArray.length(); i++) {
+//                SubGrade subGrade = new SubGrade();
+//                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+//                System.out.println("Json Object Adalah :"+jsonObjVal);
+//
+//                subGrade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+//                subGrade.setSubGradeName(jsonObjVal.getString("subGradeName"));
+//                subGrades.add(subGrade);
+//
+//            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
 
     public List<Employee> getEmployee(Employee emp){
 

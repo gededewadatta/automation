@@ -106,11 +106,11 @@ public class AdminController {
 		return grade;
 	}
 
-	@RequestMapping(value = "/led/api/automation/search/subgrade", produces = "application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/led/api/automation/search/gradeJson", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public SubGrade searchSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+	public List<GradeJson> searchSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		SubGrade subGrade = adminService.searchSubGrade(body);
+		List<GradeJson> subGrade = adminService.searchGradeJson(body);
 		return subGrade;
 	}
 

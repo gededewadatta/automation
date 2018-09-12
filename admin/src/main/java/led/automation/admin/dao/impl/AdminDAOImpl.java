@@ -36,6 +36,9 @@ public class AdminDAOImpl implements AdminDAO {
 	SubGradeRepository subGradeRepository;
 
 	@Autowired
+	GradeJsonRepoSitory gradeJsonRepoSitory;
+
+	@Autowired
 	EmployeeRepository employeeRepository;
 
 	@Autowired
@@ -169,7 +172,7 @@ public class AdminDAOImpl implements AdminDAO {
 		else if(!divisionCode.equals("")&& departmentCode.equals("")) {
 			grade = gradeRepository.findByDivisionCode(divisionCode);
 		}else {
-			grade = gradeRepository.findByDivisionCodeAndDivisionName(divisionCode,departmentCode);
+			grade = gradeRepository.findByDepartmentCodeAndDivisionName(divisionCode,departmentCode);
 		}
 
 		return grade;
@@ -192,6 +195,27 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 
 		return subGrade;
+	}
+
+	@Override
+	public List<GradeJson> searchGradeJson(String departmentCode, String divisionCode) {
+		// TODO Auto-generated method stub
+		List<GradeJson> gradeJsons = new ArrayList<>();
+		System.out.println("Dao Impl Departemen:"+departmentCode);
+		System.out.println("Dao Impl Division:"+divisionCode);
+		if(departmentCode.equals("")&& divisionCode.equals("")) {
+			gradeJsons =  gradeJsonRepoSitory.findAll();
+		}
+		else if(!departmentCode.equals("")&&divisionCode.equals("")){
+			gradeJsons = gradeJsonRepoSitory.findByDepartmentCode(departmentCode);
+		}
+		else if(departmentCode.equals("")&& !divisionCode.equals("")) {
+			gradeJsons = gradeJsonRepoSitory.findByDivisionCode(divisionCode);
+		}else {
+			gradeJsons = gradeJsonRepoSitory.findByDivisionCodeAndDivisionName(departmentCode,divisionCode);
+		}
+
+		return gradeJsons;
 	}
 
 //	@Override
