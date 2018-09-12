@@ -7,7 +7,7 @@ package admin.fe.model;
 
 import java.util.Date;
 
-public class Departement {
+public class Department {
 
     private Long id;
     private String divisionCode;
