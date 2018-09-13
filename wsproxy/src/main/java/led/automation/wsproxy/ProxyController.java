@@ -23,8 +23,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import led.automation.employee.model.PendingQuestion;
-
 /**
  *
  * @author gede rana dewadatta
@@ -54,6 +52,8 @@ public class ProxyController {
 	protected String dashboardUrlSearch;
 	@Value("${led.automation.admin.search.employee}")
 	protected String employeeUrlSearch;
+	@Value("${led.automation.admin.search.employeeCompetency)")
+	protected String employeeCompetencyUrlSearch;
 	@Value("${led.automation.admin.search.grade}")
 	protected String gradeUrlSearch;
 	@Value("${led.automation.admin.search.subgrade}")
@@ -460,8 +460,16 @@ public class ProxyController {
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String employeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-			HttpServletResponse response) throws URISyntaxException {
+								 HttpServletResponse response) throws URISyntaxException {
 		return proxy(employeeUrlSearch, body, method, request, response);
+
+	}
+
+	@RequestMapping(value = "/automation/api/search/employeeCompetency", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String searchEmployeeCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+								 HttpServletResponse response) throws URISyntaxException {
+		return proxy(employeeCompetencyUrlSearch, body, method, request, response);
 
 	}
 
