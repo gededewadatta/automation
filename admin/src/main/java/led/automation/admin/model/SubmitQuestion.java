@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
-@Table(name = "SUBMIT_QUESTION")
+@Table(name = "SUBMITQUESTION")
 @EntityListeners(AuditingEntityListener.class)
 
 public class SubmitQuestion {
@@ -20,12 +20,10 @@ public class SubmitQuestion {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBMITQUESTION_SEQ")
 	@SequenceGenerator(sequenceName = "submitquestion_seq", allocationSize = 1, name = "SUBMITQUESTION_SEQ")
 	private Long id;
-	@Column(name = "EMPLOYEE_CODE")
-	private String employeeCode;
+	@Column(name = "USER_NAME")
+	private String userName;
 	@Column(name="ID_QUESTION")
 	private Long idQuestion;
-	@Column(name="LEVEL_QUESTION")
-	private Long levelQuestion;
 	@Column(name="ATTEMPT_ANSWER")
 	private Long attemptAnswer;
 	@Column(name="ANSWER_STATUS")
@@ -34,55 +32,101 @@ public class SubmitQuestion {
 	private String createdBy;
 	@Column(name = "CREATED_DATE")
 	private String createdDate;
-	@Override
-	public String toString() {
-		return "SubmitQuestion [id=" + id + ", employeeCode=" + employeeCode + ", idQuestion=" + idQuestion
-				+ ", attemptAnswer=" + attemptAnswer + ", answerStatus=" + answerStatus + ", createdBy=" + createdBy
-				+ ", createdDate=" + createdDate + "]";
-	}
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getEmployeeCode() {
-		return employeeCode;
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
 	}
-	public void setEmployeeCode(String employeeCode) {
-		this.employeeCode = employeeCode;
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
+	/**
+	 * @return the idQuestion
+	 */
 	public Long getIdQuestion() {
 		return idQuestion;
 	}
+	/**
+	 * @param idQuestion the idQuestion to set
+	 */
 	public void setIdQuestion(Long idQuestion) {
 		this.idQuestion = idQuestion;
 	}
+	/**
+	 * @return the attemptAnswer
+	 */
 	public Long getAttemptAnswer() {
 		return attemptAnswer;
 	}
+	/**
+	 * @param attemptAnswer the attemptAnswer to set
+	 */
 	public void setAttemptAnswer(Long attemptAnswer) {
 		this.attemptAnswer = attemptAnswer;
 	}
+	/**
+	 * @return the answerStatus
+	 */
 	public String getAnswerStatus() {
 		return answerStatus;
 	}
+	/**
+	 * @param answerStatus the answerStatus to set
+	 */
 	public void setAnswerStatus(String answerStatus) {
 		this.answerStatus = answerStatus;
 	}
+	/**
+	 * @return the createdBy
+	 */
 	public String getCreatedBy() {
 		return createdBy;
 	}
+	/**
+	 * @param createdBy the createdBy to set
+	 */
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
+	/**
+	 * @return the createdDate
+	 */
 	public String getCreatedDate() {
 		return createdDate;
 	}
+	/**
+	 * @param createdDate the createdDate to set
+	 */
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
-	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SubmitQuestion [id=" + id + ", userName=" + userName + ", idQuestion=" + idQuestion + ", attemptAnswer="
+				+ attemptAnswer + ", answerStatus=" + answerStatus + ", createdBy=" + createdBy + ", createdDate="
+				+ createdDate + "]";
+	}
+	 
+	 
 	
 	
 	

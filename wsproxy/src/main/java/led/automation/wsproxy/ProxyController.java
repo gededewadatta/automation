@@ -4,6 +4,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
+import java.util.List;
+
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -20,6 +22,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import led.automation.employee.model.PendingQuestion;
 
 /**
  *
@@ -104,6 +108,16 @@ public class ProxyController {
 	protected String competencyUrlGenerate;
 
 	// generate : stop##
+
+	// employee : start
+	@Value("${led.automation.employee.search.question}")
+	protected String employeeSearchQuestion;
+	@Value("${led.automation.employee.submit.history}")
+	protected String employeeSubmitHistory;
+	@Value("${led.automation.employee.submit.question}")
+	protected String employeeSubmitQuestion;
+
+	// employee : stop
 
 	@RequestMapping(path = "/test", method = RequestMethod.GET)
 	public TestDTO test() {
@@ -206,6 +220,15 @@ public class ProxyController {
 		case "competencyUrlGenerate":
 			result = competencyUrlGenerate;
 			break;
+		case "employeeSearchQuestion":
+			result = employeeSearchQuestion;
+			break;
+		case "employeeSubmitHistory":
+			result = employeeSubmitHistory;
+			break;
+		case "employeeSubmitQuestion":
+			result = employeeSubmitQuestion;
+			break;
 		default:
 			result = "not found";
 			break;
@@ -306,14 +329,15 @@ public class ProxyController {
 	@ResponseBody
 	public String employeeInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeUrlInsert , body, method, request, response);
+		return proxy(employeeUrlInsert, body, method, request, response);
 
 	}
-		@RequestMapping(value = "/led/api/automation/insert/grade", produces = "application/json", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/led/api/automation/insert/grade", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String gradeInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-			return proxy(gradeUrlInsert , body, method, request, response);
+		return proxy(gradeUrlInsert, body, method, request, response);
 
 	}
 //
@@ -329,41 +353,40 @@ public class ProxyController {
 	@ResponseBody
 	public String subgradeInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(subgradeUrlInsert , body, method, request, response);
-	
+		return proxy(subgradeUrlInsert, body, method, request, response);
+
 	}
 
 	@RequestMapping(value = "/led/api/automation/insert/question", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String questionInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(questionUrlInsert , body, method, request, response);
-	
+		return proxy(questionUrlInsert, body, method, request, response);
+
 	}
-	
 
 	@RequestMapping(value = "/led/api/automation/insert/departement", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String departementInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(departementUrlInsert , body, method, request, response);
-	
+		return proxy(departementUrlInsert, body, method, request, response);
+
 	}
 
 	@RequestMapping(value = "/led/api/automation/insert/division", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String divisionInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(divisionUrlInsert , body, method, request, response);
-	
+		return proxy(divisionUrlInsert, body, method, request, response);
+
 	}
 
 	@RequestMapping(value = "/led/api/automation/insert/competency", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String competencyInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(competencyUrlInsert , body, method, request, response);
-	
+		return proxy(competencyUrlInsert, body, method, request, response);
+
 	}
 
 	// insert data : stop
@@ -372,39 +395,39 @@ public class ProxyController {
 	@ResponseBody
 	public String employeeUpdate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeUrlUpdate , body, method, request, response);
-	
+		return proxy(employeeUrlUpdate, body, method, request, response);
+
 	}
 
 	@RequestMapping(value = "/led/api/automation/update/grade", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String gradeUpdate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(gradeUrlUpdate , body, method, request, response);
-	
+		return proxy(gradeUrlUpdate, body, method, request, response);
+
 	}
 
 	@RequestMapping(value = "/led/api/automation/update/subgrade", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String subgradeUpdate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(subgradeUrlUpdate , body, method, request, response);
-	
+		return proxy(subgradeUrlUpdate, body, method, request, response);
+
 	}
 
 	@RequestMapping(value = "/led/api/automation/update/question", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String questionUpdate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(questionUrlUpdate , body, method, request, response);
-	
+		return proxy(questionUrlUpdate, body, method, request, response);
+
 	}
 
 	@RequestMapping(value = "/led/api/automation/update/departement", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String departementUpdate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(departementUrlUpdate , body, method, request, response);
+		return proxy(departementUrlUpdate, body, method, request, response);
 
 	}
 
@@ -412,7 +435,7 @@ public class ProxyController {
 	@ResponseBody
 	public String divisionUpdate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(divisionUrlUpdate , body, method, request, response);
+		return proxy(divisionUrlUpdate, body, method, request, response);
 
 	}
 
@@ -420,7 +443,7 @@ public class ProxyController {
 	@ResponseBody
 	public String competencyUpdate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(competencyUrlUpdate , body, method, request, response);
+		return proxy(competencyUrlUpdate, body, method, request, response);
 
 	}
 
@@ -429,8 +452,8 @@ public class ProxyController {
 	@RequestMapping(value = "/led/api/automation/search/dashboard", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String dashboardSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-								 HttpServletResponse response) throws URISyntaxException {
-		return proxy(dashboardUrlSearch , body, method, request, response);
+			HttpServletResponse response) throws URISyntaxException {
+		return proxy(dashboardUrlSearch, body, method, request, response);
 
 	}
 
@@ -438,7 +461,7 @@ public class ProxyController {
 	@ResponseBody
 	public String employeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeUrlSearch , body, method, request, response);
+		return proxy(employeeUrlSearch, body, method, request, response);
 
 	}
 
@@ -446,7 +469,7 @@ public class ProxyController {
 	@ResponseBody
 	public String gradeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(gradeUrlSearch , body, method, request, response);
+		return proxy(gradeUrlSearch, body, method, request, response);
 
 	}
 
@@ -454,7 +477,7 @@ public class ProxyController {
 	@ResponseBody
 	public String subgradeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(gradeJsonUrlSearch , body, method, request, response);
+		return proxy(gradeJsonUrlSearch, body, method, request, response);
 
 	}
 
@@ -462,7 +485,7 @@ public class ProxyController {
 	@ResponseBody
 	public String questionSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(questionUrlSearch , body, method, request, response);
+		return proxy(questionUrlSearch, body, method, request, response);
 
 	}
 
@@ -470,7 +493,7 @@ public class ProxyController {
 	@ResponseBody
 	public String departementSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(departementUrlSearch , body, method, request, response);
+		return proxy(departementUrlSearch, body, method, request, response);
 
 	}
 
@@ -478,7 +501,7 @@ public class ProxyController {
 	@ResponseBody
 	public String divisionSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(divisionUrlSearch , body, method, request, response);
+		return proxy(divisionUrlSearch, body, method, request, response);
 
 	}
 
@@ -486,7 +509,7 @@ public class ProxyController {
 	@ResponseBody
 	public String competencySearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(competencyUrlSearch , body, method, request, response);
+		return proxy(competencyUrlSearch, body, method, request, response);
 
 	}
 
@@ -496,7 +519,7 @@ public class ProxyController {
 	@ResponseBody
 	public String employeeGenerate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeUrlGenerate , body, method, request, response);
+		return proxy(employeeUrlGenerate, body, method, request, response);
 
 	}
 
@@ -504,7 +527,7 @@ public class ProxyController {
 	@ResponseBody
 	public String gradeGenerate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(gradeUrlGenerate , body, method, request, response);
+		return proxy(gradeUrlGenerate, body, method, request, response);
 
 	}
 
@@ -512,7 +535,7 @@ public class ProxyController {
 	@ResponseBody
 	public String subgradeGenerate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(subgradeUrlGenerate , body, method, request, response);
+		return proxy(subgradeUrlGenerate, body, method, request, response);
 
 	}
 
@@ -520,7 +543,7 @@ public class ProxyController {
 	@ResponseBody
 	public String questionGenerate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(questionUrlGenerate , body, method, request, response);
+		return proxy(questionUrlGenerate, body, method, request, response);
 
 	}
 
@@ -528,7 +551,7 @@ public class ProxyController {
 	@ResponseBody
 	public String departementGenerate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(departementUrlGenerate , body, method, request, response);
+		return proxy(departementUrlGenerate, body, method, request, response);
 
 	}
 
@@ -536,7 +559,7 @@ public class ProxyController {
 	@ResponseBody
 	public String divisionGenerate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(divisionUrlGenerate , body, method, request, response);
+		return proxy(divisionUrlGenerate, body, method, request, response);
 
 	}
 
@@ -544,16 +567,17 @@ public class ProxyController {
 	@ResponseBody
 	public String competencyGenerate(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(competencyUrlGenerate , body, method, request, response);
+		return proxy(competencyUrlGenerate, body, method, request, response);
 
 	}
+
 	// generate data : stop
 	// upload data : start
 	@RequestMapping(value = "/led/api/automation/upload/question", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String uploadQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(questionUrlUpload , body, method, request, response);
+		return proxy(questionUrlUpload, body, method, request, response);
 
 	}
 
@@ -561,8 +585,34 @@ public class ProxyController {
 	@ResponseBody
 	public String uploadEmployee(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeUrlUpload , body, method, request, response);
+		return proxy(employeeUrlUpload, body, method, request, response);
 
 	}
+
 	// upload data : stop
+	// employee part : start
+	@RequestMapping(value = "/automation/api/search/pendingquestion/{userName}", produces = "application/json", method = RequestMethod.GET)
+	@ResponseBody
+	public String searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		return proxy(employeeSearchQuestion, body, method, request, response);
+
+	}
+
+	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String submitHistory(@RequestBody String body, HttpMethod method,
+			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+		return proxy(employeeSubmitHistory, body, method, request, response);
+
+	}
+	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String submitQuestion(@RequestBody String body, HttpMethod method,
+			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+		return proxy(employeeSubmitQuestion, body, method, request, response);
+
+	}
+	// employee part : stop
+
 }
