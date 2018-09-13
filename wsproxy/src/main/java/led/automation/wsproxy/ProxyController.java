@@ -606,7 +606,7 @@ public class ProxyController {
 		return proxy(employeeSubmitHistory, body, method, request, response);
 
 	}
-	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/automation/api/insert/question", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String submitQuestion(@RequestBody String body, HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
