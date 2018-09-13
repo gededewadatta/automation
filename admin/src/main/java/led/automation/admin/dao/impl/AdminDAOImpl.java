@@ -49,7 +49,8 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Autowired
 	CompetencyRepository competencyRepository;
-
+	@Autowired
+	PendingQuestionRepository pendingQuestionRepository;
 	//insert data :start
 	@Override
 	public int insertEmployee(Employee body) {
@@ -320,6 +321,20 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<String> generateSubGrade(String divisionCode, String departementCode, String gradeCode) {
 		// TODO Auto-generated method stub
 		return subGradeRepository.generateSubGrade(divisionCode,departementCode,gradeCode);
+	}
+
+	@Override
+	public int insertPendingQuestion(PendingQuestion pendingQuestion) {
+		// TODO Auto-generated method stub
+		PendingQuestion pendQuest = new PendingQuestion();
+		pendQuest = pendingQuestionRepository.save(pendingQuestion);
+		return pendQuest.getId()>0?1:0;
+	}
+
+	@Override
+	public List<String> searchEmployeeByGradeAndSubGrade(String grade, String subGrade) {
+		// TODO Auto-generated method stub
+		return employeeRepository.searchEmployeeByGradeAndSubGrade(grade,subGrade);
 	}
 
 

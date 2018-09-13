@@ -4,6 +4,7 @@
 package led.automation.admin.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,8 @@ public class AdminServiceImpl implements AdminService {
 	private Question question;
 	@Autowired
 	private Competency competency;
-
+	@Autowired
+	private PendingQuestion pendingQuestion;
 	@Autowired
 	private GradeJson gradeJson;
 
@@ -52,10 +54,10 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String insertEmployee(String body) {
 		// TODO Auto-generated method stub
-        try {
-            employee = objectMapper.readValue(body,Employee.class);
-            System.out.println("Employee Name is :"+employee.getEmployeeName());
-            System.out.println("Employee Code is :"+employee.getEmployeeCode());
+		try {
+			employee = objectMapper.readValue(body, Employee.class);
+			System.out.println("Employee Name is :" + employee.getEmployeeName());
+			System.out.println("Employee Code is :" + employee.getEmployeeCode());
 
 //            jsonResponse = new JSONObject(body);
 //            employee = new Employee();
@@ -66,9 +68,9 @@ public class AdminServiceImpl implements AdminService {
 //            employee.setDepartementCode(jsonResponse.isNull("departmentCode") ? "" : jsonResponse.getString("departmentCode"));
 //            employee.setDivisionCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return adminDAO.insertEmployee(employee) == 0 ? "Failure" : "Success";
 	}
 
@@ -77,7 +79,7 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 
 		try {
-			grade = objectMapper.readValue(body,Grade.class);
+			grade = objectMapper.readValue(body, Grade.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,12 +98,40 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String insertQuestion(String body) {
 		// TODO Auto-generated method stub
+		String result = null;
+		int result2 = 0;
+		List<String> username = new ArrayList<String>();
 		try {
-			question = objectMapper.readValue(body,Question.class);
+			question = objectMapper.readValue(body, Question.class);
+			// get data username based on question grade and sub grade : start
+			username = adminDAO.searchEmployeeByGradeAndSubGrade(question.getGrade(), question.getSubGrade());
+			// get data username based on question grade and sub grade : stop
+
+			// to insert into PendingQuestion Table:start
+			for (String user : username) {
+				pendingQuestion.setQuestions(question.getQuestions());
+				pendingQuestion.setAnswer1(question.getAnswer1());
+				pendingQuestion.setAnswer2(question.getAnswer2());
+				pendingQuestion.setAnswer3(question.getAnswer3());
+				pendingQuestion.setAnswer4(question.getAnswer4());
+				pendingQuestion.setAnswer5(question.getAnswer5());
+				pendingQuestion.setCorrectAnswer(question.getCorrectAnswer());
+				pendingQuestion.setCreatedDate(question.getCreatedDate());
+				pendingQuestion.setCreatedBy(question.getCreatedBy());
+				pendingQuestion.setCompetency(question.getCompetency());
+				pendingQuestion.setLevel(question.getLevel());
+				pendingQuestion.setUserName(user);
+				result2 += adminDAO.insertPendingQuestion(pendingQuestion);
+			}
+			// to insert into PendingQuestion Table:stop
+			if (result2 > 0)
+				result = adminDAO.insertQuestion(question) == 0 ? "Failure" : "Success";
+			else
+				result = "Failure";
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return adminDAO.insertQuestion(question) == 0 ? "Failure" : "Success";
+		return result;
 	}
 
 	@Override
@@ -150,7 +180,7 @@ public class AdminServiceImpl implements AdminService {
 	public String insertCompetency(String body) {
 		// TODO Auto-generated method stub
 		try {
-			competency = objectMapper.readValue(body,Competency.class);
+			competency = objectMapper.readValue(body, Competency.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -162,21 +192,40 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int uploadQuestion(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
-		question = new Question();
-		question.setGrade(jsonResponse.isNull("grade") ? "" : jsonResponse.getString("grade"));
-		question.setSubGrade(jsonResponse.isNull("subGrade") ? "" : jsonResponse.getString("subGrade"));
-		question.setAnswer1(jsonResponse.isNull("answer1") ? "" : jsonResponse.getString("answer1"));
-		question.setAnswer2(jsonResponse.isNull("answer2") ? "" : jsonResponse.getString("answer2"));
-		question.setAnswer3(jsonResponse.isNull("answer3") ? "" : jsonResponse.getString("answer3"));
-		question.setAnswer4(jsonResponse.isNull("answer4") ? "" : jsonResponse.getString("answer4"));
-		question.setAnswer5(jsonResponse.isNull("answer5") ? "" : jsonResponse.getString("answer5"));
-		question.setCorrectAnswer(jsonResponse.isNull("correctAnswer") ? "" : jsonResponse.getString("correctAnswer"));
-		question.setQuestions(jsonResponse.isNull("questions") ? "" : jsonResponse.getString("questions"));
-		question.setCreatedBy(createdBy);
-		question.setCreatedDate(createdDate);
-		question.setCompetency(jsonResponse.isNull("competency") ? "" : jsonResponse.getString("competency"));
-		return adminDAO.insertQuestion(question);
+		int result = 0;
+		int result2 = 0;
+		List<String> username = new ArrayList<String>();
+		try {
+			question = objectMapper.readValue(body, Question.class);
+			// get data username based on question grade and sub grade : start
+			username = adminDAO.searchEmployeeByGradeAndSubGrade(question.getGrade(), question.getSubGrade());
+			// get data username based on question grade and sub grade : stop
+
+			// to insert into PendingQuestion Table:start
+			for (String user : username) {
+				pendingQuestion.setQuestions(question.getQuestions());
+				pendingQuestion.setAnswer1(question.getAnswer1());
+				pendingQuestion.setAnswer2(question.getAnswer2());
+				pendingQuestion.setAnswer3(question.getAnswer3());
+				pendingQuestion.setAnswer4(question.getAnswer4());
+				pendingQuestion.setAnswer5(question.getAnswer5());
+				pendingQuestion.setCorrectAnswer(question.getCorrectAnswer());
+				pendingQuestion.setCreatedDate(question.getCreatedDate());
+				pendingQuestion.setCreatedBy(question.getCreatedBy());
+				pendingQuestion.setCompetency(question.getCompetency());
+				pendingQuestion.setLevel(question.getLevel());
+				pendingQuestion.setUserName(user);
+				result2 += adminDAO.insertPendingQuestion(pendingQuestion);
+			}
+			// to insert into PendingQuestion Table:stop
+			if (result2 > 0)
+				result = adminDAO.insertQuestion(question);
+			else
+				result = 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
@@ -224,8 +273,10 @@ public class AdminServiceImpl implements AdminService {
 		result += adminDAO.insertSubGrade(subGrade);
 		// insert sub grade :stop
 		// insert competency : start
-		competency.setCompetencyCode(jsonResponse.isNull("competencycode") ? "" : jsonResponse.getString("competencycode"));
-		competency.setCompetencyName(jsonResponse.isNull("competencyname") ? "" : jsonResponse.getString("competencyname"));
+		competency.setCompetencyCode(
+				jsonResponse.isNull("competencycode") ? "" : jsonResponse.getString("competencycode"));
+		competency.setCompetencyName(
+				jsonResponse.isNull("competencyname") ? "" : jsonResponse.getString("competencyname"));
 		competency.setCreatedBy(createdBy);
 		competency.setCreatedDate(createdDate);
 		competency.setDepartementCode(
@@ -250,38 +301,40 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 
 		try {
-			question = objectMapper.readValue(body,Question.class);
+			question = objectMapper.readValue(body, Question.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//get grade : stop
+		// get grade : stop
 
-		//get question : start
+		// get question : start
 
-		//get question : stop
+		// get question : stop
 		return adminDAO.searchQuestionByGrade(question.getGrade());
 	}
+
 	@Override
 	public List<Competency> searchCompetency(String body) {
 		// TODO Auto-generated method stub
 
 		try {
-			competency = objectMapper.readValue(body,Competency.class);
+			competency = objectMapper.readValue(body, Competency.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return adminDAO.searchCompetency(competency.getGradeCode());
 	}
+
 	@Override
 	public SubGrade searchSubGrade(String body) {
 		// TODO Auto-generated method stub
 		jsonResponse = new JSONObject(body);
 		String subGradeCode = null;
-		subGradeCode = jsonResponse.isNull("subgradecode")?"":jsonResponse.getString("subgradecode");
+		subGradeCode = jsonResponse.isNull("subgradecode") ? "" : jsonResponse.getString("subgradecode");
 		String subGradeName = null;
-		subGradeName = jsonResponse.isNull("subgradename")?"":jsonResponse.getString("subgradename");
-		
-		return adminDAO.searchSubGrade(subGradeCode,subGradeName);
+		subGradeName = jsonResponse.isNull("subgradename") ? "" : jsonResponse.getString("subgradename");
+
+		return adminDAO.searchSubGrade(subGradeCode, subGradeName);
 	}
 
 	@Override
@@ -291,11 +344,11 @@ public class AdminServiceImpl implements AdminService {
 
 		System.out.println(jsonResponse);
 		String departmentCode = "";
-		departmentCode = jsonResponse.isNull("departementCode")?"":jsonResponse.getString("departementCode");
+		departmentCode = jsonResponse.isNull("departementCode") ? "" : jsonResponse.getString("departementCode");
 		String departmentName = "";
-		departmentName = jsonResponse.isNull("divisionCode")?"":jsonResponse.getString("divisionCode");
+		departmentName = jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode");
 
-		return adminDAO.searchGradeJson(departmentCode,departmentName);
+		return adminDAO.searchGradeJson(departmentCode, departmentName);
 	}
 
 	@Override
@@ -303,7 +356,7 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		Grade grd = new Grade();
 		try {
-			grd =  objectMapper.readValue(body,Grade.class);
+			grd = objectMapper.readValue(body, Grade.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -312,19 +365,19 @@ public class AdminServiceImpl implements AdminService {
 //		jsonResponse = new JSONObject(body);
 //		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
 //		gradeName = jsonResponse.isNull("gradename")?"":jsonResponse.getString("gradename");
-		
-		return adminDAO.searchGrade(grd.getDepartementCode(),grd.getDivisionCode());
+
+		return adminDAO.searchGrade(grd.getDepartementCode(), grd.getDivisionCode());
 	}
 
 	@Override
 	public List<Employee> searchEmployee(String body) {
 		// TODO Auto-generated method stub
 		try {
-			employee = objectMapper.readValue(body,Employee.class);
+			employee = objectMapper.readValue(body, Employee.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return adminDAO.searchEmployee(employee.getEmployeeCode(),employee.getEmployeeName());
+		return adminDAO.searchEmployee(employee.getEmployeeCode(), employee.getEmployeeName());
 	}
 
 	@Override
@@ -339,16 +392,19 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		Departement dpr = new Departement();
 		try {
-			dpr =  objectMapper.readValue(body,Departement.class);
+			dpr = objectMapper.readValue(body, Departement.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*jsonResponse = new JSONObject(body);
-		String departementCode = null;
-		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
-		String departementName = null;
-		departementName = jsonResponse.isNull("departementname")?"":jsonResponse.getString("departementname");*/
-		return adminDAO.searchDepartement(dpr.getDepartementCode(),dpr.getDepartementName());
+		/*
+		 * jsonResponse = new JSONObject(body); String departementCode = null;
+		 * departementCode =
+		 * jsonResponse.isNull("departementcode")?"":jsonResponse.getString(
+		 * "departementcode"); String departementName = null; departementName =
+		 * jsonResponse.isNull("departementname")?"":jsonResponse.getString(
+		 * "departementname");
+		 */
+		return adminDAO.searchDepartement(dpr.getDepartementCode(), dpr.getDepartementName());
 	}
 
 	@Override
@@ -356,7 +412,7 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		Division dvs = new Division();
 		try {
-			dvs =  objectMapper.readValue(body,Division.class);
+			dvs = objectMapper.readValue(body, Division.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -366,7 +422,7 @@ public class AdminServiceImpl implements AdminService {
 //		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
 //		String divisionName = null;
 //		divisionName = jsonResponse.isNull("divisionname")?"":jsonResponse.getString("divisionname");
-		return adminDAO.searchDivision(dvs.getDivisonCode(),dvs.getDivisionName());
+		return adminDAO.searchDivision(dvs.getDivisonCode(), dvs.getDivisionName());
 	}
 	// search data : stop
 
@@ -379,11 +435,11 @@ public class AdminServiceImpl implements AdminService {
 		String divisionCode = null;
 		String departementCode = null;
 		String employeeCode = null;
-		
-		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
-		employeeCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("employeecode");
-		departementCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("departementcode");
-		return adminDAO.generateEmployee(divisionCode,employeeCode,departementCode);
+
+		divisionCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("divisioncode");
+		employeeCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("employeecode");
+		departementCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("departementcode");
+		return adminDAO.generateEmployee(divisionCode, employeeCode, departementCode);
 	}
 
 	@Override
@@ -393,11 +449,11 @@ public class AdminServiceImpl implements AdminService {
 		String divisionCode = null;
 		String departementCode = null;
 		String company = null;
-		company=jsonResponse.isNull("company")?"":jsonResponse.getString("company");
-		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
-		departementCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("departementcode");
-		
-		return adminDAO.generateGrade(company,divisionCode,departementCode);
+		company = jsonResponse.isNull("company") ? "" : jsonResponse.getString("company");
+		divisionCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("divisioncode");
+		departementCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("departementcode");
+
+		return adminDAO.generateGrade(company, divisionCode, departementCode);
 	}
 
 	@Override
@@ -407,11 +463,11 @@ public class AdminServiceImpl implements AdminService {
 		String divisionCode = null;
 		String departementCode = null;
 		String gradeCode = null;
-		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
-		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
-		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
-		
-		return adminDAO.generateSubGrade(divisionCode,departementCode,gradeCode);
+		divisionCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("divisioncode");
+		departementCode = jsonResponse.isNull("departementcode") ? "" : jsonResponse.getString("departementcode");
+		gradeCode = jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode");
+
+		return adminDAO.generateSubGrade(divisionCode, departementCode, gradeCode);
 	}
 
 	@Override
@@ -420,10 +476,10 @@ public class AdminServiceImpl implements AdminService {
 		jsonResponse = new JSONObject(body);
 		String departementCode = null;
 		String gradeCode = null;
-		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
-		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
-		
-		return adminDAO.generateQuestion(departementCode,gradeCode);
+		departementCode = jsonResponse.isNull("departementcode") ? "" : jsonResponse.getString("departementcode");
+		gradeCode = jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode");
+
+		return adminDAO.generateQuestion(departementCode, gradeCode);
 	}
 
 	@Override
@@ -432,10 +488,10 @@ public class AdminServiceImpl implements AdminService {
 		jsonResponse = new JSONObject(body);
 		String divisionCode = null;
 		String company = null;
-		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
-		company = jsonResponse.isNull("company")?"":jsonResponse.getString("company");
-		
-		return adminDAO.generateDepartement(divisionCode,company);
+		divisionCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("divisioncode");
+		company = jsonResponse.isNull("company") ? "" : jsonResponse.getString("company");
+
+		return adminDAO.generateDepartement(divisionCode, company);
 	}
 
 	@Override
@@ -443,8 +499,8 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		jsonResponse = new JSONObject(body);
 		String company = null;
-		company = jsonResponse.isNull("company")?"":jsonResponse.getString("company");
-		
+		company = jsonResponse.isNull("company") ? "" : jsonResponse.getString("company");
+
 		return adminDAO.generateDivision(company);
 	}
 
@@ -455,11 +511,11 @@ public class AdminServiceImpl implements AdminService {
 		String divisionCode = null;
 		String gradeCode = null;
 		String departementCode = null;
-		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
-		departementCode = jsonResponse.isNull("departementcode")?"":jsonResponse.getString("departementcode");
-		gradeCode = jsonResponse.isNull("gradecode")?"":jsonResponse.getString("gradecode");
-		
-		return adminDAO.generateCompetency(divisionCode,departementCode,gradeCode);
+		divisionCode = jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("divisioncode");
+		departementCode = jsonResponse.isNull("departementcode") ? "" : jsonResponse.getString("departementcode");
+		gradeCode = jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode");
+
+		return adminDAO.generateCompetency(divisionCode, departementCode, gradeCode);
 	}
 
 	// generate data : stop

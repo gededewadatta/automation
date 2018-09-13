@@ -28,6 +28,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 			+ "join Division div on emp.division_code = div.division_code"
 			+ "WHERE dept.departement_code like %?2 AND div.division_code like %?3 and emp.employee_code like %?1", nativeQuery = true)
 	List<String> generateEmployee(String divisionCode, String employeeCode, String departementCode);
+	@Query(value = "SELECT user_name FROM Employee WHERE grade = '?1' and sub_grade = '?2' ", nativeQuery = true)
+	List<String> searchEmployeeByGradeAndSubGrade(String grade, String subGrade);
 
 
 }

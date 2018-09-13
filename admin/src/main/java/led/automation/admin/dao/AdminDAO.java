@@ -28,6 +28,8 @@ public interface AdminDAO {
 	public int insertDepartement(Departement departement);
 
 	public int insertCompetency(Competency competency);
+	
+	public int insertPendingQuestion(PendingQuestion pendingQuestion);
 	//insert data : stop
 	 
 
@@ -64,6 +66,8 @@ public interface AdminDAO {
 	public List<String> generateSubGrade(String divisionCode, String departementCode, String gradeCode);
 
 	public List<Dashboard> findDashboard();
+
+	public List<String> searchEmployeeByGradeAndSubGrade(String grade, String subGrade);
 
 	 
 

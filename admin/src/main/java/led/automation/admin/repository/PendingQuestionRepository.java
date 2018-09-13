@@ -11,6 +11,6 @@ import led.automation.admin.model.PendingQuestion;
  * @author gederanadewadatta
  *
  */
-public interface PendingQuesitonRepository extends JpaRepository<PendingQuestion, Long>{
+public interface PendingQuestionRepository extends JpaRepository<PendingQuestion, Long>{
 
 }

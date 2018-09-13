@@ -63,4 +63,11 @@ public class EmployeeController {
 	    System.out.println(body);
 		return ResponseEntity.ok(employeeService.submitQuestion(body));
 	}
+	@RequestMapping(value = "/automation/api/search/competency", produces = "application/json", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> searchCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> departement = employeeService.searchCompetency();
+		return departement;
+	}
 }
