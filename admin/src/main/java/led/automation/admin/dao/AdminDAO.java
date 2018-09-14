@@ -69,6 +69,9 @@ public interface AdminDAO {
 
 	public List<String> searchEmployeeByGradeAndSubGrade(String grade, String subGrade);
 
-	 
-
+	//find data parent: start
+	public List<String> findSubGradeByGradeCode(String gradeCode);
+	public List<String> findGradeByDeptCode(String gradeCode);
+	public List<String> findDepartementByDivCode(String gradeCode);
+	//find data parent: stop
 }

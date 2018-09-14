@@ -25,5 +25,6 @@ public interface DepartementRepository extends JpaRepository<Departement, Long>{
 			+ " FROM Division div join Departement dept on div.division_name = dept.division_name"
 			+ "WHERE div.division_code like %?1", nativeQuery = true)
 	List<String> generateDepartement(String divisionCode, String company);
+	List<String> findDepartementByDivCode(String gradeCode);
 
 }

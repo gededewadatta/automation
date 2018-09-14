@@ -518,6 +518,14 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.generateCompetency(divisionCode, departementCode, gradeCode);
 	}
 
+	@Override
+	public List<String> findSubGradeByGradeCode(String body) {
+		// TODO Auto-generated method stub
+		String gradeCode = null;
+		gradeCode = jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode");
+		return adminDAO.findSubGradeByGradeCode(gradeCode);
+	}
+
 	// generate data : stop
 
 }

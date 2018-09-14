@@ -24,5 +24,10 @@ public interface SubGradeRepository extends CrudRepository<SubGrade, Long>{
 	SubGrade findBySubGradeCodeAndName(String SubGradeCode, String SubGradeName);
 	@Query(value = "SELECT * FROM Employee WHERE Employee_CODE like %?1 AND Employee_NAME like %?2", nativeQuery = true)
 	List<String> generateSubGrade(String divisionCode, String departementCode, String gradeCode);
+	//alternatif search sub grade : start
+	@Query(value = "SELECT * FROM Employee WHERE grade_code = '%?1'", nativeQuery = true)
+	List<String> findSubGradeByGradeCode(String gradeCode);
+	//alternatif search sub grade : stop
 
+	
 }

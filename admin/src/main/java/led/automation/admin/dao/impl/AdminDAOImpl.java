@@ -337,6 +337,25 @@ public class AdminDAOImpl implements AdminDAO {
 		return employeeRepository.searchEmployeeByGradeAndSubGrade(grade,subGrade);
 	}
 
+	//find data parent: start
+	@Override
+	public List<String> findSubGradeByGradeCode(String gradeCode) {
+		// TODO Auto-generated method stub
+		return subGradeRepository.findSubGradeByGradeCode(gradeCode);
+	}
+
+	@Override
+	public List<String> findGradeByDeptCode(String gradeCode) {
+		// TODO Auto-generated method stub
+		return gradeRepository.findGradeByDeptCode(gradeCode);
+	}
+
+	@Override
+	public List<String> findDepartementByDivCode(String gradeCode) {
+		// TODO Auto-generated method stub
+		return departementRepository.findDepartementByDivCode(gradeCode);
+	}
+	//find data parent: stop
 
 
 }

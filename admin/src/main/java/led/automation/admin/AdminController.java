@@ -231,4 +231,28 @@ public class AdminController {
 		return competency;
 	}
 	//generate data: stop	
+	
+	//find data parent : start
+	@RequestMapping(value = "/led/api/automation/find/parent/subgrade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> findSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> subGrade = adminService.findSubGradeByGradeCode(body);
+		return subGrade;
+	}
+	@RequestMapping(value = "/led/api/automation/find/parent/grade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> findGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> grade = adminService.findGradeByDeptCode(body);
+		return grade;
+	}
+	@RequestMapping(value = "/led/api/automation/find/parent/department", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<String> findDepartement(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<String> grade = adminService.findDepartementByDivCode(body);
+		return grade;
+	}
+	//find data parent : stop
 }

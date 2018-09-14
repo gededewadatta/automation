@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @author gederanadewadatta
  *
  */
-@Transactional(rollbackFor=Exception.class)
+@Transactional(rollbackFor = Exception.class)
 @Service
 public interface AdminService {
-	//insert data : start
+	// insert data : start
 	public String insertEmployee(String body);
 
 	public String insertGrade(String body);
@@ -28,10 +28,11 @@ public interface AdminService {
 	public String insertDepartement(String body);
 
 	public String insertQuestion(String body);
-	
+
 	public String insertCompetency(String body);
-	//insert data : stop
-	//search data : start
+
+	// insert data : stop
+	// search data : start
 	public List<Dashboard> findDashboard();
 
 	public List<Question> searchQuestion(String body);
@@ -48,18 +49,19 @@ public interface AdminService {
 
 	public List<Employee> searchEmployee(String body);
 
-    public Employee searchEmployeeByCode(String body);
-	
+	public Employee searchEmployeeByCode(String body);
+
 	public List<Competency> searchCompetency(String body);
-	//search data : stop
-	
-	//upload data : start
+
+	// search data : stop
+
+	// upload data : start
 	public int uploadQuestion(String body);
 
 	public int uploadEmployee(String body);
-	//upload data : stop
+	// upload data : stop
 
-	//generate data : start
+	// generate data : start
 	public List<String> generateEmployee(String body);
 
 	public List<String> generateGrade(String body);
@@ -73,9 +75,16 @@ public interface AdminService {
 	public List<String> generateDivision(String body);
 
 	public List<String> generateCompetency(String body);
-	
-	//generate data : start
-	
-	
-	
+
+	// generate data : start
+
+	// find data : start
+	public List<String> findSubGradeByGradeCode(String body);
+
+	public List<String> findGradeByDeptCode(String body);
+
+	public List<String> findDepartementByDivCode(String body);
+
+	// find data : stop
+
 }
