@@ -137,12 +137,17 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String insertDivision(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
+		try {
+			division = objectMapper.readValue(body,Division.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*jsonResponse = new JSONObject(body);
 		division = new Division();
-		division.setDivisonCode(jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("divisioncode"));
-		division.setDivisionName(jsonResponse.isNull("divisionname") ? "" : jsonResponse.getString("divisionname"));
+		division.setDivisonCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
+		division.setDivisionName(jsonResponse.isNull("divisionName") ? "" : jsonResponse.getString("divisionName"));
 		division.setCreatedBy(createdBy);
-		division.setCreatedDate(createdDate);
+		division.setCreatedDate(createdDate);*/
 
 		return adminDAO.insertDivision(division) == 0 ? "Failure" : "Success";
 	}
@@ -410,9 +415,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Division> searchDivision(String body) {
 		// TODO Auto-generated method stub
-		Division dvs = new Division();
+		Division div = new Division();
 		try {
-			dvs = objectMapper.readValue(body, Division.class);
+			div = objectMapper.readValue(body, Division.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -422,7 +427,7 @@ public class AdminServiceImpl implements AdminService {
 //		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
 //		String divisionName = null;
 //		divisionName = jsonResponse.isNull("divisionname")?"":jsonResponse.getString("divisionname");
-		return adminDAO.searchDivision(dvs.getDivisonCode(), dvs.getDivisionName());
+		return adminDAO.searchDivision(div.getDivisionCode(), div.getDivisionName());
 	}
 	// search data : stop
 
@@ -525,6 +530,16 @@ public class AdminServiceImpl implements AdminService {
 		gradeCode = jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode");
 		return adminDAO.findSubGradeByGradeCode(gradeCode);
 	}
+
+	/*@Override
+	public List<String> findGradeByDeptCode(String body) {
+		return null;
+	}
+
+	@Override
+	public List<String> findDepartementByDivCode(String body) {
+		return null;
+	}*/
 
 	// generate data : stop
 

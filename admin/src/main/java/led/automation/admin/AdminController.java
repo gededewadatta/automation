@@ -88,6 +88,13 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.insertCompetency(body));
 	}
 
+	@RequestMapping(value = "/led/api/automation/insert/division", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> insertDivision(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+											   HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.insertDivision(body));
+	}
+
 	// insert data : stop
 	// search data : start
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)

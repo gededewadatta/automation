@@ -92,8 +92,9 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		Division div = new Division();
 		div = divisionRepository.save(division);
-		return div.getId()>0?1:0;
-	}
+//		return div.getId()>0?1:0;
+        return div.getId()==0?0:1;
+    }
 
 	@Override
 	public int insertDepartement(Departement departement) {
@@ -251,8 +252,7 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<Division> searchDivision(String divisionCode, String divisionName) {
 		// TODO Auto-generated method stub
 		List<Division> division = new ArrayList<>();
-		//if(divisionCode.equals("")&&divisionName.equals("")) {
-        if(divisionCode==null&&divisionName==null) {
+		if(divisionCode.equals("")&&divisionName.equals("")) {
 			division = divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){

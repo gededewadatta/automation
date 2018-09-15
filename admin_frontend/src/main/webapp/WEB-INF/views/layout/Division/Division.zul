@@ -8,7 +8,7 @@
                 <rows>
                     <row>
                         Company Name:
-                        <textbox id="idCompanyName"  />
+                        <textbox id="idCompanyName"  disabled="true" />
                     </row>
                     <row>
                         <label value = "Division:" />
@@ -36,7 +36,7 @@
 
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
-                        <column label="Division" sort="auto(divisionCode)" />
+                        <column label="Division Code" sort="auto(divisionCode)" />
                         <column label="Division Name" sort="auto(divisionName)" align="center"/>
                         <column label="Action"  align="center"/>
                     </columns>

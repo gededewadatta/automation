@@ -8,7 +8,6 @@ package admin.fe.controller.Maintenance.Division;
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Division;
-import admin.fe.model.Grade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.zkoss.zk.ui.Component;
@@ -37,18 +36,18 @@ public class DivisionDetailController extends CommonController {
     public void onClick$submitButton(){
         System.out.println("Ini Fucking Submit");
 
-        Division dvs = new Division();
+        Division div = new Division();
 
         SendJSON send = new SendJSON();
 
         System.out.println("Ini Fucking Submit2");
-        dvs.setDivisionCode(idDivision.getValue());
-        dvs.setDivisionName(nameDivision.getValue());
-        dvs.setCreatedDate(new Date());
-        dvs.setCreatedBy("test");
+        div.setDivisionCode(idDivision.getValue());
+        div.setDivisionName(nameDivision.getValue());
+        div.setCreatedDate(new Date());
+        div.setCreatedBy("test");
 
         try {
-            String result = send.insertDivision(dvs);
+            String result = send.insertDivision(div);
 
             if(result.equals("200")){
                 Messagebox.show("Data Already Saved");
@@ -58,6 +57,8 @@ public class DivisionDetailController extends CommonController {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
+        navigateTo("layout/Division/DivisionDetail.zul",null,self);
     }
 //test
 }

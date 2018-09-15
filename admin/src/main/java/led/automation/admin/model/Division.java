@@ -24,7 +24,7 @@ public class Division {
 	private Long id;
 	
 	@Column(name = "DIVISION_CODE")
-	private String divisonCode;
+	private String divisionCode;
     
     @Column(name = "DIVISION_NAME")
     private String divisionName;
@@ -41,7 +41,7 @@ public class Division {
 	 */
 	@Override
 	public String toString() {
-		return "Division [id=" + id + ", divisonCode=" + divisonCode + ", divisionName=" + divisionName
+		return "Division [id=" + id + ", divisionCode=" + divisionCode + ", divisionName=" + divisionName
 				+ ", createdDate=" + createdDate + ", createdBy=" + createdBy + "]";
 	}
 
@@ -62,15 +62,15 @@ public class Division {
 	/**
 	 * @return the divisonCode
 	 */
-	public String getDivisonCode() {
-		return divisonCode;
+	public String getDivisionCode() {
+		return divisionCode;
 	}
 
 	/**
-	 * @param divisonCode the divisonCode to set
+	 * @param divisionCode the divisonCode to set
 	 */
-	public void setDivisonCode(String divisonCode) {
-		this.divisonCode = divisonCode;
+	public void setDivisonCode(String divisionCode) {
+		this.divisionCode = divisionCode;
 	}
 
 	/**
