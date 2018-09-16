@@ -1,7 +1,7 @@
 <zk>
 
     <window width="auto" border="none"
-            apply="admin.fe.controller.Maintenance.Department.DepartmentDetailController">
+            apply="admin.fe.controller.Maintenance.Departement.DepartementDetailController">
 
         <div>
             <grid>
@@ -19,10 +19,10 @@
                         </hbox>
                     </row>
                     <row>
-                        <label value = "Department:" />
+                        <label value = "Departement:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
+                                <textbox id="idDepartement" value="${win$composer.inventoryItem.createdDate}"
                                          constraint="no empty" />
                             </hlayout>
                         </hbox>
@@ -30,10 +30,10 @@
 
                     </row>
                     <row>
-                        <label value = "Department Name:" />
+                        <label value = "Departement Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="nameDepartment" value="${win$composer.inventoryItem.createdDate}"
+                                <textbox id="nameDepartement" value="${win$composer.inventoryItem.createdDate}"
                                          constraint="no empty" />
                             </hlayout>
                         </hbox>

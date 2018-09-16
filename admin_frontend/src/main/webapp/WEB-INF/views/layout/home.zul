@@ -50,7 +50,7 @@
 								<tabpanel>
 									<vbox>
 										<toolbarbutton id="toolbarLabel1" label="Division" onClick="@command('addTabOne',pProgr='layout/Division/Division')"/>
-										<toolbarbutton id="toolbarLabel2" label="Department" onClick="@command('addTabOne',pProgr='layout/Department/Department')"/>
+										<toolbarbutton id="toolbarLabel2" label="Department" onClick="@command('addTabOne',pProgr='layout/Departement/Departement')"/>
 										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='layout/Grade/Grade')" />
 										<toolbarbutton id="toolbarLabel4" label="Employee" onClick="@command('addTabOne',pProgr='layout/Employee/Employee')"/>
 										<toolbarbutton id="toolbarLabel5" label="Question" onClick="@command('addTabOne',pProgr='layout/Question/Question')"/>

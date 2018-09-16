@@ -155,7 +155,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String insertDepartement(String body) {
 		// TODO Auto-generated method stub
-		jsonResponse = new JSONObject(body);
+		try {
+			departement = objectMapper.readValue(body,Departement.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*jsonResponse = new JSONObject(body);
 		departement = new Departement();
 		departement.setDivisionCode(jsonResponse.isNull("divisioncode") ? "" : jsonResponse.getString("divisioncode"));
 		departement.setDepartementCode(
@@ -163,7 +168,7 @@ public class AdminServiceImpl implements AdminService {
 		departement.setDepartementName(
 				jsonResponse.isNull("departementname") ? "" : jsonResponse.getString("departementname"));
 		departement.setCreatedBy(createdBy);
-		departement.setCreatedDate(createdDate);
+		departement.setCreatedDate(createdDate);*/
 		return adminDAO.insertDepartement(departement) == 0 ? "Failure" : "Success";
 	}
 
@@ -395,9 +400,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Departement> searchDepartement(String body) {
 		// TODO Auto-generated method stub
-		Departement dpr = new Departement();
+		Departement dep = new Departement();
 		try {
-			dpr = objectMapper.readValue(body, Departement.class);
+			dep = objectMapper.readValue(body, Departement.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -409,7 +414,7 @@ public class AdminServiceImpl implements AdminService {
 		 * jsonResponse.isNull("departementname")?"":jsonResponse.getString(
 		 * "departementname");
 		 */
-		return adminDAO.searchDepartement(dpr.getDepartementCode(), dpr.getDepartementName());
+		return adminDAO.searchDepartement(dep.getDepartementCode(), dep.getDepartementName());
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package admin.fe.controller.Maintenance.Division;
+package admin.fe.controller.Maintenance.Departement;
 
 /*
  * @Author FikriAsandhita
@@ -8,7 +8,7 @@ package admin.fe.controller.Maintenance.Division;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Division;
+import admin.fe.model.Departement;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
@@ -19,19 +19,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DivisionController extends CommonController {
+public class DepartementController extends CommonController {
 
-    private Window divisionWindow;
+    private Window departementWindow;
 
     protected Grid hGrid;
     protected ListModelList modelList;
-    List<Division> divisionList;
+    List<Departement> departementList;
 
     Textbox idCompanyName;
     Textbox idDivision;
+    Textbox idDepartement;
 
-    Division div = new Division();
+    Departement dep = new Departement();
     SendJSON send = new SendJSON();
+
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
@@ -41,18 +43,18 @@ public class DivisionController extends CommonController {
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/Division/DivisionDetail.zul",null,self);
-
+        navigateTo("layout/Departement/DepartementDetail.zul",null,self);
     }
 
     public void onClick$searchButton(){
 
-        div.setDivisionCode(idDivision.getValue());
-        div.setDivisionName("");
+        dep.setDivisionCode(idDivision.getValue());
+        dep.setDepartementCode(idDepartement.getValue());
+        dep.setDepartementName("");
 
-        divisionList = send.getDivision(div);
+        departementList = send.getDepartment(dep);
 
-        modelList = new ListModelList(divisionList);
+        modelList = new ListModelList(departementList);
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
@@ -63,14 +65,15 @@ public class DivisionController extends CommonController {
         return new SerializableRowRenderer() {
             @Override
             public void render(Row row, Object data, int index) throws Exception {
-                renderDataRow(row,(Division) data);
+                renderDataRow(row,(Departement) data);
             }
 
-            private void renderDataRow(Row row, Division division){
+            private void renderDataRow(Row row, Departement departement){
 
-                row.setValue(division);
-                new Label(division.getDivisionCode()).setParent(row);
-                new Label(division.getDivisionName()).setParent(row);
+                row.setValue(departement);
+                new Label(departement.getDivisionCode()).setParent(row);
+                new Label(departement.getDepartementCode()).setParent(row);
+                new Label(departement.getDepartementName()).setParent(row);
 
                 Hbox hbox = new Hbox();
 
@@ -83,7 +86,7 @@ public class DivisionController extends CommonController {
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Division/DivisionViewEdit.zul",getArgs(division,"VIEW"),divisionWindow);
+                                    navigateTo("layout/Departement/DepartementViewEdit.zul",getArgs(departement,"VIEW"),departementWindow);
                                 }
                             }
                         });
@@ -94,7 +97,7 @@ public class DivisionController extends CommonController {
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Division/DivisionViewEdit.zul",getArgs(division,"EDIT"),divisionWindow);
+                                    navigateTo("layout/Departement/DepartementViewEdit.zul",getArgs(departement,"EDIT"),departementWindow);
                                 }
                             }
                         });
@@ -111,13 +114,14 @@ public class DivisionController extends CommonController {
         };
     }
 
-    public Map<String, Object> getArgs(Division obj, String type) {
+    public Map<String, Object> getArgs(Departement obj, String type) {
 
         Map<String, Object> args = new HashMap<String, Object>();
 
         args.put("id",obj.getId());
         args.put("divisionCode",obj.getDivisionCode());
-        args.put("divisionName",obj.getDivisionName());
+        args.put("departmentCode",obj.getDepartementCode());
+        args.put("departmentName",obj.getDepartementName());
         args.put("type",type);
 
         return args;

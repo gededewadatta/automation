@@ -95,6 +95,13 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.insertDivision(body));
 	}
 
+	@RequestMapping(value = "/led/api/automation/insert/departement", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> insertDepartement(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+												  HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.insertDepartement(body));
+	}
+
 	// insert data : stop
 	// search data : start
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)
@@ -251,15 +258,15 @@ public class AdminController {
 	@ResponseBody
 	public List<String> findGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		List<String> grade = adminService.findGradeByDeptCode(body);
-		return grade;
+//		List<String> grade = adminService.findGradeByDeptCode(body);
+		return null;
 	}
 	@RequestMapping(value = "/led/api/automation/find/parent/department", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public List<String> findDepartement(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		List<String> grade = adminService.findDepartementByDivCode(body);
-		return grade;
+//		List<String> grade = adminService.findDepartementByDivCode(body);
+		return null;
 	}
 	//find data parent : stop
 }

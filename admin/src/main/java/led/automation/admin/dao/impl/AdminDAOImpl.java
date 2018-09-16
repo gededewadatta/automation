@@ -101,7 +101,8 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		Departement dep = new Departement();
 		dep = departementRepository.save(departement);
-		return dep.getId()>0?1:0;
+//		return dep.getId()>0?1:0;
+		return dep.getId()==0?1:0;
 	}
 
 	@Override

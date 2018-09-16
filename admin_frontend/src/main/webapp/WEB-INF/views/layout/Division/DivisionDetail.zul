@@ -10,8 +10,7 @@
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}" />
                             </hlayout>
                         </hbox>
                     </row>
@@ -19,8 +18,7 @@
                         <label value = "Division Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="nameDivision" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="nameDivision" value="${win$composer.inventoryItem.createdDate}" />
                             </hlayout>
                         </hbox>
                     </row>

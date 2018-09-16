@@ -4,10 +4,8 @@
 package admin.fe.engine;
 
 import admin.fe.model.*;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,16 +15,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.*;
 
 /**
@@ -568,7 +558,7 @@ public class SendJSON {
 
     }
 
-    public List<Division> getDivision(Division dvs){
+    public List<Division> getDivision(Division div){
 
         String result = null;
 
@@ -577,7 +567,7 @@ public class SendJSON {
         List<Division> divisions = new ArrayList<>();
         try {
 
-            body = mapper.writeValueAsString(dvs);
+            body = mapper.writeValueAsString(div);
 
             System.out.println("===== INPUT ==== " + body);
 
@@ -608,6 +598,7 @@ public class SendJSON {
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
+                division.setId(jsonObjVal.getLong("id"));
                 division.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 division.setDivisionName(jsonObjVal.getString("divisionName"));
                 divisions.add(division);
@@ -620,16 +611,16 @@ public class SendJSON {
         return divisions;
     }
 
-    public List<Department> getDepartment (Department dpr){
+    public List<Departement> getDepartment (Departement dep){
 
         String result = null;
 
         String body = null;
 
-        List<Department> departments = new ArrayList<>();
+        List<Departement> departements = new ArrayList<>();
         try {
 
-            body = mapper.writeValueAsString(dpr);
+            body = mapper.writeValueAsString(dep);
 
             System.out.println("===== INPUT ==== " + body);
 
@@ -656,27 +647,28 @@ public class SendJSON {
             System.out.println("jsoon Array Value is : "+ jsonArray);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                Department department = new Department();
+                Departement departement = new Departement();
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
-                department.setDivisionCode(jsonObjVal.getString("divisionCode"));
-                department.setDepartementCode(jsonObjVal.getString("departementCode"));
-                department.setDepartmentName(jsonObjVal.getString("departementName"));
-                departments.add(department);
+                departement.setId(jsonObjVal.getLong("id"));
+                departement.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                departement.setDepartementCode(jsonObjVal.getString("departementCode"));
+                departement.setDepartementName(jsonObjVal.getString("departementName"));
+                departements.add(departement);
 
             }
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return departments;
+        return departements;
     }
 
-    public String insertDivision(Division dvs) throws JsonProcessingException {
+    public String insertDivision(Division div) throws JsonProcessingException {
         String result = null;
 
-        String body = mapper.writeValueAsString(dvs);
+        String body = mapper.writeValueAsString(div);
 
         System.out.println("===== INPUT ==== " + body);
 
@@ -702,7 +694,7 @@ public class SendJSON {
         return result;
     }
 
-    public String insertDepartment(Department dpr) throws JsonProcessingException {
+    public String insertDepartement(Departement dpr) throws JsonProcessingException {
         String result = null;
 
         String body = mapper.writeValueAsString(dpr);
@@ -717,7 +709,7 @@ public class SendJSON {
         headers.add("Accept", MediaType.APPLICATION_JSON.toString());
 
         HttpEntity<String> entity = new HttpEntity<String>(body, headers);
-        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/department", HttpMethod.POST, entity,
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/departement", HttpMethod.POST, entity,
                 String.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {

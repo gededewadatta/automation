@@ -1,14 +1,14 @@
 <zk>
 
-    <window id="divisionCont" width="auto" border="none"
-            apply="admin.fe.controller.Maintenance.Department.DepartmentController">
+    <window id="departementWindow" width="auto" border="none"
+            apply="admin.fe.controller.Maintenance.Departement.DepartementController">
 
         <div>
             <grid>
                 <rows>
                     <row>
                         Company Name:
-                        <textbox id="idCompanyName"  />
+                        <textbox id="idCompanyName"  disabled="true"/>
                     </row>
                     <row>
                         <label value = "Division:" />
@@ -22,10 +22,10 @@
                         </hbox>
                     </row>
                     <row>
-                        <label value = "Department:" />
+                        <label value = "Departement:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" />
+                                <textbox id="idDepartement" />
                             </hlayout>
                             <div>
                                 <button/>
@@ -47,8 +47,8 @@
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
                         <column label="Division" sort="auto(divisionCode)" />
-                        <column label="Department" sort="auto(departementCode)" align="center"/>
-                        <column label="Department Name" sort="auto(departementName)" align="center"/>
+                        <column label="Departement" sort="auto(departementCode)" align="center"/>
+                        <column label="Departement Name" sort="auto(departementName)" align="center"/>
                         <column label="Action"  align="center"/>
                     </columns>
                 </grid>

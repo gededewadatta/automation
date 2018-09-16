@@ -1,0 +1,53 @@
+<zk>
+
+    <window width="auto" border="none"
+            apply="admin.fe.controller.Maintenance.Departement.DepartementViewEditController">
+
+        <div>
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Division:" />
+                        <hbox>
+                            <hlayout>
+                                <label id="idDivisionView"  />
+                                <textbox id="idDivisionEdit"/>
+                            </hlayout>
+                            <div>
+                                <button id="divisionButton"/>
+                            </div>
+                        </hbox>
+                    </row>
+                    <row>
+                        <label value = "Departement:" />
+                        <hbox>
+                            <hlayout>
+                                <label id="idDepartementView"  />
+                                <textbox id="idDepartementEdit"/>
+                            </hlayout>
+                        </hbox>
+                    </row>
+                    <row>
+                        <label value = "Departement Name:" />
+                        <hbox>
+                            <hlayout>
+                                <label id="nameDepartementView"  />
+                                <textbox id="nameDepartementEdit"/>
+                            </hlayout>
+                        </hbox>
+                    </row>
+
+                </rows>
+            </grid>
+            <div align="right" style="margin-top:30px">
+
+                <button id="backButton" label="Back" style="float::right"/>
+                <button id="submitButton" label="Submit" style="float::right"/>
+                <button id="clearButton" label="Clear" style="float::right"/>
+
+            </div>
+
+        </div>
+
+    </window>
+</zk>

@@ -1,6 +1,6 @@
 <zk>
 
-    <window id="divisionCont" width="auto" border="none"
+    <window id="divisionWindow" width="auto" border="none"
             apply="admin.fe.controller.Maintenance.Division.DivisionController">
 
         <div>

@@ -1,4 +1,4 @@
-package admin.fe.controller.Maintenance.Division;
+package admin.fe.controller.Maintenance.Departement;
 
 /*
  * @Author FikriAsandhita
@@ -7,7 +7,7 @@ package admin.fe.controller.Maintenance.Division;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Division;
+import admin.fe.model.Departement;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.zkoss.zk.ui.Component;
@@ -19,16 +19,19 @@ import org.zkoss.zul.Textbox;
 
 import java.util.Date;
 
-public class DivisionDetailController extends CommonController {
+public class DepartementDetailController extends CommonController {
 
     @Wire
     Textbox idDivision;
 
     @Wire
-    Textbox nameDivision;
+    Textbox idDepartement;
 
-    @Value("${led.Division.insert}")
-    protected String divisionInsert;
+    @Wire
+    Textbox nameDepartement;
+
+    @Value("${led.Departement.insert}")
+    protected String departementInsert;
 
     EventListener event = null;
 
@@ -40,26 +43,27 @@ public class DivisionDetailController extends CommonController {
     public void onClick$submitButton(){
         System.out.println("Ini Fucking Submit");
 
-        Division div = new Division();
+        Departement dep = new Departement();
 
         SendJSON send = new SendJSON();
 
         System.out.println("Ini Fucking Submit2");
-        div.setDivisionCode(idDivision.getValue());
-        div.setDivisionName(nameDivision.getValue());
-        div.setCreatedDate(new Date());
-        div.setCreatedBy("test");
+        dep.setDivisionCode(idDivision.getValue());
+        dep.setDepartementCode(idDepartement.getValue());
+        dep.setDepartementName(nameDepartement.getValue());
+        dep.setCreatedDate(new Date());
+        dep.setCreatedBy("test");
 
         Messagebox.show("Are you sure want to save?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new EventListener() {
             public void onEvent(Event evt) throws InterruptedException {
                 if (evt.getName().equals("onYes")) {
                     try {
-                        String result = send.insertDivision(div);
+                        String result = send.insertDepartement(dep);
 
                         if(result.equals("200")){
                             Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Division/Division.zul",null,self);
+                                    navigateTo("layout/Departement/Departement.zul",null,self);
                                 }
                             });
                         }else{
@@ -75,6 +79,8 @@ public class DivisionDetailController extends CommonController {
 
     public void onClick$clearButton(){
         idDivision.setValue("");
-        nameDivision.setValue("");
+        idDepartement.setValue("");
+        nameDepartement.setValue("");
     }
+//test
 }
