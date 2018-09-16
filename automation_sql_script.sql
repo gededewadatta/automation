@@ -5,7 +5,7 @@ CREATE TABLE COMPETENCY (
     COMPETENCY_NAME varchar(255),
     COMPETENCY_CODE varchar(255),
     CREATED_DATE timestamp,
-    CREATED_BY varchar(255)
+    CREATED_BY varchar(255),
     PRIMARY KEY (ID)
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE DEPARTEMENT (
     DEPARTEMENT_CODE varchar(255),
     DEPARTEMENT_NAME varchar(255),
     CREATED_DATE timestamp,
-    CREATED_BY varchar(255)
+    CREATED_BY varchar(255),
     PRIMARY KEY (ID)
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE DIVISION (
     DEPARTEMENT_CODE varchar(255),
     DEPARTEMENT_NAME varchar(255),
     CREATED_DATE timestamp,
-    CREATED_BY varchar(255)
+    CREATED_BY varchar(255),
     PRIMARY KEY (ID)
 );
 
@@ -38,7 +38,7 @@ CREATE TABLE EMPLOYEE (
     EMPLOYEE_CODE varchar(255),
     EMPLOYEE_NAME varchar(255),
     CREATED_DATE timestamp,
-    CREATED_BY varchar(255)
+    CREATED_BY varchar(255),
     PRIMARY KEY (ID)
 );
 
@@ -48,7 +48,7 @@ CREATE TABLE GRADE (
     GRADE_CODE varchar(255),
     GRADE_NAME varchar(255),
     CREATED_DATE timestamp,
-    CREATED_BY varchar(255)
+    CREATED_BY varchar(255),
     PRIMARY KEY (ID)
 );
 
@@ -65,7 +65,7 @@ CREATE TABLE QUESTION (
     CORRECT_ANSWER varchar(255),
     CREATED_DATE timestamp,
     CREATED_BY varchar(255),
-    COMPETENCY varchar(255)
+    COMPETENCY varchar(255),
     PRIMARY KEY (ID)
 );
 
@@ -75,11 +75,36 @@ CREATE TABLE SUBGRADE (
     SUB_GRADE_CODE varchar(255),
     SUB_GRADE_NAME varchar(255),
     CREATED_DATE timestamp,
-    CREATED_BY varchar(255)
+    CREATED_BY varchar(255),
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE SUBGRADE (
+    ID int NOT NULL,
+    GRADE_CODE varchar(255),
+    SUB_GRADE_CODE varchar(255),
+    SUB_GRADE_NAME varchar(255),
+    CREATED_DATE timestamp,
+    CREATED_BY varchar(255),
     PRIMARY KEY (ID)
 );
 
 
-
+CREATE TABLE PENDING_QUESTION (
+    ID int NOT NULL,
+    GRADE varchar(255),
+    SUB_GRADE varchar(255),
+    QUESTIONS varchar(255),
+    ANSWER_1 varchar(255),
+    ANSWER_2 varchar(255),
+    ANSWER_3 varchar(255),
+    ANSWER_4 varchar(255),
+    ANSWER_5 varchar(255),
+    CORRECT_ANSWER varchar(255),
+    CREATED_DATE timestamp,
+    CREATED_BY varchar(255),
+    COMPETENCY varchar(255),
+    PRIMARY KEY (ID)
+);
 
 

@@ -1,13 +1,13 @@
 <zk>
 
-    <window id="employeeUpCont" width="auto" border="none" apply="admin.fe.controller.FileUpload.Employee.EmployeeUploadController">
+    <window id="employeeCont" width="auto" border="none" apply="admin.fe.controller.FileUpload.Question.QuestionController">
 
         <div>
             <grid>
                 <rows>
 
                     <row>
-                        <label value = "Uplooad File Employee:" />
+                        <label value = "Uplooad File Question:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idUpload"  />
@@ -25,10 +25,12 @@
 
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
-                        <column label="Division" sort="auto(divisionCode)" align="center"/>
-                        <column label="Department" sort="auto(departementCode)" align="center"/>
-                        <column label="Employee Id" sort="auto(employeeCode)" align="center"/>
-                        <column label="Employee Name" sort="auto(employeeName)" align="center"/>
+                        <column label="Question" sort="auto(questions)" align="center"/>
+                        <column label="Grade" sort="auto(grade)" align="center"/>
+                        <column label="Sub Grade" sort="auto(subGrade)" align="center"/>
+                        <column label="Correct Answer" sort="auto(correctAnswer)" align="center"/>
+                        <column label="Competency" sort="auto(competency)" align="center"/>
+                        <column label="Level" sort="auto(level)" align="center"/>
                     </columns>
                 </grid>
 

@@ -71,6 +71,7 @@ public class QuestionController extends CommonController {
         quest.setSubGrade(idSubGrade.getValue());
         quest.setCreatedBy("Burhan");
         quest.setCreatedDate(new Date());
+        quest.setQuestions(idQuestion.getValue());
         quest.setAnswer1(idAnswer.getValue());
         quest.setAnswer2(idAnswer1.getValue());
         quest.setAnswer3(idAnswer2.getValue());

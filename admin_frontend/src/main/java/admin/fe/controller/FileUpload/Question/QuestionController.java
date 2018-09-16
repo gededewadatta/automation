@@ -1,18 +1,15 @@
-package admin.fe.controller.FileUpload.Employee;
+package admin.fe.controller.FileUpload.Question;
 
-import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Department;
 import admin.fe.model.Employee;
+import admin.fe.model.Question;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.sl.usermodel.TextBox;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -22,32 +19,23 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.Textbox;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class EmployeeUploadController extends CommonController {
+public class QuestionController extends CommonController {
 
     protected Grid hGrid;
     protected ListModelList modelList;
     protected Textbox idUpload;
     org.zkoss.zul.Row rw;
-    private Window employeeUpCont;
-    private AbstractMainWindowTransaction parent;
 
-
-    List<Employee> emp = new ArrayList<>();
+    List<Question> questions = new ArrayList<>();
 
 
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
-        employeeUpCont = (Window) comp;
-
-        System.out.println("employeeUpCont :" + employeeUpCont);
     }
 
     public void onUpload$browseButton(UploadEvent e){
@@ -60,11 +48,11 @@ public class EmployeeUploadController extends CommonController {
         for (Media med : multiMedia) {
 
             idUpload.setValue(med.getName());
-            copyToTemp(med);
+            copyToTemp(med.getStreamData());
         }
 
 
-        modelList = new ListModelList(emp);
+        modelList = new ListModelList(questions);
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
@@ -79,49 +67,45 @@ public class EmployeeUploadController extends CommonController {
         return new SerializableRowRenderer() {
             @Override
             public void render(org.zkoss.zul.Row row, Object data, int index) throws Exception {
-                renderDataRow(row,(Employee) data);
+                renderDataRow(row,(Question) data);
             }
 
-            private void renderDataRow(org.zkoss.zul.Row row, Employee employee){
+            private void renderDataRow(org.zkoss.zul.Row row, Question question){
 
-                row.setValue(employee);
-                new Label(employee.getDivisionCode()).setParent(row);
-                new Label(employee.getDepartementCode()).setParent(row);
-                new Label(employee.getEmployeeCode()).setParent(row);
-                new Label(employee.getEmployeeName()).setParent(row);
-                rw = row;
+                row.setValue(question);
+                new Label(question.getQuestions()).setParent(row);
+                new Label(question.getGrade()).setParent(row);
+                new Label(question.getSubGrade()).setParent(row);
+                new Label(question.getCorrectAnswer()).setParent(row);
+                new Label(question.getCompetency()).setParent(row);
+                new Label(question.getLevel()).setParent(row);
             }
         };
     }
 
-    public List<Employee> loadFileTemp(String extension) {
+    public List<Question> loadFileTemp() {
         int result = 0;
 
         List<String> dataTemp = new ArrayList<String>();
-        String path = "E:/Latihan/EMPLOYEETemp.xls";
-        List<Employee> employees = new ArrayList<>();
-        Employee employee;
+        String path = "E:/Latihan/QuestionTemp.xls";
+        List<Question> questionList = new ArrayList<>();
+        Question question;
         try{
 
             Cell cell;
             File file = new File(path);
             FileInputStream fis = new FileInputStream(file);
-            Workbook wb = null;
-            if(extension.equals("xls")){
-                wb = new XSSFWorkbook(fis);
-
-            }else{
-                wb = new HSSFWorkbook(fis);
-            }
+            Workbook wb = new HSSFWorkbook(fis);
             Sheet sheet = wb.getSheetAt(0);
             org.apache.poi.ss.usermodel.Row row = sheet.getRow(0);
             DataFormatter formatter = new DataFormatter();
+
 //			Row row;
             Cell[][] tempArray = new Cell[sheet.getLastRowNum()][row.getLastCellNum()];
             int lastColNum = row.getLastCellNum();
             //Extract Data : start
             int rowCount = 0;
-            for(int i = 0; i < sheet.getLastRowNum(); i++){
+            for(int i = 0; i < sheet.getLastRowNum() ; i++){
                 row = sheet.getRow(rowCount);
                 for(int j = 0; j < lastColNum; j++){
                     tempArray[i][j] = row.getCell(j);
@@ -134,35 +118,47 @@ public class EmployeeUploadController extends CommonController {
             System.out.println("tEMP aRRAY lENGTH"+tempArray.length);
             String val ="";
             for(int a = 1; a < sheet.getLastRowNum() + 1; a++){
-                employee = new Employee();
+                question = new Question();
                 for(int b = 0; b < tempArray[0].length; b++){
                     if(a != 0){
-                        if(tempArray[0][b].getStringCellValue().equals("DEPARTEMENT_CODE")){
+                        if(tempArray[0][b].getStringCellValue().equals("question")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setDepartementCode(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("GRADE_CODE")){
+                            question.setQuestions(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer1")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setGradeCode(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("DIVISION_CODE")){
+                            question.setAnswer1(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer2")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setDivisionCode(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("SUB_GRADE_CODE")){
+                            question.setAnswer2(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer3")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setSubGradeCode(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_CODE")){
+                            question.setAnswer3(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer4")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setEmployeeCode(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_NAME")){
+                            question.setAnswer4(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer5")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setEmployeeName(val);
-                        }else if(tempArray[0][b].getStringCellValue().contains("CREATED_BY")){
+                            question.setAnswer5(val);
+                        }else if(tempArray[0][b].getStringCellValue().contains("correct_answer")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setCreatedBy(val);
+                            question.setCorrectAnswer(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("competency")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            question.setCompetency(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("grade")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            question.setGrade(val);
+                        }else if(tempArray[0][b].getStringCellValue().equals("sub_grade")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            question.setSubGrade(String.valueOf(val));
+                        }else if(tempArray[0][b].getStringCellValue().equals("level")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            question.setLevel(val);
                         }
 
                     }
                 }
-                employees.add(employee);
+                questionList.add(question);
             }
             // Insert to DB : end
         }catch (FileNotFoundException ex){
@@ -172,18 +168,15 @@ public class EmployeeUploadController extends CommonController {
             e.printStackTrace();
         }
 
-        return employees;
+        return questionList;
     }
 
-    private void copyToTemp(Media media) {
+    private void copyToTemp(InputStream stream) {
         int rpt = 0;
-        String pathTemp = "E:/Latihan/"+media.getName();
+        String pathTemp = "E:/Latihan/QuestionTemp.xls";
         File f = new File(pathTemp);
-        InputStream stream = media.getStreamData();
         OutputStream os = null;
-        String extensinos = media.getName().substring(media.getName().lastIndexOf("."),media.getName().length());
         try {
-
             os = new FileOutputStream(f);
             byte buf[] = new byte[1024];
             int len;
@@ -213,14 +206,13 @@ public class EmployeeUploadController extends CommonController {
             }
         }
 
-        emp.addAll(loadFileTemp(extensinos));
+        questions.addAll(loadFileTemp());
 
     }
 
     public void onClick$btnSubmit(){
 
         showConfirmDialog("Do you want to save data?");
-
     }
 
     public void showConfirmDialog(String message) {
@@ -238,11 +230,10 @@ public class EmployeeUploadController extends CommonController {
 
                                 SendJSON send = new SendJSON();
                                 try {
-                                    for(Employee employee: emp){
-                                        send.insertEmployee(employee);
+                                    for(Question question: questions){
+                                        send.insertQuestion(question);
                                     }
-                                    emp.clear();
-                                    Messagebox.show("Data Success to Save");
+                                    questions.clear();
                                 } catch (JsonProcessingException e) {
                                     Messagebox.show("Data failed to Save");
                                 }

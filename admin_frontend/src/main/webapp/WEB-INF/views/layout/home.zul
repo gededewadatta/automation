@@ -44,7 +44,7 @@
 								<tabpanel>
 				                            <vbox>
 				                                <toolbarbutton label="Employee" onClick="@command('addTabOne',pProgr='layout/EmployeeUpload/EmployeeUpload')"/>
-				                                <toolbarbutton label="Question" onClick="@command('addTabOne',pProgr='layout/Question/Question')"/>
+				                                <toolbarbutton label="Question" onClick="@command('addTabOne',pProgr='layout/QuestionUpload/QuestionUpload')"/>
 				                            </vbox>
 								</tabpanel>
 								<tabpanel>

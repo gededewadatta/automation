@@ -347,13 +347,15 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public List<String> findGradeByDeptCode(String gradeCode) {
 		// TODO Auto-generated method stub
-		return gradeRepository.findGradeByDeptCode(gradeCode);
+//		return gradeRepository.findGradeByDeptCode(gradeCode);
+		return null;
 	}
 
 	@Override
 	public List<String> findDepartementByDivCode(String gradeCode) {
 		// TODO Auto-generated method stub
-		return departementRepository.findDepartementByDivCode(gradeCode);
+//		return departementRepository.findDepartementByDivCode(gradeCode);
+		return null;
 	}
 	//find data parent: stop
 

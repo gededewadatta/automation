@@ -461,7 +461,8 @@ public class ProxyController {
 	@ResponseBody
 	public String employeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 								 HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeUrlSearch, body, method, request, response);
+	    System.out.println("body :"+ body);
+		return body;
 
 	}
 

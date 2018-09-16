@@ -29,6 +29,6 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 			+ "join SubGrade sub on g.grade_code = sub.grade_code "
 			+ "WHERE dept.departement_code like %?2 AND div.division_code like %?3", nativeQuery = true)
 	List<String> generateGrade(String company, String divisionCode, String departementCode);
-	List<String> findGradeByDeptCode(String gradeCode);
+//	List<String> findGradeByDeptCode(String gradeCode);
 
 }
