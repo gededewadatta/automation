@@ -81,9 +81,9 @@ public interface AdminService {
 	// find data : start
 	public List<String> findSubGradeByGradeCode(String body);
 
-	public List<String> findGradeByDeptCode(String body);
-
-	public List<String> findDepartementByDivCode(String body);
+//	public List<String> findGradeByDeptCode(String body);
+//
+//	public List<String> findDepartementByDivCode(String body);
 
 	// find data : stop
 
