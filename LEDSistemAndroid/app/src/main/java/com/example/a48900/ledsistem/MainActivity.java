@@ -1,25 +1,40 @@
 package com.example.a48900.ledsistem;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
+<<<<<<< HEAD
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -40,8 +55,11 @@ import com.example.a48900.ledsistem.response;
 public class MainActivity extends AppCompatActivity {
     Button button_login;
     EditText username;
-    String answerType;
+    String answerType; 
 
+    EditText txt_username, txt_password;
+    Button button_login;
+    String url = "http://140.213.15.233/led/api/automation/search/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-            }
-
-
-        });
-    }
-
+            } 
     private String getQuestion(String username){
         String serviceUrl = "http://localhost:7003/automation/api/search/pendingquestion/";
         URL url = null;
@@ -121,6 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         return answerType;
     }
-
+ 
 }
 
