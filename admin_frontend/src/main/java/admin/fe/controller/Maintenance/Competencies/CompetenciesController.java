@@ -5,6 +5,7 @@ import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Competency;
 import admin.fe.model.Employee;
+import admin.fe.model.GradeJson;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
@@ -12,7 +13,9 @@ import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zul.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CompetenciesController extends CommonController {
 
@@ -65,7 +68,7 @@ public class CompetenciesController extends CommonController {
                 row.setValue(competency);
                 new Label(competency.getDepartementCode()).setParent(row);
                 new Label(competency.getGradeCode()).setParent(row);
-                new Label("").setParent(row);
+                new Label(competency.getSubGradeCode()).setParent(row);
                 new Label(competency.getCompetencyName()).setParent(row);
 
                 Hbox hbox1 = new Hbox();
@@ -81,7 +84,7 @@ public class CompetenciesController extends CommonController {
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("",null,null);
+                                    navigateTo("layout/Competencies/CompetenciesView.zul",getArg(competency),self);
 //                                            getArg(InvestmentModelObj),
 //                                            winBancaFinTransactionSelection);
                                 }
@@ -105,7 +108,7 @@ public class CompetenciesController extends CommonController {
                                     throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("",null,null);
+                                    navigateTo("layout/Competencies/CompetenciesEdit.zul",getArg(competency),self);
                                 }
                             }
                         });
@@ -113,6 +116,18 @@ public class CompetenciesController extends CommonController {
                 row.appendChild(hbox1);
             }
         };
+    }
+
+    public Map<String, Object> getArg(Competency obj) {
+
+        Map<String, Object> args = new HashMap<String, Object>();
+
+        args.put("id",obj.getId());
+        args.put("subGradeCode",obj.getSubGradeCode());
+        args.put("competencyName",obj.getCompetencyName());
+        args.put("gradeCode",obj.getGradeCode());
+        args.put("departmentCode",obj.getDepartementCode());
+        return args;
     }
 
 }

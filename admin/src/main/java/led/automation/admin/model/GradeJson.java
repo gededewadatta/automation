@@ -1,17 +1,18 @@
 package led.automation.admin.model;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
 public class GradeJson {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_SEQ")
-    @SequenceGenerator(sequenceName = "grade_seq", allocationSize = 1, name = "GRADE_SEQ")
     Long id;
+
+    Long idGrade;
+
+    Long idSubGrade;
 
     private String divisionCode;
 
@@ -97,7 +98,25 @@ public class GradeJson {
         return id;
     }
 
+    public Long getIdGrade() {
+        return idGrade;
+    }
+
+    public void setIdGrade(Long idGrade) {
+        this.idGrade = idGrade;
+    }
+
+    public Long getIdSubGrade() {
+        return idSubGrade;
+    }
+
+    public void setIdSubGrade(Long idSubGrade) {
+        this.idSubGrade = idSubGrade;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
+
+
 }

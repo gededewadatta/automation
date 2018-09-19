@@ -127,7 +127,8 @@ public class GradeController extends CommonController {
 
         Map<String, Object> args = new HashMap<String, Object>();
 
-        args.put("id", obj.getId());
+        args.put("idGrade", obj.getIdGrade());
+        args.put("idSubGrade", obj.getIdSubGrade());
         args.put("divisionCode",obj.getDivisionCode());
         args.put("departementCode",obj.getDepartementCode());
         args.put("gradeCode",obj.getGradeCode());

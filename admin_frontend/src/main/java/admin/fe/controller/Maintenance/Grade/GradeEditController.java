@@ -2,10 +2,13 @@ package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.SendJSON;
+import admin.fe.model.Employee;
 import admin.fe.model.Grade;
 import admin.fe.model.SubGrade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
@@ -25,7 +28,9 @@ public class GradeEditController extends CommonController {
 
     Textbox idSubGradeName;
 
-    Textbox idNum;
+    Textbox idGradeId;
+
+    Textbox idSubGradeId;
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -41,44 +46,82 @@ public class GradeEditController extends CommonController {
         idGrade.setValue((String)arg.get("gradeCode"));
         idGradeName.setValue((String)arg.get("gradeName"));
         idSubGradeName.setValue((String)arg.get("subGradeName"));
-        idNum.setValue((String)arg.get("id"));
+        idGradeId.setValue((String)arg.get("idGrade"));
+        idSubGradeId.setValue((String)arg.get("idSubGrade"));
 
     }
 
     public void onClick$submitButton(){
 
-        Grade grd = new Grade();
-        SubGrade subGrd = new SubGrade();
 
-        SendJSON send = new SendJSON();
 
-        System.out.println("Ini Fucking Submit2");
-        grd.setId(Long.valueOf(idNum.getValue()));
-        grd.setGradeName(idGradeName.getValue());
-        grd.setGradeCode(idGrade.getValue());
-        grd.setDepartementCode(idDepartment.getValue());
-        grd.setDivisionCode(idDivision.getValue());
-        subGrd.setGradeCode(grd.getGradeCode());
-        subGrd.setSubGradeCode(idSubGrade.getValue());
-        subGrd.setSubGradeName(idSubGradeName.getValue());
-        grd.setCreatedDate(new Date());
-        grd.setCreatedBy("Burhan");
-        subGrd.setCreatedDate(grd.getCreatedDate());
-        subGrd.setCreatedBy(grd.getCreatedBy());
+        showConfirmDialog("Do you want Update Data");
 
-        try {
-            String resultGrade = send.insertGrade(grd);
 
-            if(resultGrade.equals("200")){
-                Messagebox.show("Data Already Updated");
-            }else if(!resultGrade.equals("200")){
-                Messagebox.show("Data Failed To save to Table Grade");
-            }
+    }
 
-        } catch (JsonProcessingException e) {
-            Messagebox.show("All data Failed To Save");
-        }
+    public void showConfirmDialog(String message) {
+        Messagebox.show(message, "confirm",
+                Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
+                Messagebox.NO, new SerializableEventListener() {
 
+                    private static final long serialVersionUID = -8695776168749565854L;
+
+                    @Override
+                    public void onEvent(Event event) throws Exception {
+                        int data = (Integer) event.getData();
+                        switch (data) {
+                            case Messagebox.YES:
+
+                                Grade grd = new Grade();
+                                SubGrade subGrd = new SubGrade();
+
+                                SendJSON send = new SendJSON();
+
+                                grd.setId(Long.valueOf(idGradeId.getValue()));
+                                grd.setGradeName(idGradeName.getValue());
+                                grd.setGradeCode(idGrade.getValue());
+                                grd.setDepartementCode(idDepartment.getValue());
+                                grd.setDivisionCode(idDivision.getValue());
+                                subGrd.setId(Long.valueOf(idSubGradeId.getValue()));
+                                subGrd.setGradeCode(grd.getGradeCode());
+                                subGrd.setSubGradeCode(idSubGrade.getValue());
+                                subGrd.setSubGradeName(idSubGradeName.getValue());
+                                grd.setCreatedDate(new Date());
+                                grd.setCreatedBy("Burhan");
+                                subGrd.setCreatedDate(grd.getCreatedDate());
+                                subGrd.setCreatedBy(grd.getCreatedBy());
+
+                                try {
+                                    String resultGrade = send.insertGrade(grd);
+                                    String resultSubGrade = send.insertSubGrade(subGrd);
+
+                                    if(resultGrade.equals("200") && resultSubGrade.equals("200")){
+                                        Messagebox.show("Data Already Updated");
+                                        navigateTo("layout/Grade/Grade.zul",null,self);
+                                    }else{
+                                        Messagebox.show("Data Failed To save ");
+                                        navigateTo("layout/Grade/Grade.zul",null,self);
+                                    }
+
+                                } catch (JsonProcessingException e) {
+                                    Messagebox.show("All data Failed To Save");
+                                    navigateTo("layout/Grade/Grade.zul",null,self);
+                                }
+
+                        }
+                    }
+                });
+    }
+
+    public void clearTextBox(){
+
+        idDivision.setValue("");
+        idGradeName.setValue("");
+        idGrade.setValue("");
+        idDepartment.setValue("");
+        idSubGrade.setValue("");
+        idSubGradeName.setValue("");
 
     }
 

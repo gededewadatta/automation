@@ -15,6 +15,7 @@ import java.util.Date;
  
 public class Employee {
 
+	private String id;
 	private String departementCode;
 	private String gradeCode;
 	private String divisionCode;
@@ -86,5 +87,13 @@ public class Employee {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

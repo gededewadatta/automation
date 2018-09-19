@@ -462,7 +462,7 @@ public class ProxyController {
 	public String employeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 								 HttpServletResponse response) throws URISyntaxException {
 	    System.out.println("body :"+ body);
-		return body;
+		return proxy(employeeUrlSearch, body, method, request, response);
 
 	}
 
@@ -604,8 +604,9 @@ public class ProxyController {
 	@ResponseBody
 	public String searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeSearchQuestion, body, method, request, response);
-
+		System.out.println("body :"+body);
+//		return proxy(employeeSearchQuestion, body, method, request, response);
+		return body;
 	}
 
 	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)

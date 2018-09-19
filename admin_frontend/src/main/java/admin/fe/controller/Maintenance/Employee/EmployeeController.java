@@ -136,7 +136,7 @@ public class EmployeeController extends CommonController {
                                     throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("",null,null);
+                                    navigateTo("layout/Employee/EmployeeEdit.zul",getArg(employee),employeeCont);
                                 }
                             }
                         });
@@ -152,6 +152,7 @@ public class EmployeeController extends CommonController {
 
         Map<String, Object> args = new HashMap<String, Object>();
 
+        args.put("id",obj.getId());
         args.put("divisionCode",obj.getDivisionCode());
         args.put("departementCode",obj.getDepartementCode());
         args.put("employeeCode",obj.getEmployeeCode());

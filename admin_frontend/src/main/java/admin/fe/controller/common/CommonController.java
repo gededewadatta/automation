@@ -7,6 +7,7 @@ import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Window;
 
 import java.util.Map;
 
@@ -22,6 +23,11 @@ public class CommonController extends GenericForwardComposer {
     protected void backTo(Component to, Component from) {
         to.setParent(from.getParent());
         from.detach();
+    }
+
+    public static void onModalToTop(Window c) throws InterruptedException{
+        c.setPosition("center,top");
+        c.onModal();
     }
 
 //    public static void showConfirmDialog(String message) {

@@ -13,7 +13,9 @@ import led.automation.employee.model.HistoryAnswer;
 import led.automation.employee.model.PendingQuestion;
 import led.automation.employee.model.SubmitQuestion;
 import led.automation.employee.service.EmployeeService;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeServiceImpl implements EmployeeService {
 	ObjectMapper objectMapper = new ObjectMapper();
 	@Autowired

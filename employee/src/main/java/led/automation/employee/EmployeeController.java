@@ -22,12 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
  
 import led.automation.employee.model.PendingQuestion;
@@ -38,32 +33,33 @@ import led.automation.employee.service.EmployeeService;
  * @author gede rana dewadatta
  */
 @RestController
+@RequestMapping("/automation/api")
 public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@RequestMapping(value = "/automation/api/search/pendingquestion/{userName}", produces = "application/json", method = RequestMethod.GET)
+	@PostMapping(value = "/search/pendingquestion/{userName}", produces = "application/json")
 	@ResponseBody
 	public List<PendingQuestion> searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		List<PendingQuestion> departement = employeeService.searchQuestion(body);
 		return departement;
 	}
-	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert/history", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> submitHistory(@RequestBody String body, HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
 	    System.out.println(body);
 		return ResponseEntity.ok(employeeService.submitHistory(body));
 	}
-	@RequestMapping(value = "/automation/api/insert/submitquestion", produces = "application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert/submitquestion", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> submitQuestion(@RequestBody String body, HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
 	    System.out.println(body);
 		return ResponseEntity.ok(employeeService.submitQuestion(body));
 	}
-	@RequestMapping(value = "/automation/api/search/competency", produces = "application/json", method = RequestMethod.GET)
+	@RequestMapping(value = "/search/competency", produces = "application/json", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> searchCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {

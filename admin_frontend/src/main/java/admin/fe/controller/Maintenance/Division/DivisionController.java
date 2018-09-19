@@ -7,9 +7,15 @@ package admin.fe.controller.Maintenance.Division;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
+import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
+import admin.fe.model.Departement;
 import admin.fe.model.Division;
+import admin.fe.model.Employee;
+import admin.fe.model.Grade;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
@@ -19,9 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DivisionController extends CommonController {
+public class DivisionController extends CommonController implements PopupCallerDivisionInterface {
 
     private Window divisionWindow;
+
+    Division div = new Division();
 
     protected Grid hGrid;
     protected ListModelList modelList;
@@ -30,7 +38,6 @@ public class DivisionController extends CommonController {
     Textbox idCompanyName;
     Textbox idDivision;
 
-    Division div = new Division();
     SendJSON send = new SendJSON();
 
     public void doAfterCompose(Component comp) throws Exception{
@@ -45,10 +52,31 @@ public class DivisionController extends CommonController {
 
     }
 
+    public void onClick$btnSearchDivision(){
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+    }
+
     public void onClick$searchButton(){
 
-        div.setDivisionCode(idDivision.getValue());
-        div.setDivisionName("");
+        if(div.getDivisionCode() == null || div.getDivisionCode().equals("")){
+            div.setDivisionCode("");
+        }
+
+        if(div.getDivisionName() == null|| div.getDivisionName().equals("")){
+            div.setDivisionName("");
+        }
 
         divisionList = send.getDivision(div);
 
@@ -122,5 +150,16 @@ public class DivisionController extends CommonController {
 
         return args;
     }
+
+    @Override
+    public void afterSelectDivision(Division division) {
+
+        if(division != null){
+            div = division;
+            idDivision.setValue(division.getDivisionName());
+        }
+
+    }
+
 }
 //test

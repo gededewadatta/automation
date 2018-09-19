@@ -39,9 +39,7 @@ public class EmployeeViewController extends CommonController {
 
     }
 
-    public void onClick$backButton(Event e){
-
-        backTo(this.parent.getWinSearch(),self);
+    public void onClick$backButton(){
+        navigateTo("layout/Employee/Employee.zul",null,self);
     }
-
 }

@@ -4,9 +4,13 @@ import java.util.Date;
 
 public class Competency {
 
+    private String id;
+
     private String departementCode;
 
     private String gradeCode;
+
+    private String subGradeCode;
 
     private String competencyName;
 
@@ -15,6 +19,14 @@ public class Competency {
     private Date createdDate;
 
     private String createdBy;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDepartementCode() {
         return departementCode;
@@ -30,6 +42,14 @@ public class Competency {
 
     public void setGradeCode(String gradeCode) {
         this.gradeCode = gradeCode;
+    }
+
+    public String getSubGradeCode() {
+        return subGradeCode;
+    }
+
+    public void setSubGradeCode(String subGradeCode) {
+        this.subGradeCode = subGradeCode;
     }
 
     public String getCompetencyName() {

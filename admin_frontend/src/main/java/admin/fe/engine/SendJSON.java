@@ -306,7 +306,8 @@ public class SendJSON {
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
-                grade.setId(String.valueOf(jsonObjVal.getLong("id")));
+                grade.setIdGrade(String.valueOf(jsonObjVal.getLong("idGrade")));
+                grade.setIdSubGrade(String.valueOf(jsonObjVal.getLong("idSubGrade")));
                 grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 grade.setDepartementCode(jsonObjVal.getString("departementCode"));
                 grade.setGradeCode(jsonObjVal.getString("gradeCode"));
@@ -421,6 +422,7 @@ public class SendJSON {
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
+                employee.setId(String.valueOf(jsonObjVal.get("id")));
                 employee.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 employee.setDepartementCode(jsonObjVal.getString("departementCode"));
                 employee.setGradeCode(jsonObjVal.getString("gradeCode"));
@@ -543,9 +545,11 @@ public class SendJSON {
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
+                competency.setId(String.valueOf(jsonObjVal.getLong("id")));
                 competency.setDepartementCode(jsonObjVal.getString("departementCode"));
                 competency.setGradeCode(jsonObjVal.getString("gradeCode"));
                 competency.setCompetencyName(jsonObjVal.getString("competencyName"));
+                competency.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
                 competencies.add(competency);
 
             }

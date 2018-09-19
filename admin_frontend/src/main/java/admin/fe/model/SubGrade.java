@@ -13,6 +13,7 @@ import java.util.Date;
  */
 //@Entity
 public class SubGrade {
+    private Long id;
 	private String gradeCode;
 	private String subGradeCode;
 	private String subGradeName;
@@ -57,5 +58,13 @@ public class SubGrade {
 
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -28,6 +28,9 @@ public class Competency {
     
 	@Column(name = "GRADE_CODE")
 	private String gradeCode;
+
+	@Column(name = "SUB_GRADE_CODE")
+	private String subGradeCode;
     
     @Column(name = "COMPETENCY_NAME")
     private String competencyName;
@@ -149,7 +152,11 @@ public class Competency {
 		this.createdBy = createdBy;
 	}
 
-	 
-    
-	      
+	public String getSubGradeCode() {
+		return subGradeCode;
+	}
+
+	public void setSubGradeCode(String subGradeCode) {
+		this.subGradeCode = subGradeCode;
+	}
 }

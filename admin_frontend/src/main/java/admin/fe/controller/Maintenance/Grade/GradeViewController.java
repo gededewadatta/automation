@@ -35,6 +35,11 @@ public class GradeViewController extends CommonController {
 
     }
 
+    public void onClick$backButton(){
+        navigateTo("layout/Grade/Grade.zul",null,self);
+    }
+
+
 
 
 

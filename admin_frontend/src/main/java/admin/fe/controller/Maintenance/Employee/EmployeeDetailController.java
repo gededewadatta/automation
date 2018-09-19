@@ -66,8 +66,6 @@ public class EmployeeDetailController extends CommonController {
     }
 
     public void onClick$submitButton(){
-        System.out.println("Ini Fucking Submit");
-
         Employee emp = new Employee();
 
         SendJSON send = new SendJSON();

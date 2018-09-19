@@ -1,7 +1,7 @@
 <zk>
 
     <window width="auto" border="none"
-            apply="admin.fe.controller.Maintenance.Grade.GradeDetailController">
+            apply="admin.fe.controller.Maintenance.Employee.EmployeeEditController">
 
         <div>
             <grid>
@@ -10,68 +10,71 @@
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision"  />
+                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
+                            <hlayout>
+                                <textbox id="idEmployeeId" visible="false" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
                         </hbox>
                     </row>
                     <row>
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" />
+                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
-
-
                     </row>
                     <row>
                         <label value = "Grade:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idGrade" />
+                                <textbox id="idGrade" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
                             </hlayout>
                         </hbox>
 
-                    </row>
 
+                    </row>
                     <row>
                         <label value = "Sub Grade:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idSubGrade"  />
+                                <textbox id="idSubGrade" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
                             </hlayout>
                         </hbox>
 
                     </row>
 
                     <row>
-                        <label value = "Grade Name:" />
+                        <label value = "Employee Id:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idGradeName"  />
+                                <textbox id="idCEmployee" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
                             </hlayout>
                         </hbox>
 
                     </row>
 
                     <row>
-                        <label value = "Sub Grade Name:" />
+                        <label value = "Employee Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idSubGradeName"  />
+                                <textbox id="idEmployeeName" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
                             </hlayout>
                         </hbox>
 
                     </row>
                 </rows>
             </grid>
-            <div align="right" style="margin-top:30px">
+
+            <div align="right" style="margin-top:60px">
 
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>

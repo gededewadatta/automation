@@ -13,7 +13,10 @@
                                 <textbox id="idDivision" />
                             </hlayout>
                             <hlayout visible="false">
-                                <textbox id="idNum" />
+                                <textbox id="idGradeId" />
+                            </hlayout>
+                            <hlayout visible="false">
+                                <textbox id="idSubGradeId" />
                             </hlayout>
                             <div>
                                 <button/>

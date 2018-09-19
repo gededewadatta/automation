@@ -177,9 +177,10 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		jsonResponse = new JSONObject(body);
 		subGrade = new SubGrade();
-		subGrade.setSubGradeCode(jsonResponse.isNull("subgradecode") ? "" : jsonResponse.getString("subgradecode"));
-		subGrade.setSubGradeName(jsonResponse.isNull("subgradename") ? "" : jsonResponse.getString("subgradename"));
-		subGrade.setGradeCode(jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode"));
+		subGrade.setId(jsonResponse.isNull("id") ? null : jsonResponse.getLong("id"));
+		subGrade.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
+		subGrade.setSubGradeName(jsonResponse.isNull("subGradeName") ? "" : jsonResponse.getString("subGradeName"));
+		subGrade.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
 		subGrade.setCreatedBy(createdBy);
 		subGrade.setCreatedDate(createdDate);
 

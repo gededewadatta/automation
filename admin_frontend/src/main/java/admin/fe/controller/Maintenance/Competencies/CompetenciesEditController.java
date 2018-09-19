@@ -1,70 +1,53 @@
 package admin.fe.controller.Maintenance.Competencies;
 
-import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Competency;
-import admin.fe.model.Employee;
 import admin.fe.model.Grade;
 import admin.fe.model.SubGrade;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.SerializableEventListener;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Vbox;
-import org.zkoss.zul.Window;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
-public class CompetenciesDetailController extends CommonController {
+public class CompetenciesEditController  extends CommonController {
 
+    Textbox idDepartment;
 
+    Textbox idGrade;
 
-    Vbox boxList;
+    Textbox idSubGrade;
 
-    List<Component> competenciesDetailListController = new ArrayList<Component>();
+    Textbox idCompetencies;
 
-    private Window competenciesCont;
-    private AbstractMainWindowTransaction parent;
+    Textbox idCompetenciesId;
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
-        addTransaction();
+        initView();
     }
 
-    public void onClick$addButton(){
-        addTransaction();
-    }
+    public void initView(){
 
-    private ArrayList<Map<String, Object>> retrieveDetailsArg() {
-        ArrayList<Map<String, Object>> args = new ArrayList<Map<String, Object>>();
-        CompetenciesDetailListController composer = new CompetenciesDetailListController();
-        for (Component c : competenciesDetailListController) {
-             composer = (CompetenciesDetailListController) c.getAttribute("controller");
-            args.add(composer.getArgs());
-        }
-        return args;
-    }
+        idCompetenciesId.setValue((String)arg.get("id"));
+        idDepartment.setValue((String) arg.get("departmentCode"));
+        idSubGrade.setValue((String)arg.get("subGradeCode"));
+        idGrade.setValue((String)arg.get("gradeCode"));
+        idCompetencies.setValue((String)arg.get("competencyName"));
 
+    }
 
     public void onClick$submitButton(){
 
-        showConfirmDialog("Do you want to save the data?");
-    }
+        showConfirmDialog("Do you want Update Data");
 
-    private void addTransaction() {
-
-        Component component = Executions.createComponents("layout/Competencies/CompetenciesDetailList.zul",
-                boxList, arg);
-        competenciesDetailListController.add(component);
     }
 
     public void showConfirmDialog(String message) {
@@ -82,18 +65,19 @@ public class CompetenciesDetailController extends CommonController {
 
                                 SendJSON send = new SendJSON();
 
-                                ArrayList<Map<String, Object>> competencyList = retrieveDetailsArg();
-
 
                                 try {
                                     String result = "";
-                                    for (Map<String, Object> cmpList : competencyList) {
 
-                                        Competency cmp = (Competency) cmpList.get("Competencies");
-                                        result = send.insertCompetency(cmp);
+                                    Competency cmp = new Competency();
 
+                                    cmp.setId(idCompetenciesId.getValue());
+                                    cmp.setSubGradeCode(idSubGrade.getValue());
+                                    cmp.setDepartementCode(idDepartment.getValue());
+                                    cmp.setGradeCode(idGrade.getValue());
+                                    cmp.setCompetencyName(idCompetencies.getValue());
 
-                                    }
+                                    result = send.insertCompetency(cmp);
 
                                     if(result.equals("200")){
                                         Messagebox.show("Data Already Saved");
@@ -108,5 +92,6 @@ public class CompetenciesDetailController extends CommonController {
                     }
                 });
     }
+
 
 }

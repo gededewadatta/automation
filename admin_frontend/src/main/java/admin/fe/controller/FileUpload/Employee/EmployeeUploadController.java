@@ -178,7 +178,7 @@ public class EmployeeUploadController extends CommonController {
 
     private void copyToTemp(Media media) {
         int rpt = 0;
-        String pathTemp = "E:/Latihan/"+media.getName();
+        String pathTemp = "E:/Latihan/EMPLOYEETemp.xls";
         File f = new File(pathTemp);
         InputStream stream = media.getStreamData();
         OutputStream os = null;

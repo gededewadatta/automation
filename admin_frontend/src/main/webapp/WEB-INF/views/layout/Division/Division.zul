@@ -17,7 +17,7 @@
                                 <textbox id="idDivision" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnSearchDivision"/>
                             </div>
                         </hbox>
 
