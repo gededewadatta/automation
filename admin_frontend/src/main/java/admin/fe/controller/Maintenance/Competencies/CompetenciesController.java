@@ -2,11 +2,13 @@ package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
+import admin.fe.engine.PopupCallerDepartmentInterface;
+import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Competency;
-import admin.fe.model.Employee;
-import admin.fe.model.GradeJson;
+import admin.fe.model.*;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
@@ -17,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CompetenciesController extends CommonController {
+public class CompetenciesController extends CommonController implements PopupCallerDepartmentInterface {
 
     Textbox idDepartment;
     Textbox idGrade;
@@ -25,7 +27,8 @@ public class CompetenciesController extends CommonController {
 
     protected Grid hGrid;
     protected ListModelList modelList;
-
+    Division div = new Division();
+    Departement dep = new Departement();
     List<Competency> competencies = new ArrayList<>();
 
     public void doAfterCompose(Component comp) throws Exception {
@@ -129,5 +132,33 @@ public class CompetenciesController extends CommonController {
         args.put("departmentCode",obj.getDepartementCode());
         return args;
     }
+
+    public void onClick$btnDepartement(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Departement departement = new Departement();
+        args.put("object", departement);
+        args.put("division", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Departement/DeptPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    @Override
+    public void afterSelectDepartement(Departement departement) {
+        if(departement != null){
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementName());
+        }
+    }
+
 
 }

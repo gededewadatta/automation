@@ -15,7 +15,7 @@ import java.util.Date;
 public class Grade {
 
 
-    Long id;
+    Long idGrade;
     private String departementCode;
     private String divisionCode;
     private String gradeCode;
@@ -23,12 +23,12 @@ public class Grade {
     private Date createdDate;
     private String createdBy;
 
-    public Long getId() {
-        return id;
+    public Long getIdGrade() {
+        return idGrade;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdGrade(Long idGrade) {
+        this.idGrade = idGrade;
     }
 
     public String getDepartementCode() {

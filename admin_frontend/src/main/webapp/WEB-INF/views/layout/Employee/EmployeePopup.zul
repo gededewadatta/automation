@@ -1,7 +1,7 @@
 <zk>
 
-    <window width="auto" border="none"
-            apply="">
+    <window width="500px" border="none" id="empPopup"
+            apply="admin.fe.controller.Maintenance.Employee.EmployeePopupController">
 
         <div>
             <grid>
@@ -13,9 +13,6 @@
                                 <textbox id="idEmployee" value="${win$composer.inventoryItem.createdDate}"
                                          constraint="no empty" />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
 
 
@@ -27,9 +24,6 @@
                                 <textbox id="idEmpName" value="${win$composer.inventoryItem.createdDate}"
                                          constraint="no empty" />
                             </hlayout>
-                            <div>
-                                <button/>
-                            </div>
                         </hbox>
 
                     </row>
@@ -43,21 +37,15 @@
             </div>
 
             <vbox>
-
+                <radiogroup id="rgrSearchResult">
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
                         <column label="Select" sort="" />
                         <column label="Employee Id" sort="" align="center"/>
                         <column label="Employee Name" sort="" align="center"/>
                     </columns>
-                    <template name="">
-                        <row>
-                            <label value="" />
-                            <label value="" style="color:red;"/>
-                            <label value="" style="color:green;"/>
-                        </row>
-                    </template>
                 </grid>
+                </radiogroup>
 
             </vbox>
 

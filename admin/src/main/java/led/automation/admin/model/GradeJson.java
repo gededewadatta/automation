@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class GradeJson {
 
+    @Id
     Long id;
-
+//
     Long idGrade;
 
     Long idSubGrade;

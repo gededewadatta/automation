@@ -78,7 +78,7 @@ public class GradeEditController extends CommonController {
 
                                 SendJSON send = new SendJSON();
 
-                                grd.setId(Long.valueOf(idGradeId.getValue()));
+                                grd.setIdGrade(Long.valueOf(idGradeId.getValue()));
                                 grd.setGradeName(idGradeName.getValue());
                                 grd.setGradeCode(idGrade.getValue());
                                 grd.setDepartementCode(idDepartment.getValue());

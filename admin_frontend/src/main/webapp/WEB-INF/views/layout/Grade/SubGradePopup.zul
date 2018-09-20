@@ -1,0 +1,28 @@
+<zk>
+
+    <window width="500px" border="none" id="subGradePopup"
+            apply="admin.fe.controller.Maintenance.Grade.SubGradePopupController">
+
+        <div>
+            <vbox>
+                <radiogroup id="rgrSearchResult">
+                    <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
+                        <columns>
+                            <column label="Select" sort="" />
+                            <column label="Sub Grade Code" sort="" align="center"/>
+                            <column label="Sub Grade Name" sort="" align="center"/>
+                        </columns>
+                    </grid>
+                </radiogroup>
+
+            </vbox>
+
+            <div align="center" style="margin-top:10px">
+                <button id="idSelect" label="Select" style="float::center"/>
+            </div>
+
+
+        </div>
+
+    </window>
+</zk>

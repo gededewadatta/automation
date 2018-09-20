@@ -261,17 +261,16 @@ public class SendJSON {
 
     }
 
-
-    public List<GradeJson> getGrade(GradeJson grdJson){
+    public List<Grade> getGrade(Grade grd){
 
         String result = null;
 
         String body = null;
 
-        List<GradeJson> gradeJsons = new ArrayList<>();
+        List<Grade> gradeList = new ArrayList<>();
         try {
 
-            body = mapper.writeValueAsString(grdJson);
+            body = mapper.writeValueAsString(grd);
 
             System.out.println("===== INPUT ==== " + body);
 
@@ -283,7 +282,7 @@ public class SendJSON {
             headers.add("Accept", MediaType.APPLICATION_JSON.toString());
 
             HttpEntity<String> entity = new HttpEntity<String>(body, headers);
-            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/gradeJson", HttpMethod.POST, entity,
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/grade", HttpMethod.POST, entity,
                     String.class);
 
             System.out.println("Respon entity value is :"+ responseEntity);
@@ -302,19 +301,16 @@ public class SendJSON {
             System.out.println("jsoon Array VAlue is : "+ jsonArray);
 
             for (int i = 0; i < jsonArray.length(); i++) {
-                GradeJson grade = new GradeJson();
+                Grade grade = new Grade();
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
-                grade.setIdGrade(String.valueOf(jsonObjVal.getLong("idGrade")));
-                grade.setIdSubGrade(String.valueOf(jsonObjVal.getLong("idSubGrade")));
+                grade.setIdGrade(jsonObjVal.getLong("idGrade"));
                 grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 grade.setDepartementCode(jsonObjVal.getString("departementCode"));
                 grade.setGradeCode(jsonObjVal.getString("gradeCode"));
                 grade.setGradeName(jsonObjVal.getString("gradeName"));
-                grade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
-                grade.setSubGradeName(jsonObjVal.getString("subGradeName"));
-                gradeJsons.add(grade);
+                gradeList.add(grade);
 
             }
 
@@ -322,11 +318,76 @@ public class SendJSON {
             e.printStackTrace();
         }
 
-        return gradeJsons;
+        return gradeList;
 
     }
 
-    public SubGrade getSubGrade(Grade subGrd){
+
+    public List<GradeJson> getGradeJson(GradeJson grdJson){
+
+    String result = null;
+
+    String body = null;
+
+    List<GradeJson> gradeJsons = new ArrayList<>();
+        try {
+
+        body = mapper.writeValueAsString(grdJson);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/gradeJson", HttpMethod.POST, entity,
+                String.class);
+
+        System.out.println("Respon entity value is :"+ responseEntity);
+        System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+        String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+        System.out.println("respons VAlue is : "+ respons);
+
+        JSONObject jsonResponse = new JSONObject(respons);
+
+        System.out.println("Json respons VAlue is : "+ jsonResponse);
+
+        JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+        System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            GradeJson grade = new GradeJson();
+            JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+            System.out.println("Json Object Adalah :"+jsonObjVal);
+
+            grade.setIdGrade(String.valueOf(jsonObjVal.getLong("idGrade")));
+            grade.setIdSubGrade(String.valueOf(jsonObjVal.getLong("idSubGrade")));
+            grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
+            grade.setDepartementCode(jsonObjVal.getString("departementCode"));
+            grade.setGradeCode(jsonObjVal.getString("gradeCode"));
+            grade.setGradeName(jsonObjVal.getString("gradeName"));
+            grade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+            grade.setSubGradeName(jsonObjVal.getString("subGradeName"));
+            gradeJsons.add(grade);
+
+        }
+
+    } catch (JsonProcessingException e) {
+        e.printStackTrace();
+    }
+
+        return gradeJsons;
+
+}
+
+    public List<SubGrade> getSubGrade(SubGrade subGrd){
 
         String result = null;
 
@@ -353,30 +414,30 @@ public class SendJSON {
             System.out.println("Respon entity value is :"+ responseEntity);
             System.out.println("Respon entity body value is :"+ responseEntity.getBody());
 
-//            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
 
-//            JSONObject jsonResponse = new JSONObject(respons);
+            JSONObject jsonResponse = new JSONObject(respons);
 
-//            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
 
-//            System.out.println("jsoon Array VAlue is : "+ jsonArray);
-//
-//            for (int i = 0; i < jsonArray.length(); i++) {
-//                SubGrade subGrade = new SubGrade();
-//                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
-//                System.out.println("Json Object Adalah :"+jsonObjVal);
-//
-//                subGrade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
-//                subGrade.setSubGradeName(jsonObjVal.getString("subGradeName"));
-//                subGrades.add(subGrade);
-//
-//            }
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                SubGrade subGrade = new SubGrade();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                subGrade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                subGrade.setSubGradeName(jsonObjVal.getString("subGradeName"));
+                subGrades.add(subGrade);
+
+            }
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return subGrades;
 
     }
 

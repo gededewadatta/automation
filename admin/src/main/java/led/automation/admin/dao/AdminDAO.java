@@ -4,6 +4,7 @@
 package led.automation.admin.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import led.automation.admin.model.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,7 +40,7 @@ public interface AdminDAO {
 
 	public List<Grade> searchGrade(String departementCode, String departementName);
 
-	public SubGrade searchSubGrade(String gradeCode, String gradeName);
+	public List<SubGrade> searchSubGrade(String gradeCode, String gradeName);
 
 	public List<GradeJson> searchGradeJson(String departementCode, String departementName);
 

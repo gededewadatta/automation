@@ -14,7 +14,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnDivision"/>
                             </div>
                         </hbox>
 
@@ -28,7 +28,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnDepartment"/>
                             </div>
                         </hbox>
 
@@ -41,7 +41,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnGrade"/>
                             </div>
                         </hbox>
 
@@ -55,7 +55,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnSubGrade"/>
                             </div>
                         </hbox>
 

@@ -2,11 +2,11 @@ package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
+import admin.fe.engine.PopupCallerDepartmentInterface;
+import admin.fe.engine.PopupCallerGradeInterface;
+import admin.fe.engine.PopupCallerSubGradeInterface;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Competency;
-import admin.fe.model.Employee;
-import admin.fe.model.Grade;
-import admin.fe.model.SubGrade;
+import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -23,16 +23,32 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class CompetenciesDetailController extends CommonController {
+public class CompetenciesDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
 
 
 
     Vbox boxList;
 
+    Textbox idDepartment;
+
+    Textbox idGrade;
+
+    Textbox idSubGrade;
+
+    Textbox idCompetencies;
+
     List<Component> competenciesDetailListController = new ArrayList<Component>();
 
     private Window competenciesCont;
     private AbstractMainWindowTransaction parent;
+
+    Division div = new Division();
+
+    Departement dep = new Departement();
+
+    Grade grd = new Grade();
+
+    SubGrade subGrd = new SubGrade();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -107,6 +123,32 @@ public class CompetenciesDetailController extends CommonController {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void afterSelectDepartement(Departement departement) {
+        if(departement != null){
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementCode());
+        }
+    }
+
+    @Override
+    public void afterSelectGrade(Grade grade) {
+        if(grade != null){
+            grd = grade;
+            idGrade.setValue(grd.getGradeCode());
+        }
+
+    }
+
+    @Override
+    public void afterSelectSubGrade(SubGrade subGrade) {
+
+        if(subGrade != null){
+            subGrd = subGrade;
+            idSubGrade.setValue(subGrd.getSubGradeCode());
+        }
     }
 
 }

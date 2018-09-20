@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.List;
+import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -122,9 +123,17 @@ public class AdminController {
 
 	@RequestMapping(value = "/led/api/automation/search/gradeJson", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
-	public List<GradeJson> searchSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+	public List<GradeJson> searchGradeJson(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		List<GradeJson> subGrade = adminService.searchGradeJson(body);
+		return subGrade;
+	}
+
+	@RequestMapping(value = "/led/api/automation/search/subgrade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<SubGrade> searchSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+										   HttpServletResponse response) throws URISyntaxException {
+		List<SubGrade> subGrade = adminService.searchSubGrade(body);
 		return subGrade;
 	}
 

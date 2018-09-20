@@ -1,15 +1,23 @@
 package admin.fe.controller.Maintenance.Competencies;
 
-import admin.fe.model.Competency;
+import admin.fe.controller.common.CommonController;
+import admin.fe.engine.PopupCallerDepartmentInterface;
+import admin.fe.engine.PopupCallerDivisionInterface;
+import admin.fe.engine.PopupCallerGradeInterface;
+import admin.fe.engine.PopupCallerSubGradeInterface;
+import admin.fe.model.*;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.util.GenericForwardComposer;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class CompetenciesDetailListController extends GenericForwardComposer {
+public class CompetenciesDetailListController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
 
     Textbox idDepartment;
 
@@ -20,6 +28,14 @@ public class CompetenciesDetailListController extends GenericForwardComposer {
     Textbox idCompetencies;
 
     Window competenciesDetailListWdw;
+
+    Division div = new Division();
+
+    Departement dep = new Departement();
+
+    Grade grd = new Grade();
+
+    SubGrade subGrd = new SubGrade();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -38,5 +54,86 @@ public class CompetenciesDetailListController extends GenericForwardComposer {
         args.put("Competencies", competency);
 
         return  args;
+    }
+
+    public void onClick$btnDepartement(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Departement departement = new Departement();
+        args.put("object", departement);
+        args.put("division", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Departement/DeptPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    public void onClick$btnGrade(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Grade grade = new Grade();
+        args.put("objectGrade", grade);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Grade/GradePopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+    public void onClick$btnSubGrade(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        SubGrade div = new SubGrade();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Grade/SubGradePopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+
+    @Override
+    public void afterSelectDepartement(Departement departement) {
+        if(departement != null){
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementCode());
+        }
+    }
+
+    @Override
+    public void afterSelectGrade(Grade grade) {
+        if(grade != null){
+            grd = grade;
+            idGrade.setValue(grd.getGradeCode());
+        }
+
+    }
+
+    @Override
+    public void afterSelectSubGrade(SubGrade subGrade) {
+
+        if(subGrade != null){
+            subGrd = subGrade;
+            idSubGrade.setValue(subGrd.getSubGradeCode());
+        }
     }
 }

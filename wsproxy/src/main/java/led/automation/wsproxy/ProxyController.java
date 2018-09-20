@@ -482,6 +482,14 @@ public class ProxyController {
 
 	}
 
+	@RequestMapping(value = "/led/api/automation/search/subgrade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String subGradeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+							  HttpServletResponse response) throws URISyntaxException {
+		return proxy(subgradeUrlSearch, body, method, request, response);
+
+	}
+
 	@RequestMapping(value = "/led/api/automation/search/gradeJson", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String subgradeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,

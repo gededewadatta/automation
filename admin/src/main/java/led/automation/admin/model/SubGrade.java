@@ -21,7 +21,7 @@ public class SubGrade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SUBGRADE_SEQ")
 	@SequenceGenerator(sequenceName = "subgrade_seq", allocationSize = 1, name = "SUBGRADE_SEQ")
-	private Long id;
+	private Long idSubGrade;
 
 	@Column(name = "GRADE_CODE")
 	private String gradeCode;
@@ -36,15 +36,14 @@ public class SubGrade {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
-		return id;
+	public Long getIdSubGrade() {
+		return idSubGrade;
 	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setIdSubGrade(Long idSubGrade) {
+		this.idSubGrade = idSubGrade;
 	}
+
 	/**
 	 * @return the gradeCode
 	 */
@@ -110,7 +109,7 @@ public class SubGrade {
 	 */
 	@Override
 	public String toString() {
-		return "SubGrade [id=" + id + ", gradeCode=" + gradeCode + ", subGradeCode=" + subGradeCode + ", subGradeName="
+		return "SubGrade [id=" + idSubGrade + ", gradeCode=" + gradeCode + ", subGradeCode=" + subGradeCode + ", subGradeName="
 				+ subGradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + "]";
 	}
 

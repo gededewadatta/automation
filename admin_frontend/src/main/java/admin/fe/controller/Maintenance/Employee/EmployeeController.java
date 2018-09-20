@@ -3,13 +3,16 @@ package admin.fe.controller.Maintenance.Employee;
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
-import admin.fe.engine.PageNavigation;
-import admin.fe.engine.SendJSON;
+import admin.fe.engine.*;
+import admin.fe.model.Departement;
+import admin.fe.model.Division;
 import admin.fe.model.Employee;
 import admin.fe.model.Grade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
@@ -27,7 +30,8 @@ Author Muhammad Burhanudin
  */
 
 @Controller
-public class EmployeeController extends CommonController {
+public class EmployeeController extends CommonController implements PopupCallerDivisionInterface,
+        PopupCallerDepartmentInterface, PopupCallerEmployeeInterface {
 
     private Window employeeCont;
     private AbstractMainWindowTransaction parent;
@@ -39,6 +43,10 @@ public class EmployeeController extends CommonController {
     Textbox idDepartment;
     Textbox idEmployee;
     List<Employee> employeeList;
+
+    Division div = new Division();
+    Departement dep = new Departement();
+    Employee emp = new Employee();
 
 
     @Autowired
@@ -161,5 +169,85 @@ public class EmployeeController extends CommonController {
         args.put("subGradeCode",obj.getSubGradeCode());
 
         return args;
+    }
+
+    @Override
+    public void afterSelectDivision(Division division) {
+
+        if(division != null){
+            div = division;
+            idDivision.setValue(division.getDivisionName());
+        }
+
+    }
+
+    @Override
+    public void afterSelectDepartement(Departement departement) {
+        if(departement != null){
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementName());
+        }
+    }
+
+    public void onClick$btnDepartement(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Departement departement = new Departement();
+        args.put("object", departement);
+        args.put("division", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Departement/DeptPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+    public void onClick$btnDivision(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    public void onClick$btnEmployee(){
+        Map<String, Object> args = new HashMap<String, Object>();
+        Employee emp = new Employee();
+        args.put("object", emp);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Employee/EmployeePopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+    }
+
+    @Override
+    public void afterSelectEmployee(Employee employee) {
+
+        if(employee != null){
+            emp = employee;
+            idEmployee.setValue(emp.getEmployeeCode());
+        }
+
     }
 }

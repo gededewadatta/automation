@@ -14,7 +14,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id ="btnDivision"/>
                             </div>
                         </hbox>
                     </row>
@@ -26,7 +26,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnDepartment"/>
                             </div>
                         </hbox>
                     </row>
@@ -38,7 +38,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnGrade"/>
                             </div>
                         </hbox>
 
@@ -51,6 +51,9 @@
                                 <textbox id="idSubGrade" value="${win$composer.inventoryItem.createdDate}"
                                          constraint="no empty" />
                             </hlayout>
+                            <div>
+                                <button id="btnSubGrade"/>
+                            </div>
                         </hbox>
 
                     </row>

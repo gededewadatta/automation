@@ -14,7 +14,7 @@
                                          constraint="no empty" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id ="btnDivSeearch"/>
                             </div>
                         </hbox>
                     </row>

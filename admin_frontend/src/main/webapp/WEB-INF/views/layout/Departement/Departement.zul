@@ -17,7 +17,7 @@
                                 <textbox id="idDivision" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnDivision"/>
                             </div>
                         </hbox>
                     </row>
@@ -28,7 +28,7 @@
                                 <textbox id="idDepartement" />
                             </hlayout>
                             <div>
-                                <button/>
+                                <button id="btnDepartement"/>
                             </div>
                         </hbox>
 

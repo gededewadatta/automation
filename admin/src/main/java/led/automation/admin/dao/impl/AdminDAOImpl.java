@@ -3,9 +3,7 @@
  */
 package led.automation.admin.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import javax.sql.DataSource;
 
@@ -46,6 +44,9 @@ public class AdminDAOImpl implements AdminDAO {
 	DivisionRepository divisionRepository;
 
 	@Autowired
+	GradeJsonRepoSitory gradeJsonRepoSitory;
+
+	@Autowired
 	CompetencyRepository competencyRepository;
 	@Autowired
 	PendingQuestionRepository pendingQuestionRepository;
@@ -65,7 +66,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		Grade grade = new Grade();
 		grade = gradeRepository.save(body);
-		return grade.getId()==0?0:1;
+		return grade.getIdGrade()==0?0:1;
 	}
 
 	@Override
@@ -74,7 +75,7 @@ public class AdminDAOImpl implements AdminDAO {
 		SubGrade subGrade = new SubGrade();
 		subGrade = subGradeRepository.save(body);
 
-		return subGrade.getId()==0?0:1;
+		return subGrade.getIdSubGrade()==0?0:1;
 	}
 
 	@Override
@@ -124,19 +125,19 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<Departement> searchDepartement(String departementCode, String departementName) {
+	public List<Departement> searchDepartement(String departementCode, String divisionCode) {
 		// TODO Auto-generated method stub
 		List<Departement> departement = new ArrayList<>();
-		if(departementCode.equals("")&&departementName.equals("")) {
+		if(departementCode.equals("") && divisionCode.equals("")) {
 			departement = departementRepository.findAll();
 		}
-		else if(departementCode.equals("")&& !departementName.equals("")) {
-			departement = departementRepository.findByDepartementName(departementName);
+		else if(departementCode.equals("")&& !divisionCode.equals("")) {
+			departement = departementRepository.findByDivisionCode(divisionCode);
 		}
-		else if(!departementCode.equals("")&& departementName.equals("")) {
+		else if(!departementCode.equals("")&& divisionCode.equals("")) {
 			departement = departementRepository.findByDepartementCode(departementCode);
 		}else {
-			departement = departementRepository.findByDepartementCodeAndName(departementCode,departementName);
+			departement = departementRepository.findByDepartementCodeAndDivisionCode(departementCode,divisionCode);
 		}
 
 		return departement;
@@ -181,11 +182,12 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public SubGrade searchSubGrade(String subGradeCode, String subGradeName) {
+	public List<SubGrade> searchSubGrade(String subGradeCode, String subGradeName) {
 		// TODO Auto-generated method stub
-		SubGrade subGrade = new SubGrade();
+		List<SubGrade> subGrade = new ArrayList<>();
+
 		if(subGradeCode.equals("")&& subGradeName.equals("")) {
-			subGrade = (SubGrade) subGradeRepository.findAll();
+			subGrade =  subGradeRepository.findAll();
 		}
 		else if(subGradeCode.equals("")&&!subGradeName.equals("")){
 			subGrade = subGradeRepository.findBySubGradeName(subGradeName);
@@ -209,97 +211,14 @@ public class AdminDAOImpl implements AdminDAO {
 
 		if(departmentCode.equals("")&& divisionCode.equals("")) {
 
-			gradeList = gradeRepository.findAll();
+			gradeJsons = gradeJsonRepoSitory.findAll();
 
-			for(Grade grade : gradeList){
-
-				SubGrade subGrd =  new SubGrade();
-
-				GradeJson grdjson =  new GradeJson();
-
-				subGrd = subGradeRepository.findBySubGradeCode(grade.getGradeCode());
-
-				grdjson.setGradeCode(grade.getGradeCode());
-				grdjson.setGradeName(grade.getGradeName());
-				grdjson.setSubGradeCode(subGrd.getSubGradeCode());
-				grdjson.setSubGradeName(subGrd.getSubGradeName());
-				grdjson.setDepartementCode(grade.getDepartementCode());
-				grdjson.setDivisionCode(grade.getDivisionCode());
-				grdjson.setIdGrade(grade.getId());
-				grdjson.setIdSubGrade(subGrd.getId());
-
-				gradeJsons.add(grdjson);
-			}
-
-		}
-		else if(!departmentCode.equals("")&&divisionCode.equals("")){
-
-			gradeList = gradeRepository.findByDepartmentCode(departmentCode);
-
-			for(Grade grade : gradeList){
-
-				SubGrade subGrd =  new SubGrade();
-
-				GradeJson grdjson =  new GradeJson();
-
-				subGrd = subGradeRepository.findBySubGradeCode(grade.getGradeCode());
-
-				grdjson.setGradeCode(grade.getGradeCode());
-				grdjson.setGradeName(grade.getGradeName());
-				grdjson.setSubGradeCode(subGrd.getSubGradeCode());
-				grdjson.setSubGradeName(subGrd.getSubGradeName());
-				grdjson.setDepartementCode(grade.getDepartementCode());
-				grdjson.setDivisionCode(grade.getDivisionCode());
-				grdjson.setIdGrade(grade.getId());
-				grdjson.setIdGrade(subGrd.getId());
-
-				gradeJsons.add(grdjson);
-			}
-		}
-		else if(departmentCode.equals("")&& !divisionCode.equals("")) {
-			gradeList = gradeRepository.findByDivisionCode(divisionCode);
-
-			for(Grade grade : gradeList){
-
-				SubGrade subGrd =  new SubGrade();
-
-				GradeJson grdjson =  new GradeJson();
-
-				subGrd = subGradeRepository.findBySubGradeCode(grade.getGradeCode());
-
-				grdjson.setGradeCode(grade.getGradeCode());
-				grdjson.setGradeName(grade.getGradeName());
-				grdjson.setSubGradeCode(subGrd.getSubGradeCode());
-				grdjson.setSubGradeName(subGrd.getSubGradeName());
-				grdjson.setDepartementCode(grade.getDepartementCode());
-				grdjson.setDivisionCode(grade.getDivisionCode());
-				grdjson.setIdGrade(grade.getId());
-				grdjson.setIdGrade(subGrd.getId());
-
-				gradeJsons.add(grdjson);
-			}
+		}else if(!departmentCode.equals("")&&divisionCode.equals("")){
+			gradeJsons = gradeJsonRepoSitory.findByDepartmentCode(departmentCode);
+		}else if(departmentCode.equals("")&& !divisionCode.equals("")) {
+			gradeJsons = gradeJsonRepoSitory.findByDivisionCode(divisionCode);
 		}else {
-			gradeList = gradeRepository.findByDepartmentCodeAndDivisionName(departmentCode,divisionCode);
-
-			for(Grade grade : gradeList){
-
-				SubGrade subGrd =  new SubGrade();
-
-				GradeJson grdjson =  new GradeJson();
-
-				subGrd = subGradeRepository.findBySubGradeCode(grade.getGradeCode());
-
-				grdjson.setGradeCode(grade.getGradeCode());
-				grdjson.setGradeName(grade.getGradeName());
-				grdjson.setSubGradeCode(subGrd.getSubGradeCode());
-				grdjson.setSubGradeName(subGrd.getSubGradeName());
-				grdjson.setDepartementCode(grade.getDepartementCode());
-				grdjson.setDivisionCode(grade.getDivisionCode());
-				grdjson.setIdGrade(grade.getId());
-				grdjson.setIdGrade(subGrd.getId());
-
-				gradeJsons.add(grdjson);
-			}
+			gradeJsons = gradeJsonRepoSitory.findByDivisionCodeAndDivisionName(departmentCode,divisionCode);
 		}
 
 		return gradeJsons;

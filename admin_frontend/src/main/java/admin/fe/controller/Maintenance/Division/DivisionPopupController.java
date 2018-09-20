@@ -24,7 +24,7 @@ public class DivisionPopupController extends CommonController {
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
-        comp.setAttribute("controller",this, true);
+        comp.setAttribute("DivisionPopupController",this, true);
 
         Division div = new Division();
         div.setDivisionCode("");

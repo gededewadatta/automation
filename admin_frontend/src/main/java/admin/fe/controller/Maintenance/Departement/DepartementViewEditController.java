@@ -6,18 +6,22 @@ package admin.fe.controller.Maintenance.Departement;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Departement;
+import admin.fe.model.Division;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zul.Button;
-import org.zkoss.zul.Label;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
+import org.zkoss.zul.*;
 
-public class DepartementViewEditController extends CommonController {
+import java.util.HashMap;
+import java.util.Map;
+
+public class DepartementViewEditController extends CommonController implements PopupCallerDivisionInterface {
 
     Label idDivisionView;
     Label idDepartementView;
@@ -29,6 +33,8 @@ public class DepartementViewEditController extends CommonController {
     Button submitButton;
     Button clearButton;
     Button divisionButton;
+
+    Division div = new Division();
 
     private final String TYPE_SHOW_VIEW = "VIEW";
     private final String TYPE_SHOW_EDIT = "EDIT";
@@ -76,6 +82,34 @@ public class DepartementViewEditController extends CommonController {
             idDivisionEdit.setDisabled(true);
             idDepartementEdit.setDisabled(true);
             backButton.setVisible(false);
+        }
+
+    }
+
+    public void onClick$divisionButton(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    @Override
+    public void afterSelectDivision(Division division) {
+
+        if(division != null){
+            div = division;
+            idDivisionEdit.setValue(division.getDivisionCode());
         }
 
     }

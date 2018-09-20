@@ -1,9 +1,8 @@
 package admin.fe.controller.Maintenance.Employee;
 
 import admin.fe.controller.common.CommonController;
-import admin.fe.engine.ProxyEngine;
-import admin.fe.engine.SendJSON;
-import admin.fe.model.Employee;
+import admin.fe.engine.*;
+import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
 
@@ -33,7 +37,7 @@ Author Muhammad Burhanudin
  */
 
 @Controller
-public class EmployeeDetailController extends CommonController {
+public class EmployeeDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerDivisionInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
 
     @Autowired
     ServletRegistrationBean dHtmlLayoutServlet;
@@ -59,6 +63,14 @@ public class EmployeeDetailController extends CommonController {
 
     @Value("${led.Employee.insert}")
     protected String employeeInsert;
+
+    Division div = new Division();
+
+    Departement dep = new Departement();
+
+    Grade grd = new Grade();
+
+    SubGrade subGrd = new SubGrade();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -100,7 +112,111 @@ public class EmployeeDetailController extends CommonController {
         }
     }
 
+    public void onClick$btnDepartment(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Departement departement = new Departement();
+        args.put("object", departement);
+        args.put("division", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Departement/DeptPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+    public void onClick$btnDivision(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    public void onClick$btnGrade(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Grade grade = new Grade();
+        args.put("objectGrade", grade);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Grade/GradePopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+    public void onClick$btnSubGrade(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        SubGrade div = new SubGrade();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Grade/SubGradePopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
 
 
+    @Override
+    public void afterSelectDivision(Division division) {
 
+        if(division != null){
+            div = division;
+            idDivision.setValue(division.getDivisionCode());
+        }
+
+    }
+
+    @Override
+    public void afterSelectDepartement(Departement departement) {
+        if(departement != null){
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementCode());
+        }
+    }
+
+    @Override
+    public void afterSelectGrade(Grade grade) {
+        if(grade != null){
+            grd = grade;
+            idGrade.setValue(grd.getGradeCode());
+        }
+
+    }
+
+    @Override
+    public void afterSelectSubGrade(SubGrade subGrade) {
+
+        if(subGrade != null){
+            subGrd = subGrade;
+            idSubGrade.setValue(subGrd.getSubGradeCode());
+        }
+    }
 }

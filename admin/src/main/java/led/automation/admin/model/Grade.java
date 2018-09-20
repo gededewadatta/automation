@@ -4,6 +4,7 @@
 package led.automation.admin.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -21,7 +22,7 @@ public class Grade {
 	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_SEQ")
     @SequenceGenerator(sequenceName = "grade_seq", allocationSize = 1, name = "GRADE_SEQ")
-    Long id;
+    Long idGrade;
 
 	@Column(name = "DIVISION_CODE")
 	private String divisionCode;
@@ -44,15 +45,13 @@ public class Grade {
 	/**
 	 * @return the id
 	 */
-	public Long getId() {
-		return id;
+
+	public Long getIdGrade() {
+		return idGrade;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdGrade(Long idGrade) {
+		this.idGrade = idGrade;
 	}
 
 	/**
@@ -144,7 +143,7 @@ public class Grade {
 	 */
 	@Override
 	public String toString() {
-		return "Grade [id=" + id + ", departementCode=" + departementCode + ", gradeCode=" + gradeCode + ", gradeName="
+		return "Grade [id=" + idGrade + ", departementCode=" + departementCode + ", gradeCode=" + gradeCode + ", gradeName="
 				+ gradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", divisionCode="+divisionCode+"]";
 	}
  

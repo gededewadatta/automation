@@ -6,29 +6,35 @@ package admin.fe.controller.Maintenance.Departement;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Departement;
+import admin.fe.model.Division;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Value;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.Wire;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
+import org.zkoss.zul.*;
 
-import java.util.Date;
+import java.util.*;
 
-public class DepartementDetailController extends CommonController {
+public class DepartementDetailController extends CommonController implements PopupCallerDivisionInterface {
 
-    @Wire
     Textbox idDivision;
 
-    @Wire
     Textbox idDepartement;
 
-    @Wire
     Textbox nameDepartement;
+
+    Division div = new Division();
+
+    protected Grid hGrid;
+
+    protected ListModelList modelList;
 
     @Value("${led.Departement.insert}")
     protected String departementInsert;
@@ -41,14 +47,18 @@ public class DepartementDetailController extends CommonController {
     }
 
     public void onClick$submitButton(){
-        System.out.println("Ini Fucking Submit");
 
         Departement dep = new Departement();
 
         SendJSON send = new SendJSON();
 
-        System.out.println("Ini Fucking Submit2");
-        dep.setDivisionCode(idDivision.getValue());
+        if(div.getDivisionCode().equals("") || div.getDivisionCode() == null){
+            dep.setDivisionCode("");
+        }else{
+            dep.setDivisionCode(div.getDivisionCode());
+            System.out.println("division global terisi :"+div.getDivisionCode());
+        }
+
         dep.setDepartementCode(idDepartement.getValue());
         dep.setDepartementName(nameDepartement.getValue());
         dep.setCreatedDate(new Date());
@@ -81,6 +91,35 @@ public class DepartementDetailController extends CommonController {
         idDivision.setValue("");
         idDepartement.setValue("");
         nameDepartement.setValue("");
+    }
+
+    public void onClick$btnDivSeearch(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+
+    @Override
+    public void afterSelectDivision(Division division) {
+
+        if(division != null){
+            div = division;
+            idDivision.setValue(division.getDivisionName());
+        }
+
     }
 //test
 }

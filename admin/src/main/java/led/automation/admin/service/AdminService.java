@@ -4,6 +4,7 @@
 package led.automation.admin.service;
 
 import java.util.List;
+import java.util.Set;
 
 import led.automation.admin.model.*;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public interface AdminService {
 
 	public List<Question> searchQuestion(String body);
 
-	public SubGrade searchSubGrade(String body);
+	public List<SubGrade> searchSubGrade(String body);
 
 	public List<GradeJson> searchGradeJson(String body);
 

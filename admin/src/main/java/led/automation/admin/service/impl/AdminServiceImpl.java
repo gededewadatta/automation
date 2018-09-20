@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import led.automation.admin.model.*;
@@ -177,7 +178,7 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		jsonResponse = new JSONObject(body);
 		subGrade = new SubGrade();
-		subGrade.setId(jsonResponse.isNull("id") ? null : jsonResponse.getLong("id"));
+		subGrade.setIdSubGrade(jsonResponse.isNull("id") ? null : jsonResponse.getLong("id"));
 		subGrade.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
 		subGrade.setSubGradeName(jsonResponse.isNull("subGradeName") ? "" : jsonResponse.getString("subGradeName"));
 		subGrade.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
@@ -337,13 +338,13 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public SubGrade searchSubGrade(String body) {
+	public List<SubGrade> searchSubGrade(String body) {
 		// TODO Auto-generated method stub
 		jsonResponse = new JSONObject(body);
 		String subGradeCode = null;
-		subGradeCode = jsonResponse.isNull("subgradecode") ? "" : jsonResponse.getString("subgradecode");
+		subGradeCode = jsonResponse.isNull("subgradeCode") ? "" : jsonResponse.getString("subgradeCode");
 		String subGradeName = null;
-		subGradeName = jsonResponse.isNull("subgradename") ? "" : jsonResponse.getString("subgradename");
+		subGradeName = jsonResponse.isNull("subgradeName") ? "" : jsonResponse.getString("subgradeName");
 
 		return adminDAO.searchSubGrade(subGradeCode, subGradeName);
 	}
@@ -415,7 +416,7 @@ public class AdminServiceImpl implements AdminService {
 		 * jsonResponse.isNull("departementname")?"":jsonResponse.getString(
 		 * "departementname");
 		 */
-		return adminDAO.searchDepartement(dep.getDepartementCode(), dep.getDepartementName());
+		return adminDAO.searchDepartement(dep.getDepartementCode(), dep.getDivisionCode());
 	}
 
 	@Override
