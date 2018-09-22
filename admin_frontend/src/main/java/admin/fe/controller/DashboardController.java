@@ -17,9 +17,7 @@ import org.zkoss.zul.*;
 
 import admin.fe.model.StockModel;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -83,6 +81,14 @@ public class DashboardController extends CommonController {
                     filename = filename+"_"+dateFormat.format(date)+".pdf";
 
                     if(FileUtil.generatePDFFile(destination+"\\"+filename,ddbLIst)){
+                        try {
+                            File file = new File(destination+"\\"+filename);
+                            FileInputStream inStream = new FileInputStream(file);
+                            Filedownload.save(inStream, "application/pdf", filename);
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+
                         Messagebox.show("Data Already Downloaded");
                     }else{
                         Messagebox.show("Data Failed to Download");
@@ -93,10 +99,16 @@ public class DashboardController extends CommonController {
                     System.out.println("INI EXCEL ISINYA");
                     filename = filename+"_"+dateFormat.format(date)+".xls";
 
-                    if(FileUtil.GenerateExcelFile(0,destination+"\\"+filename,1,FileUtil.generateHeader(),1,
-                            FileUtil.generateExcelDashBoardBody(ddbLIst),1,"Dashboard Report")){
-//                    if(FileUtil.generatePDFFile(destination+"\\"+filename,ddbLIst)){
-                    //if(FileUtil.genarateXLSFile(destination+"\\"+filename,ddbLIst)){
+                    if(FileUtil.GenerateXLSFile(0,destination+"\\"+filename,1,FileUtil.generateHeader(),1,
+                            ddbLIst,1,"Dashboard Report")){
+                        try {
+                            File file = new File(destination+"\\"+filename);
+                            FileInputStream inStream = new FileInputStream(file);
+                            Filedownload.save(inStream, "application/ms-excel", filename);
+                        } catch (IOException e){
+                            e.printStackTrace();
+                        }
+
                         Messagebox.show("Data Already Downloaded");
                     }else{
                         Messagebox.show("Data Failed to Download");

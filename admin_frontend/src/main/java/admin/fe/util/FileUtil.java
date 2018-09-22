@@ -2,18 +2,13 @@ package admin.fe.util;
 
 import admin.fe.model.Dashboard;
 import com.itextpdf.text.*;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
-//import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.zkoss.zul.Messagebox;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,21 +21,16 @@ import java.util.List;
 
 public class FileUtil {
 
-    public static boolean GenerateExcelFile(int skipline,
+    public static boolean GenerateXLSFile(int skipline,
                                                        String fileLocation, int headerx, String[] header,
                                                        int recordx, List<Dashboard> data, int footerx,String sheetName){
-        boolean result = false;
-        Workbook wb = new XSSFWorkbook();
+        Workbook wb = new HSSFWorkbook();
 
         Sheet sheet = wb.createSheet(sheetName);
-        //PrintSetup printSetup = sheet.getPrintSetup();
-        //printSetup.setLandscape(true);
-        //sheet.setFitToPage(true);
-        //sheet.setHorizontallyCenter(true);
 
         org.apache.poi.ss.usermodel.Font headerFont = wb.createFont();
         headerFont.setBold(true);
-        headerFont.setFontHeightInPoints((short) 11);
+        headerFont.setFontHeightInPoints((short) 10);
 
         CellStyle headerCellStyle = wb.createCellStyle();
         headerCellStyle.setFont(headerFont);
@@ -62,42 +52,30 @@ public class FileUtil {
 
         int rowData = 1;
 
-        for (data DATA)
+        for (Dashboard dashboard : data){
+            Row row = sheet.createRow(rowData++);
 
-        // detail row
-        /*if (records != null) {
-            int headerLength = (header == null ? 0 : header.length);
-            for (int i = 0; i < records.length; i++) {
-                Row row = sheet.createRow(i + headerLength + skipline);
-                for (int j = 0; j < records[i].length; j++) {
-                    Cell cell = row.createCell(j + recordx);
-                    cell.setCellValue((String) records[i][j]);
-                    if(i==0){
-                        cell.setCellStyle(headerCellStyle);
-                    }
+            row.createCell(0).setCellValue(dashboard.getEmployeeId());
+            row.createCell(1).setCellValue(dashboard.getGrade());
+            row.createCell(2).setCellValue(dashboard.getResult());
+        }
+        for (int i = 0; i < header.length; i++){
+            sheet.autoSizeColumn(i);
+        }
 
-                }
-            }
-        }*/
-
-        // Write the output to a file
-        if (wb instanceof XSSFWorkbook)
-            fileLocation += "x";
         File file = new File(fileLocation);
                 FileOutputStream out = null;
                 try {
                     out = new FileOutputStream(file);
                     wb.write(out);
                     out.close();
-                    result = true;
+                    return true;
                 } catch (FileNotFoundException e) {
-                    result = false;
+                    return false;
                 } catch (IOException e) {
-                    result = false;
                     e.printStackTrace();
+                    return false;
                 }
-
-                return result;
      }
 
      public static String[] generateHeader(){
@@ -105,29 +83,6 @@ public class FileUtil {
         return header;
      }
 
-    /*public static String[][] generateExcelDashBoardHeader(){
-        String[][] header = new String[4][3];
-        header[0][1] = "Employee Grade Result";
-        return header;
-    }*/
-
-
-    public static String[][] generateExcelDashBoardBody(
-            List<Dashboard> dashboards) {
-        String[][] record = new String[dashboards.size() + 1][22];
-        record[0][0] = "Employee ID";
-        record[0][1] = "Grade";
-        record[0][2] = "Result";
-
-        for (int i = 1; i <= dashboards.size(); i++) {
-            Dashboard dashboard = dashboards.get(i - 1);
-            record[i][0] = dashboard.getEmployeeId();
-            record[i][1] = dashboard.getGrade();
-            record[i][2] = dashboard.getResult();
-        }
-        return record;
-    }
-    
     public static Date getDate(Date date){
         Date result = new Date();
         try {
@@ -201,69 +156,6 @@ public class FileUtil {
             e.printStackTrace();
            return false;
         }
-
     }
 
-    public static boolean genarateXLSFile(String fileLocation, List<Dashboard> dashboards){
-
-        XSSFWorkbook workbook = new XSSFWorkbook();
-
-        Sheet sheet = workbook.createSheet("Sheet1");
-        PrintSetup printSetup = sheet.getPrintSetup();
-        printSetup.setLandscape(true);
-        sheet.setFitToPage(true);
-        sheet.setHorizontallyCenter(true);
-
-        org.apache.poi.ss.usermodel.Font headerFont = workbook.createFont();
-        headerFont.setBold(true);
-        headerFont.setFontHeightInPoints((short) 14);
-
-        CellStyle headerCellStyle = workbook.createCellStyle();
-        headerCellStyle.setFont(headerFont);
-        headerCellStyle.setWrapText(true);
-        headerCellStyle.setAlignment(HorizontalAlignment.CENTER);
-        headerCellStyle.setFillBackgroundColor(HSSFColor.GREY_40_PERCENT.index);
-        headerCellStyle.setShrinkToFit(true);
-
-        Row headerRow = sheet.createRow(0);
-
-        Cell cell1 = headerRow.createCell(0);
-        cell1.setCellValue("Employee ID");
-        cell1.setCellStyle(headerCellStyle);
-
-        Cell cell2 = headerRow.createCell(1);
-        cell2.setCellValue("Grade");
-        cell2.setCellStyle(headerCellStyle);
-
-        Cell cell3 = headerRow.createCell(2);
-        cell3.setCellValue("Result");
-        cell3.setCellStyle(headerCellStyle);
-
-        for(int i = 0; i < dashboards.size(); i++){
-            Dashboard dashboard = dashboards.get(i);
-            Row row = sheet.createRow(i++);
-            row.createCell(0).setCellValue(dashboard.getEmployeeId());
-            row.createCell(1).setCellValue(dashboard.getGrade());
-            row.createCell(2).setCellValue(dashboard.getResult());
-        }
-
-        for (int i=0; i<2;i++){
-            sheet.autoSizeColumn(i);
-        }
-
-        try{
-            File file = new File(fileLocation);
-            FileOutputStream fileout = new FileOutputStream(file);
-            workbook.write(fileout);
-            fileout.close();
-
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IOException e){
-            e.printStackTrace();
-            return false;
-        }
-    }
 }
