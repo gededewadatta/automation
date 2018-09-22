@@ -277,5 +277,13 @@ public class AdminController {
 //		List<String> grade = adminService.findDepartementByDivCode(body);
 		return null;
 	}
+
+	@RequestMapping(value = "/test")
+	@ResponseBody
+	public String test(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+					   HttpServletResponse response)throws URISyntaxException{
+		System.out.println("TEST 123");
+		return "HELLOW";
+	}
 	//find data parent : stop
 }

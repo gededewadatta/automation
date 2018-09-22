@@ -372,6 +372,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("INI COBA MASUK");
 //		String gradeCode = null;
 //		String gradeName = null;
 //		jsonResponse = new JSONObject(body);

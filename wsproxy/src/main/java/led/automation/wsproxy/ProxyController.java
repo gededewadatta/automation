@@ -631,6 +631,14 @@ public class ProxyController {
 		return proxy(employeeSubmitQuestion, body, method, request, response);
 
 	}
+
+	@RequestMapping(value = "/test")
+    @ResponseBody
+    public String test(@RequestBody String body, HttpMethod method,
+                       HttpServletRequest request, HttpServletResponse response)throws URISyntaxException{
+	    System.out.println("TEST 123");
+	    return "HELLO";
+    }
 	// employee part : stop
 
 }

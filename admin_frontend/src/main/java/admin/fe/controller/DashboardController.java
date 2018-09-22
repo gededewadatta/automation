@@ -5,6 +5,10 @@ import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Dashboard;
 import admin.fe.util.FileUtil;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
@@ -13,7 +17,12 @@ import org.zkoss.zul.*;
 
 import admin.fe.model.StockModel;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 /*
 
@@ -33,6 +42,12 @@ public class DashboardController extends CommonController {
     
     final StockModel stockData = new StockModel();
 
+    String filename = "DashboardResults";
+    String destination = "D:\\Report";
+    String pattern = "ddMMyyyy_HHmmss";
+    SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+    Date date = new Date();
+
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
@@ -40,8 +55,6 @@ public class DashboardController extends CommonController {
         SendJSON send = new SendJSON();
 
         ddbLIst = send.getDashBoard();
-
-
 
         count = 1;
         modelList = new ListModelList(ddbLIst);
@@ -51,8 +64,9 @@ public class DashboardController extends CommonController {
 
         List<String> comboList = new ArrayList<>();
 
+        comboList.add("--Select--");
         comboList.add("XLS");
-        comboList.add("CSV");
+        comboList.add("PDF");
 
         ListModel<String> comboModel =  new SimpleListModel<String>(comboList);
         idCombo.setModel(comboModel);
@@ -62,17 +76,32 @@ public class DashboardController extends CommonController {
 
             public void onEvent(SelectEvent event) {
 
-                String filename = "Dashboard_Result"+ ".xls";
-                if(FileUtil.GenerateExcelFile(0,"E:\\"+filename,1,FileUtil.generateExcelDashBoardHeader(),1,
-                        FileUtil.generateExcelDashBoardBody(ddbLIst),1)){
+                if(event.getSelectedObjects().contains("PDF")) {
+                    createDirDestination();
+                    System.out.println("INI PDF ISINYA");
 
-                    Messagebox.show("Data Already Downloaded");
+                    filename = filename+"_"+dateFormat.format(date)+".pdf";
 
-                }else{
+                    if(FileUtil.generatePDFFile(destination+"\\"+filename,ddbLIst)){
+                        Messagebox.show("Data Already Downloaded");
+                    }else{
+                        Messagebox.show("Data Failed to Download");
+                    }
 
-                    Messagebox.show("Data Failed to Download");
+                }else if (event.getSelectedObjects().contains("XLS")) {
+                    createDirDestination();
+                    System.out.println("INI EXCEL ISINYA");
+                    filename = filename+"_"+dateFormat.format(date)+".xls";
+
+                    if(FileUtil.GenerateExcelFile(0,destination+"\\"+filename,1,FileUtil.generateHeader(),1,
+                            FileUtil.generateExcelDashBoardBody(ddbLIst),1,"Dashboard Report")){
+//                    if(FileUtil.generatePDFFile(destination+"\\"+filename,ddbLIst)){
+                    //if(FileUtil.genarateXLSFile(destination+"\\"+filename,ddbLIst)){
+                        Messagebox.show("Data Already Downloaded");
+                    }else{
+                        Messagebox.show("Data Failed to Download");
+                    }
                 }
-
 
             }
         });
@@ -95,5 +124,18 @@ public class DashboardController extends CommonController {
 
             }
         };
+    }
+
+    public void createDirDestination(){
+        File file = new File(destination);
+        if(!file.exists()){
+            if(file.mkdir()){
+                System.out.println("Destination directory successfull created");
+            } else{
+                System.out.println("Failed created destination directory");
+            }
+        } else {
+          System.out.println("Already Exist");
+        }
     }
 }
