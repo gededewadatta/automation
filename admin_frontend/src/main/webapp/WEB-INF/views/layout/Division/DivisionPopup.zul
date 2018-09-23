@@ -4,37 +4,35 @@
             apply="admin.fe.controller.Maintenance.Division.DivisionPopupController">
 
         <div>
-            <!--<grid>-->
-                <!--<rows>-->
-                    <!--<row>-->
-                        <!--<label value = "Division Id:" />-->
-                        <!--<hbox>-->
-                            <!--<hlayout>-->
-                                <!--<textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"-->
-                                         <!--constraint="no empty" />-->
-                            <!--</hlayout>-->
-                        <!--</hbox>-->
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Division Id:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDivision"  />
+                            </hlayout>
+                        </hbox>
 
 
-                    <!--</row>-->
-                    <!--<row>-->
-                        <!--<label value = "Division Name:" />-->
-                        <!--<hbox>-->
-                            <!--<hlayout>-->
-                                <!--<textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"-->
-                                         <!--constraint="no empty" />-->
-                            <!--</hlayout>-->
-                        <!--</hbox>-->
+                    </row>
+                    <row>
+                        <label value = "Division Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="nameDivision" />
+                            </hlayout>
+                        </hbox>
 
-                    <!--</row>-->
-                <!--</rows>-->
-            <!--</grid>-->
-            <!--<div align="center" style="margin-top:10px">-->
+                    </row>
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:10px">
 
-                <!--<button id="searchButton" label="Search" style="float::center"/>-->
-                <!--<button id="cancelButton" label="Cancel" style="float::center"/>-->
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
 
-            <!--</div>-->
+            </div>
 
             <vbox>
 

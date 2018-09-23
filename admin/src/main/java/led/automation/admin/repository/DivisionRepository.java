@@ -16,11 +16,11 @@ import led.automation.admin.model.Division;
  *
  */
 public interface DivisionRepository extends JpaRepository<Division, Long>{
-	@Query(value = "SELECT * FROM Division WHERE Division_NAME like %?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Division WHERE UPPER(Division_NAME) like %?1", nativeQuery = true)
 	List<Division> findByDivisionName(String DivisionName);
-	@Query(value = "SELECT * FROM Division WHERE Division_CODE like %?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Division WHERE UPPER(Division_CODE) like %?1", nativeQuery = true)
 	List<Division> findByDivisionCode(String DivisionCode);
-	@Query(value = "SELECT * FROM Division WHERE Division_CODE like %?1 AND Division_NAME like %?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM Division WHERE UPPER(Division_CODE) like %?1 AND UPPER(Division_NAME) like %?2", nativeQuery = true)
 	List<Division> findByDivisionCodeAndName(String DivisionCode, String DivisionName);
 	@Query(value = "SELECT ?1,div.division_name"
 			+ " FROM Division div", nativeQuery = true)

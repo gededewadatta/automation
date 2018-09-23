@@ -17,6 +17,10 @@ import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DivisionViewEditController extends CommonController {
 
     Label idDivisionView;
@@ -42,10 +46,12 @@ public class DivisionViewEditController extends CommonController {
         initView();
     }
 
-    public void getAllData(){
+    public void getAllData() {
+
         div.setId((Long) arg.get("id"));
         div.setDivisionCode((String) arg.get("divisionCode"));
         div.setDivisionName((String) arg.get("divisionName"));
+        div.setCreatedBy((String) arg.get("createdBy"));
     }
 
     public void initView() {
@@ -79,6 +85,8 @@ public class DivisionViewEditController extends CommonController {
     public void onClick$submitButton(){
         div.setDivisionCode(idDivisionEdit.getValue());
         div.setDivisionName(nameDivisionEdit.getValue());
+        div.setCreatedDate(new Date());
+
         Messagebox.show("Are you sure want to Update?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new EventListener() {
             public void onEvent(Event evt) throws InterruptedException {
                 if (evt.getName().equals("onYes")) {

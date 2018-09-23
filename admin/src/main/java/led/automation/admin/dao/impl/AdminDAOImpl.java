@@ -260,12 +260,12 @@ public class AdminDAOImpl implements AdminDAO {
 			division = divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){
-			division = divisionRepository.findByDivisionName(divisionName);
+			division = divisionRepository.findByDivisionName("%"+divisionName.toUpperCase()+"%");
 		}
 		else if(!divisionCode.equals("")&& divisionName.equals("")) {
-			division = divisionRepository.findByDivisionCode(divisionCode);
+			division = divisionRepository.findByDivisionCode("%"+divisionCode.toUpperCase()+"%");
 		}else {
-			division = divisionRepository.findByDivisionCodeAndName(divisionCode,divisionName);
+			division = divisionRepository.findByDivisionCodeAndName("%"+divisionCode.toUpperCase()+"%","%"+divisionName.toUpperCase()+"%");
 		}
 
 		return division;

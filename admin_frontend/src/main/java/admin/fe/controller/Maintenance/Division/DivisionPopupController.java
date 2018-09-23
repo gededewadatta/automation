@@ -21,12 +21,14 @@ public class DivisionPopupController extends CommonController {
     Grid hGrid;
     Window divPopup;
     Radiogroup rgrSearchResult;
+    Textbox idDivision;
+    Textbox nameDivision;
+    Division div = new Division();
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("DivisionPopupController",this, true);
 
-        Division div = new Division();
         div.setDivisionCode("");
         div.setDivisionName("");
 
@@ -77,6 +79,31 @@ public class DivisionPopupController extends CommonController {
             divPopup.onClose();
         }
 
+    }
+
+    public void onClick$searchButton() throws Exception {
+        if(idDivision != null || !(idDivision.equals(""))){
+            div.setDivisionCode(idDivision.getValue());
+        } else {
+            div.setDivisionCode("");
+        }
+
+        if(nameDivision != null|| !(nameDivision.equals(""))){
+            div.setDivisionName(nameDivision.getValue());
+        } else {
+            div.setDivisionName("");
+        }
+
+        divisionList = send.getDivision(div);
+
+        modelList = new ListModelList(divisionList);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+    }
+
+    public void onClick$cancelButton(){
+        divPopup.onClose();
     }
 
 

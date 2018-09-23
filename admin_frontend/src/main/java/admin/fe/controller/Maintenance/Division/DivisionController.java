@@ -21,6 +21,9 @@ import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zul.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +45,6 @@ public class DivisionController extends CommonController implements PopupCallerD
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
-        idCompanyName.setValue("PT COBA COBA");
         comp.setAttribute("controller",this, true);
     }
 
@@ -68,7 +70,7 @@ public class DivisionController extends CommonController implements PopupCallerD
         }
     }
 
-    public void onClick$searchButton(){
+    public void onClick$searchButton() throws Exception {
 
         if(div.getDivisionCode() == null || div.getDivisionCode().equals("")){
             div.setDivisionCode("");
@@ -146,6 +148,7 @@ public class DivisionController extends CommonController implements PopupCallerD
         args.put("id",obj.getId());
         args.put("divisionCode",obj.getDivisionCode());
         args.put("divisionName",obj.getDivisionName());
+        args.put("createdBy",obj.getCreatedBy());
         args.put("type",type);
 
         return args;

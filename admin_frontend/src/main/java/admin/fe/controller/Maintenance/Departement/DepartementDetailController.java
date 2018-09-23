@@ -121,5 +121,5 @@ public class DepartementDetailController extends CommonController implements Pop
         }
 
     }
-//test
+
 }

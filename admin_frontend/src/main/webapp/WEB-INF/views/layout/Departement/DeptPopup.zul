@@ -4,37 +4,37 @@
             apply="admin.fe.controller.Maintenance.Departement.DepartementPupupController">
 
         <div>
-            <!--<grid>-->
-                <!--<rows>-->
-                    <!--<row>-->
-                        <!--<label value = "Department Id:" />-->
-                        <!--<hbox>-->
-                            <!--<hlayout>-->
-                                <!--<textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"-->
-                                         <!--constraint="no empty" />-->
-                            <!--</hlayout>-->
-                        <!--</hbox>-->
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Department Id:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                        </hbox>
 
 
-                    <!--</row>-->
-                    <!--<row>-->
-                        <!--<label value = "Department Name:" />-->
-                        <!--<hbox>-->
-                            <!--<hlayout>-->
-                                <!--<textbox id="idDepartmentName" value="${win$composer.inventoryItem.createdDate}"-->
-                                         <!--constraint="no empty" />-->
-                            <!--</hlayout>-->
-                        <!--</hbox>-->
+                    </row>
+                    <row>
+                        <label value = "Department Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDepartmentName" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                        </hbox>
 
-                    <!--</row>-->
-                <!--</rows>-->
-            <!--</grid>-->
-            <!--<div align="center" style="margin-top:10px">-->
+                    </row>
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:10px">
 
-                <!--<button id="searchButton" label="Search" style="float::center"/>-->
-                <!--<button id="cancelButton" label="Cancel" style="float::center"/>-->
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
 
-            <!--</div>-->
+            </div>
 
             <vbox>
 

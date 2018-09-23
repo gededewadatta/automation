@@ -17,6 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -630,6 +632,7 @@ public class SendJSON {
         String body = null;
 
         List<Division> divisions = new ArrayList<>();
+
         try {
 
             body = mapper.writeValueAsString(div);
@@ -666,6 +669,7 @@ public class SendJSON {
                 division.setId(jsonObjVal.getLong("id"));
                 division.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 division.setDivisionName(jsonObjVal.getString("divisionName"));
+                division.setCreatedBy(jsonObjVal.getString("createdBy"));
                 divisions.add(division);
 
             }
