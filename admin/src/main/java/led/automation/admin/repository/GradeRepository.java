@@ -17,6 +17,8 @@ import led.automation.admin.model.Grade;
  */
 public interface GradeRepository extends JpaRepository<Grade, Long> {
 
+	@Query(value = "Select * from grade grd  join subgrade subGrd on grd.grade_code = subGrd.grade_code", nativeQuery = true)
+	List<Grade> findGrade();
 	@Query(value = "Select * from grade grd  join subgrade subGrd on grd.grade_code = subGrd.grade_code WHERE grd.departement_code like %?1", nativeQuery = true)
 	List<Grade> findByDepartmentCode(String DepartmentCode);
 	@Query(value = "Select * from grade grd  join subgrade subGrd on grd.grade_code = subGrd.grade_code WHERE grd.division_code like %?1", nativeQuery = true)

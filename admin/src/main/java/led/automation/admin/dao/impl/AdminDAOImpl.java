@@ -170,7 +170,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		List<Grade> grade = new ArrayList<>();
 		if(divisionCode.equals("")&&departmentCode.equals("")) {
-			grade =  gradeRepository.findAll();
+			grade =  gradeRepository.findGrade();
 		}
 		else if(divisionCode.equals("")&&!departmentCode.equals("")){
 			grade = gradeRepository.findByDepartmentCode(departmentCode);
@@ -227,27 +227,27 @@ public class AdminDAOImpl implements AdminDAO {
 		return gradeJsons;
 	}
 
-//	@Override
-//	public List<Competency> searchCompetency(String competencyCode, String competencyName) {
-//		// TODO Auto-generated method stub
-//		List<Competency> competency = new ArrayList<>();
-//		if(competencyCode.equals("")&&competencyName.equals("")) {
-//			competency = competencyRepository.findAll();
-//		}
-//		else if(competencyCode.equals("")&&!competencyName.equals("")){
-//			competency = competencyRepository.findByCompetencyName(competencyName);
-//		}
-//		else if(!competencyCode.equals("")&& competencyName.equals("")) {
-//			competency = competencyRepository.findByCompetencyCode(competencyCode);
-//		}else {
-//			competency = competencyRepository.findByCompetencyCodeAndName(competencyCode,competencyName);
-//		}
-//
-//		return competency;
-//	}
+	@Override
+	public List<Competency> searchCompetency(String competencyCode, String competencyName) {
+		// TODO Auto-generated method stub
+		List<Competency> competency = new ArrayList<>();
+		if(competencyCode.equals("")&&competencyName.equals("")) {
+			competency = competencyRepository.findAll();
+		}
+		else if(competencyCode.equals("")&&!competencyName.equals("")){
+			competency = competencyRepository.findByCompetencyName(competencyName);
+		}
+		else if(!competencyCode.equals("")&& competencyName.equals("")) {
+			competency = competencyRepository.findByCompetencyCode(competencyCode);
+		}else {
+			competency = competencyRepository.findByCompetencyCodeAndName(competencyCode,competencyName);
+		}
+
+		return competency;
+	}
 
 	@Override
-	public List<Competency> searchCompetency(String gradeCode) {
+	public List<Competency> searchCompetencyByGradeCode(String gradeCode) {
 		// TODO Auto-generated method stub
 		List<Competency> competency = new ArrayList<>();
 		competency = competencyRepository.findAll();

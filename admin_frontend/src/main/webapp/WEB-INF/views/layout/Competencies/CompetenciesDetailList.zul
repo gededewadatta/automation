@@ -48,10 +48,20 @@
                         </row>
 
                         <row>
-                            <label value = "Competencies:" />
+                            <label value = "Competency Code:" />
                             <hbox>
                                 <hlayout>
-                                    <textbox id="idCompetencies" value="${win$composer.inventoryItem.createdDate}"
+                                    <textbox id="idCompetencyCode" value="${win$composer.inventoryItem.createdDate}"
+                                             constraint="no empty" />
+                                </hlayout>
+                            </hbox>
+
+                        </row>
+                        <row>
+                            <label value = "Competency Name:" />
+                            <hbox>
+                                <hlayout>
+                                    <textbox id="idCompetencyName" value="${win$composer.inventoryItem.createdDate}"
                                              constraint="no empty" />
                                 </hlayout>
                             </hbox>

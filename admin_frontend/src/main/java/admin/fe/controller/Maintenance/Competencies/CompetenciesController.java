@@ -25,6 +25,8 @@ public class CompetenciesController extends CommonController implements PopupCal
     Textbox idGrade;
     Textbox idSubGrade;
 
+    Competency comp = new Competency();
+    SendJSON send = new SendJSON();
     protected Grid hGrid;
     protected ListModelList modelList;
     Division div = new Division();
@@ -43,12 +45,9 @@ public class CompetenciesController extends CommonController implements PopupCal
 
     public void onClick$searchButton(){
 
-        Competency comp = new Competency();
-        SendJSON send = new SendJSON();
-
         comp.setGradeCode(idGrade.getValue());
 
-        competencies = send.getCompetency(comp);
+        competencies = send.getCompetencyByGradeCode(comp);
 
         modelList = new ListModelList(competencies);
         hGrid.setModel(modelList);

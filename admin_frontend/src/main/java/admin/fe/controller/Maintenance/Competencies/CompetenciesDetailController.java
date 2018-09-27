@@ -25,8 +25,6 @@ import java.util.Map;
 
 public class CompetenciesDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
 
-
-
     Vbox boxList;
 
     Textbox idDepartment;

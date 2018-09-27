@@ -33,6 +33,19 @@ public class SubGrade {
 	private Date createdDate;
 	@Column(name = "CREATED_BY")
 	private String createdBy;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "grade_code", insertable = false, updatable = false)
+	private Grade grade;
+
+
+	public Grade getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+
 	/**
 	 * @return the id
 	 */

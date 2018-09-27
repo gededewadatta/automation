@@ -190,7 +190,16 @@ public class AdminController {
 		List<Report> reports = adminService.searchReportEmployee(body);
 		return reports;
 	}
-	// search data : stop 
+
+
+	@RequestMapping(value = "/led/api/automation/search/competencyByGradeCode", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Competency> searchCompetencyByGradeCode(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+											 HttpServletResponse response) throws URISyntaxException {
+		List<Competency> competency = adminService.searchCompetencyByGradeCode(body);
+		return competency;
+	}
+	// search data : stop
 	 
 	// upload data : start
 	@RequestMapping(value = "/led/api/automation/upload/question", produces = "application/json", method = RequestMethod.POST)

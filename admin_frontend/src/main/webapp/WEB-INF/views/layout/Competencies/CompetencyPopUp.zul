@@ -1,0 +1,59 @@
+<zk>
+
+    <window width="500px" border="none" id="compPopup"
+            apply="admin.fe.controller.Maintenance.Competencies.CompetenciesPopupController">
+
+        <div>
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Competency Code:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idCompetencyCode"  />
+                            </hlayout>
+                        </hbox>
+
+
+                    </row>
+                    <row>
+                        <label value = "Competency Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idCompetencyName" />
+                            </hlayout>
+                        </hbox>
+
+                    </row>
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:10px">
+
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
+
+            </div>
+
+            <vbox>
+
+                <radiogroup id="rgrSearchResult">
+                    <grid id="hGrid"  mold="paging" style="margin-top:10px">
+                        <columns>
+                            <column label="Select" />
+                            <column label="Competency Id" sort="auto(competencyCode)" align="center"/>
+                            <column label="Competency Name" sort="auto(competencyCName)" align="center"/>
+                        </columns>
+                    </grid>
+                </radiogroup>
+
+            </vbox>
+
+            <div align="center" style="margin-top:10px">
+                <button id="addSelect" label="Select" style="float::center"/>
+            </div>
+
+
+        </div>
+
+    </window>
+</zk>

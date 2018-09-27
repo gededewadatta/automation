@@ -25,7 +25,10 @@ public class CompetenciesDetailListController extends CommonController implement
 
     Textbox idSubGrade;
 
-    Textbox idCompetencies;
+    Textbox idCompetencyCode;
+
+    Textbox idCompetencyName;
+
 
     Window competenciesDetailListWdw;
 
@@ -49,7 +52,8 @@ public class CompetenciesDetailListController extends CommonController implement
         Competency competency = new Competency();
         competency.setGradeCode(idGrade.getValue());
         competency.setSubGradeCode(idSubGrade.getValue());
-        competency.setCompetencyName(idCompetencies.getValue());
+        competency.setCompetencyCode(idCompetencyCode.getValue());
+        competency.setCompetencyName(idCompetencyName.getValue());
         competency.setDepartementCode(idDepartment.getValue());
         args.put("Competencies", competency);
 

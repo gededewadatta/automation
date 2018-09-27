@@ -4,6 +4,7 @@
 package admin.fe.model;
 
 import java.util.Date;
+import java.util.List;
 
 //import javax.persistence.*; 
 
@@ -20,6 +21,7 @@ public class Grade {
     private String divisionCode;
     private String gradeCode;
     private String gradeName;
+    private List<SubGrade> subgrades;
     private Date createdDate;
     private String createdBy;
 
@@ -77,5 +79,13 @@ public class Grade {
 
     public void setDivisionCode(String divisionCode) {
         this.divisionCode = divisionCode;
+    }
+
+    public List<SubGrade> getSubgrades() {
+        return subgrades;
+    }
+
+    public void setSubgrades(List<SubGrade> subgrades) {
+        this.subgrades = subgrades;
     }
 }

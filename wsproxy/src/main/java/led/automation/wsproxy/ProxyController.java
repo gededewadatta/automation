@@ -34,8 +34,6 @@ public class ProxyController {
 	protected String employeeUrlInsert;
 	@Value("${led.automation.admin.insert.grade}")
 	protected String gradeUrlInsert;
-//	@Value("${led.automation.admin.get.employeeTest}")
-//	protected String employeeDummyInsert;
 	@Value("${led.automation.admin.insert.subgrade}")
 	protected String subgradeUrlInsert;
 	@Value("${led.automation.admin.insert.question}")
@@ -66,6 +64,8 @@ public class ProxyController {
 	protected String divisionUrlSearch;
 	@Value("${led.automation.admin.search.competency}")
 	protected String competencyUrlSearch;
+    @Value("${led.automation.admin.search.competencyByGradeCode}")
+    protected String competencyByGradeCodeUrlSearch;
 	@Value("${led.automation.admin.search.gradeJson}")
 	protected String gradeJsonUrlSearch;
 	@Value("${led.automation.admin.search.reportEmployee}")
@@ -531,6 +531,14 @@ public class ProxyController {
 		return proxy(competencyUrlSearch, body, method, request, response);
 
 	}
+
+    @RequestMapping(value = "/led/api/automation/search/competencyByGradeCode", produces = "application/json", method = RequestMethod.POST)
+    @ResponseBody
+    public String searchCompetencyByGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+                                                  HttpServletResponse response) throws URISyntaxException {
+        return proxy(competencyByGradeCodeUrlSearch, body, method, request, response);
+
+    }
 
 	@RequestMapping(value = "/led/api/automation/search/reportEmployee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody

@@ -52,7 +52,9 @@ public interface AdminService {
 
 	public Employee searchEmployeeByCode(String body);
 
-	public List<Competency> searchCompetency(String body);
+    public List<Competency> searchCompetency(String body);
+
+    public List<Competency> searchCompetencyByGradeCode(String gradeCode);
 
 	public List<Report> searchReportEmployee(String body);
 

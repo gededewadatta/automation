@@ -140,30 +140,52 @@ public class EmployeeUploadController extends CommonController {
                     if(a != 0){
                         if(tempArray[0][b].getStringCellValue().equals("DEPARTEMENT_CODE")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setDepartementCode(val);
+                            if(!val.equals("")){
+                                employee.setDepartementCode(val);
+                            }
                         }else if(tempArray[0][b].getStringCellValue().equals("GRADE_CODE")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setGradeCode(val);
+                            if(!val.equals("")) {
+                                employee.setGradeCode(val);
+                            }
                         }else if(tempArray[0][b].getStringCellValue().equals("DIVISION_CODE")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setDivisionCode(val);
+                            if(!val.equals("")){
+                                employee.setDivisionCode(val);
+                            }
+
                         }else if(tempArray[0][b].getStringCellValue().equals("SUB_GRADE_CODE")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setSubGradeCode(val);
+                            if(!val.equals("")){
+                                employee.setSubGradeCode(val);
+                            }
+
                         }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_CODE")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setEmployeeCode(val);
+                            if(!val.equals("")){
+                                employee.setEmployeeCode(val);
+                            }
+
                         }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_NAME")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setEmployeeName(val);
+                            if(!val.equals("")){
+                                employee.setEmployeeName(val);
+                            }
+
                         }else if(tempArray[0][b].getStringCellValue().contains("CREATED_BY")){
                             val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            employee.setCreatedBy(val);
+                            if(!val.equals("")){
+                                employee.setCreatedBy(val);
+                            }
+
                         }
 
                     }
                 }
-                employees.add(employee);
+                if(!val.equals("")) {
+
+                    employees.add(employee);
+                }
             }
             // Insert to DB : end
         }catch (FileNotFoundException ex){

@@ -5,7 +5,7 @@
 
         <div>
             <grid>
-                <rows>
+                <rows id="rowsParent">
                     <row>
                         <label value = "Division:" />
                         <hbox>
@@ -61,10 +61,22 @@
 
                     </row>
                     <row>
-                        <label value = "Competencies:" />
+                        <label value = "Competencies Code" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idCompetencies" value="${win$composer.inventoryItem.createdDate}"
+                                <textbox id="idCompetencyCode" value="${win$composer.inventoryItem.createdDate}"
+                                         constraint="no empty" />
+                            </hlayout>
+                            <div>
+                                <button id="btnCompetencyCode"/>
+                            </div>
+                        </hbox>
+                    </row>
+                    <row>
+                        <label value = "Competencies Name" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idCompetencyName" value="${win$composer.inventoryItem.createdDate}"
                                          constraint="no empty" />
                             </hlayout>
                         </hbox>
@@ -80,58 +92,33 @@
 
                     </row>
                     <row>
-                        <label value = "Answer:" />
+                        <label value = "Question Type:" />
                         <hbox>
                             <hlayout>
-                                <combobox id="idAnswer" value="${win$composer.inventoryItem.createdDate}" />
+                                <listbox id="idQuestionType" mold="select" rows="1" />
                             </hlayout>
                         </hbox>
 
                     </row>
-                    <row>
-                    <label></label>
-                    <vbox>
-                        <hlayout>
-                            <textbox id="idAnswer1" value="${win$composer.inventoryItem.createdDate}" />
-                        </hlayout>
-                    </vbox>
-
-                </row>
-                    <row>
-                        <label></label>
-                        <vbox>
-                            <hlayout>
-                                <textbox id="idAnswer2" value="${win$composer.inventoryItem.createdDate}" />
-                            </hlayout>
-                        </vbox>
-
-                    </row>
 
                     <row>
-                        <label></label>
-                        <vbox>
-                            <hlayout>
-                                <textbox id="idAnswer3" value="${win$composer.inventoryItem.createdDate}" />
-                            </hlayout>
-                        </vbox>
-
-                    </row>
-                    <row>
-                        <label></label>
-                        <vbox>
-                            <hlayout>
-                                <textbox id="idAnswer4" value="${win$composer.inventoryItem.createdDate}" />
-                            </hlayout>
-                        </vbox>
-
+                        <label/>
+                        <vbox id="boxAnswer"/>
                     </row>
                     <row>
                         <label/>
+                    </row>
+                    <row id="btnAnswer">
+                        <label/>
                         <hbox>
                             <button id ="add">Add</button>
-                            <button id ="Delete">Delete</button>
+                            <button id ="delete">Delete</button>
                         </hbox>
 
+                    </row>
+                    <row id="textAnswer">
+                        <label/>
+                        <textbox id="idTextAnswer" rows="3"/>
                     </row>
                     <row>
                         <label value = "Valid Answer:" />

@@ -589,8 +589,9 @@ public class SendJSON {
             headers.add("Accept", MediaType.APPLICATION_JSON.toString());
 
             HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+
             ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/competency", HttpMethod.POST, entity,
-                    String.class);
+                        String.class);
 
             System.out.println("Respon entity value is :"+ responseEntity);
             System.out.println("Respon entity body value is :"+ responseEntity.getBody());
@@ -612,6 +613,66 @@ public class SendJSON {
                 competency.setDepartementCode(jsonObjVal.getString("departementCode"));
                 competency.setGradeCode(jsonObjVal.getString("gradeCode"));
                 competency.setCompetencyName(jsonObjVal.getString("competencyName"));
+                competency.setCompetencyCode(jsonObjVal.getString("competencyCode"));
+                competency.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                competencies.add(competency);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return competencies;
+
+    }
+
+    public List<Competency> getCompetencyByGradeCode(Competency comp){
+
+        String result = null;
+
+        String body = null;
+
+        List<Competency> competencies = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(comp);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+
+            ResponseEntity<String>  responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/competencyByGradeCode", HttpMethod.POST, entity,
+                        String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Competency competency = new Competency();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                competency.setId(String.valueOf(jsonObjVal.getLong("id")));
+                competency.setDepartementCode(jsonObjVal.getString("departementCode"));
+                competency.setGradeCode(jsonObjVal.getString("gradeCode"));
+                competency.setCompetencyName(jsonObjVal.getString("competencyName"));
+                competency.setCompetencyCode(jsonObjVal.getString("competencyCode"));
                 competency.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
                 competencies.add(competency);
 
@@ -669,7 +730,6 @@ public class SendJSON {
                 division.setId(jsonObjVal.getLong("id"));
                 division.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 division.setDivisionName(jsonObjVal.getString("divisionName"));
-                division.setCreatedBy(jsonObjVal.getString("createdBy"));
                 divisions.add(division);
 
             }

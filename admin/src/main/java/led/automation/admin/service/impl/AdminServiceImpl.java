@@ -334,7 +334,19 @@ public class AdminServiceImpl implements AdminService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return adminDAO.searchCompetency(competency.getGradeCode());
+		return adminDAO.searchCompetency(competency.getCompetencyCode(),competency.getCompetencyName());
+	}
+
+	@Override
+	public List<Competency> searchCompetencyByGradeCode(String body) {
+		// TODO Auto-generated method stub
+
+		try {
+			competency = objectMapper.readValue(body, Competency.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.searchCompetencyByGradeCode(competency.getGradeCode());
 	}
 
     @Override

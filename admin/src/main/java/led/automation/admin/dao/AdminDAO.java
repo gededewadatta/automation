@@ -44,7 +44,9 @@ public interface AdminDAO {
 
 	public List<GradeJson> searchGradeJson(String departementCode, String departementName);
 
-	public List<Competency> searchCompetency(String gradeCode);
+	public List<Competency> searchCompetency(String competencyCode, String competencyName);
+
+	public List<Competency> searchCompetencyByGradeCode(String gradeCode);
 
 	public List<Division> searchDivision(String divisionCode, String divisionName);
 
