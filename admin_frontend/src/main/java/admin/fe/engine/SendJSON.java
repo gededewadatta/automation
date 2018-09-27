@@ -853,5 +853,58 @@ public class SendJSON {
         return result;
     }
 
+    public List<Report> getReport(Report rpt) {
+	    String result = null;
+
+	    String body = null;
+
+	    List<Report> reports = new ArrayList<>();
+
+	    try {
+	        body = mapper.writeValueAsString(rpt);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/reportEmployee", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array Value is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Report report = new Report();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                report.setEmployeeCode(jsonObjVal.getString("employeeCode"));
+                report.setEmployeeName(jsonObjVal.getString("employeeName"));
+                report.setGrade(jsonObjVal.getString("grade"));
+                report.setCompetencies(jsonObjVal.getString("competencies"));
+                report.setMark(jsonObjVal.getString("mark"));
+                reports.add(report);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return reports;
+    }
 
 }

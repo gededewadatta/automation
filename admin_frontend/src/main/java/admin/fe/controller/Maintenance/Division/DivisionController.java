@@ -70,7 +70,7 @@ public class DivisionController extends CommonController implements PopupCallerD
         }
     }
 
-    public void onClick$searchButton() throws Exception {
+    public void onClick$searchButton() {
 
         if(div.getDivisionCode() == null || div.getDivisionCode().equals("")){
             div.setDivisionCode("");
@@ -86,6 +86,10 @@ public class DivisionController extends CommonController implements PopupCallerD
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
+    }
+
+    public void onClick$cancelButton(){
+        idDivision.setValue("");
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){

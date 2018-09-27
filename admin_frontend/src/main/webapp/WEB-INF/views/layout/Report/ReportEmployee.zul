@@ -1,0 +1,64 @@
+<zk>
+    <window id="reportEmployeeWindow" width="auto" border="none" apply="admin.fe.controller.Report.ReportEmployee.ReportEmployeeController">
+
+        <div>
+            <grid>
+                <rows>
+
+                    <row>
+                        <label value = "Employee:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idEmployee" />
+                            </hlayout>
+                            <div>
+                                <button id="btnEmployee"/>
+                            </div>
+                        </hbox>
+
+                    </row>
+
+                    <row>
+                        <label value = "Grade:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idGrade" />
+                            </hlayout>
+                            <!--<div>
+                                <button id="btnGrade"/>
+                            </div>-->
+                        </hbox>
+
+                    </row>
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:10px">
+
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
+                <button id="generateButton" label="Generate" style="float::center"/>
+
+            </div>
+
+            <vbox>
+                <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
+                    <columns>
+                        <column label="Employee Id" sort="auto(employeeCode)" align="center"/>
+                        <column label="Grade" sort="auto(grade)" align="center"/>
+                        <column label="Competencies" sort="auto(competencies)" align="center"/>
+                        <column label="Mark" sort="auto(mark)" align="center"/>
+                    </columns>
+                </grid>
+            </vbox>
+
+        </div>
+        <vbox style="float:right;margin:10px 10px 10px 10px">
+            <div>
+                <label value="Export To :" />
+                <listbox id="idCombo" rows="1" mold="select"/>
+            </div>
+        </vbox>
+
+
+    </window>
+</zk>

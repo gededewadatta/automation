@@ -337,7 +337,25 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.searchCompetency(competency.getGradeCode());
 	}
 
-	@Override
+    @Override
+    public List<Report> searchReportEmployee(String body) {
+		// TODO Auto-generated method stub
+		Report rep = new Report();
+		try {
+			rep = objectMapper.readValue(body, Report.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+//		jsonResponse = new JSONObject(body);
+//		String divisionCode = null;
+//		divisionCode = jsonResponse.isNull("divisioncode")?"":jsonResponse.getString("divisioncode");
+//		String divisionName = null;
+//		divisionName = jsonResponse.isNull("divisionname")?"":jsonResponse.getString("divisionname");
+		return adminDAO.searchReportEmployee(rep.getEmployeeCode(), rep.getGrade());
+    }
+
+    @Override
 	public List<SubGrade> searchSubGrade(String body) {
 		// TODO Auto-generated method stub
 		jsonResponse = new JSONObject(body);

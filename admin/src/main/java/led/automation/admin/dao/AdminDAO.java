@@ -48,6 +48,8 @@ public interface AdminDAO {
 
 	public List<Division> searchDivision(String divisionCode, String divisionName);
 
+	public List<Report> searchReportEmployee(String employeeCode, String grade);
+
 	public String searchEmployeeByName(String employeeName);
 
 	public List<Question> searchQuestionByGrade(String gradeCode);

@@ -182,6 +182,14 @@ public class AdminController {
 		List<Competency> competency = adminService.searchCompetency(body);
 		return competency;
 	}
+
+	@RequestMapping(value = "/led/api/automation/search/reportEmployee", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Report> searchReportEmployee(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+											 HttpServletResponse response) throws URISyntaxException {
+		List<Report> reports = adminService.searchReportEmployee(body);
+		return reports;
+	}
 	// search data : stop 
 	 
 	// upload data : start

@@ -54,6 +54,8 @@ public interface AdminService {
 
 	public List<Competency> searchCompetency(String body);
 
+	public List<Report> searchReportEmployee(String body);
+
 	// search data : stop
 
 	// upload data : start

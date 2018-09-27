@@ -38,14 +38,14 @@
 							<tabs>
 						        <tab label="File Upload" />
 						        <tab label="Maintenance" />
-						        <tab label="Report" onClick="@command('addTabOne',pProgr='layout/Report')"/>
+						        <tab label="Report" />
 						    </tabs>
 							<tabpanels>
 								<tabpanel>
-				                            <vbox>
-				                                <toolbarbutton label="Employee" onClick="@command('addTabOne',pProgr='layout/EmployeeUpload/EmployeeUpload')"/>
-				                                <toolbarbutton label="Question" onClick="@command('addTabOne',pProgr='layout/QuestionUpload/QuestionUpload')"/>
-				                            </vbox>
+									<vbox>
+										<toolbarbutton label="Employee" onClick="@command('addTabOne',pProgr='layout/EmployeeUpload/EmployeeUpload')"/>
+										<toolbarbutton label="Question" onClick="@command('addTabOne',pProgr='layout/QuestionUpload/QuestionUpload')"/>
+									</vbox>
 								</tabpanel>
 								<tabpanel>
 									<vbox>
@@ -57,7 +57,11 @@
 										<toolbarbutton id="toolbarLabel6" label="Competencies" onClick="@command('addTabOne',pProgr='layout/Competencies/Competencies')"/>
 									</vbox>
 								</tabpanel>
-								<tabpanel/>
+								<tabpanel>
+									<vbox>
+										<toolbarbutton label="Report Employee" onClick="@command('addTabOne',pProgr='layout/Report/ReportEmployee')"/>
+									</vbox>
+								</tabpanel>
 							</tabpanels>
 						</tabbox>
 					</vlayout>

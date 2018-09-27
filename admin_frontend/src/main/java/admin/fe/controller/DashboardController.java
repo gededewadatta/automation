@@ -41,6 +41,7 @@ public class DashboardController extends CommonController {
     final StockModel stockData = new StockModel();
 
     String filename = "DashboardResults";
+    String filenameprint = null;
     String destination = "D:\\Report";
     String pattern = "ddMMyyyy_HHmmss";
     SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
@@ -78,13 +79,14 @@ public class DashboardController extends CommonController {
                     createDirDestination();
                     System.out.println("INI PDF ISINYA");
 
-                    filename = filename+"_"+dateFormat.format(date)+".pdf";
+                    filenameprint = null;
+                    filenameprint = filename+"_"+dateFormat.format(date)+".pdf";
 
-                    if(FileUtil.generatePDFFile(destination+"\\"+filename,ddbLIst)){
+                    if(FileUtil.generatePDFFile(destination+"\\"+filenameprint,ddbLIst)){
                         try {
-                            File file = new File(destination+"\\"+filename);
+                            File file = new File(destination+"\\"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
-                            Filedownload.save(inStream, "application/pdf", filename);
+                            Filedownload.save(inStream, "application/pdf", filenameprint);
                         } catch (IOException e){
                             e.printStackTrace();
                         }
@@ -97,14 +99,16 @@ public class DashboardController extends CommonController {
                 }else if (event.getSelectedObjects().contains("XLS")) {
                     createDirDestination();
                     System.out.println("INI EXCEL ISINYA");
-                    filename = filename+"_"+dateFormat.format(date)+".xls";
 
-                    if(FileUtil.GenerateXLSFile(0,destination+"\\"+filename,1,FileUtil.generateHeader(),1,
+                    filenameprint = null;
+                    filenameprint = filename+"_"+dateFormat.format(date)+".xls";
+
+                    if(FileUtil.GenerateXLSFile(0,destination+"\\"+filenameprint,1,FileUtil.generateHeader(),1,
                             ddbLIst,1,"Dashboard Report")){
                         try {
-                            File file = new File(destination+"\\"+filename);
+                            File file = new File(destination+"\\"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
-                            Filedownload.save(inStream, "application/ms-excel", filename);
+                            Filedownload.save(inStream, "application/ms-excel", filenameprint);
                         } catch (IOException e){
                             e.printStackTrace();
                         }

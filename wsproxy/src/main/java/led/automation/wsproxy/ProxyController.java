@@ -68,6 +68,8 @@ public class ProxyController {
 	protected String competencyUrlSearch;
 	@Value("${led.automation.admin.search.gradeJson}")
 	protected String gradeJsonUrlSearch;
+	@Value("${led.automation.admin.search.reportEmployee}")
+	protected String reportEmployeeUrlSearch;
 	// search : stop##
 	// update : start##
 	@Value("${led.automation.admin.update.employee}")
@@ -527,6 +529,14 @@ public class ProxyController {
 	public String competencySearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		return proxy(competencyUrlSearch, body, method, request, response);
+
+	}
+
+	@RequestMapping(value = "/led/api/automation/search/reportEmployee", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String reportEmployeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+								   HttpServletResponse response) throws URISyntaxException {
+		return proxy(reportEmployeeUrlSearch, body, method, request, response);
 
 	}
 

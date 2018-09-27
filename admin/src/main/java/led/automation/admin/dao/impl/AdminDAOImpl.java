@@ -50,6 +50,9 @@ public class AdminDAOImpl implements AdminDAO {
 	CompetencyRepository competencyRepository;
 	@Autowired
 	PendingQuestionRepository pendingQuestionRepository;
+
+	@Autowired
+	ReportRepository reportRepository;
 	//insert data :start
 	@Override
 	public int insertEmployee(Employee body) {
@@ -270,6 +273,24 @@ public class AdminDAOImpl implements AdminDAO {
 
 		return division;
 	}
+
+	@Override
+	public List<Report> searchReportEmployee(String employeeCode, String grade) {
+		List<Report> reports = new ArrayList<>();
+		if(employeeCode.equals("")&&grade.equals("")){
+			reports = reportRepository.findAll();
+		}
+		else if(employeeCode.equals("")&&!grade.equals("")){
+			reports = reportRepository.findByGrade("%"+grade.toUpperCase()+"%");
+		}
+		else if(!employeeCode.equals("")&&grade.equals("")){
+			reports = reportRepository.findByEmployee("%"+employeeCode.toUpperCase()+"%");
+		}else {
+			reports = reportRepository.findByEmployeeAndGrade("%"+employeeCode.toUpperCase()+"%","%"+grade.toUpperCase()+"%");
+		}
+		return reports;
+	}
+
 
 	@Override
 	public String searchEmployeeByName(String employeeName) {
