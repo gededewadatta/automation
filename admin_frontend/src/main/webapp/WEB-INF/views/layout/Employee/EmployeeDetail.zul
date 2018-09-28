@@ -10,8 +10,7 @@
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDivision" />
                             </hlayout>
                             <div>
                                 <button id ="btnDivision"/>
@@ -22,8 +21,7 @@
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDepartment"  />
                             </hlayout>
                             <div>
                                 <button id="btnDepartment"/>
@@ -34,8 +32,7 @@
                         <label value = "Grade:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idGrade" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idGrade"  />
                             </hlayout>
                             <div>
                                 <button id="btnGrade"/>
@@ -48,8 +45,7 @@
                         <label value = "Sub Grade:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idSubGrade" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idSubGrade" />
                             </hlayout>
                             <div>
                                 <button id="btnSubGrade"/>
@@ -62,8 +58,7 @@
                         <label value = "Employee Id:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idCEmployeeId" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idCEmployeeId"  />
                             </hlayout>
                         </hbox>
 
@@ -73,8 +68,7 @@
                         <label value = "Employee Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmployeeName" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idEmployeeName"  />
                             </hlayout>
                         </hbox>
 

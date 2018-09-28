@@ -183,6 +183,14 @@ public class EmployeeDetailController extends CommonController implements PopupC
 
     }
 
+    public void onClick$clearButton(){
+        idDivision.setValue("");
+        idDepartment.setValue("");
+        idGrade.setValue("");
+        idSubGrade.setValue("");
+        idCEmployeeId.setValue("");
+        idEmployeeName.setValue("");
+    }
 
     @Override
     public void afterSelectDivision(Division division) {

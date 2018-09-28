@@ -10,8 +10,7 @@
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDivision" />
                             </hlayout>
                             <div>
                                 <button id ="btnDivSeearch"/>
@@ -22,8 +21,7 @@
                         <label value = "Departement:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartement" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idDepartement"  />
                             </hlayout>
                         </hbox>
 
@@ -33,8 +31,7 @@
                         <label value = "Departement Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="nameDepartement" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="nameDepartement"  />
                             </hlayout>
                         </hbox>
 

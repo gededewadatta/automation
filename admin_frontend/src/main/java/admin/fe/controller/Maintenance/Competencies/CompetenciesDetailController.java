@@ -69,13 +69,26 @@ public class CompetenciesDetailController extends CommonController implements Po
     }
 
 
+    public void onClick$deleteButton(){
+        deleteTransaction();
+    }
+
     public void onClick$submitButton(){
 
         showConfirmDialog("Do you want to save the data?");
     }
 
+    private void deleteTransaction(){
+        int size = competenciesDetailListController.size();
+        if(size>1){
+            boxList.removeChild(competenciesDetailListController.get(size - 1));
+            competenciesDetailListController.remove(size - 1);
+        }
+    }
+
     private void addTransaction() {
 
+        System.out.println("TOTAL SIZE : "+competenciesDetailListController.size());
         Component component = Executions.createComponents("layout/Competencies/CompetenciesDetailList.zul",
                 boxList, arg);
         competenciesDetailListController.add(component);

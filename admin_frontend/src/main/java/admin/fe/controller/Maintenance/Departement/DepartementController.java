@@ -44,7 +44,6 @@ public class DepartementController extends CommonController implements PopupCall
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
-        idCompanyName.setValue("PT COBA COBA");
         comp.setAttribute("controller",this, true);
     }
 

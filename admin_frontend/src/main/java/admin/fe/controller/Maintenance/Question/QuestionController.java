@@ -99,6 +99,17 @@ public class QuestionController extends CommonController implements PopupCallerD
         }
     }
 
+    public void onClick$clearButton(){
+        idDivision.setValue("");
+        idDepartment.setValue("");
+        idGrade.setValue("");
+        idSubGrade.setValue("");
+        idCompetencyCode.setValue("");
+        idCompetencyName.setValue("");
+        idQuestion.setValue("");
+        idValidAns.setValue("");
+    }
+
     public void onClick$submitButton(){
         System.out.println("Ini Fucking Submit");
 
