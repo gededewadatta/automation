@@ -170,7 +170,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		List<Grade> grade = new ArrayList<>();
 		if(divisionCode.equals("")&&departmentCode.equals("")) {
-			grade =  gradeRepository.findGrade();
+			grade =  gradeRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!departmentCode.equals("")){
 			grade = gradeRepository.findByDepartmentCode(departmentCode);
