@@ -135,12 +135,12 @@ public class AdminDAOImpl implements AdminDAO {
 			departement = departementRepository.findAll();
 		}
 		else if(departementCode.equals("")&& !divisionCode.equals("")) {
-			departement = departementRepository.findByDivisionCode(divisionCode);
+			departement = departementRepository.findByDivisionCode("%"+divisionCode.toUpperCase()+"%");
 		}
 		else if(!departementCode.equals("")&& divisionCode.equals("")) {
-			departement = departementRepository.findByDepartementCode(departementCode);
+			departement = departementRepository.findByDepartementCode("%"+departementCode.toUpperCase()+"%");
 		}else {
-			departement = departementRepository.findByDepartementCodeAndDivisionCode(departementCode,divisionCode);
+			departement = departementRepository.findByDepartementCodeAndDivisionCode("%"+departementCode.toUpperCase()+"%","%"+divisionCode.toUpperCase()+"%");
 		}
 
 		return departement;

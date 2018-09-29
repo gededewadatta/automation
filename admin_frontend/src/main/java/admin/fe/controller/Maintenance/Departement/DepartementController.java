@@ -52,6 +52,11 @@ public class DepartementController extends CommonController implements PopupCall
         navigateTo("layout/Departement/DepartementDetail.zul",null,self);
     }
 
+    public void onClick$cancelButton(){
+        idDivision.setValue("");
+        idDepartement.setValue("");
+    }
+
     public void onClick$searchButton(){
 
         if(div.getDivisionCode() == null||div.getDivisionCode().equals("")){

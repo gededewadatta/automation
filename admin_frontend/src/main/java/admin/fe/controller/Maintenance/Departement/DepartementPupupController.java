@@ -20,23 +20,18 @@ public class DepartementPupupController extends CommonController {
     Grid hGrid;
     Window depPopup;
     Radiogroup rgrSearchResult;
+    Textbox idDepartment;
+    Textbox idDepartmentName;
+    Departement dep = new Departement();
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("DepartementPupupController",this, true);
         Division division = (Division) arg.get("division");
 
-        Departement dep = new Departement();
-
-        dep.setDivisionCode(division.getDivisionCode());
-
-        if(dep.getDivisionCode() == null){
-            dep.setDivisionCode("");
-        }
-
-        if (dep.getDepartementCode() == null){
-            dep.setDepartementCode("");
-        }
+        dep.setDivisionCode("");
+        dep.setDepartementCode("");
+        dep.setDepartementName("");
 
         departementList = send.getDepartment(dep);
         modelList = new ListModelList(departementList);
@@ -85,6 +80,33 @@ public class DepartementPupupController extends CommonController {
             depPopup.onClose();
         }
 
+    }
+
+    public void onClick$searchButton() throws Exception {
+        Division division = (Division) arg.get("division");
+
+        if(idDepartment != null || !(idDepartment.equals(""))){
+            dep.setDepartementCode(idDepartment.getValue());
+        } else {
+            dep.setDepartementCode("");
+        }
+
+        if(idDepartmentName != null|| !(idDepartmentName.equals(""))){
+            dep.setDepartementName(idDepartmentName.getValue());
+        } else {
+            dep.setDepartementName("");
+        }
+
+        departementList = send.getDepartment(dep);
+
+        modelList = new ListModelList(departementList);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+    }
+
+    public void onClick$cancelButton(){
+        depPopup.onClose();
     }
 
 
