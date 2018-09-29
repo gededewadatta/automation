@@ -25,12 +25,6 @@ public class Grade {
     @SequenceGenerator(sequenceName = "grade_seq", allocationSize = 1, name = "GRADE_SEQ")
     Long idGrade;
 
-	@OneToMany(
-			cascade = CascadeType.ALL,
-			orphanRemoval = true
-	)
-	private List<SubGrade> subGradeList = new ArrayList<>();
-
 	@Column(name = "DIVISION_CODE")
 	private String divisionCode;
 
@@ -145,22 +139,13 @@ public class Grade {
 		this.divisionCode = divisionCode;
 	}
 
-
-	public List<SubGrade> getSubGradeList() {
-		return subGradeList;
-	}
-
-	public void setSubGradeList(List<SubGrade> subGradeList) {
-		this.subGradeList = subGradeList;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "Grade [id=" + idGrade + ", departementCode=" + departementCode + ", gradeCode=" + gradeCode + ", gradeName="
-				+ gradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", divisionCode="+divisionCode+", subGradeList="+subGradeList+"]";
+				+ gradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", divisionCode="+divisionCode+"]";
 	}
  
     

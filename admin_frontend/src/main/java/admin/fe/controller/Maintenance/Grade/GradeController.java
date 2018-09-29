@@ -27,7 +27,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
 
     protected Grid hGrid;
     protected ListModelList modelList;
-    List<Grade> gradeList;
+    List<GradeJson> gradeList;
 
     Textbox idCompanyName;
     Textbox idDivision;
@@ -37,7 +37,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
     Departement dep = new Departement();
 
     SendJSON send = new SendJSON();
-    Grade grd = new Grade();
+    GradeJson grd = new GradeJson();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -64,7 +64,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
             grd.setDepartementCode(dep.getDepartementCode());
         }
 
-        gradeList = send.getGrade(grd);
+        gradeList = send.getGradeJson(grd);
 
         modelList = new ListModelList(gradeList);
         hGrid.setModel(modelList);
@@ -79,18 +79,16 @@ public class GradeController extends CommonController implements PopupCallerDivi
         return new SerializableRowRenderer() {
             @Override
             public void render(Row row, Object data, int index) throws Exception {
-                renderDataRow(row,(Grade)data);
+                renderDataRow(row,(GradeJson)data);
             }
 
-            private void renderDataRow(Row row, Grade gradeJson){
+            private void renderDataRow(Row row, GradeJson gradeJson){
 
                 row.setValue(gradeJson);
                 new Label(gradeJson.getDivisionCode()).setParent(row);
                 new Label(gradeJson.getDepartementCode()).setParent(row);
                 new Label(gradeJson.getGradeCode()).setParent(row);
-                for(SubGrade subGrade : gradeJson.getSubgrades()){
-                    new Label(subGrade.getSubGradeCode()).setParent(row);
-                }
+                new Label(gradeJson.getSubGradeCode()).setParent(row);
 
 
                 Hbox hbox1 = new Hbox();
@@ -140,18 +138,18 @@ public class GradeController extends CommonController implements PopupCallerDivi
         };
     }
 
-    public Map<String, Object> getArg(Grade obj) {
+    public Map<String, Object> getArg(GradeJson obj) {
 
         Map<String, Object> args = new HashMap<String, Object>();
 
         args.put("idGrade", obj.getIdGrade());
-//        args.put("idSubGrade", obj.getIdSubGrade());
+        args.put("idSubGrade", obj.getIdSubGrade());
         args.put("divisionCode",obj.getDivisionCode());
         args.put("departementCode",obj.getDepartementCode());
         args.put("gradeCode",obj.getGradeCode());
-//        args.put("subGradeCode",obj.getSubGradeCode());
+        args.put("subGradeCode",obj.getSubGradeCode());
         args.put("gradeName",obj.getGradeName());
-//        args.put("subGradeName",obj.getSubGradeName());
+        args.put("subGradeName",obj.getSubGradeName());
 
         return args;
     }

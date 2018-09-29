@@ -9,12 +9,12 @@ import java.util.Date;
 @Entity
 public class GradeJson {
 
-    @Id
-    Long id;
 //
-    Long idGrade;
 
+    @Id
     Long idSubGrade;
+
+    Long idGrade;
 
     private String divisionCode;
 
@@ -96,10 +96,6 @@ public class GradeJson {
         this.subGradeName = subGradeName;
     }
 
-    public Long getId() {
-        return id;
-    }
-
     public Long getIdGrade() {
         return idGrade;
     }
@@ -114,10 +110,6 @@ public class GradeJson {
 
     public void setIdSubGrade(Long idSubGrade) {
         this.idSubGrade = idSubGrade;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
 

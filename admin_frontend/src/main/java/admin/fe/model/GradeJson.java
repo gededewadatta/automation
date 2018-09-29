@@ -3,40 +3,32 @@ package admin.fe.model;
 import java.util.Date;
 
 public class GradeJson {
+    Long idSubGrade;
+    Long idGrade;
 
-    private String idGrade;
-    private String idSubGrade;
-    private String gradeCode;
-    private String subGradeCode;
-    private String subGradeName;
-    private String departementCode;
+
     private String divisionCode;
+
+    private String departementCode;
+
+    private String gradeCode;
+
     private String gradeName;
+
     private Date createdDate;
+
     private String createdBy;
 
-    public String getGradeCode() {
-        return gradeCode;
+    private String subGradeCode;
+
+    private String subGradeName;
+
+    public String getDivisionCode() {
+        return divisionCode;
     }
 
-    public void setGradeCode(String gradeCode) {
-        this.gradeCode = gradeCode;
-    }
-
-    public String getSubGradeCode() {
-        return subGradeCode;
-    }
-
-    public void setSubGradeCode(String subGradeCode) {
-        this.subGradeCode = subGradeCode;
-    }
-
-    public String getSubGradeName() {
-        return subGradeName;
-    }
-
-    public void setSubGradeName(String subGradeName) {
-        this.subGradeName = subGradeName;
+    public void setDivisionCode(String divisionCode) {
+        this.divisionCode = divisionCode;
     }
 
     public String getDepartementCode() {
@@ -47,12 +39,12 @@ public class GradeJson {
         this.departementCode = departementCode;
     }
 
-    public String getDivisionCode() {
-        return divisionCode;
+    public String getGradeCode() {
+        return gradeCode;
     }
 
-    public void setDivisionCode(String divisionCode) {
-        this.divisionCode = divisionCode;
+    public void setGradeCode(String gradeCode) {
+        this.gradeCode = gradeCode;
     }
 
     public String getGradeName() {
@@ -79,19 +71,37 @@ public class GradeJson {
         this.createdBy = createdBy;
     }
 
-    public String getIdGrade() {
+    public String getSubGradeCode() {
+        return subGradeCode;
+    }
+
+    public void setSubGradeCode(String subGradeCode) {
+        this.subGradeCode = subGradeCode;
+    }
+
+    public String getSubGradeName() {
+        return subGradeName;
+    }
+
+    public void setSubGradeName(String subGradeName) {
+        this.subGradeName = subGradeName;
+    }
+
+    public Long getIdGrade() {
         return idGrade;
     }
 
-    public void setIdGrade(String idGrade) {
+    public void setIdGrade(Long idGrade) {
         this.idGrade = idGrade;
     }
 
-    public String getIdSubGrade() {
+    public Long getIdSubGrade() {
         return idSubGrade;
     }
 
-    public void setIdSubGrade(String idSubGrade) {
+    public void setIdSubGrade(Long idSubGrade) {
         this.idSubGrade = idSubGrade;
     }
+
+
 }

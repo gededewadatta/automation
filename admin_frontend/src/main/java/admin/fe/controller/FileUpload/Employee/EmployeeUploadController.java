@@ -17,6 +17,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
+import org.hibernate.validator.constraints.URL;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -26,8 +27,9 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.Textbox;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class EmployeeUploadController extends CommonController {
 
@@ -39,7 +41,7 @@ public class EmployeeUploadController extends CommonController {
     private AbstractMainWindowTransaction parent;
 
 
-    List<Employee> emp = new ArrayList<>();
+    Set<Employee> emp = new HashSet<>();
 
 
 
@@ -95,12 +97,14 @@ public class EmployeeUploadController extends CommonController {
         };
     }
 
-    public List<Employee> loadFileTemp(String extension) {
+    public Set<Employee> loadFileTemp(String extension) {
         int result = 0;
 
         List<String> dataTemp = new ArrayList<String>();
-        String path = "E:/Latihan/EMPLOYEETemp.xls";
-        List<Employee> employees = new ArrayList<>();
+        SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
+        String dateString = format.format( new Date()   );
+        String path = "E:/Project/automation/admin_frontend/target/classes/EMPLOYEETemp"+dateString+".xls";
+        Set<Employee> employees = new HashSet<>();
         Employee employee;
         try{
 
@@ -184,7 +188,11 @@ public class EmployeeUploadController extends CommonController {
                 }
                 if(!val.equals("")) {
 
-                    employees.add(employee);
+                    if(emp.contains(employee)){
+                        continue;
+                    }
+
+                    emp.add(employee);
                 }
             }
             // Insert to DB : end
@@ -200,8 +208,12 @@ public class EmployeeUploadController extends CommonController {
 
     private void copyToTemp(Media media) {
         int rpt = 0;
-        String pathTemp = "E:/Latihan/EMPLOYEETemp.xls";
+//        path for temporary
+        SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
+        String dateString = format.format( new Date()   );
+        String pathTemp = "E:/Project/automation/admin_frontend/target/classes/EMPLOYEETemp"+dateString+".xls";
         File f = new File(pathTemp);
+
         InputStream stream = media.getStreamData();
         OutputStream os = null;
         String extensinos = media.getName().substring(media.getName().lastIndexOf("."),media.getName().length());
@@ -236,7 +248,7 @@ public class EmployeeUploadController extends CommonController {
             }
         }
 
-        emp.addAll(loadFileTemp(extensinos));
+       loadFileTemp(extensinos);
 
     }
 
@@ -261,8 +273,19 @@ public class EmployeeUploadController extends CommonController {
 
                                 SendJSON send = new SendJSON();
                                 try {
+                                    Set<Employee> isInserted = new HashSet<>();
+//                                    empInsert.addAll(emp);
+//                                    emp.clear();
+//                                    emp.addAll(empInsert);
                                     for(Employee employee: emp){
+                                        if(isInserted.contains(employee)){
+                                           continue;
+                                        }
+
                                         send.insertEmployee(employee);
+                                        isInserted.add(employee);
+
+
                                     }
                                     emp.clear();
                                     Messagebox.show("Data Success to Save");

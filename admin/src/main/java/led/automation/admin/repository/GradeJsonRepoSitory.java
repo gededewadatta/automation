@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface GradeJsonRepoSitory extends JpaRepository<GradeJson, Long> {
 
-    @Query(value = "Select DISTINCT subGrd.SUB_GRADE_CODE,grd.id_grade,subGrd.id_sub_grade,grd.departement_code,grd.division_code,grd.grade_code,grd.grade_name,subGrd.SUB_GRADE_NAME from grade grd  join subgrade subGrd on grd.grade_code = subGrd.grade_code", nativeQuery = true)
+    @Query(value = "Select * from grade grd  join subgrade subGrd on grd.grade_code = subGrd.grade_code", nativeQuery = true)
     List<GradeJson> findAll();
     @Query(value = "Select * from grade grd  join subgrade subGrd on grd.grade_code = subGrd.grade_code WHERE grd.departement_code like ?1%", nativeQuery = true)
     List<GradeJson> findByDepartmentCode(String DepartmentCode);
