@@ -23,6 +23,10 @@ public class EmployeePopupController extends CommonController {
 
     Grid hGrid;
 
+    Textbox idEmployee;
+
+    Textbox idEmpName;
+
     ListModelList modelList;
 
     Radiogroup rgrSearchResult;
@@ -30,21 +34,7 @@ public class EmployeePopupController extends CommonController {
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("EmployeePopupController",this, true);
-        Employee emp = new Employee();
 
-        if(emp.getEmployeeCode() == null){
-            emp.setEmployeeCode("");
-        }
-
-        if (emp.getEmployeeName() == null){
-            emp.setEmployeeName("");
-        }
-
-        employeeList = send.getEmployee(emp);
-        modelList = new ListModelList(employeeList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -88,5 +78,24 @@ public class EmployeePopupController extends CommonController {
             empPopup.onClose();
         }
 
+    }
+
+    public void onClick$searchButton() throws Exception {
+        Employee emp = new Employee();
+
+        emp.setEmployeeCode(idEmployee.getValue());
+
+        emp.setEmployeeName(idEmpName.getValue());
+
+        employeeList = send.getEmployee(emp);
+        modelList = new ListModelList(employeeList);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+    }
+
+
+    public void onClick$cancelButton(){
+        empPopup.onClose();
     }
 }

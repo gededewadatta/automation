@@ -19,7 +19,9 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.Textbox;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class QuestionController extends CommonController {
@@ -86,8 +88,9 @@ public class QuestionController extends CommonController {
     public List<Question> loadFileTemp() {
         int result = 0;
 
-        List<String> dataTemp = new ArrayList<String>();
-        String path = "E:/Latihan/QuestionTemp.xls";
+        SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
+        String dateString = format.format( new Date()   );
+        String path = "E:/Project/automation/admin_frontend/target/classes/QuestionTemp"+dateString+".xls";
         List<Question> questionList = new ArrayList<>();
         Question question;
         try{
@@ -173,7 +176,10 @@ public class QuestionController extends CommonController {
 
     private void copyToTemp(InputStream stream) {
         int rpt = 0;
-        String pathTemp = "E:/Latihan/QuestionTemp.xls";
+
+        SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
+        String dateString = format.format( new Date()   );
+        String pathTemp = "E:/Project/automation/admin_frontend/target/classes/QuestionTemp"+dateString+".xls";
         File f = new File(pathTemp);
         OutputStream os = null;
         try {
@@ -234,6 +240,7 @@ public class QuestionController extends CommonController {
                                         send.insertQuestion(question);
                                     }
                                     questions.clear();
+                                    hGrid.removeChild(hGrid.getRows());
                                 } catch (JsonProcessingException e) {
                                     Messagebox.show("Data failed to Save");
                                 }

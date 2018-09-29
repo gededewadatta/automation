@@ -4,6 +4,37 @@
             apply="admin.fe.controller.Maintenance.Grade.GradePopupController">
 
         <div>
+
+            <grid>
+                <rows>
+                    <row>
+                        <label value = "Department Code:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDepartmentCode"  />
+                            </hlayout>
+                        </hbox>
+
+
+                    </row>
+                    <!--<row>-->
+                        <!--<label value = "Department Name:" />-->
+                        <!--<hbox>-->
+                            <!--<hlayout>-->
+                                <!--<textbox id="idDepartementName" />-->
+                            <!--</hlayout>-->
+                        <!--</hbox>-->
+
+                    <!--</row>-->
+                </rows>
+            </grid>
+            <div align="center" style="margin-top:10px">
+
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
+
+            </div>
+
             <vbox>
                 <radiogroup id="rgrSearchResult">
                     <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">

@@ -32,24 +32,12 @@ public class SubGradePopupController extends CommonController {
 
     SendJSON send = new SendJSON();
 
+    Textbox idSubGradeCode;
+    Textbox idSubGradeName;
+
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("SubGradePopupController",this, true);
-        SubGrade subgrd = new SubGrade();
-
-        if(subgrd.getSubGradeCode() == null){
-            subgrd.setSubGradeCode("");
-        }
-
-        if (subgrd.getSubGradeName() == null){
-            subgrd.setSubGradeName("");
-        }
-
-        subGrds = send.getSubGrade(subgrd);
-        modelList = new ListModelList(subGrds);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -91,6 +79,28 @@ public class SubGradePopupController extends CommonController {
             subGradePopup.onClose();
         }
 
+    }
+
+    public void onClick$searchButton() throws Exception {
+
+        SubGrade subgrd = new SubGrade();
+
+            subgrd.setSubGradeCode(idSubGradeCode.getValue());
+
+            subgrd.setSubGradeName(idSubGradeName.getValue());
+
+        subGrds = send.getSubGrade(subgrd);
+        modelList = new ListModelList(subGrds);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+
+
+    }
+
+
+    public void onClick$cancelButton(){
+        subGradePopup.onClose();
     }
 
 

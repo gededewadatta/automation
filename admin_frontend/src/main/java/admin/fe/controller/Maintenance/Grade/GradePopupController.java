@@ -30,24 +30,16 @@ public class GradePopupController extends CommonController {
 
     Window gradePopup;
 
+    Textbox idDepartmentCode;
+
+    Textbox idDepartementName;
+
+    Grade grade = new Grade();
+
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("GradePopupController",this, true);
-        Departement dep = new Departement();
-
-        if(dep.getDepartementCode() == null){
-            grd.setDepartementCode("");
-        }
-
-        if (dep.getDivisionCode() == null){
-            grd.setDivisionCode("");
-        }
-
-        gradeList = send.getGrade(grd);
-        modelList = new ListModelList(gradeList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
+        grade = (Grade) arg.get("objectGrade");
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -75,7 +67,7 @@ public class GradePopupController extends CommonController {
     public void onClick$idSelect(){
 
         if (rgrSearchResult.getSelectedIndex() != -1) {
-            Grade grade = (Grade) arg.get("objectGrade");
+
             Grade gradeData = (Grade) modelList.get(rgrSearchResult.getSelectedIndex());
             grade.setIdGrade(gradeData.getIdGrade());
             grade.setDivisionCode(gradeData.getDivisionCode());
@@ -91,5 +83,25 @@ public class GradePopupController extends CommonController {
             gradePopup.onClose();
         }
 
+    }
+
+    public void onClick$searchButton() throws Exception {
+
+        idDepartmentCode.setValue(grade.getDepartementCode());
+        grd.setDepartementCode(idDepartmentCode.getValue());
+
+        grd.setDivisionCode("");
+
+        gradeList = send.getGrade(grd);
+        modelList = new ListModelList(gradeList);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+
+    }
+
+
+    public void onClick$cancelButton(){
+        gradePopup.onClose();
     }
 }

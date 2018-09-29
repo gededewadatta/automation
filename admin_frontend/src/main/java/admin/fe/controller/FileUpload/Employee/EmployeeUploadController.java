@@ -100,7 +100,6 @@ public class EmployeeUploadController extends CommonController {
     public Set<Employee> loadFileTemp(String extension) {
         int result = 0;
 
-        List<String> dataTemp = new ArrayList<String>();
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
         String path = "E:/Project/automation/admin_frontend/target/classes/EMPLOYEETemp"+dateString+".xls";
@@ -288,6 +287,7 @@ public class EmployeeUploadController extends CommonController {
 
                                     }
                                     emp.clear();
+                                    hGrid.removeChild(hGrid.getRows());
                                     Messagebox.show("Data Success to Save");
                                 } catch (JsonProcessingException e) {
                                     Messagebox.show("Data failed to Save");

@@ -308,7 +308,12 @@ public class SendJSON {
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 grade.setIdGrade(jsonObjVal.getLong("idGrade"));
-                grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                if(grd.getDivisionCode().equals("")){
+                    grade.setDivisionCode("");
+                }else{
+                    grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                }
+
                 grade.setDepartementCode(jsonObjVal.getString("departementCode"));
                 grade.setGradeCode(jsonObjVal.getString("gradeCode"));
                 grade.setGradeName(jsonObjVal.getString("gradeName"));

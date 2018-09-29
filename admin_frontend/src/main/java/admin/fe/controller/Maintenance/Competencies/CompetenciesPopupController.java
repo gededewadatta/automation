@@ -8,6 +8,7 @@ import admin.fe.engine.SendJSON;
 import admin.fe.model.Competency;
 import admin.fe.model.Departement;
 import admin.fe.model.Division;
+import admin.fe.model.SubGrade;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.*;
 
@@ -28,18 +29,6 @@ public class CompetenciesPopupController extends CommonController {
         super.doAfterCompose(comp);
         comp.setAttribute("DepartementPupupController",this, true);
         Division division = (Division) arg.get("division");
-
-        Competency competency = new Competency();
-
-            competency.setCompetencyCode(idCompetencyCode.getValue());
-
-            competency.setCompetencyName(idCompetencyName.getValue());
-
-        competencyList = send.getCompetency(competency);
-        modelList = new ListModelList(competencyList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -81,6 +70,27 @@ public class CompetenciesPopupController extends CommonController {
             compPopup.onClose();
         }
 
+    }
+
+    public void onClick$searchButton() throws Exception {
+
+        Competency competency = new Competency();
+
+        competency.setCompetencyCode(idCompetencyCode.getValue());
+
+        competency.setCompetencyName(idCompetencyName.getValue());
+
+        competencyList = send.getCompetency(competency);
+        modelList = new ListModelList(competencyList);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+
+    }
+
+
+    public void onClick$cancelButton(){
+        compPopup.onClose();
     }
 
 

@@ -194,6 +194,8 @@ public class QuestionController extends CommonController implements PopupCallerD
 
         Map<String, Object> args = new HashMap<String, Object>();
         Grade grade = new Grade();
+        grade.setDepartementCode(idDepartment.getValue());
+        grade.setDivisionCode(idDivision.getValue());
         args.put("objectGrade", grade);
         args.put("caller", this);
         Component c = Executions.createComponents(
@@ -211,6 +213,7 @@ public class QuestionController extends CommonController implements PopupCallerD
 
         Map<String, Object> args = new HashMap<String, Object>();
         SubGrade div = new SubGrade();
+        div.setSubGradeCode(idGrade.getValue());
         args.put("object", div);
         args.put("caller", this);
         Component c = Executions.createComponents(

@@ -10,8 +10,7 @@
                         <label value = "Employee Id:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmployee" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idEmployee"  />
                             </hlayout>
                         </hbox>
 
@@ -21,8 +20,7 @@
                         <label value = "Employee Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmpName" value="${win$composer.inventoryItem.createdDate}"
-                                         constraint="no empty" />
+                                <textbox id="idEmpName" />
                             </hlayout>
                         </hbox>
 
