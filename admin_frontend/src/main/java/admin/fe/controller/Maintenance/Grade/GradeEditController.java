@@ -46,8 +46,8 @@ public class GradeEditController extends CommonController {
         idGrade.setValue((String)arg.get("gradeCode"));
         idGradeName.setValue((String)arg.get("gradeName"));
         idSubGradeName.setValue((String)arg.get("subGradeName"));
-        idGradeId.setValue((String)arg.get("idGrade"));
-        idSubGradeId.setValue((String)arg.get("idSubGrade"));
+        idGradeId.setValue(String.valueOf(arg.get("idGrade")));
+        idSubGradeId.setValue(String.valueOf(arg.get("idSubGrade")));
 
     }
 

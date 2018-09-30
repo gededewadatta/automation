@@ -42,7 +42,7 @@ public class DashboardController extends CommonController {
 
     String filename = "DashboardResults";
     String filenameprint = null;
-    String destination = "D:\\Report";
+    String destination = "E:\\Report";
     String pattern = "ddMMyyyy_HHmmss";
     SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
     Date date = new Date();

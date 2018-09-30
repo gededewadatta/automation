@@ -11,8 +11,7 @@
                             <label value = "Department:" />
                             <hbox>
                                 <hlayout>
-                                    <textbox id="idDepartment" value="${win$composer.inventoryItem.createdDate}"
-                                             constraint="no empty" />
+                                    <textbox id="idDepartment"  />
                                 </hlayout>
                                 <div>
                                     <button id="btnDepartement"/>
@@ -23,8 +22,7 @@
                             <label value = "Grade:" />
                             <hbox>
                                 <hlayout>
-                                    <textbox id="idGrade" value="${win$composer.inventoryItem.createdDate}"
-                                             constraint="no empty" />
+                                    <textbox id="idGrade"  />
                                 </hlayout>
                                 <div>
                                     <button id="btnGrade"/>
@@ -37,8 +35,7 @@
                             <label value = "Sub Grade:" />
                             <hbox>
                                 <hlayout>
-                                    <textbox id="idSubGrade" value="${win$composer.inventoryItem.createdDate}"
-                                             constraint="no empty" />
+                                    <textbox id="idSubGrade"  />
                                 </hlayout>
                                 <div>
                                     <button id="btnSubGrade"/>
@@ -51,8 +48,7 @@
                             <label value = "Competency Code:" />
                             <hbox>
                                 <hlayout>
-                                    <textbox id="idCompetencyCode" value="${win$composer.inventoryItem.createdDate}"
-                                             constraint="no empty" />
+                                    <textbox id="idCompetencyCode" />
                                 </hlayout>
                             </hbox>
 
@@ -61,8 +57,7 @@
                             <label value = "Competency Name:" />
                             <hbox>
                                 <hlayout>
-                                    <textbox id="idCompetencyName" value="${win$composer.inventoryItem.createdDate}"
-                                             constraint="no empty" />
+                                    <textbox id="idCompetencyName"  />
                                 </hlayout>
                             </hbox>
 
