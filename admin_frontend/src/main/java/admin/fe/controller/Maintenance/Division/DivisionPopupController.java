@@ -29,15 +29,6 @@ public class DivisionPopupController extends CommonController {
         super.doAfterCompose(comp);
         comp.setAttribute("DivisionPopupController",this, true);
 
-        div.setDivisionCode("");
-        div.setDivisionName("");
-
-        divisionList = send.getDivision(div);
-
-        modelList = new ListModelList(divisionList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -82,17 +73,9 @@ public class DivisionPopupController extends CommonController {
     }
 
     public void onClick$searchButton() throws Exception {
-        if(idDivision != null || !(idDivision.equals(""))){
-            div.setDivisionCode(idDivision.getValue());
-        } else {
-            div.setDivisionCode("");
-        }
 
-        if(nameDivision != null|| !(nameDivision.equals(""))){
+            div.setDivisionCode(idDivision.getValue());
             div.setDivisionName(nameDivision.getValue());
-        } else {
-            div.setDivisionName("");
-        }
 
         divisionList = send.getDivision(div);
 

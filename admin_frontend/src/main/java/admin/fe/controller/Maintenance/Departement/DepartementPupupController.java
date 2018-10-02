@@ -27,17 +27,7 @@ public class DepartementPupupController extends CommonController {
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("DepartementPupupController",this, true);
-        Division division = (Division) arg.get("division");
 
-        dep.setDivisionCode("");
-        dep.setDepartementCode("");
-        dep.setDepartementName("");
-
-        departementList = send.getDepartment(dep);
-        modelList = new ListModelList(departementList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -85,17 +75,11 @@ public class DepartementPupupController extends CommonController {
     public void onClick$searchButton() throws Exception {
         Division division = (Division) arg.get("division");
 
-        if(idDepartment != null || !(idDepartment.equals(""))){
             dep.setDepartementCode(idDepartment.getValue());
-        } else {
-            dep.setDepartementCode("");
-        }
 
-        if(idDepartmentName != null|| !(idDepartmentName.equals(""))){
             dep.setDepartementName(idDepartmentName.getValue());
-        } else {
-            dep.setDepartementName("");
-        }
+
+            dep.setDivisionCode(division.getDivisionCode());
 
         departementList = send.getDepartment(dep);
 
