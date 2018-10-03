@@ -14,7 +14,7 @@
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" />
+                                <textbox id="idDivision"  />
                             </hlayout>
                             <div>
                                 <button id="btnSearchDivision"/>

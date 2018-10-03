@@ -1,6 +1,6 @@
 package admin.fe.controller.Maintenance.Departement;
 
-/*
+/**
  * @Author FikriAsandhita
  *
  */
@@ -25,16 +25,18 @@ import java.util.*;
 public class DepartementDetailController extends CommonController implements PopupCallerDivisionInterface {
 
     Textbox idDivision;
-
     Textbox idDepartement;
-
     Textbox nameDepartement;
+    Label idDivisionConfirm;
+    Label idDepartementConfirm;
+    Label nameDepartementConfirm;
+    Button btnDivSearch;
+    Button submitButton;
+    Button confirmButton;
+    Button clearButton;
+    Button cancelButton;
 
     Division div = new Division();
-
-    protected Grid hGrid;
-
-    protected ListModelList modelList;
 
     @Value("${led.Departement.insert}")
     protected String departementInsert;
@@ -44,10 +46,20 @@ public class DepartementDetailController extends CommonController implements Pop
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
+        disabledComponent();
     }
 
     public void onClick$submitButton(){
+        showConfirm();
+    }
 
+    public void onClick$clearButton(){
+        idDivision.setValue("");
+        idDepartement.setValue("");
+        nameDepartement.setValue("");
+    }
+
+    public void onClick$confirmButton(){
         Departement dep = new Departement();
 
         SendJSON send = new SendJSON();
@@ -87,14 +99,24 @@ public class DepartementDetailController extends CommonController implements Pop
         });
     }
 
-    public void onClick$clearButton(){
-        idDivision.setValue("");
-        idDepartement.setValue("");
-        nameDepartement.setValue("");
+    public void onClick$cancelButton(){
+        showInsert();
     }
 
-    public void onClick$btnDivSeearch(){
+    public void onClick$idDivision(){
+        showPopUpDivision();
+    }
 
+    public void onChanging$idDivision(){
+        showPopUpDivision();
+    }
+
+
+    public void onClick$btnDivSearch(){
+        showPopUpDivision();
+    }
+
+    public void showPopUpDivision(){
         Map<String, Object> args = new HashMap<String, Object>();
         Division div = new Division();
         args.put("object", div);
@@ -108,18 +130,55 @@ public class DepartementDetailController extends CommonController implements Pop
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
-
 
     @Override
     public void afterSelectDivision(Division division) {
-
         if(division != null){
             div = division;
             idDivision.setValue(division.getDivisionName());
         }
-
     }
 
+    public void disabledComponent(){
+        idDivisionConfirm.setVisible(false);
+        idDepartementConfirm.setVisible(false);
+        nameDepartementConfirm.setVisible(false);
+        confirmButton.setVisible(false);
+        cancelButton.setVisible(false);
+    }
+
+    public void showConfirm(){
+        idDivisionConfirm.setValue(idDivision.getValue());
+        idDepartementConfirm.setValue(idDepartement.getValue());
+        nameDepartementConfirm.setValue(nameDepartement.getValue());
+
+        idDivisionConfirm.setVisible(true);
+        idDepartementConfirm.setVisible(true);
+        nameDepartementConfirm.setVisible(true);
+        confirmButton.setVisible(true);
+        cancelButton.setVisible(true);
+
+        idDivision.setVisible(false);
+        idDepartement.setVisible(false);
+        nameDepartement.setVisible(false);
+        btnDivSearch.setVisible(false);
+        submitButton.setVisible(false);
+        clearButton.setVisible(false);
+    }
+
+    public void showInsert(){
+        idDivisionConfirm.setVisible(false);
+        idDepartementConfirm.setVisible(false);
+        nameDepartementConfirm.setVisible(false);
+        confirmButton.setVisible(false);
+        cancelButton.setVisible(false);
+
+        idDivision.setVisible(true);
+        idDepartement.setVisible(true);
+        nameDepartement.setVisible(true);
+        btnDivSearch.setVisible(true);
+        submitButton.setVisible(true);
+        clearButton.setVisible(true);
+    }
 }

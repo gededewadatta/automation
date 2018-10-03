@@ -42,7 +42,7 @@ public class DashboardController extends CommonController {
 
     String filename = "DashboardResults";
     String filenameprint = null;
-    String destination = "E:\\Report";
+    String destination = "/Apps/Report";
     String pattern = "ddMMyyyy_HHmmss";
     SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
     Date date = new Date();
@@ -82,9 +82,9 @@ public class DashboardController extends CommonController {
                     filenameprint = null;
                     filenameprint = filename+"_"+dateFormat.format(date)+".pdf";
 
-                    if(FileUtil.generatePDFFile(destination+"\\"+filenameprint,ddbLIst)){
+                    if(FileUtil.generatePDFFile(destination+"/"+filenameprint,ddbLIst)){
                         try {
-                            File file = new File(destination+"\\"+filenameprint);
+                            File file = new File(destination+"/"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
                             Filedownload.save(inStream, "application/pdf", filenameprint);
                         } catch (IOException e){
@@ -103,10 +103,10 @@ public class DashboardController extends CommonController {
                     filenameprint = null;
                     filenameprint = filename+"_"+dateFormat.format(date)+".xls";
 
-                    if(FileUtil.GenerateXLSFile(0,destination+"\\"+filenameprint,1,FileUtil.generateHeader(),1,
+                    if(FileUtil.GenerateXLSFile(0,destination+"/"+filenameprint,1,FileUtil.generateHeader(),1,
                             ddbLIst,1,"Dashboard Report")){
                         try {
-                            File file = new File(destination+"\\"+filenameprint);
+                            File file = new File(destination+"/"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
                             Filedownload.save(inStream, "application/ms-excel", filenameprint);
                         } catch (IOException e){

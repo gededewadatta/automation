@@ -1,6 +1,6 @@
 package admin.fe.controller.Maintenance.Division;
 
-/*
+/**
  * @Author FikriAsandhita
  *
  */
@@ -31,65 +31,18 @@ import java.util.Map;
 public class DivisionController extends CommonController implements PopupCallerDivisionInterface {
 
     private Window divisionWindow;
-
-    Division div = new Division();
-
     protected Grid hGrid;
     protected ListModelList modelList;
-    List<Division> divisionList;
-
     Textbox idCompanyName;
     Textbox idDivision;
 
+    Division div = new Division();
+    List<Division> divisionList;
     SendJSON send = new SendJSON();
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("controller",this, true);
-    }
-
-    public void onClick$addButton(){
-        System.out.println("Ini button Submit");
-        navigateTo("layout/Division/DivisionDetail.zul",null,self);
-
-    }
-
-    public void onClick$btnSearchDivision(){
-        Map<String, Object> args = new HashMap<String, Object>();
-        Division div = new Division();
-        args.put("object", div);
-        args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
-        try {
-            onModalToTop((Window) c);
-        } catch (SuspendNotAllowedException e1) {
-            Messagebox.show(e1.getMessage());
-        } catch (InterruptedException e1) {
-            Messagebox.show(e1.getMessage());
-        }
-    }
-
-    public void onClick$searchButton() {
-
-        if(div.getDivisionCode() == null || div.getDivisionCode().equals("")){
-            div.setDivisionCode("");
-        }
-
-        if(div.getDivisionName() == null|| div.getDivisionName().equals("")){
-            div.setDivisionName("");
-        }
-
-        divisionList = send.getDivision(div);
-
-        modelList = new ListModelList(divisionList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
-    }
-
-    public void onClick$cancelButton(){
-        idDivision.setValue("");
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -145,8 +98,47 @@ public class DivisionController extends CommonController implements PopupCallerD
         };
     }
 
-    public Map<String, Object> getArgs(Division obj, String type) {
+    public void onClick$addButton(){
+        System.out.println("Ini button Submit");
+        navigateTo("layout/Division/DivisionDetail.zul",null,self);
 
+    }
+
+    public void onClick$btnSearchDivision(){
+        showPopUpDivision();
+    }
+
+    public void onClick$searchButton() {
+
+        if(div.getDivisionCode()==null||div.getDivisionCode().equalsIgnoreCase("")){
+            div.setDivisionCode("");
+        }
+        if(div.getDivisionName()==null||div.getDivisionName().equalsIgnoreCase("")){
+            div.setDivisionName("");
+        }
+
+        divisionList = send.getDivision(div);
+
+        modelList = new ListModelList(divisionList);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+    }
+
+    public void onClick$cancelButton(){
+        div = new Division();
+        idDivision.setValue("");
+    }
+
+    public void onClick$idDivision(){
+        showPopUpDivision();
+    }
+
+    public void onChanging$idDivision(){
+        showPopUpDivision();
+    }
+
+    public Map<String, Object> getArgs(Division obj, String type) {
         Map<String, Object> args = new HashMap<String, Object>();
 
         args.put("id",obj.getId());
@@ -160,7 +152,6 @@ public class DivisionController extends CommonController implements PopupCallerD
 
     @Override
     public void afterSelectDivision(Division division) {
-
         if(division != null){
             div = division;
             idDivision.setValue(division.getDivisionName());
@@ -168,5 +159,19 @@ public class DivisionController extends CommonController implements PopupCallerD
 
     }
 
+    public void showPopUpDivision(){
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+    }
 }
-//test

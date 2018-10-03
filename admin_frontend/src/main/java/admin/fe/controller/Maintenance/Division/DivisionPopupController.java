@@ -15,15 +15,16 @@ import java.util.List;
 
 public class DivisionPopupController extends CommonController {
 
-    List<Division> divisionList;
-    SendJSON send = new SendJSON();
     ListModelList modelList;
     Grid hGrid;
     Window divPopup;
     Radiogroup rgrSearchResult;
     Textbox idDivision;
     Textbox nameDivision;
+
     Division div = new Division();
+    List<Division> divisionList;
+    SendJSON send = new SendJSON();
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
@@ -41,7 +42,6 @@ public class DivisionPopupController extends CommonController {
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
-
         return new SerializableRowRenderer() {
             @Override
             public void render(Row row, Object data, int index) throws Exception {
@@ -49,36 +49,34 @@ public class DivisionPopupController extends CommonController {
             }
 
             private void renderDataRow(Row row, Division division){
-
-
                 row.setValue(division);
                 Radio rdo = new Radio();
                 rdo.setValue(division.getId());
                 rdo.setParent(row);
                 new Label(division.getDivisionCode()).setParent(row);
                 new Label(division.getDivisionName()).setParent(row);
-
             }
         };
     }
 
     public void onClick$addSelect(){
-
-        if (rgrSearchResult.getSelectedIndex() != -1) {
-            Division division = (Division) arg.get("object");
-            Division divisionData = (Division) modelList.get(rgrSearchResult.getSelectedIndex());
-            division.setId(divisionData.getId());
-            division.setDivisionCode(divisionData.getDivisionCode());
-            division.setDivisionName(divisionData.getDivisionName());
-
-            PopupCallerDivisionInterface caller = (PopupCallerDivisionInterface)arg.get("caller");
-
-            if(caller != null)
-                caller.afterSelectDivision(division);
-
-            divPopup.onClose();
+        Long id = rgrSearchResult.getSelectedItem().getValue();
+        Division division = (Division) arg.get("object");
+        List<Division> divList = modelList;
+        for (Division divCheck :  divList){
+            if(id == divCheck.getId()){
+                division.setId(divCheck.getId());
+                division.setDivisionCode(divCheck.getDivisionCode());
+                division.setDivisionName(divCheck.getDivisionName());
+            }
         }
 
+        PopupCallerDivisionInterface caller = (PopupCallerDivisionInterface)arg.get("caller");
+
+        if(caller != null)
+            caller.afterSelectDivision(division);
+
+        divPopup.onClose();
     }
 
     public void onClick$searchButton() throws Exception {
@@ -105,7 +103,5 @@ public class DivisionPopupController extends CommonController {
     public void onClick$cancelButton(){
         divPopup.onClose();
     }
-
-
 
 }

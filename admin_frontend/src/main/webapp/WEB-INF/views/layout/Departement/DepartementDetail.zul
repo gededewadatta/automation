@@ -11,9 +11,10 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idDivision" />
+                                <label id="idDivisionConfirm"/>
                             </hlayout>
                             <div>
-                                <button id ="btnDivSeearch"/>
+                                <button id ="btnDivSearch"/>
                             </div>
                         </hbox>
                     </row>
@@ -21,7 +22,8 @@
                         <label value = "Departement:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartement"  />
+                                <textbox id="idDepartement"/>
+                                <label id="idDepartementConfirm"/>
                             </hlayout>
                         </hbox>
 
@@ -31,7 +33,8 @@
                         <label value = "Departement Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="nameDepartement"  />
+                                <textbox id="nameDepartement"/>
+                                <label id="nameDepartementConfirm"/>
                             </hlayout>
                         </hbox>
 
@@ -40,10 +43,11 @@
                 </rows>
             </grid>
             <div align="right" style="margin-top:30px">
-
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
 
+                <button id="confirmButton" label="Confirm" style="float::right"/>
+                <button id="cancelButton" label="Cancel" style="float::right"/>
             </div>
 
         </div>

@@ -1,6 +1,6 @@
 package admin.fe.controller.Maintenance.Division;
 
-/*
+/**
  * @Author FikriAsandhita
  *
  */
@@ -47,7 +47,6 @@ public class DivisionViewEditController extends CommonController {
     }
 
     public void getAllData() {
-
         div.setId((Long) arg.get("id"));
         div.setDivisionCode((String) arg.get("divisionCode"));
         div.setDivisionName((String) arg.get("divisionName"));
@@ -75,7 +74,6 @@ public class DivisionViewEditController extends CommonController {
             idDivisionEdit.setDisabled(true);
             backButton.setVisible(false);
         }
-
     }
 
     public void onClick$backButton(){
@@ -114,5 +112,4 @@ public class DivisionViewEditController extends CommonController {
     public void onClick$clearButton(){
         nameDivisionEdit.setValue("");
     }
-
 }

@@ -27,7 +27,7 @@ public class CompetenciesPopupController extends CommonController {
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
-        comp.setAttribute("DepartementPupupController",this, true);
+        comp.setAttribute("DepartementPopupController",this, true);
         Division division = (Division) arg.get("division");
     }
 

@@ -10,7 +10,8 @@
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" value="${win$composer.inventoryItem.createdDate}" />
+                                <textbox id="idDivision"/>
+                                <label id="idDivisionConfirm"/>
                             </hlayout>
                         </hbox>
                     </row>
@@ -18,7 +19,8 @@
                         <label value = "Division Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="nameDivision" value="${win$composer.inventoryItem.createdDate}" />
+                                <textbox id="nameDivision"/>
+                                <label id="nameDivisionConfirm"/>
                             </hlayout>
                         </hbox>
                     </row>
@@ -26,10 +28,11 @@
                 </rows>
             </grid>
             <div align="right" style="margin-top:30px">
-
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
 
+                <button id="confirmButton" label="Confirm" style="float::right"/>
+                <button id="cancelButton" label="Cancel" style="float::right"/>
             </div>
 
         </div>

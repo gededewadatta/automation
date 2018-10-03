@@ -1,6 +1,6 @@
 package admin.fe.controller.Maintenance.Departement;
 
-/*
+/**
  * @Author FikriAsandhita
  *
  */
@@ -30,51 +30,19 @@ public class DepartementController extends CommonController implements PopupCall
 
     protected Grid hGrid;
     protected ListModelList modelList;
-    List<Departement> departementList;
-
     Textbox idCompanyName;
     Textbox idDivision;
     Textbox idDepartement;
 
-
     Division div = new Division();
     Departement dep = new Departement();
+    List<Departement> departementList;
     SendJSON send = new SendJSON();
 
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("controller",this, true);
-    }
-
-    public void onClick$addButton(){
-        System.out.println("Ini button Submit");
-        navigateTo("layout/Departement/DepartementDetail.zul",null,self);
-    }
-
-    public void onClick$cancelButton(){
-        idDivision.setValue("");
-        idDepartement.setValue("");
-    }
-
-    public void onClick$searchButton(){
-
-        if(div.getDivisionCode() == null||div.getDivisionCode().equals("")){
-            dep.setDivisionCode("");
-        }else{
-            dep.setDivisionCode(div.getDivisionCode());
-        }
-
-        if(dep.getDepartementCode() == null||dep.getDepartementCode().equals("")){
-            dep.setDepartementCode("");
-        }
-
-        departementList = send.getDepartment(dep);
-
-        modelList = new ListModelList(departementList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -131,8 +99,65 @@ public class DepartementController extends CommonController implements PopupCall
         };
     }
 
-    public Map<String, Object> getArgs(Departement obj, String type) {
+    public void onClick$addButton(){
+        System.out.println("Ini button Submit");
+        navigateTo("layout/Departement/DepartementDetail.zul",null,self);
+    }
 
+    public void onClick$btnDivision(){
+        showPopUpDivision();
+    }
+
+    public void onClick$btnDepartement(){
+        showPopUpDepartement();
+    }
+
+    public void onClick$searchButton(){
+
+        if(div.getDivisionCode() == null||div.getDivisionCode().equals("")){
+            dep.setDivisionCode("");
+        }else{
+            dep.setDivisionCode(div.getDivisionCode());
+        }
+
+        if(dep.getDepartementCode() == null||dep.getDepartementCode().equals("")){
+            dep.setDepartementCode("");
+        }
+
+        departementList = send.getDepartment(dep);
+
+        modelList = new ListModelList(departementList);
+        hGrid.setModel(modelList);
+        hGrid.setPageSize(5);
+        hGrid.setRowRenderer(createGridRowRenderer());
+    }
+
+    public void onClick$cancelButton(){
+        div = new Division();
+        dep = new Departement();
+        idDivision.setValue("");
+        idDepartement.setValue("");
+    }
+
+
+    public void onClick$idDivision(){
+        showPopUpDivision();
+    }
+
+    public void onChanging$idDivision(){
+        showPopUpDivision();
+    }
+
+    public void onClick$idDepartement(){
+        showPopUpDepartement();
+    }
+
+    public void onChanging$idDepartement(){
+        showPopUpDepartement();
+    }
+
+
+    public Map<String, Object> getArgs(Departement obj, String type) {
         Map<String, Object> args = new HashMap<String, Object>();
 
         args.put("id",obj.getId());
@@ -144,46 +169,8 @@ public class DepartementController extends CommonController implements PopupCall
         return args;
     }
 
-    public void onClick$btnDepartement(){
-
-        Map<String, Object> args = new HashMap<String, Object>();
-        Departement departement = new Departement();
-        args.put("object", departement);
-        args.put("division", div);
-        args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
-        try {
-            onModalToTop((Window) c);
-        } catch (SuspendNotAllowedException e1) {
-            Messagebox.show(e1.getMessage());
-        } catch (InterruptedException e1) {
-            Messagebox.show(e1.getMessage());
-        }
-
-    }
-    public void onClick$btnDivision(){
-
-        Map<String, Object> args = new HashMap<String, Object>();
-        Division div = new Division();
-        args.put("object", div);
-        args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
-        try {
-            onModalToTop((Window) c);
-        } catch (SuspendNotAllowedException e1) {
-            Messagebox.show(e1.getMessage());
-        } catch (InterruptedException e1) {
-            Messagebox.show(e1.getMessage());
-        }
-
-    }
-
-
     @Override
     public void afterSelectDivision(Division division) {
-
         if(division != null){
             div = division;
             idDivision.setValue(division.getDivisionName());
@@ -198,5 +185,37 @@ public class DepartementController extends CommonController implements PopupCall
             idDepartement.setValue(departement.getDepartementName());
         }
     }
+
+    public void showPopUpDivision(){
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+    }
+
+    public void showPopUpDepartement(){
+        Map<String, Object> args = new HashMap<String, Object>();
+        Departement departement = new Departement();
+        args.put("object", departement);
+        args.put("division", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents(
+                "layout/Departement/DeptPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+    }
 }
-//test

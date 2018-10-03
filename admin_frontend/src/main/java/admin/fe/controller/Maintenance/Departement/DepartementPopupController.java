@@ -12,24 +12,30 @@ import org.zkoss.zul.*;
 
 import java.util.List;
 
-public class DepartementPupupController extends CommonController {
+public class DepartementPopupController extends CommonController {
 
-    List<Departement> departementList;
-    SendJSON send = new SendJSON();
     ListModelList modelList;
     Grid hGrid;
     Window depPopup;
     Radiogroup rgrSearchResult;
     Textbox idDepartment;
     Textbox idDepartmentName;
+
     Departement dep = new Departement();
+    List<Departement> departementList;
+    SendJSON send = new SendJSON();
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
-        comp.setAttribute("DepartementPupupController",this, true);
+        comp.setAttribute("DepartementPopupController",this, true);
         Division division = (Division) arg.get("division");
 
-        dep.setDivisionCode("");
+        if(division.getDivisionCode()!=null){
+            dep.setDivisionCode(division.getDivisionCode());
+        } else {
+            dep.setDivisionCode("");
+        }
+
         dep.setDepartementCode("");
         dep.setDepartementName("");
 
@@ -41,7 +47,6 @@ public class DepartementPupupController extends CommonController {
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
-
         return new SerializableRowRenderer() {
             @Override
             public void render(Row row, Object data, int index) throws Exception {
@@ -49,41 +54,45 @@ public class DepartementPupupController extends CommonController {
             }
 
             private void renderDataRow(Row row, Departement departement){
-
-
                 row.setValue(departement);
                 Radio rdo = new Radio();
                 rdo.setValue(departement.getId());
                 rdo.setParent(row);
                 new Label(departement.getDepartementCode()).setParent(row);
                 new Label(departement.getDepartementName()).setParent(row);
-
             }
         };
     }
 
     public void onClick$addSelect(){
-
-        if (rgrSearchResult.getSelectedIndex() != -1) {
-            Departement departement = (Departement) arg.get("object");
-            Departement departementData = (Departement) modelList.get(rgrSearchResult.getSelectedIndex());
-            departement.setId(departementData.getId());
-            departement.setDivisionCode(departementData.getDivisionCode());
-            departement.setDepartementCode(departementData.getDepartementCode());
-            departement.setDepartementName(departementData.getDepartementName());
-
-            PopupCallerDepartmentInterface caller = (PopupCallerDepartmentInterface)arg.get("caller");
-
-            if(caller != null)
-                caller.afterSelectDepartement(departement);
-
-            depPopup.onClose();
+        Long id = rgrSearchResult.getSelectedItem().getValue();
+        Departement departement = (Departement) arg.get("object");
+        List<Departement> depList = modelList;
+        for (Departement depCheck :  depList){
+            if(id == depCheck.getId()){
+                departement.setId(depCheck.getId());
+                departement.setDivisionCode(depCheck.getDivisionCode());
+                departement.setDepartementCode(depCheck.getDepartementCode());
+                departement.setDepartementName(depCheck.getDepartementName());
+            }
         }
 
+        PopupCallerDepartmentInterface caller = (PopupCallerDepartmentInterface)arg.get("caller");
+
+        if(caller != null)
+            caller.afterSelectDepartement(departement);
+
+        depPopup.onClose();
     }
 
     public void onClick$searchButton() throws Exception {
         Division division = (Division) arg.get("division");
+
+        if(division.getDivisionCode()!=null){
+            dep.setDivisionCode(division.getDivisionCode());
+        } else {
+            dep.setDivisionCode("");
+        }
 
         if(idDepartment != null || !(idDepartment.equals(""))){
             dep.setDepartementCode(idDepartment.getValue());

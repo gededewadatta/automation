@@ -83,11 +83,9 @@ public class DepartementViewEditController extends CommonController implements P
             idDepartementEdit.setDisabled(true);
             backButton.setVisible(false);
         }
-
     }
 
     public void onClick$divisionButton(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Division div = new Division();
         args.put("object", div);
@@ -101,12 +99,10 @@ public class DepartementViewEditController extends CommonController implements P
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
 
     @Override
     public void afterSelectDivision(Division division) {
-
         if(division != null){
             div = division;
             idDivisionEdit.setValue(division.getDivisionCode());
