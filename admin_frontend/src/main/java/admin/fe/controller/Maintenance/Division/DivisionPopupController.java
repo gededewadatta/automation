@@ -29,16 +29,6 @@ public class DivisionPopupController extends CommonController {
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("DivisionPopupController",this, true);
-
-        div.setDivisionCode("");
-        div.setDivisionName("");
-
-        divisionList = send.getDivision(div);
-
-        modelList = new ListModelList(divisionList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){

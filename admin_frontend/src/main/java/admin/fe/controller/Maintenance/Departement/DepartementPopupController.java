@@ -27,23 +27,7 @@ public class DepartementPopupController extends CommonController {
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
-        comp.setAttribute("DepartementPopupController",this, true);
-        Division division = (Division) arg.get("division");
-
-        if(division.getDivisionCode()!=null){
-            dep.setDivisionCode(division.getDivisionCode());
-        } else {
-            dep.setDivisionCode("");
-        }
-
-        dep.setDepartementCode("");
-        dep.setDepartementName("");
-
-        departementList = send.getDepartment(dep);
-        modelList = new ListModelList(departementList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
+        comp.setAttribute("DepartementPupupController",this, true);
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
