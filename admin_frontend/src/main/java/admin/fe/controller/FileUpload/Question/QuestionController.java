@@ -33,11 +33,13 @@ public class QuestionController extends CommonController {
 
     List<Question> questions = new ArrayList<>();
 
-
+    String destination = "Apps/Upload";
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
+
+        createDirDestination();
     }
 
     public void onUpload$browseButton(UploadEvent e){
@@ -90,7 +92,7 @@ public class QuestionController extends CommonController {
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
-        String path = "E:/Project/automation/admin_frontend/target/classes/QuestionTemp"+dateString+".xls";
+        String path = "/Apps/Upload/QuestionTemp"+dateString+".xls";
         List<Question> questionList = new ArrayList<>();
         Question question;
         try{
@@ -179,7 +181,7 @@ public class QuestionController extends CommonController {
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
-        String pathTemp = "E:/Project/automation/admin_frontend/target/classes/QuestionTemp"+dateString+".xls";
+        String pathTemp = "/Apps/Upload/QuestionTemp"+dateString+".xls";
         File f = new File(pathTemp);
         OutputStream os = null;
         try {
@@ -248,6 +250,25 @@ public class QuestionController extends CommonController {
                         }
                     }
                 });
+    }
+
+    public void createDirDestination(){
+        String[] listdestinations = destination.split("/");
+        String destinationCreate = "";
+        for (String destinations: listdestinations){
+            destinationCreate = destinationCreate+"/"+destinations;
+            File file = new File(destinationCreate);
+            System.out.println("Destination : "+destination);
+            if(!file.exists()){
+                if(file.mkdir()){
+                    System.out.println(destination+" Destination directory successfull created");
+                } else{
+                    System.out.println("Failed created destination directory");
+                }
+            } else {
+                System.out.println("Already Exist");
+            }
+        }
     }
 
 }

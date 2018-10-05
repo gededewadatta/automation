@@ -42,7 +42,7 @@ public class DashboardController extends CommonController {
 
     String filename = "DashboardResults";
     String filenameprint = null;
-    String destination = "/Apps/Report";
+    String destination = "Apps/Report";
     String pattern = "ddMMyyyy_HHmmss";
     SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
     Date date = new Date();
@@ -50,6 +50,8 @@ public class DashboardController extends CommonController {
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
+
+        createDirDestination();
 
         SendJSON send = new SendJSON();
 
@@ -76,15 +78,14 @@ public class DashboardController extends CommonController {
             public void onEvent(SelectEvent event) {
 
                 if(event.getSelectedObjects().contains("PDF")) {
-                    createDirDestination();
                     System.out.println("INI PDF ISINYA");
 
                     filenameprint = null;
                     filenameprint = filename+"_"+dateFormat.format(date)+".pdf";
 
-                    if(FileUtil.generatePDFFile(destination+"/"+filenameprint,ddbLIst)){
+                    if(FileUtil.generatePDFFile("/"+destination+"/"+filenameprint,ddbLIst)){
                         try {
-                            File file = new File(destination+"/"+filenameprint);
+                            File file = new File("/"+destination+"/"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
                             Filedownload.save(inStream, "application/pdf", filenameprint);
                         } catch (IOException e){
@@ -97,16 +98,15 @@ public class DashboardController extends CommonController {
                     }
 
                 }else if (event.getSelectedObjects().contains("XLS")) {
-                    createDirDestination();
                     System.out.println("INI EXCEL ISINYA");
 
                     filenameprint = null;
                     filenameprint = filename+"_"+dateFormat.format(date)+".xls";
 
-                    if(FileUtil.GenerateXLSFile(0,destination+"/"+filenameprint,1,FileUtil.generateHeader(),1,
+                    if(FileUtil.GenerateXLSFile(0,"/"+destination+"/"+filenameprint,1,FileUtil.generateHeader(),1,
                             ddbLIst,1,"Dashboard Report")){
                         try {
-                            File file = new File(destination+"/"+filenameprint);
+                            File file = new File("/"+destination+"/"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
                             Filedownload.save(inStream, "application/ms-excel", filenameprint);
                         } catch (IOException e){
@@ -143,15 +143,21 @@ public class DashboardController extends CommonController {
     }
 
     public void createDirDestination(){
-        File file = new File(destination);
-        if(!file.exists()){
-            if(file.mkdir()){
-                System.out.println("Destination directory successfull created");
-            } else{
-                System.out.println("Failed created destination directory");
+        String[] listdestinations = destination.split("/");
+        String destinationCreate = "";
+        for (String destinations: listdestinations){
+            destinationCreate = destinationCreate+"/"+destinations;
+            File file = new File(destinationCreate);
+            System.out.println("Destination : "+destination);
+            if(!file.exists()){
+                if(file.mkdir()){
+                    System.out.println(destination+" Destination directory successfull created");
+                } else{
+                    System.out.println("Failed created destination directory");
+                }
+            } else {
+                System.out.println("Already Exist");
             }
-        } else {
-          System.out.println("Already Exist");
         }
     }
 }

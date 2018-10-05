@@ -50,7 +50,7 @@ public class ReportEmployeeController extends CommonController implements PopupC
 
     String filename = "ReportEmployee";
     String filenameprint = null;
-    String destination = "D:\\Report";
+    String destination = "Apps/Report";
     String pattern = "ddMMyyyy_HHmmss";
     SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
     Date date = new Date();
@@ -80,9 +80,9 @@ public class ReportEmployeeController extends CommonController implements PopupC
             filenameprint = null;
             filenameprint = filename+"_"+dateFormat.format(date)+".pdf";
 
-            if(FileUtil.generatePDFFileReportEmployee(destination+"\\"+filenameprint,reportList)){
+            if(FileUtil.generatePDFFileReportEmployee("/"+destination+"/"+filenameprint,reportList)){
                 try {
-                    File file = new File(destination+"\\"+filenameprint);
+                    File file = new File("/"+destination+"/"+filenameprint);
                     FileInputStream inStream = new FileInputStream(file);
                     Filedownload.save(inStream, "application/pdf", filenameprint);
                 } catch (IOException e){
@@ -99,10 +99,10 @@ public class ReportEmployeeController extends CommonController implements PopupC
             filenameprint = null;
             filenameprint = filename+"_"+dateFormat.format(date)+".xls";
 
-            if(FileUtil.GenerateXLSFileReportEmployee(0,destination+"\\"+filenameprint,1,FileUtil.generateHeaderReportEmployee(),1,
+            if(FileUtil.GenerateXLSFileReportEmployee(0,"/"+destination+"/"+filenameprint,1,FileUtil.generateHeaderReportEmployee(),1,
                     reportList,1,"Report Employee")){
                 try {
-                    File file = new File(destination+"\\"+filenameprint);
+                    File file = new File("/"+destination+"/"+filenameprint);
                     FileInputStream inStream = new FileInputStream(file);
                     Filedownload.save(inStream, "application/ms-excel", filenameprint);
                 } catch (IOException e){
@@ -182,15 +182,21 @@ public class ReportEmployeeController extends CommonController implements PopupC
     }
 
     public void createDirDestination(){
-        File file = new File(destination);
-        if(!file.exists()){
-            if(file.mkdir()){
-                System.out.println("Destination directory successfull created");
-            } else{
-                System.out.println("Failed created destination directory");
+        String[] listdestinations = destination.split("/");
+        String destinationCreate = "";
+        for (String destinations: listdestinations){
+            destinationCreate = destinationCreate+"/"+destinations;
+            File file = new File(destinationCreate);
+            System.out.println("Destination : "+destination);
+            if(!file.exists()){
+                if(file.mkdir()){
+                    System.out.println(destination+" Destination directory successfull created");
+                } else{
+                    System.out.println("Failed created destination directory");
+                }
+            } else {
+                System.out.println("Already Exist");
             }
-        } else {
-            System.out.println("Already Exist");
         }
     }
 }

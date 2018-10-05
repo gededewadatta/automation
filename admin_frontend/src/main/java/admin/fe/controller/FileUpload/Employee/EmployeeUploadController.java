@@ -40,10 +40,9 @@ public class EmployeeUploadController extends CommonController {
     private Window employeeUpCont;
     private AbstractMainWindowTransaction parent;
 
-
     Set<Employee> emp = new HashSet<>();
 
-
+    String destination = "Apps/Upload";
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -51,6 +50,7 @@ public class EmployeeUploadController extends CommonController {
         employeeUpCont = (Window) comp;
 
         System.out.println("employeeUpCont :" + employeeUpCont);
+        createDirDestination();
     }
 
     public void onUpload$browseButton(UploadEvent e){
@@ -66,15 +66,10 @@ public class EmployeeUploadController extends CommonController {
             copyToTemp(med);
         }
 
-
         modelList = new ListModelList(emp);
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
-
-
-
-
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -102,7 +97,7 @@ public class EmployeeUploadController extends CommonController {
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
-        String path = "E:/Project/automation/admin_frontend/target/classes/EMPLOYEETemp"+dateString+".xls";
+        String path = "/Apps/Upload/EMPLOYEETemp"+dateString+".xls";
         Set<Employee> employees = new HashSet<>();
         Employee employee;
         try{
@@ -210,7 +205,7 @@ public class EmployeeUploadController extends CommonController {
 //        path for temporary
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
-        String pathTemp = "E:/Project/automation/admin_frontend/target/classes/EMPLOYEETemp"+dateString+".xls";
+        String pathTemp = "/Apps/Upload/EMPLOYEETemp"+dateString+".xls";
         File f = new File(pathTemp);
 
         InputStream stream = media.getStreamData();
@@ -246,7 +241,6 @@ public class EmployeeUploadController extends CommonController {
                 }
             }
         }
-
        loadFileTemp(extensinos);
 
     }
@@ -296,6 +290,25 @@ public class EmployeeUploadController extends CommonController {
                         }
                     }
                 });
+    }
+
+    public void createDirDestination(){
+        String[] listdestinations = destination.split("/");
+        String destinationCreate = "";
+        for (String destinations: listdestinations){
+            destinationCreate = destinationCreate+"/"+destinations;
+            File file = new File(destinationCreate);
+            System.out.println("Destination : "+destination);
+            if(!file.exists()){
+                if(file.mkdir()){
+                    System.out.println(destination+" Destination directory successfull created");
+                } else{
+                    System.out.println("Failed created destination directory");
+                }
+            } else {
+                System.out.println("Already Exist");
+            }
+        }
     }
 
 }

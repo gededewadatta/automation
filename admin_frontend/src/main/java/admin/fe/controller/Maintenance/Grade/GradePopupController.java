@@ -17,21 +17,14 @@ import java.util.List;
 public class GradePopupController extends CommonController {
 
     List<Grade> gradeList = new ArrayList<>();
-
     SendJSON send = new SendJSON();
-
     Grade grd = new Grade();
 
     Grid hGrid;
-
     ListModelList modelList;
-
     Radiogroup rgrSearchResult;
-
     Window gradePopup;
-
     Textbox idDepartmentCode;
-
     Textbox idDepartementName;
 
     Grade grade = new Grade();
