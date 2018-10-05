@@ -19,15 +19,11 @@ import java.util.List;
 public class SubGradePopupController extends CommonController {
 
     List<SubGrade> subGrds = new ArrayList<>();
-
     SubGrade subgrd = new SubGrade();
 
     Grid hGrid;
-
     ListModelList modelList;
-
     Radiogroup rgrSearchResult;
-
     Window subGradePopup;
 
     SendJSON send = new SendJSON();
@@ -63,13 +59,18 @@ public class SubGradePopupController extends CommonController {
 
     public void onClick$idSelect(){
 
-        if (rgrSearchResult.getSelectedIndex() != -1) {
+        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+            Long id = rgrSearchResult.getSelectedItem().getValue();
             SubGrade grade = (SubGrade) arg.get("object");
-            SubGrade subgradeData = (SubGrade) modelList.get(rgrSearchResult.getSelectedIndex());
-            grade.setId(subgradeData.getId());
-            grade.setSubGradeCode(subgradeData.getSubGradeCode());
-            grade.setSubGradeName(subgradeData.getSubGradeName());
-            grade.setGradeCode(subgradeData.getGradeCode());
+            List<SubGrade> subGrdList = modelList;
+            for (SubGrade subgradeData :  subGrdList){
+                if(id == subgradeData.getId()){
+                    grade.setId(subgradeData.getId());
+                    grade.setSubGradeCode(subgradeData.getSubGradeCode());
+                    grade.setSubGradeName(subgradeData.getSubGradeName());
+                    grade.setGradeCode(subgradeData.getGradeCode());
+                }
+            }
 
             PopupCallerSubGradeInterface caller = (PopupCallerSubGradeInterface)arg.get("caller");
 
@@ -78,7 +79,6 @@ public class SubGradePopupController extends CommonController {
 
             subGradePopup.onClose();
         }
-
     }
 
     public void onClick$searchButton() throws Exception {

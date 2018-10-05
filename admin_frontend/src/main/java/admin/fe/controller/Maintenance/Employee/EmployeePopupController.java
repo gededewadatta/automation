@@ -22,13 +22,9 @@ public class EmployeePopupController extends CommonController {
     SendJSON send = new SendJSON();
 
     Grid hGrid;
-
     Textbox idEmployee;
-
     Textbox idEmpName;
-
     ListModelList modelList;
-
     Radiogroup rgrSearchResult;
 
     public void doAfterCompose(Component comp) throws Exception{
@@ -61,14 +57,19 @@ public class EmployeePopupController extends CommonController {
 
     public void onClick$idSelect(){
 
-        if (rgrSearchResult.getSelectedIndex() != -1) {
+        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+            String id = rgrSearchResult.getSelectedItem().getValue();
             Employee employee = (Employee) arg.get("object");
-            Employee employeeData = (Employee) modelList.get(rgrSearchResult.getSelectedIndex());
-            employee.setId(employeeData.getId());
-            employee.setDivisionCode(employeeData.getDivisionCode());
-            employee.setDepartementCode(employeeData.getDepartementCode());
-            employee.setEmployeeName(employeeData.getEmployeeName());
-            employee.setEmployeeCode(employeeData.getEmployeeCode());
+            List<Employee> empList = modelList;
+            for (Employee employeeData :  empList){
+                if(id.equalsIgnoreCase(employeeData.getId())){
+                    employee.setId(employeeData.getId());
+                    employee.setDivisionCode(employeeData.getDivisionCode());
+                    employee.setDepartementCode(employeeData.getDepartementCode());
+                    employee.setEmployeeName(employeeData.getEmployeeName());
+                    employee.setEmployeeCode(employeeData.getEmployeeCode());
+                }
+            }
 
             PopupCallerEmployeeInterface caller = (PopupCallerEmployeeInterface)arg.get("caller");
 
@@ -77,7 +78,6 @@ public class EmployeePopupController extends CommonController {
 
             empPopup.onClose();
         }
-
     }
 
     public void onClick$searchButton() throws Exception {

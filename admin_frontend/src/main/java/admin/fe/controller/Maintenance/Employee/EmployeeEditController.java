@@ -109,6 +109,14 @@ public class EmployeeEditController extends CommonController {
         showConfirmDialog("Do you want to update Data");
     }
 
-
+    public void onClick$clearButton(){
+        idDivision.setValue("");
+        idDepartment.setValue("");
+        idGrade.setValue("");
+        idSubGrade.setValue("");
+        idCEmployee.setValue("");
+        idEmployeeName.setValue("");
+        idEmployeeId.setValue("");
+    }
 
 }

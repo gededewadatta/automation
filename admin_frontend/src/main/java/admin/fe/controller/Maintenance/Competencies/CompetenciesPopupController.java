@@ -55,12 +55,17 @@ public class CompetenciesPopupController extends CommonController {
 
     public void onClick$addSelect(){
 
-        if (rgrSearchResult.getSelectedIndex() != -1) {
+        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+            String id = rgrSearchResult.getSelectedItem().getValue();
             Competency competency = (Competency) arg.get("object");
-            Competency competencyData = (Competency) modelList.get(rgrSearchResult.getSelectedIndex());
-            competency.setId(competencyData.getId());
-            competency.setCompetencyName(competencyData.getCompetencyName());
-            competency.setCompetencyCode(competencyData.getCompetencyCode());
+            List<Competency> compList = modelList;
+            for (Competency competencyData :  compList){
+                if(id.equalsIgnoreCase(competencyData.getId())){
+                    competency.setId(competencyData.getId());
+                    competency.setCompetencyName(competencyData.getCompetencyName());
+                    competency.setCompetencyCode(competencyData.getCompetencyCode());
+                }
+            }
 
             PopupCallerCompetencyInterface caller = (PopupCallerCompetencyInterface)arg.get("caller");
 

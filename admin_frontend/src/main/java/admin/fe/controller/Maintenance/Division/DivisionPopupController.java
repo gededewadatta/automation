@@ -50,23 +50,26 @@ public class DivisionPopupController extends CommonController {
     }
 
     public void onClick$addSelect(){
-        Long id = rgrSearchResult.getSelectedItem().getValue();
-        Division division = (Division) arg.get("object");
-        List<Division> divList = modelList;
-        for (Division divCheck :  divList){
-            if(id == divCheck.getId()){
-                division.setId(divCheck.getId());
-                division.setDivisionCode(divCheck.getDivisionCode());
-                division.setDivisionName(divCheck.getDivisionName());
+
+        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+            Long id = rgrSearchResult.getSelectedItem().getValue();
+            Division division = (Division) arg.get("object");
+            List<Division> divList = modelList;
+            for (Division divCheck :  divList){
+                if(id == divCheck.getId()){
+                    division.setId(divCheck.getId());
+                    division.setDivisionCode(divCheck.getDivisionCode());
+                    division.setDivisionName(divCheck.getDivisionName());
+                }
             }
+
+            PopupCallerDivisionInterface caller = (PopupCallerDivisionInterface)arg.get("caller");
+
+            if(caller != null)
+                caller.afterSelectDivision(division);
+
+            divPopup.onClose();
         }
-
-        PopupCallerDivisionInterface caller = (PopupCallerDivisionInterface)arg.get("caller");
-
-        if(caller != null)
-            caller.afterSelectDivision(division);
-
-        divPopup.onClose();
     }
 
     public void onClick$searchButton() throws Exception {

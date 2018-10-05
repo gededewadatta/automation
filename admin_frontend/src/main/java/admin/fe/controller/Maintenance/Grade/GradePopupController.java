@@ -59,14 +59,18 @@ public class GradePopupController extends CommonController {
 
     public void onClick$idSelect(){
 
-        if (rgrSearchResult.getSelectedIndex() != -1) {
-
-            Grade gradeData = (Grade) modelList.get(rgrSearchResult.getSelectedIndex());
-            grade.setIdGrade(gradeData.getIdGrade());
-            grade.setDivisionCode(gradeData.getDivisionCode());
-            grade.setDepartementCode(gradeData.getDepartementCode());
-            grade.setGradeCode(gradeData.getGradeCode());
-            grade.setGradeName(gradeData.getGradeName());
+        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+            Long id = rgrSearchResult.getSelectedItem().getValue();
+            List<Grade> gradeList = modelList;
+            for(Grade gradeData: gradeList){
+                if(id == gradeData.getIdGrade()){
+                    grade.setIdGrade(gradeData.getIdGrade());
+                    grade.setDivisionCode(gradeData.getDivisionCode());
+                    grade.setDepartementCode(gradeData.getDepartementCode());
+                    grade.setGradeCode(gradeData.getGradeCode());
+                    grade.setGradeName(gradeData.getGradeName());
+                }
+            }
 
             PopupCallerGradeInterface caller = (PopupCallerGradeInterface)arg.get("caller");
 
@@ -75,7 +79,6 @@ public class GradePopupController extends CommonController {
 
             gradePopup.onClose();
         }
-
     }
 
     public void onClick$searchButton() throws Exception {

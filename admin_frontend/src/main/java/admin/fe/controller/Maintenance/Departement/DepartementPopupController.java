@@ -49,24 +49,27 @@ public class DepartementPopupController extends CommonController {
     }
 
     public void onClick$addSelect(){
-        Long id = rgrSearchResult.getSelectedItem().getValue();
-        Departement departement = (Departement) arg.get("object");
-        List<Departement> depList = modelList;
-        for (Departement depCheck :  depList){
-            if(id == depCheck.getId()){
-                departement.setId(depCheck.getId());
-                departement.setDivisionCode(depCheck.getDivisionCode());
-                departement.setDepartementCode(depCheck.getDepartementCode());
-                departement.setDepartementName(depCheck.getDepartementName());
+
+        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+            Long id = rgrSearchResult.getSelectedItem().getValue();
+            Departement departement = (Departement) arg.get("object");
+            List<Departement> depList = modelList;
+            for (Departement depCheck :  depList){
+                if(id == depCheck.getId()){
+                    departement.setId(depCheck.getId());
+                    departement.setDivisionCode(depCheck.getDivisionCode());
+                    departement.setDepartementCode(depCheck.getDepartementCode());
+                    departement.setDepartementName(depCheck.getDepartementName());
+                }
             }
+
+            PopupCallerDepartmentInterface caller = (PopupCallerDepartmentInterface)arg.get("caller");
+
+            if(caller != null)
+                caller.afterSelectDepartement(departement);
+
+            depPopup.onClose();
         }
-
-        PopupCallerDepartmentInterface caller = (PopupCallerDepartmentInterface)arg.get("caller");
-
-        if(caller != null)
-            caller.afterSelectDepartement(departement);
-
-        depPopup.onClose();
     }
 
     public void onClick$searchButton() throws Exception {

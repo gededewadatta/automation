@@ -434,6 +434,7 @@ public class SendJSON {
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
+                subGrade.setId(jsonObjVal.getLong("idSubGrade"));
                 subGrade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
                 subGrade.setSubGradeName(jsonObjVal.getString("subGradeName"));
                 subGrades.add(subGrade);
