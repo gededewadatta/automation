@@ -800,6 +800,60 @@ public class SendJSON {
         return departements;
     }
 
+    public List<Departement> getDepartmentPopUp (Departement dep){
+
+        String result = null;
+
+        String body = null;
+
+        List<Departement> departements = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(dep);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/departementpopup", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array Value is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Departement departement = new Departement();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                departement.setId(jsonObjVal.getLong("id"));
+                departement.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                departement.setDepartementCode(jsonObjVal.getString("departementCode"));
+                departement.setDepartementName(jsonObjVal.getString("departementName"));
+                departements.add(departement);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return departements;
+    }
+
     public String insertDivision(Division div) throws JsonProcessingException {
         String result = null;
 

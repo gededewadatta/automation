@@ -93,7 +93,7 @@ public class DepartementPopupController extends CommonController {
             dep.setDepartementName("");
         }
 
-        departementList = send.getDepartment(dep);
+        departementList = send.getDepartmentPopUp(dep);
 
         modelList = new ListModelList(departementList);
         hGrid.setModel(modelList);

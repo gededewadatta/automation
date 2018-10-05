@@ -46,6 +46,8 @@ public interface AdminService {
 
 	public List<Departement> searchDepartement(String body);
 
+	public List<Departement> searchDepartementPopup(String body);
+
 	public List<Division> searchDivision(String body);
 
 	public List<Employee> searchEmployee(String body);

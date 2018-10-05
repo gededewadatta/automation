@@ -128,7 +128,7 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<Departement> searchDepartement(String departementCode, String divisionCode) {
+	public List<Departement> searchDepartement(String divisionCode, String departementCode) {
 		// TODO Auto-generated method stub
 		List<Departement> departement = new ArrayList<>();
 		if(departementCode.equals("") && divisionCode.equals("")) {
@@ -141,6 +141,34 @@ public class AdminDAOImpl implements AdminDAO {
 			departement = departementRepository.findByDepartementCode("%"+departementCode.toUpperCase()+"%");
 		}else {
 			departement = departementRepository.findByDepartementCodeAndDivisionCode("%"+departementCode.toUpperCase()+"%","%"+divisionCode.toUpperCase()+"%");
+		}
+
+		return departement;
+	}
+
+	@Override
+	public List<Departement> searchDepartementPopup(String divisionCode, String departementCode, String departementName) {
+		// TODO Auto-generated method stub
+		List<Departement> departement = new ArrayList<>();
+		if(departementCode.equals("") && divisionCode.equals("") && departementName.equals("")) {
+			departement = departementRepository.findAll();
+		}
+		else if(departementCode.equals("")&& !divisionCode.equals("")&& departementName.equals("")) {
+			departement = departementRepository.findByDivisionCode("%"+divisionCode.toUpperCase()+"%");
+		}
+		else if(!departementCode.equals("")&& divisionCode.equals("")&& departementName.equals("")) {
+			departement = departementRepository.findByDepartementCode("%"+departementCode.toUpperCase()+"%");
+		}
+		else if(departementCode.equals("")&& divisionCode.equals("")&& !departementName.equals("")) {
+			departement = departementRepository.findByDepartementName("%"+departementName.toUpperCase()+"%");
+		}
+		else if(!departementCode.equals("")&& !divisionCode.equals("")&& departementName.equals("")) {
+			departement = departementRepository.findByDepartementCodeAndDivisionCode("%"+departementCode.toUpperCase()+"%","%"+divisionCode.toUpperCase()+"%");
+		}
+		else if(departementCode.equals("")&& !divisionCode.equals("")&& !departementName.equals("")) {
+			departement = departementRepository.findByDepartementNameAndDivisionCode("%"+departementName.toUpperCase()+"%","%"+divisionCode.toUpperCase()+"%");
+		}else {
+			departement = departementRepository.findByDepartementCodeAndDivisionCodeAndDepartementName("%"+departementCode.toUpperCase()+"%","%"+divisionCode.toUpperCase()+"%","%"+departementName.toUpperCase()+"%");
 		}
 
 		return departement;

@@ -60,6 +60,8 @@ public class ProxyController {
 	protected String questionUrlSearch;
 	@Value("${led.automation.admin.search.departement}")
 	protected String departementUrlSearch;
+	@Value("${led.automation.admin.search.departementpopup}")
+	protected String departementPopupUrlSearch;
 	@Value("${led.automation.admin.search.division}")
 	protected String divisionUrlSearch;
 	@Value("${led.automation.admin.search.competency}")
@@ -167,6 +169,9 @@ public class ProxyController {
 			break;
 		case "departementUrlSearch":
 			result = departementUrlSearch;
+			break;
+		case "departementpopUrlSearch":
+			result = departementPopupUrlSearch;
 			break;
 		case "divisionUrlSearch":
 			result = divisionUrlSearch;
@@ -513,6 +518,14 @@ public class ProxyController {
 	public String departementSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		return proxy(departementUrlSearch, body, method, request, response);
+
+	}
+
+	@RequestMapping(value = "/led/api/automation/search/departementpopup", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String departementPopupSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+									HttpServletResponse response) throws URISyntaxException {
+		return proxy(departementPopupUrlSearch, body, method, request, response);
 
 	}
 

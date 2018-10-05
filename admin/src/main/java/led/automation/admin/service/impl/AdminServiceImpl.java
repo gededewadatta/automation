@@ -447,7 +447,19 @@ public class AdminServiceImpl implements AdminService {
 		 * jsonResponse.isNull("departementname")?"":jsonResponse.getString(
 		 * "departementname");
 		 */
-		return adminDAO.searchDepartement(dep.getDepartementCode(), dep.getDivisionCode());
+		return adminDAO.searchDepartement(dep.getDivisionCode(), dep.getDepartementCode());
+	}
+
+	@Override
+	public List<Departement> searchDepartementPopup(String body) {
+		// TODO Auto-generated method stub
+		Departement dep = new Departement();
+		try {
+			dep = objectMapper.readValue(body, Departement.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.searchDepartementPopup(dep.getDivisionCode(), dep.getDepartementCode(), dep.getDepartementName());
 	}
 
 	@Override

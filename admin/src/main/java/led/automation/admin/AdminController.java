@@ -168,6 +168,13 @@ public class AdminController {
 		List<Departement> departement = adminService.searchDepartement(body);
 		return departement;
 	}
+	@RequestMapping(value = "/led/api/automation/search/departementpopup", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Departement> searchDepartementPopup(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+											   HttpServletResponse response) throws URISyntaxException {
+		List<Departement> departement = adminService.searchDepartementPopup(body);
+		return departement;
+	}
 	@RequestMapping(value = "/led/api/automation/search/division", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public List<Division> searchDivision(@RequestBody String body, HttpMethod method, HttpServletRequest request,

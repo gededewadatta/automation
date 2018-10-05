@@ -19,8 +19,14 @@ public interface DepartementRepository extends JpaRepository<Departement, Long>{
 	List<Departement> findByDivisionCode(String DivisionCode);
 	@Query(value = "SELECT * FROM Departement WHERE UPPER(Departement_CODE) like %?1", nativeQuery = true)
 	List<Departement> findByDepartementCode(String DepartementCode);
+	@Query(value = "SELECT * FROM Departement WHERE UPPER(Departement_NAME) like %?1", nativeQuery = true)
+	List<Departement> findByDepartementName(String DepartementName);
 	@Query(value = "SELECT * FROM Departement WHERE UPPER(Departement_CODE) like %?1 AND UPPER(division_code) like %?2", nativeQuery = true)
 	List<Departement> findByDepartementCodeAndDivisionCode(String DepartementCode, String division_code);
+	@Query(value = "SELECT * FROM Departement WHERE UPPER(Departement_NAME) like %?1 AND UPPER(division_code) like %?2", nativeQuery = true)
+	List<Departement> findByDepartementNameAndDivisionCode(String DepartementName, String division_code);
+	@Query(value = "SELECT * FROM Departement WHERE UPPER(Departement_CODE) like %?1 AND UPPER(division_code) like %?2 AND UPPER(Departement_NAME) like %?3", nativeQuery = true)
+	List<Departement> findByDepartementCodeAndDivisionCodeAndDepartementName(String DepartementCode, String division_code,String DepartementName);
 	@Query(value = "SELECT ?2,div.division_name,dept.departement_name"
 			+ " FROM Division div join Departement dept on div.division_name = dept.division_name"
 			+ "WHERE UPPER(div.division_code) like %?1", nativeQuery = true)

@@ -34,7 +34,9 @@ public interface AdminDAO {
 	//insert data : stop
 	 
 
-	public List<Departement> searchDepartement(String divisionCode, String divisionName);
+	public List<Departement> searchDepartement(String divisionCode, String departementCode);
+
+	public List<Departement> searchDepartementPopup(String divisionCode, String departementCode, String departementName);
 
 	public List<Employee> searchEmployee(String employeeCode, String employeeName);
 
