@@ -35,7 +35,7 @@
             </vbox>
 
             <div align="center" style="margin-top:10px">
-                <button id="btnSubmit" label="Add"  style="float::center"/>
+                <button id="btnSubmit" label="Upload"  style="float::center"/>
             </div>
 
 

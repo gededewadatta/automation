@@ -282,6 +282,7 @@ public class EmployeeUploadController extends CommonController {
 
                                     }
                                     emp.clear();
+                                    idUpload.setValue("");
                                     hGrid.removeChild(hGrid.getRows());
                                     Messagebox.show("Data Success to Save");
                                 } catch (JsonProcessingException e) {
