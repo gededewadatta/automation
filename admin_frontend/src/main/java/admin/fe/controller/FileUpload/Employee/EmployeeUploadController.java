@@ -252,6 +252,7 @@ public class EmployeeUploadController extends CommonController {
     }
 
     public void showConfirmDialog(String message) {
+//        Insert into db
         Messagebox.show(message, "confirm",
                 Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
                 Messagebox.NO, new SerializableEventListener() {

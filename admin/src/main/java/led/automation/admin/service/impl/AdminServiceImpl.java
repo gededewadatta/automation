@@ -59,6 +59,7 @@ public class AdminServiceImpl implements AdminService {
 			employee = objectMapper.readValue(body, Employee.class);
 			System.out.println("Employee Name is :" + employee.getEmployeeName());
 			System.out.println("Employee Code is :" + employee.getEmployeeCode());
+//			Insert employee
 
 //            jsonResponse = new JSONObject(body);
 //            employee = new Employee();

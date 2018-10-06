@@ -58,6 +58,7 @@ public class AdminController {
 	public ResponseEntity<String> insertEmployee(@RequestBody String body, HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
 	    System.out.println(body);
+//	    Insert employee
 		return ResponseEntity.ok(adminService.insertEmployee(body));
 	}
 

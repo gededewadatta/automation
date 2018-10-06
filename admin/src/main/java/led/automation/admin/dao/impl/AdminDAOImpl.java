@@ -57,6 +57,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertEmployee(Employee body) {
 		// TODO Auto-generated method stub
+//		 Insert employee
 		System.out.println("Dao Employee Name is :"+ body.getEmployeeName());
 		System.out.println("Dao Employee Code is :"+ body.getEmployeeCode());
 		Employee res = new Employee();
@@ -242,7 +243,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 		if(departmentCode.equals("")&& divisionCode.equals("")) {
 
-			gradeJsons = gradeJsonRepoSitory.findAll();
+			gradeJsons = gradeJsonRepoSitory.findGradeAndSubGrade();
 
 		}else if(!departmentCode.equals("")&&divisionCode.equals("")){
 			gradeJsons = gradeJsonRepoSitory.findByDepartmentCode(departmentCode);
