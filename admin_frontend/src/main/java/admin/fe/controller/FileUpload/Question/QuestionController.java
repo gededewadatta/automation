@@ -242,6 +242,7 @@ public class QuestionController extends CommonController {
                                         send.insertQuestion(question);
                                     }
                                     questions.clear();
+                                    idUpload.setValue("");
                                     hGrid.removeChild(hGrid.getRows());
                                 } catch (JsonProcessingException e) {
                                     Messagebox.show("Data failed to Save");
