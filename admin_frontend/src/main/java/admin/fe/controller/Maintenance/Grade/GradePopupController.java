@@ -6,6 +6,7 @@ import admin.fe.engine.PopupCallerEmployeeInterface;
 import admin.fe.engine.PopupCallerGradeInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Departement;
+import admin.fe.model.Division;
 import admin.fe.model.Employee;
 import admin.fe.model.Grade;
 import org.zkoss.zk.ui.Component;
@@ -24,15 +25,14 @@ public class GradePopupController extends CommonController {
     ListModelList modelList;
     Radiogroup rgrSearchResult;
     Window gradePopup;
-    Textbox idDepartmentCode;
-    Textbox idDepartementName;
+    Textbox idGradeCode;
+    Textbox idGradeName;
 
     Grade grade = new Grade();
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
         comp.setAttribute("GradePopupController",this, true);
-        grade = (Grade) arg.get("objectGrade");
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -44,8 +44,6 @@ public class GradePopupController extends CommonController {
             }
 
             private void renderDataRow(Row row, Grade grd){
-
-
                 row.setValue(grd);
                 Radio rdo = new Radio();
                 rdo.setValue(grd.getIdGrade());
@@ -59,7 +57,7 @@ public class GradePopupController extends CommonController {
 
     public void onClick$idSelect(){
 
-        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+        if(rgrSearchResult.getSelectedItem()!=null){
             Long id = rgrSearchResult.getSelectedItem().getValue();
             List<Grade> gradeList = modelList;
             for(Grade gradeData: gradeList){
@@ -82,11 +80,32 @@ public class GradePopupController extends CommonController {
     }
 
     public void onClick$searchButton() throws Exception {
+        Division division = (Division) arg.get("division");
+        Departement departement = (Departement) arg.get("departement");
 
-        idDepartmentCode.setValue(grade.getDepartementCode());
-        grd.setDepartementCode(idDepartmentCode.getValue());
+        if(division.getDivisionCode()!=null){
+            grd.setDivisionCode(division.getDivisionCode());
+        } else {
+            grd.setDivisionCode("");
+        }
 
-        grd.setDivisionCode("");
+        if(departement.getDepartementCode()!=null){
+            grd.setDepartementCode(departement.getDepartementCode());
+        } else {
+            grd.setDepartementCode("");
+        }
+
+        if(idGradeCode != null || !(idGradeCode.equals(""))){
+            grd.setGradeCode(idGradeCode.getValue());
+        } else {
+            grd.setGradeCode("");
+        }
+
+        if(idGradeName != null|| !(idGradeName.equals(""))){
+            grd.setGradeName(idGradeName.getValue());
+        } else {
+            grd.setGradeName("");
+        }
 
         gradeList = send.getGrade(grd);
         modelList = new ListModelList(gradeList);

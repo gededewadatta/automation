@@ -57,7 +57,7 @@ public class EmployeePopupController extends CommonController {
 
     public void onClick$idSelect(){
 
-        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+        if(rgrSearchResult.getSelectedItem()!=null){
             String id = rgrSearchResult.getSelectedItem().getValue();
             Employee employee = (Employee) arg.get("object");
             List<Employee> empList = modelList;

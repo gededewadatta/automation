@@ -54,6 +54,8 @@ public class ProxyController {
 	protected String employeeCompetencyUrlSearch;
 	@Value("${led.automation.admin.search.grade}")
 	protected String gradeUrlSearch;
+	@Value("${led.automation.admin.search.gradepopup}")
+	protected String gradePopupUrlSearch;
 	@Value("${led.automation.admin.search.subgrade}")
 	protected String subgradeUrlSearch;
 	@Value("${led.automation.admin.search.question}")
@@ -526,6 +528,14 @@ public class ProxyController {
 	public String departementPopupSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 									HttpServletResponse response) throws URISyntaxException {
 		return proxy(departementPopupUrlSearch, body, method, request, response);
+
+	}
+
+	@RequestMapping(value = "/led/api/automation/search/gradepopup", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String gradePopupSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+							  HttpServletResponse response) throws URISyntaxException {
+		return proxy(gradePopupUrlSearch, body, method, request, response);
 
 	}
 

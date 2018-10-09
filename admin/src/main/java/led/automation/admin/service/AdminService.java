@@ -44,6 +44,8 @@ public interface AdminService {
 
 	public List<Grade> searchGrade(String body);
 
+	public List<Grade> searchGradePopup(String body);
+
 	public List<Departement> searchDepartement(String body);
 
 	public List<Departement> searchDepartementPopup(String body);

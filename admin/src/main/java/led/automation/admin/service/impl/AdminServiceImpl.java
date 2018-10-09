@@ -414,6 +414,21 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public List<Grade> searchGradePopup(String body) {
+		// TODO Auto-generated method stub
+		Grade grd = new Grade();
+		try {
+			grd = objectMapper.readValue(body, Grade.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("INI COBA MASUK");
+
+		return adminDAO.searchGradePopup(grd.getDepartementCode(), grd.getDivisionCode(),grd.getGradeCode(),grd.getGradeName());
+	}
+
+
+	@Override
 	public List<Employee> searchEmployee(String body) {
 		// TODO Auto-generated method stub
 		try {

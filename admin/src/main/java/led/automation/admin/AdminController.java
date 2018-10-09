@@ -122,6 +122,14 @@ public class AdminController {
 		return grade;
 	}
 
+	@RequestMapping(value = "/led/api/automation/search/gradepopup", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Grade> searchGradePopup(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+								   HttpServletResponse response) throws URISyntaxException {
+		List<Grade> grade = adminService.searchGradePopup(body);
+		return grade;
+	}
+
 	@RequestMapping(value = "/led/api/automation/search/gradeJson", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public List<GradeJson> searchGradeJson(@RequestBody String body, HttpMethod method, HttpServletRequest request,

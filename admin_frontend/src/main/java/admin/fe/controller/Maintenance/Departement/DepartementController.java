@@ -164,6 +164,7 @@ public class DepartementController extends CommonController implements PopupCall
         args.put("divisionCode",obj.getDivisionCode());
         args.put("departmentCode",obj.getDepartementCode());
         args.put("departmentName",obj.getDepartementName());
+        args.put("createdBy",obj.getCreatedBy());
         args.put("type",type);
 
         return args;

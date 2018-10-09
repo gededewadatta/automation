@@ -55,7 +55,7 @@ public class CompetenciesPopupController extends CommonController {
 
     public void onClick$addSelect(){
 
-        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+        if(rgrSearchResult.getSelectedItem()!=null){
             String id = rgrSearchResult.getSelectedItem().getValue();
             Competency competency = (Competency) arg.get("object");
             List<Competency> compList = modelList;

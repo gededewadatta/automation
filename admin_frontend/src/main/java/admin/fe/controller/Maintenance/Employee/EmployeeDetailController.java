@@ -152,7 +152,9 @@ public class EmployeeDetailController extends CommonController implements PopupC
 
         Map<String, Object> args = new HashMap<String, Object>();
         Grade grade = new Grade();
-        args.put("objectGrade", grade);
+        args.put("object", grade);
+        args.put("departement", dep);
+        args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
                 "layout/Grade/GradePopup.zul", self, args);

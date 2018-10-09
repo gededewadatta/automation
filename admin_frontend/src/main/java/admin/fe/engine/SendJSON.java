@@ -736,6 +736,7 @@ public class SendJSON {
                 division.setId(jsonObjVal.getLong("id"));
                 division.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 division.setDivisionName(jsonObjVal.getString("divisionName"));
+                division.setCreatedBy(jsonObjVal.getString("createdBy"));
                 divisions.add(division);
 
             }
@@ -790,6 +791,7 @@ public class SendJSON {
                 departement.setDivisionCode(jsonObjVal.getString("divisionCode"));
                 departement.setDepartementCode(jsonObjVal.getString("departementCode"));
                 departement.setDepartementName(jsonObjVal.getString("departementName"));
+                departement.setCreatedBy(jsonObjVal.getString("createdBy"));
                 departements.add(departement);
 
             }
@@ -852,6 +854,67 @@ public class SendJSON {
             e.printStackTrace();
         }
         return departements;
+    }
+
+    public List<Grade> getGradePopup(Grade grd){
+
+        String result = null;
+
+        String body = null;
+
+        List<Grade> gradeList = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(grd);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/gradepopup", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            System.out.println("respons VAlue is : "+ respons);
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            System.out.println("Json respons VAlue is : "+ jsonResponse);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Grade grade = new Grade();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                grade.setIdGrade(jsonObjVal.getLong("idGrade"));
+                grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                grade.setDepartementCode(jsonObjVal.getString("departementCode"));
+                grade.setGradeCode(jsonObjVal.getString("gradeCode"));
+                grade.setGradeName(jsonObjVal.getString("gradeName"));
+                gradeList.add(grade);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return gradeList;
+
     }
 
     public String insertDivision(Division div) throws JsonProcessingException {

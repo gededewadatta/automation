@@ -8,24 +8,22 @@
             <grid>
                 <rows>
                     <row>
-                        <label value = "Department Code:" />
+                        <label value = "Grade Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartmentCode"  />
+                                <textbox id="idGradeCode"  />
+                            </hlayout>
+                        </hbox>
+                    </row>
+                    <row>
+                        <label value = "Grade Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idGradeName" />
                             </hlayout>
                         </hbox>
 
-
                     </row>
-                    <!--<row>-->
-                        <!--<label value = "Department Name:" />-->
-                        <!--<hbox>-->
-                            <!--<hlayout>-->
-                                <!--<textbox id="idDepartementName" />-->
-                            <!--</hlayout>-->
-                        <!--</hbox>-->
-
-                    <!--</row>-->
                 </rows>
             </grid>
             <div align="center" style="margin-top:10px">

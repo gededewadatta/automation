@@ -18,6 +18,7 @@ import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,7 @@ public class DepartementViewEditController extends CommonController implements P
         dep.setDivisionCode((String) arg.get("divisionCode"));
         dep.setDepartementCode((String) arg.get("departmentCode"));
         dep.setDepartementName((String) arg.get("departmentName"));
+        dep.setCreatedBy((String) arg.get("createdBy"));
     }
 
     public void initView() {
@@ -118,6 +120,8 @@ public class DepartementViewEditController extends CommonController implements P
         dep.setDivisionCode(idDivisionEdit.getValue());
         dep.setDepartementCode(idDepartementEdit.getValue());
         dep.setDepartementName(nameDepartementEdit.getValue());
+        dep.setCreatedDate(new Date());
+
         Messagebox.show("Are you sure want to Update?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, new EventListener() {
             public void onEvent(Event evt) throws InterruptedException {
                 if (evt.getName().equals("onYes")) {

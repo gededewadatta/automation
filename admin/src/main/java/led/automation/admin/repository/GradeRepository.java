@@ -22,7 +22,7 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 	@Query(value = "Select * from grade grd WHERE grd.division_code like %?1", nativeQuery = true)
 	List<Grade> findByDivisionCode(String DivisionCode);
 	@Query(value = "Select * from grade grd  WHERE grd.departement_code like %?1 AND grd.division_code like %?2", nativeQuery = true)
-	List<Grade> findByDepartmentCodeAndDivisionName(String DepartmentCode, String DivisionCode);
+	List<Grade> findByDepartmentCodeAndDivisionCode(String DepartmentCode, String DivisionCode);
 	@Query(value = "Select * from grade grd  WHERE grd.grade_code like %?1", nativeQuery = true)
 	List<Grade> findByGradeCode(String gradeCode);
 	@Query(value = "Select * from grade grd  WHERE grd.grade_name like %?1", nativeQuery = true)

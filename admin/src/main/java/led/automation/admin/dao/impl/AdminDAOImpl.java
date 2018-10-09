@@ -207,7 +207,61 @@ public class AdminDAOImpl implements AdminDAO {
 		else if(!divisionCode.equals("")&& departmentCode.equals("")) {
 			grade = gradeRepository.findByDivisionCode(divisionCode);
 		}else {
-			grade = gradeRepository.findByDepartmentCodeAndDivisionName(divisionCode,departmentCode);
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCode(divisionCode,departmentCode);
+		}
+
+		return grade;
+	}
+
+	@Override
+	public List<Grade> searchGradePopup(String departementCode, String divisionCode, String gradeCode, String gradeName) {
+		// TODO Auto-generated method stub
+		List<Grade> grade = new ArrayList<>();
+		if(divisionCode.equals("")&&departementCode.equals("")
+				&&gradeCode.equals("")&&gradeName.equals("")) {
+			grade =  gradeRepository.findAll();
+		}
+		else if(divisionCode.equals("")&&!departementCode.equals("")
+				&&gradeCode.equals("")&&gradeName.equals("")){
+			grade = gradeRepository.findByDepartmentCode(departementCode);
+		}
+		else if(!divisionCode.equals("")&& departementCode.equals("")
+				&&gradeCode.equals("")&&gradeName.equals("")) {
+			grade = gradeRepository.findByDivisionCode(divisionCode);
+		}
+		else if(!divisionCode.equals("")&& !departementCode.equals("")
+				&&gradeCode.equals("")&&gradeName.equals("")) {
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCode(divisionCode,departementCode);
+		}
+		else if(divisionCode.equals("")&& departementCode.equals("")
+				&&!gradeCode.equals("")&&gradeName.equals("")) {
+			grade = gradeRepository.findByGradeCode(gradeCode);
+		}
+		else if(divisionCode.equals("")&& departementCode.equals("")
+				&&gradeCode.equals("")&&!gradeName.equals("")) {
+			grade = gradeRepository.findByGradeName(gradeName);
+		}
+		else if(divisionCode.equals("")&& departementCode.equals("")
+				&&!gradeCode.equals("")&&!gradeName.equals("")) {
+			grade = gradeRepository.findByGradeCodeAndGradeName(gradeCode,gradeName);
+		}
+		else if(divisionCode.equals("")&& !departementCode.equals("")
+				&&!gradeCode.equals("")&&!gradeName.equals("")) {
+			grade = gradeRepository.findByGradeCodeAndGradeNameAndDepartementCode(gradeCode,gradeName,departementCode);
+		}
+		else if(!divisionCode.equals("")&& departementCode.equals("")
+				&&!gradeCode.equals("")&&!gradeName.equals("")) {
+			grade = gradeRepository.findByGradeCodeAndGradeNameAndDivisionCode(gradeCode,gradeName,divisionCode);
+		}
+		else if(!divisionCode.equals("")&& !departementCode.equals("")
+				&&!gradeCode.equals("")&&gradeName.equals("")) {
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeCode(divisionCode,departementCode,gradeCode);
+		}
+		else if(!divisionCode.equals("")&& !departementCode.equals("")
+				&&gradeCode.equals("")&&!gradeName.equals("")) {
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeName(divisionCode,departementCode,gradeName);
+		}else {
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeCodeAndGradeName(divisionCode,departementCode,gradeCode,gradeName);
 		}
 
 		return grade;

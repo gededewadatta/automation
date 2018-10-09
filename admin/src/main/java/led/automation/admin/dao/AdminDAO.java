@@ -42,6 +42,8 @@ public interface AdminDAO {
 
 	public List<Grade> searchGrade(String departementCode, String departementName);
 
+	public List<Grade> searchGradePopup(String departementCode, String divisionCode, String gradeCode, String gradeName);
+
 	public List<SubGrade> searchSubGrade(String gradeCode, String gradeName);
 
 	public List<GradeJson> searchGradeJson(String departementCode, String departementName);
@@ -80,5 +82,6 @@ public interface AdminDAO {
 	public List<String> findSubGradeByGradeCode(String gradeCode);
 	public List<String> findGradeByDeptCode(String gradeCode);
 	public List<String> findDepartementByDivCode(String gradeCode);
-	//find data parent: stop
+
+		//find data parent: stop
 }

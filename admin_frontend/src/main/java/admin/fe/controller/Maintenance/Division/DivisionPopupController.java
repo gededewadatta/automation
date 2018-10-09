@@ -50,8 +50,7 @@ public class DivisionPopupController extends CommonController {
     }
 
     public void onClick$addSelect(){
-
-        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+        if(rgrSearchResult.getSelectedItem()!=null){
             Long id = rgrSearchResult.getSelectedItem().getValue();
             Division division = (Division) arg.get("object");
             List<Division> divList = modelList;

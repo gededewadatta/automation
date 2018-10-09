@@ -50,7 +50,7 @@ public class DepartementPopupController extends CommonController {
 
     public void onClick$addSelect(){
 
-        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+        if(rgrSearchResult.getSelectedItem()!=null){
             Long id = rgrSearchResult.getSelectedItem().getValue();
             Departement departement = (Departement) arg.get("object");
             List<Departement> depList = modelList;
