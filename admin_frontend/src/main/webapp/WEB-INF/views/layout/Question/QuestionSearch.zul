@@ -1,0 +1,41 @@
+<zk>
+    <window id="questionWindow" width="auto" border="none"
+    apply="admin.fe.controller.Maintenance.Question.QuestionSearchController">
+        <div>
+            <grid>
+                <rows>
+                    <row>
+                        <label value="Question Code" />
+                        <textbox id="idQuestionCode"  />
+                    </row>
+
+                    <row>
+                        <label value="Competency" />
+                        <textbox id="idCompetency" />
+                    </row>
+                </rows>
+            </grid>
+
+            <div align="center" style="margin-top:10px">
+                <button id="searchButton" label="Search" style="float::center"/>
+                <button id="cancelButton" label="Cancel" style="float::center"/>
+            </div>
+
+            <vbox>
+                <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
+                    <columns>
+                        <column label="Question Code"  />
+                        <column label="Question Type" align="center"/>
+                        <column label="Question" sort="auto(questions)" align="center"/>
+                        <column label="Correct Answer" sort="auto(correctAnswer)" align="center"/>
+                        <column label="Action"  align="center"/>
+                    </columns>
+                </grid>
+            </vbox>
+
+            <div align="center" style="margin-top:10px">
+                <button id="addButton" label="Add" style="float::center"/>
+            </div>
+        </div>
+    </window>
+</zk>
