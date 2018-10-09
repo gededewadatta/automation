@@ -53,7 +53,7 @@
 										<toolbarbutton id="toolbarLabel2" label="Department" onClick="@command('addTabOne',pProgr='layout/Departement/Departement')"/>
 										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='layout/Grade/Grade')" />
 										<toolbarbutton id="toolbarLabel4" label="Employee" onClick="@command('addTabOne',pProgr='layout/Employee/Employee')"/>
-										<toolbarbutton id="toolbarLabel5" label="Question" onClick="@command('addTabOne',pProgr='layout/Question/Question')"/>
+										<toolbarbutton id="toolbarLabel5" label="Question" onClick="@command('addTabOne',pProgr='layout/Question/QuestionSearch')"/>
 										<toolbarbutton id="toolbarLabel6" label="Competencies" onClick="@command('addTabOne',pProgr='layout/Competencies/Competencies')"/>
 									</vbox>
 								</tabpanel>
