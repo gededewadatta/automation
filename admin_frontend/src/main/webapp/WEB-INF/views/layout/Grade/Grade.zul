@@ -7,10 +7,6 @@
             <grid>
                 <rows>
                     <row>
-                        Company Name:
-                        <textbox id="idCompanyName"  />
-                    </row>
-                    <row>
                         <label value = "Division:" />
                         <hbox>
                             <hlayout>

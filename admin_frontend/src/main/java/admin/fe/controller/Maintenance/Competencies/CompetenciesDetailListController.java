@@ -65,7 +65,6 @@ public class CompetenciesDetailListController extends CommonController implement
         Map<String, Object> args = new HashMap<String, Object>();
         Departement departement = new Departement();
         args.put("object", departement);
-        args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
                 "layout/Departement/DeptPopup.zul", self, args);

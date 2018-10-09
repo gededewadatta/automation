@@ -75,7 +75,7 @@ public class DepartementPopupController extends CommonController {
     public void onClick$searchButton() throws Exception {
         Division division = (Division) arg.get("division");
 
-        if(division.getDivisionCode()!=null){
+        if(division!=null){
             dep.setDivisionCode(division.getDivisionCode());
         } else {
             dep.setDivisionCode("");
@@ -94,6 +94,10 @@ public class DepartementPopupController extends CommonController {
         }
 
         departementList = send.getDepartmentPopUp(dep);
+
+        if(departementList.size()<1){
+            Messagebox.show("Data is not found");
+        }
 
         modelList = new ListModelList(departementList);
         hGrid.setModel(modelList);

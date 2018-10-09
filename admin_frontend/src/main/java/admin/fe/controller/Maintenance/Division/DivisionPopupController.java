@@ -86,6 +86,10 @@ public class DivisionPopupController extends CommonController {
 
         divisionList = send.getDivision(div);
 
+        if(divisionList.size()<1){
+            Messagebox.show("Data is not found");
+        }
+
         modelList = new ListModelList(divisionList);
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);

@@ -83,14 +83,17 @@ public class GradePopupController extends CommonController {
         Division division = (Division) arg.get("division");
         Departement departement = (Departement) arg.get("departement");
 
-        if(division.getDivisionCode()!=null){
+        if(division!=null){
             grd.setDivisionCode(division.getDivisionCode());
         } else {
             grd.setDivisionCode("");
         }
 
-        if(departement.getDepartementCode()!=null){
+        if(departement!=null){
             grd.setDepartementCode(departement.getDepartementCode());
+            if(grd.getDivisionCode().equalsIgnoreCase("")){
+                grd.setDivisionCode(departement.getDivisionCode());
+            }
         } else {
             grd.setDepartementCode("");
         }
@@ -107,12 +110,16 @@ public class GradePopupController extends CommonController {
             grd.setGradeName("");
         }
 
-        gradeList = send.getGrade(grd);
+        gradeList = send.getGradePopup(grd);
+
+        if(gradeList.size()<1){
+            Messagebox.show("Data is not found");
+        }
+
         modelList = new ListModelList(gradeList);
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
-
     }
 
 

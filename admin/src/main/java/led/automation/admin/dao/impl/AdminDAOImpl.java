@@ -202,12 +202,12 @@ public class AdminDAOImpl implements AdminDAO {
 			grade =  gradeRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!departmentCode.equals("")){
-			grade = gradeRepository.findByDepartmentCode(departmentCode);
+			grade = gradeRepository.findByDepartmentCode("%"+departmentCode.toUpperCase()+"%");
 		}
 		else if(!divisionCode.equals("")&& departmentCode.equals("")) {
-			grade = gradeRepository.findByDivisionCode(divisionCode);
+			grade = gradeRepository.findByDivisionCode("%"+divisionCode.toUpperCase()+"%");
 		}else {
-			grade = gradeRepository.findByDepartmentCodeAndDivisionCode(divisionCode,departmentCode);
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCode("%"+divisionCode.toUpperCase()+"%","%"+departmentCode.toUpperCase()+"%");
 		}
 
 		return grade;
@@ -223,45 +223,45 @@ public class AdminDAOImpl implements AdminDAO {
 		}
 		else if(divisionCode.equals("")&&!departementCode.equals("")
 				&&gradeCode.equals("")&&gradeName.equals("")){
-			grade = gradeRepository.findByDepartmentCode(departementCode);
+			grade = gradeRepository.findByDepartmentCode("%"+departementCode.toUpperCase()+"%");
 		}
 		else if(!divisionCode.equals("")&& departementCode.equals("")
 				&&gradeCode.equals("")&&gradeName.equals("")) {
-			grade = gradeRepository.findByDivisionCode(divisionCode);
+			grade = gradeRepository.findByDivisionCode("%"+divisionCode.toUpperCase()+"%");
 		}
 		else if(!divisionCode.equals("")&& !departementCode.equals("")
 				&&gradeCode.equals("")&&gradeName.equals("")) {
-			grade = gradeRepository.findByDepartmentCodeAndDivisionCode(divisionCode,departementCode);
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCode("%"+departementCode.toUpperCase()+"%","%"+divisionCode.toUpperCase()+"%");
 		}
 		else if(divisionCode.equals("")&& departementCode.equals("")
 				&&!gradeCode.equals("")&&gradeName.equals("")) {
-			grade = gradeRepository.findByGradeCode(gradeCode);
+			grade = gradeRepository.findByGradeCode("%"+gradeCode.toUpperCase()+"%");
 		}
 		else if(divisionCode.equals("")&& departementCode.equals("")
 				&&gradeCode.equals("")&&!gradeName.equals("")) {
-			grade = gradeRepository.findByGradeName(gradeName);
+			grade = gradeRepository.findByGradeName("%"+gradeName.toUpperCase()+"%");
 		}
 		else if(divisionCode.equals("")&& departementCode.equals("")
 				&&!gradeCode.equals("")&&!gradeName.equals("")) {
-			grade = gradeRepository.findByGradeCodeAndGradeName(gradeCode,gradeName);
+			grade = gradeRepository.findByGradeCodeAndGradeName("%"+gradeCode.toUpperCase()+"%","%"+gradeName.toUpperCase()+"%");
 		}
 		else if(divisionCode.equals("")&& !departementCode.equals("")
 				&&!gradeCode.equals("")&&!gradeName.equals("")) {
-			grade = gradeRepository.findByGradeCodeAndGradeNameAndDepartementCode(gradeCode,gradeName,departementCode);
+			grade = gradeRepository.findByGradeCodeAndGradeNameAndDepartementCode("%"+gradeCode.toUpperCase()+"%","%"+gradeName.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
 		}
 		else if(!divisionCode.equals("")&& departementCode.equals("")
 				&&!gradeCode.equals("")&&!gradeName.equals("")) {
-			grade = gradeRepository.findByGradeCodeAndGradeNameAndDivisionCode(gradeCode,gradeName,divisionCode);
+			grade = gradeRepository.findByGradeCodeAndGradeNameAndDivisionCode("%"+gradeCode.toUpperCase()+"%","%"+gradeName.toUpperCase()+"%","%"+divisionCode.toUpperCase()+"%");
 		}
 		else if(!divisionCode.equals("")&& !departementCode.equals("")
 				&&!gradeCode.equals("")&&gradeName.equals("")) {
-			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeCode(divisionCode,departementCode,gradeCode);
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeCode("%"+divisionCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%");
 		}
 		else if(!divisionCode.equals("")&& !departementCode.equals("")
 				&&gradeCode.equals("")&&!gradeName.equals("")) {
-			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeName(divisionCode,departementCode,gradeName);
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeName("%"+divisionCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%","%"+gradeName.toUpperCase()+"%");
 		}else {
-			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeCodeAndGradeName(divisionCode,departementCode,gradeCode,gradeName);
+			grade = gradeRepository.findByDepartmentCodeAndDivisionCodeAndGradeCodeAndGradeName("%"+divisionCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+gradeName.toUpperCase()+"%");
 		}
 
 		return grade;
