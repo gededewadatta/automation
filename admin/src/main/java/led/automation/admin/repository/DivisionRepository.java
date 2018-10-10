@@ -30,7 +30,9 @@ public interface DivisionRepository extends CrudRepository<Division, Long> {
 	List<String> generateDivision(String company);
 
 	@Modifying
-	@Query(value = "insert into division (id,created_by, created_date, division_code, division_name) select distinct (SELECT next_val FROM division_seq),?1,?2,?3,?4 from division	where not exists(select 1 from division where division_code = ?3)", nativeQuery = true)
+	@Query(value = "insert into division (id,created_by, created_date, division_code, division_name) \n" +
+			"    select distinct * from (select (SELECT next_val FROM division_seq),?1,?2,?3,?4)  as dv  \n" +
+			"    where not exists(select division_code from division where division_code = ?3)LIMIT 1", nativeQuery = true)
 	int insertDivision(String createdBy, Date createdDate, String divisionCode, String divisionName);
 
 	@Modifying

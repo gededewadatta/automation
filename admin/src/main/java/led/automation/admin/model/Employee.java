@@ -38,6 +38,8 @@ public class Employee {
 	private String createdBy;
 	@Column(name = "CREATED_DATE")
 	private String createdDate;
+	@Column(name = "USER_NAME")
+	private String userName;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -45,7 +47,7 @@ public class Employee {
 	public String toString() {
 		return "Employee [id=" + id + ", departementCode=" + departementCode + ", gradeCode=" + gradeCode
 				+ ", divisionCode=" + divisionCode + ", subGradeCode=" + subGradeCode + ", employeeCode=" + employeeCode
-				+ ", employeeName=" + employeeName + ", createdBy=" + createdBy + ", createdDate=" + createdDate + "]";
+				+ ", employeeName=" + employeeName + ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", userName=" + userName +"]";
 	}
 	/**
 	 * @return the id
@@ -155,7 +157,18 @@ public class Employee {
 	public void setCreatedDate(String createdDate) {
 		this.createdDate = createdDate;
 	}
-	
-	
 
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 }

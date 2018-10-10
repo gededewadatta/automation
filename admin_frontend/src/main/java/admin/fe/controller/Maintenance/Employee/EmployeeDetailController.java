@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
@@ -43,23 +45,20 @@ public class EmployeeDetailController extends CommonController implements PopupC
     ServletRegistrationBean dHtmlLayoutServlet;
 
     private final Object HttpServletRequest = dHtmlLayoutServlet;
-    @Wire
+
     private Textbox idDivision;
 
-    @Wire
     private Textbox idDepartment;
 
-    @Wire
     private Textbox idGrade;
 
-    @Wire
     private Textbox idSubGrade;
 
-    @Wire
     private Textbox idCEmployeeId;
 
-    @Wire
     private Textbox idEmployeeName;
+
+    private Textbox idUserName;
 
     @Value("${led.Employee.insert}")
     protected String employeeInsert;
@@ -71,6 +70,12 @@ public class EmployeeDetailController extends CommonController implements PopupC
     Grade grd = new Grade();
 
     SubGrade subGrd = new SubGrade();
+    EventListener event = null;
+
+    Employee emp = new Employee();
+
+    SendJSON send = new SendJSON();
+
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -78,9 +83,7 @@ public class EmployeeDetailController extends CommonController implements PopupC
     }
 
     public void onClick$submitButton(){
-        Employee emp = new Employee();
 
-        SendJSON send = new SendJSON();
 
             System.out.println("Ini Fucking Submit2");
             emp.setDepartementCode(idDepartment.getValue());
@@ -89,27 +92,47 @@ public class EmployeeDetailController extends CommonController implements PopupC
             emp.setSubGradeCode(idSubGrade.getValue());
             emp.setEmployeeCode(idCEmployeeId.getValue());
             emp.setEmployeeName(idEmployeeName.getValue());
+            emp.setUserName(idUserName.getValue());
             emp.setCreatedDate(new Date());
-            emp.setCreatedBy("Burhan");
+            emp.setCreatedBy("Admin");
 
-        try {
-          String result = send.insertEmployee(emp);
+        Messagebox.show("Are you sure want to save?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new EventListener() {
+            public void onEvent(Event evt) throws InterruptedException {
+                if (evt.getName().equals("onYes")) {
+                    try {
+                        String result = send.insertEmployee(emp);
 
-          if(result.equals("200")){
-              Messagebox.show("Data Already Saved");
-          }else{
-              Messagebox.show("Data Failed To save");
-              idDepartment.setText("");
-              idGrade.setText("");
-              idDivision.setText("");
-              idSubGrade.setText("");
-              idCEmployeeId.setText("");
-              idEmployeeName.setText("");
-          }
+                        if(result.equals("200")){
+                            Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Employee/Employee.zul",null,self);
+                                }
+                            });
+                        }else if(result.equals("Failure")){
+                            Messagebox.show("Data Already exists","Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Employee/Employee.zul",null,self);
+                                }
+                            });
 
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+                        }else{
+                            Messagebox.show("Data Failed to Save","Error",Messagebox.OK, Messagebox.ERROR,event = new EventListener(){
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Employee/Employee.zul",null,self);
+                                }
+                            });
+                        }
+                    } catch (JsonProcessingException e) {
+                        Messagebox.show("Data Failed to Save","Error",Messagebox.OK, Messagebox.ERROR,event = new EventListener(){
+                            public void onEvent(Event evt) throws InterruptedException {
+                                navigateTo("layout/Employee/Employee.zul",null,self);
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
     }
 
     public void onClick$btnDepartment(){

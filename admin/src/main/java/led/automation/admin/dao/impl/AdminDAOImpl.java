@@ -57,14 +57,25 @@ public class AdminDAOImpl implements AdminDAO {
 	Departement dep = new Departement();
 
 	Division div = new Division();
+
+	Employee res = new Employee();
 	//insert data :start
 	@Override
 	public int insertEmployee(Employee body) {
 		// TODO Auto-generated method stub
-//		 Insert employee
-		System.out.println("Dao Employee Name is :"+ body.getEmployeeName());
-		System.out.println("Dao Employee Code is :"+ body.getEmployeeCode());
-		Employee res = new Employee();
+
+		int result = employeeRepository.insertEmployee(body.getCreatedBy(),new Date(),body.getDepartementCode(),body.getDivisionCode()
+				,body.getEmployeeCode().toUpperCase(),body.getEmployeeName(),body.getGradeCode(),body.getSubGradeCode(),body.getUserName());
+		if(result > 0){
+			employeeRepository.updateEmployeeSeq();
+		}
+
+		return result==0?0:1;
+	}
+
+	@Override
+	public int updateEmployee(Employee body) {
+		// TODO Auto-generated method stub
 		res = employeeRepository.save(body);
 		return res.getId()==0?0:1;
 	}
@@ -99,7 +110,10 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		int a = divisionRepository.insertDivision(division.getCreatedBy(),division.getCreatedDate(),division.getDivisionCode().toUpperCase(),division.getDivisionName());
 
-		divisionRepository.updateDivisionSeq();
+		if(a > 0){
+			divisionRepository.updateDivisionSeq();
+		}
+
 		//		return div.getId()>0?1:0;
         return a==0?0:1;
     }

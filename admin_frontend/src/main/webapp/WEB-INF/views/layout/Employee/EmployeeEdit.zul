@@ -50,7 +50,7 @@
                         <label value = "Employee Id:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idCEmployee" />
+                                <textbox id="idCEmployee" disabled="true" />
                             </hlayout>
                         </hbox>
 
@@ -61,6 +61,16 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idEmployeeName"  />
+                            </hlayout>
+                        </hbox>
+
+                    </row>
+
+                    <row>
+                        <label value = "User Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idUserName"  />
                             </hlayout>
                         </hbox>
 

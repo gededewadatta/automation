@@ -38,6 +38,8 @@ public interface AdminService {
 
 	public String updateDivision(String body);
 
+	public String updateEmployee(String body);
+
 	// update data stop
 	// search data : start
 	public List<Dashboard> findDashboard();

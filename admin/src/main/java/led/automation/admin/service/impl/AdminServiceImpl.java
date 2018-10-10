@@ -77,6 +77,28 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public String updateEmployee(String body) {
+		// TODO Auto-generated method stub
+		try {
+			employee = objectMapper.readValue(body, Employee.class);
+//			Insert employee
+
+//            jsonResponse = new JSONObject(body);
+//            employee = new Employee();
+//            employee.setEmployeeName(jsonResponse.isNull("employeeName") ? "" : jsonResponse.getString("employeeName"));
+//            employee.setEmployeeCode(jsonResponse.isNull("employeeCode") ? "" : jsonResponse.getString("employeeCode"));
+//            employee.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
+//            employee.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
+//            employee.setDepartementCode(jsonResponse.isNull("departmentCode") ? "" : jsonResponse.getString("departmentCode"));
+//            employee.setDivisionCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.updateEmployee(employee) == 0 ? "Failure" : "Success";
+	}
+
+	@Override
 	public String insertGrade(String body) {
 		// TODO Auto-generated method stub
 

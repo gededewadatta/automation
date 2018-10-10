@@ -24,6 +24,7 @@ public class Employee {
 	private String employeeName;
 	private Date createdDate;
 	private String createdBy;
+	private String userName;
 
 	public String getDepartementCode() {
 		return departementCode;
@@ -95,5 +96,13 @@ public class Employee {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

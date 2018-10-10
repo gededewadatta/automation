@@ -31,13 +31,13 @@ public class EmployeeEditController extends CommonController {
 
     private Textbox idEmployeeId;
 
+    private Textbox idUserName;
+
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
         initView();
-
-
     }
 
 
@@ -65,11 +65,12 @@ public class EmployeeEditController extends CommonController {
                                 emp.setSubGradeCode(idSubGrade.getValue());
                                 emp.setEmployeeCode(idCEmployee.getValue());
                                 emp.setEmployeeName(idEmployeeName.getValue());
+                                emp.setUserName(idUserName.getValue());
                                 emp.setCreatedDate(new Date());
-                                emp.setCreatedBy("Burhan");
+                                emp.setCreatedBy("ADMIN");
 
                                 try {
-                                    String result = send.insertEmployee(emp);
+                                    String result = send.updateEmployee(emp);
 
                                     if(result.equals("200")){
                                         Messagebox.show("Data Already Updated");
@@ -102,6 +103,7 @@ public class EmployeeEditController extends CommonController {
         idGrade.setValue((String)arg.get("gradeCode"));
         idCEmployee.setValue((String)arg.get("employeeCode"));
         idEmployeeName.setValue((String)arg.get("employeeName"));
+        idUserName.setValue((String)arg.get("userName"));
 
     }
 
@@ -117,6 +119,7 @@ public class EmployeeEditController extends CommonController {
         idCEmployee.setValue("");
         idEmployeeName.setValue("");
         idEmployeeId.setValue("");
+        idUserName.setValue("");
     }
 
 }
