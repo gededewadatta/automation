@@ -155,6 +155,24 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public String updateDivision(String body) {
+		// TODO Auto-generated method stub
+		try {
+			division = objectMapper.readValue(body,Division.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*jsonResponse = new JSONObject(body);
+		division = new Division();
+		division.setDivisonCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
+		division.setDivisionName(jsonResponse.isNull("divisionName") ? "" : jsonResponse.getString("divisionName"));
+		division.setCreatedBy(createdBy);
+		division.setCreatedDate(createdDate);*/
+
+		return adminDAO.updateDivision(division) == 0 ? "Failure" : "Success";
+	}
+
+	@Override
 	public String insertDepartement(String body) {
 		// TODO Auto-generated method stub
 		try {

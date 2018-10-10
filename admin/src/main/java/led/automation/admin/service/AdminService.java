@@ -33,6 +33,12 @@ public interface AdminService {
 	public String insertCompetency(String body);
 
 	// insert data : stop
+
+	// update data
+
+	public String updateDivision(String body);
+
+	// update data stop
 	// search data : start
 	public List<Dashboard> findDashboard();
 

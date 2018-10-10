@@ -32,6 +32,12 @@ public interface AdminDAO {
 	
 	public int insertPendingQuestion(PendingQuestion pendingQuestion);
 	//insert data : stop
+
+	//update data
+
+	public int updateDivision(Division division);
+
+	//update data stop
 	 
 
 	public List<Departement> searchDepartement(String divisionCode, String departementCode);

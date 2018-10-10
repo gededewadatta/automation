@@ -940,8 +940,15 @@ public class SendJSON {
             System.out.println("Response isinya adalah :"+responseEntity.getBody());
             System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-            result = String.valueOf(responseEntity.getStatusCode());
-
+            if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                result = null;
+            }else{
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
+            }
         }
         return result;
     }
@@ -969,7 +976,11 @@ public class SendJSON {
             System.out.println("Response isinya adalah :"+responseEntity.getBody());
             System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-            result = String.valueOf(responseEntity.getStatusCode());
+            if(responseEntity.getBody().equals("Failure")){
+                result = String.valueOf(responseEntity.getBody());
+            }else{
+                result = String.valueOf(responseEntity.getStatusCode());
+            }
 
         }
         return result;
@@ -1001,7 +1012,11 @@ public class SendJSON {
                 System.out.println("Response isinya adalah :"+responseEntity.getBody());
                 System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-                result = String.valueOf(responseEntity.getStatusCode());
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
 
             }
             return result;
@@ -1030,7 +1045,11 @@ public class SendJSON {
             System.out.println("Response isinya adalah :"+responseEntity.getBody());
             System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-            result = String.valueOf(responseEntity.getStatusCode());
+            if(responseEntity.getBody().equals("Failure")){
+                result = String.valueOf(responseEntity.getBody());
+            }else{
+                result = String.valueOf(responseEntity.getStatusCode());
+            }
 
         }
         return result;
@@ -1088,6 +1107,42 @@ public class SendJSON {
             e.printStackTrace();
         }
         return reports;
+    }
+
+    public String updateDivision(Division div) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(div);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7002/led/api/automation/update/division", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                result = null;
+            }else{
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
+            }
+        }
+        return result;
     }
 
 }

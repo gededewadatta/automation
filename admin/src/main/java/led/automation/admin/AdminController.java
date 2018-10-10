@@ -105,6 +105,18 @@ public class AdminController {
 	}
 
 	// insert data : stop
+
+	// update data : start
+
+	@RequestMapping(value = "/led/api/automation/update/division", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> updateDivision(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+												  HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.updateDivision(body));
+	}
+
+	// update data : stop
+
 	// search data : start
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody

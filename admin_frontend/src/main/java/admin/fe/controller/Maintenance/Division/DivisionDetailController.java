@@ -74,11 +74,26 @@ public class DivisionDetailController extends CommonController {
                                     navigateTo("layout/Division/Division.zul",null,self);
                                 }
                             });
+                        }else if(result.equals("Failure")){
+                            Messagebox.show("Data Already exists","Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Division/Division.zul",null,self);
+                                }
+                            });
+
                         }else{
-                            Messagebox.show("Data Failed To save");
+                            Messagebox.show("Data Failed to Save","Error",Messagebox.OK, Messagebox.ERROR,event = new EventListener(){
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Division/Division.zul",null,self);
+                                }
+                            });
                         }
                     } catch (JsonProcessingException e) {
-                        e.printStackTrace();
+                        Messagebox.show("Data Failed to Save","Error",Messagebox.OK, Messagebox.ERROR,event = new EventListener(){
+                            public void onEvent(Event evt) throws InterruptedException {
+                                navigateTo("layout/Division/Division.zul",null,self);
+                            }
+                        });
                     }
                 }
             }

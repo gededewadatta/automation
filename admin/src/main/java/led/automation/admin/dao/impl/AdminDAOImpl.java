@@ -53,6 +53,10 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Autowired
 	ReportRepository reportRepository;
+
+	Departement dep = new Departement();
+
+	Division div = new Division();
 	//insert data :start
 	@Override
 	public int insertEmployee(Employee body) {
@@ -93,16 +97,25 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertDivision(Division division) {
 		// TODO Auto-generated method stub
-		Division div = new Division();
-		div = divisionRepository.save(division);
-//		return div.getId()>0?1:0;
-        return div.getId()==0?0:1;
+		int a = divisionRepository.insertDivision(division.getCreatedBy(),division.getCreatedDate(),division.getDivisionCode().toUpperCase(),division.getDivisionName());
+
+		divisionRepository.updateDivisionSeq();
+		//		return div.getId()>0?1:0;
+        return a==0?0:1;
     }
+
+	@Override
+	public int updateDivision(Division division) {
+		// TODO Auto-generated method stub
+		div = divisionRepository.save(division);
+
+		return div.getId()==0?0:1;
+	}
 
 	@Override
 	public int insertDepartement(Departement departement) {
 		// TODO Auto-generated method stub
-		Departement dep = new Departement();
+
 		dep = departementRepository.save(departement);
 //		return dep.getId()>0?1:0;
 		return dep.getId()==0?1:0;
@@ -343,7 +356,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		List<Division> division = new ArrayList<>();
 		if(divisionCode.equals("")&&divisionName.equals("")) {
-			division = divisionRepository.findAll();
+			division = (List<Division>) divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){
 			division = divisionRepository.findByDivisionName("%"+divisionName.toUpperCase()+"%");

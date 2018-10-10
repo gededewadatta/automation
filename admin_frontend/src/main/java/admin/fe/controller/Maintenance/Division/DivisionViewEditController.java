@@ -89,7 +89,7 @@ public class DivisionViewEditController extends CommonController {
             public void onEvent(Event evt) throws InterruptedException {
                 if (evt.getName().equals("onYes")) {
                     try {
-                        String resultGrade = send.insertDivision(div);
+                        String resultGrade = send.updateDivision(div);
 
                         if (resultGrade.equals("200")) {
                             Messagebox.show("Data Already Updated", "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener() {
@@ -98,7 +98,11 @@ public class DivisionViewEditController extends CommonController {
                                 }
                             });
                         } else if (!resultGrade.equals("200")) {
-                            Messagebox.show("Data Failed To update to Table Division");
+                            Messagebox.show("Data Failed To update to Table Division" , "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener(){
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Division/Division.zul", null, self);
+                                }
+                            });
                         }
 
                     } catch (JsonProcessingException e) {
