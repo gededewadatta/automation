@@ -35,7 +35,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
 	@Modifying
 	@Query(value = "insert into employee (id,created_by, created_date, departement_code, division_code,employee_code,employee_name,grade_code,subgrade_code,user_name) \n" +
-			"  select distinct * from (select (SELECT next_val FROM division_seq),?1,?2,?3,?4,?5,?6,?7,?8,?9) as  emp  \n" +
+			"  select distinct * from (select (SELECT next_val FROM employee_seq),?1,?2,?3,?4,?5,?6,?7,?8,?9) as  emp  \n" +
 			"  where not exists(select employee_code from employee where employee_code = ?5)LIMIT 1", nativeQuery = true)
 	int insertEmployee(String createdBy, Date createdDate, String departementCode, String divisionCode, String employeeCode, String employeeName, String gradeCode, String subgradeCode, String userName);
 

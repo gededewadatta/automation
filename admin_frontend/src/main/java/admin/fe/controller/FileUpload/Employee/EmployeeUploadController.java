@@ -39,6 +39,7 @@ public class EmployeeUploadController extends CommonController {
     org.zkoss.zul.Row rw;
     private Window employeeUpCont;
     private AbstractMainWindowTransaction parent;
+    Button btnSubmit;
 
     Set<Employee> emp = new HashSet<>();
 
@@ -51,10 +52,13 @@ public class EmployeeUploadController extends CommonController {
 
         System.out.println("employeeUpCont :" + employeeUpCont);
         createDirDestination();
+
+        btnSubmit.setDisabled(true);
     }
 
     public void onUpload$browseButton(UploadEvent e){
         System.out.println("Test Mesia :"+e.getMedias());
+        btnSubmit.setDisabled(false);
         doValidate(e.getMedias());
     }
 
@@ -176,6 +180,12 @@ public class EmployeeUploadController extends CommonController {
                                 employee.setCreatedBy(val);
                             }
 
+                        }else if(tempArray[0][b].getStringCellValue().contains("USER_NAME")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")){
+                                employee.setUserName(val);
+                            }
+
                         }
 
                     }
@@ -268,23 +278,28 @@ public class EmployeeUploadController extends CommonController {
                                 SendJSON send = new SendJSON();
                                 try {
                                     Set<Employee> isInserted = new HashSet<>();
-//                                    empInsert.addAll(emp);
-//                                    emp.clear();
-//                                    emp.addAll(empInsert);
                                     for(Employee employee: emp){
-                                        if(isInserted.contains(employee)){
-                                           continue;
+
+                                        if(send.insertEmployee(employee).equals("200")){
+                                            isInserted.add(employee);
                                         }
 
-                                        send.insertEmployee(employee);
-                                        isInserted.add(employee);
-
-
                                     }
+
+                                    if(isInserted.size() > 0){
+                                        Messagebox.show("Data Success to Save");
+                                        isInserted.clear();
+                                        idUpload.setValue("");
+                                    }else{
+                                        Messagebox.show("Data Already Exists");
+                                        isInserted.clear();
+                                        idUpload.setValue("");
+                                    }
+
+                                    btnSubmit.setDisabled(true);
                                     emp.clear();
-                                    idUpload.setValue("");
                                     hGrid.removeChild(hGrid.getRows());
-                                    Messagebox.show("Data Success to Save");
+
                                 } catch (JsonProcessingException e) {
                                     Messagebox.show("Data failed to Save");
                                 }
