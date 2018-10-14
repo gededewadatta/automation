@@ -20,9 +20,9 @@ import led.automation.employee.model.SubmitQuestion;
 @Transactional(rollbackFor=Exception.class)
 public interface EmployeeDAO {
 	 
-	public List<PendingQuestion> searchQuestionByUserName(String userName,String competency);
+	public List<PendingQuestion> searchQuestionByUserName(String userName);
 	public int submitQuestion(SubmitQuestion submitQuestion);
 	public int submitHistory(HistoryAnswer historyAnswer);
 	public List<String> searchCompetency();
-	
+	public List<PendingQuestion> generateQuestion();
 }

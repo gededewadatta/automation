@@ -1,17 +1,29 @@
+/**
+ * 
+ */
 package led.automation.wsproxy;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+// [START fs_include_dependencies]
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.FirestoreOptions;
+// [END fs_include_dependencies]
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.WriteResult;
+import com.google.common.collect.ImmutableMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,46 +32,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.firebase.database.DatabaseReference;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.FirestoreOptions;
-import com.google.cloud.firestore.WriteResult;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.FirestoreClient;
+/**
+ * @author gederanadewadatta
+ *
+ */
+public class ProxyEngine {
 
-@SpringBootApplication
-public class WsproxyApplication {
-	private static Firestore db;
+	private Firestore db;
 	ObjectMapper mapper = new ObjectMapper();
 	private SubmitQuestion submit = new SubmitQuestion();
 	private HistoryAnswer history = new HistoryAnswer();
 
 	private PendingQuestion data = new PendingQuestion();
-
-	public static void main(String[] args) {
-		SpringApplication.run(WsproxyApplication.class, args);
-		FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance().toBuilder().setProjectId("competences-led")
-				.build();
-		Firestore dbs = firestoreOptions.getService();
-		// [END fs_initialize_project_id]
-		db = dbs;
-		WsproxyApplication apps = new WsproxyApplication();
-		try {
-			apps.retrieveEmployee();
-			apps.retrieveHistory();
-			apps.retrieveSubmit();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	private void generateQuestion(String username) {
 
@@ -209,14 +193,14 @@ public class WsproxyApplication {
 		String id = (String) querySnapshot.get("id");
 		String idQuestion = (String) querySnapshot.get("idQuestion");
 		String userName = (String) querySnapshot.get("userName");
-		//save to class SubmitQuestion.java :start
+		// save to class SubmitQuestion.java :start
 		submit.setAnswer(answer);
 		submit.setAnswerStatus(answerStatus);
 		submit.setAttemptAnswer(attemptAnswer);
 		submit.setId(id);
 		submit.setIdQuestion(idQuestion);
 		submit.setUserName(userName);
-		//save to class SubmitQuestion.java :stop
+		// save to class SubmitQuestion.java :stop
 		// integrate with back-end : start
 		insertSubmit(submit);
 		// integrate with back-end : stop
@@ -249,7 +233,7 @@ public class WsproxyApplication {
 		// integrate with back-end : start
 		insertHistory(history);
 		// integrate with back-end : stop
-		
+
 		// [END fs_get_all]
 	}
 

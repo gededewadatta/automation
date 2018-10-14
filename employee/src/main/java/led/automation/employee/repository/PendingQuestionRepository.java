@@ -16,9 +16,11 @@ import led.automation.employee.model.PendingQuestion;
  *
  */
 public interface PendingQuestionRepository extends JpaRepository<PendingQuestion, Long>{
-	@Query(value = "SELECT * FROM PENDINGQUESTION WHERE USER_NAME = '?1' and competency ='?2' order by level", nativeQuery = true)
-	List<PendingQuestion> searchQuestionByUserName(String userName,String competency);
+	@Query(value = "SELECT * FROM PENDINGQUESTION WHERE  not exists (select null from submitquestion sq where sq.id_question=pq.id) and level = (select min(level) from pendingquestion) and USER_NAME = '?1'", nativeQuery = true)
+	List<PendingQuestion> searchQuestionByUserName(String userName);
 	@Query(value = "SELECT distinct(competency) FROM PENDINGQUESTION", nativeQuery = true)
 	List<String> searchCompetency();
+	@Query(value = "select * from pendingquestion pq where not exists (select null from submitquestion sq where sq.id_question=pq.id) and level = (select min(level) from pendingquestion)")
+	List<PendingQuestion>generateQuestionNotAnswer();
 	
 }
