@@ -84,17 +84,18 @@ public class GradeEditController extends CommonController {
                                 grd.setDepartementCode(idDepartment.getValue());
                                 grd.setDivisionCode(idDivision.getValue());
                                 subGrd.setId(Long.valueOf(idSubGradeId.getValue()));
-                                subGrd.setGradeCode(grd.getGradeCode());
+                                subGrd.setGradeCode(idGrade.getValue());
                                 subGrd.setSubGradeCode(idSubGrade.getValue());
                                 subGrd.setSubGradeName(idSubGradeName.getValue());
+                                subGrd.setDepartementCode(idDepartment.getValue());
                                 grd.setCreatedDate(new Date());
                                 grd.setCreatedBy("Burhan");
                                 subGrd.setCreatedDate(grd.getCreatedDate());
                                 subGrd.setCreatedBy(grd.getCreatedBy());
 
                                 try {
-                                    String resultGrade = send.insertGrade(grd);
-                                    String resultSubGrade = send.insertSubGrade(subGrd);
+                                    String resultGrade = send.updateGrade(grd);
+                                    String resultSubGrade = send.updateSubGrade(subGrd);
 
                                     if(resultGrade.equals("200") && resultSubGrade.equals("200")){
                                         Messagebox.show("Data Already Updated");

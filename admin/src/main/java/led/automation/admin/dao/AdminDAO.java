@@ -36,6 +36,9 @@ public interface AdminDAO {
 	//update data
 
 	public int updateDivision(Division division);
+	public int updateDepartement(Departement departement);
+	public int updateGrade(Grade grade);
+	public int updateSubGrade(SubGrade subGrade);
 	public int updateEmployee(Employee body);
 	public int updateCompetency(Competency competency);
 
