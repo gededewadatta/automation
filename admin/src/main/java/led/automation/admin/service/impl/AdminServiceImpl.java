@@ -98,6 +98,19 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.updateEmployee(employee) == 0 ? "Failure" : "Success";
 	}
 
+
+
+	@Override
+	public String updateCompetency(String body) {
+		// TODO Auto-generated method stub
+		try {
+			competency = objectMapper.readValue(body, Competency.class);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.updateCompetency(competency) == 0 ? "Failure" : "Success";
+	}
 	@Override
 	public String insertGrade(String body) {
 		// TODO Auto-generated method stub

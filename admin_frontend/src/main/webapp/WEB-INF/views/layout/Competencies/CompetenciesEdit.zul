@@ -46,6 +46,15 @@
                             </hbox>
 
                         </row>
+                        <row>
+                            <label value = "Competencies Name:" />
+                            <hbox>
+                                <hlayout>
+                                    <textbox id="idCompetenciesName"  />
+                                </hlayout>
+                            </hbox>
+
+                        </row>
                     </rows>
                 </grid>
             </div>

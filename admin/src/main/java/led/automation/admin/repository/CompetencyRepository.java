@@ -3,9 +3,11 @@
  */
 package led.automation.admin.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -28,5 +30,15 @@ public interface CompetencyRepository extends JpaRepository<Competency, Long>{
 			+ "join SubGrade sub on g.grade_code = sub.grade_code "
 			+ "WHERE dept.departement_code like %?2 AND div.division_code like %?1 and g.grade_code like %?3", nativeQuery = true)
 	List<String> generateCompetency(String divisionCode, String departementCode, String gradeCode);
+
+	@Modifying
+	@Query(value = "insert into competency (id,created_by, created_date, departement_code, grade_code,sub_grade_code,competency_code,competency_name) \n" +
+			"  select distinct * from (select (SELECT next_val FROM competency_seq),?1,?2,?3,?4,?5,?6,?7) as  comp  \n" +
+			"  where not exists(select competency_code from competency where competency_code = ?5)LIMIT 1", nativeQuery = true)
+	int insertCompetency(String createdBy, Date createdDate, String departementCode, String gradeCode, String subGradeCode, String competencyCode, String competencyName);
+
+	@Modifying
+	@Query(value = "update competency_seq set next_val=next_val + 1", nativeQuery = true)
+	int updateCompetencySeq();
 
 }

@@ -19,8 +19,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 public class Competency {
 	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GRADE_SEQ")
-    @SequenceGenerator(sequenceName = "grade_seq", allocationSize = 1, name = "GRADE_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "COMPETENCY_SEQ")
+    @SequenceGenerator(sequenceName = "competency_seq", allocationSize = 1, name = "COMPETENCY_SEQ")
     Long id;
 	
 	@Column(name = "DEPARTEMENT_CODE")

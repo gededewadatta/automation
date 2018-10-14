@@ -35,16 +35,20 @@ public class QuestionController extends CommonController {
 
     String destination = "Apps/Upload";
 
+    Button btnSubmit;
+
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
-
+        btnSubmit.setDisabled(true);
         createDirDestination();
     }
 
     public void onUpload$browseButton(UploadEvent e){
         System.out.println("Test Mesia :"+e.getMedias());
+        btnSubmit.setDisabled(false);
         doValidate(e.getMedias());
+
     }
 
     public void doValidate(Media[] multiMedia) {
@@ -237,12 +241,24 @@ public class QuestionController extends CommonController {
                             case Messagebox.YES:
 
                                 SendJSON send = new SendJSON();
+                                List<Question> quest = new ArrayList<>();
                                 try {
                                     for(Question question: questions){
-                                        send.insertQuestion(question);
+
+                                        if(send.insertQuestion(question).equals("200")){
+                                            quest.add(question);
+                                        }
+
                                     }
+
+                                    if(quest.size() >0){
+                                        Messagebox.show("Data Successfully Save");
+                                    }else{
+                                        Messagebox.show("Data already exists");
+                                    }
+                                    btnSubmit.setDisabled(true);
+                                    quest.clear();
                                     questions.clear();
-                                    idUpload.setValue("");
                                     hGrid.removeChild(hGrid.getRows());
                                 } catch (JsonProcessingException e) {
                                     Messagebox.show("Data failed to Save");

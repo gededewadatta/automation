@@ -150,10 +150,23 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertCompetency(Competency competency) {
 		// TODO Auto-generated method stub
-		Competency com = new Competency();
 		competency.setCreatedDate(new Date());
-		com = competencyRepository.save(competency);
-		return com.getId()>0?1:0;
+		int com = competencyRepository.insertCompetency(competency.getCreatedBy(),competency.getCreatedDate()
+				,competency.getDepartementCode(),competency.getGradeCode(),competency.getSubGradeCode(),competency.getCompetencyCode(),competency.getCompetencyName());
+
+		if(com > 0){
+			competencyRepository.updateCompetencySeq();
+		}
+		return com>0?1:0;
+	}
+
+	@Override
+	public int updateCompetency(Competency competency) {
+		// TODO Auto-generated method stub
+		Competency compe =  new Competency();
+		competency.setCreatedDate(new Date());
+		compe = competencyRepository.save(competency);
+		return compe.getId()>0?1:0;
 	}
 
 	//insert data : stop
