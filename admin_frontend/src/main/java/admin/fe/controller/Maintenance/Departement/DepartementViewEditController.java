@@ -126,7 +126,7 @@ public class DepartementViewEditController extends CommonController implements P
             public void onEvent(Event evt) throws InterruptedException {
                 if (evt.getName().equals("onYes")) {
                     try {
-                        String resultGrade = send.insertDepartement(dep);
+                        String resultGrade = send.updateDepartement(dep);
 
                         if (resultGrade.equals("200")) {
                             Messagebox.show("Data Already Updated", "Information", Messagebox.OK, Messagebox.INFORMATION, new EventListener() {
@@ -135,7 +135,7 @@ public class DepartementViewEditController extends CommonController implements P
                                 }
                             });
                         } else if (!resultGrade.equals("200")) {
-                            Messagebox.show("Data Failed To update to Table Division");
+                            Messagebox.show("Data Failed To update to Table Departement");
                         }
 
                     } catch (JsonProcessingException e) {

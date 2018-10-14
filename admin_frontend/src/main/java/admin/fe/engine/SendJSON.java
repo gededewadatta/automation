@@ -576,7 +576,7 @@ public class SendJSON {
                 JSONObject jsonObjVal = jsonArray.getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
-                subGrade.setId(jsonObjVal.getLong("id"));
+                subGrade.setId(jsonObjVal.getLong("idSubGrade"));
                 subGrade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
                 subGrade.setSubGradeName(jsonObjVal.getString("subGradeName"));
                 subGrade.setGradeCode(jsonObjVal.getString("gradeCode"));
@@ -1273,6 +1273,42 @@ public class SendJSON {
 
         HttpEntity<String> entity = new HttpEntity<String>(body, headers);
         ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7002/led/api/automation/update/division", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                result = null;
+            }else{
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
+            }
+        }
+        return result;
+    }
+
+    public String updateDepartement(Departement dep) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(dep);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7002/led/api/automation/update/departement", HttpMethod.POST, entity,
                 String.class);
 
         if (responseEntity.getStatusCode() == HttpStatus.OK) {

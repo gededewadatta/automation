@@ -115,6 +115,27 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.updateDivision(body));
 	}
 
+	@RequestMapping(value = "/led/api/automation/update/departement", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> updateDepartement(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+												  HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.updateDepartement(body));
+	}
+
+	@RequestMapping(value = "/led/api/automation/update/grade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> updateGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+													 HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.updateGrade(body));
+	}
+
+	@RequestMapping(value = "/led/api/automation/update/subgrade", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> updateSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+											   HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.updateSubGrade(body));
+	}
+
 	@RequestMapping(value = "/led/api/automation/update/employee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> updateEmployee(@RequestBody String body, HttpMethod method,

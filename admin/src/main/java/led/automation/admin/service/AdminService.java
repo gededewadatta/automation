@@ -38,6 +38,12 @@ public interface AdminService {
 
 	public String updateDivision(String body);
 
+	public String updateDepartement(String body);
+
+	public String updateGrade(String body);
+
+	public String updateSubGrade(String body);
+
 	public String updateEmployee(String body);
 
 	public String updateCompetency(String body);
