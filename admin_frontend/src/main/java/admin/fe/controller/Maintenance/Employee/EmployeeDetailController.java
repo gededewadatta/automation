@@ -4,30 +4,17 @@ import admin.fe.controller.common.CommonController;
 import admin.fe.engine.*;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.net.URISyntaxException;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,13 +25,7 @@ Author Muhammad Burhanudin
 
  */
 
-@Controller
 public class EmployeeDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerDivisionInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
-
-    @Autowired
-    ServletRegistrationBean dHtmlLayoutServlet;
-
-    private final Object HttpServletRequest = dHtmlLayoutServlet;
 
     private Textbox idDivision;
 
@@ -217,7 +198,6 @@ public class EmployeeDetailController extends CommonController implements PopupC
         idEmployeeName.setValue("");
     }
 
-    @Override
     public void afterSelectDivision(Division division) {
 
         if(division != null){
@@ -227,7 +207,6 @@ public class EmployeeDetailController extends CommonController implements PopupC
 
     }
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
@@ -235,7 +214,6 @@ public class EmployeeDetailController extends CommonController implements PopupC
         }
     }
 
-    @Override
     public void afterSelectGrade(Grade grade) {
         if(grade != null){
             grd = grade;
@@ -244,7 +222,6 @@ public class EmployeeDetailController extends CommonController implements PopupC
 
     }
 
-    @Override
     public void afterSelectSubGrade(SubGrade subGrade) {
 
         if(subGrade != null){

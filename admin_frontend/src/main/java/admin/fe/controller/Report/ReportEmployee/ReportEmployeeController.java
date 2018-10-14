@@ -59,7 +59,7 @@ public class ReportEmployeeController extends CommonController implements PopupC
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
 
-        List<String> comboList = new ArrayList<>();
+        List<String> comboList = new ArrayList<String>();
 
         comboList.add("--Select--");
         comboList.add("XLS");
@@ -136,7 +136,6 @@ public class ReportEmployeeController extends CommonController implements PopupC
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Report)data);
             }
@@ -173,7 +172,6 @@ public class ReportEmployeeController extends CommonController implements PopupC
         }
     }
 
-    @Override
     public void afterSelectEmployee(Employee employee) {
         if(employee != null){
             emp = employee;

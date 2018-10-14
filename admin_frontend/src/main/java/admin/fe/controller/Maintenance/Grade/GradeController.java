@@ -1,5 +1,6 @@
 package admin.fe.controller.Maintenance.Grade;
 
+import admin.fe.constant.AppProperties;
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
@@ -8,6 +9,9 @@ import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.*;
 import org.apache.poi.sl.usermodel.TextBox;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
@@ -21,6 +25,11 @@ import java.util.List;
 import java.util.Map;
 
 public class GradeController extends CommonController implements PopupCallerDivisionInterface,PopupCallerDepartmentInterface {
+
+    @Autowired
+    private ApplicationContext context;
+
+    AppProperties appProperties = (AppProperties) context.getBean("appProperties");
 
     private Window gradeCont;
     private AbstractMainWindowTransaction parent;
@@ -77,12 +86,11 @@ public class GradeController extends CommonController implements PopupCallerDivi
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(GradeJson)data);
             }
 
-            private void renderDataRow(Row row, GradeJson gradeJson){
+            private void renderDataRow(Row row, final GradeJson gradeJson){
 
                 row.setValue(gradeJson);
                 new Label(gradeJson.getDivisionCode()).setParent(row);
@@ -190,7 +198,6 @@ public class GradeController extends CommonController implements PopupCallerDivi
 
     }
 
-    @Override
     public void afterSelectDivision(Division division) {
 
         if(division != null){
@@ -200,7 +207,6 @@ public class GradeController extends CommonController implements PopupCallerDivi
 
     }
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;

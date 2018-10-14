@@ -5,6 +5,7 @@ package admin.fe.controller.Maintenance.Division;
  *
  */
 
+import admin.fe.constant.AppProperties;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.PopupCallerDivisionInterface;
@@ -13,6 +14,9 @@ import admin.fe.model.Departement;
 import admin.fe.model.Division;
 import admin.fe.model.Employee;
 import admin.fe.model.Grade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
@@ -29,6 +33,11 @@ import java.util.List;
 import java.util.Map;
 
 public class DivisionController extends CommonController implements PopupCallerDivisionInterface {
+
+    @Autowired
+    private ApplicationContext context;
+
+    AppProperties appProperties = (AppProperties) context.getBean("appProperties");
 
     private Window divisionWindow;
     protected Grid hGrid;
@@ -48,12 +57,11 @@ public class DivisionController extends CommonController implements PopupCallerD
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Division) data);
             }
 
-            private void renderDataRow(Row row, Division division){
+            private void renderDataRow(Row row, final Division division){
 
                 row.setValue(division);
                 new Label(division.getDivisionCode()).setParent(row);
@@ -66,7 +74,6 @@ public class DivisionController extends CommonController implements PopupCallerD
 
                 bView.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
-                            @Override
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
@@ -77,7 +84,6 @@ public class DivisionController extends CommonController implements PopupCallerD
 
                 bEdit.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
-                            @Override
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
@@ -150,7 +156,6 @@ public class DivisionController extends CommonController implements PopupCallerD
         return args;
     }
 
-    @Override
     public void afterSelectDivision(Division division) {
         if(division != null){
             div = division;

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
@@ -31,7 +30,9 @@ public class DivisionDetailController extends CommonController {
     Button confirmButton;
     Button clearButton;
     Button cancelButton;
+    Division div = new Division();
 
+    SendJSON send = new SendJSON();
     @Value("${led.Division.insert}")
     protected String divisionInsert;
 
@@ -53,9 +54,7 @@ public class DivisionDetailController extends CommonController {
     }
 
     public void onClick$confirmButton(){
-        Division div = new Division();
 
-        SendJSON send = new SendJSON();
 
         div.setDivisionCode(idDivision.getValue());
         div.setDivisionName(nameDivision.getValue());

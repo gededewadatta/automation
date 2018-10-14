@@ -17,8 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -264,7 +262,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Dashboard> dashboards = new ArrayList<>();
+        List<Dashboard> dashboards = new ArrayList<Dashboard>();
         try {
 
             body = mapper.writeValueAsString(new Dashboard());
@@ -319,7 +317,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Grade> gradeList = new ArrayList<>();
+        List<Grade> gradeList = new ArrayList<Grade>();
         try {
 
             body = mapper.writeValueAsString(grd);
@@ -385,7 +383,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<GradeJson> gradeJsons = new ArrayList<>();
+        List<GradeJson> gradeJsons = new ArrayList<GradeJson>();
         try {
 
             body = mapper.writeValueAsString(grdJson);
@@ -450,7 +448,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<SubGrade> subGrades = new ArrayList<>();
+        List<SubGrade> subGrades = new ArrayList<SubGrade>();
         try {
 
             body = mapper.writeValueAsString(subGrd);
@@ -507,7 +505,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Employee> employees = new ArrayList<>();
+        List<Employee> employees = new ArrayList<Employee>();
         try {
 
             body = mapper.writeValueAsString(emp);
@@ -567,7 +565,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Question> questions = new ArrayList<>();
+        List<Question> questions = new ArrayList<Question>();
         try {
 
             body = mapper.writeValueAsString(quest);
@@ -631,7 +629,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Competency> competencies = new ArrayList<>();
+        List<Competency> competencies = new ArrayList<Competency>();
         try {
 
             body = mapper.writeValueAsString(comp);
@@ -690,7 +688,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Competency> competencies = new ArrayList<>();
+        List<Competency> competencies = new ArrayList<Competency>();
         try {
 
             body = mapper.writeValueAsString(comp);
@@ -749,7 +747,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Division> divisions = new ArrayList<>();
+        List<Division> divisions = new ArrayList<Division>();
 
         try {
 
@@ -804,7 +802,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Departement> departements = new ArrayList<>();
+        List<Departement> departements = new ArrayList<Departement>();
         try {
 
             body = mapper.writeValueAsString(dep);
@@ -859,7 +857,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Departement> departements = new ArrayList<>();
+        List<Departement> departements = new ArrayList<Departement>();
         try {
 
             body = mapper.writeValueAsString(dep);
@@ -913,7 +911,7 @@ public class SendJSON {
 
         String body = null;
 
-        List<Grade> gradeList = new ArrayList<>();
+        List<Grade> gradeList = new ArrayList<Grade>();
         try {
 
             body = mapper.writeValueAsString(grd);
@@ -1111,7 +1109,7 @@ public class SendJSON {
 
 	    String body = null;
 
-	    List<Report> reports = new ArrayList<>();
+	    List<Report> reports = new ArrayList<Report>();
 
 	    try {
 	        body = mapper.writeValueAsString(rpt);

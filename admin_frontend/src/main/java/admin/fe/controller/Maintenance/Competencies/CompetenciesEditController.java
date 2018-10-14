@@ -1,11 +1,15 @@
 package admin.fe.controller.Maintenance.Competencies;
 
+import admin.fe.constant.AppProperties;
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Competency;
 import admin.fe.model.Grade;
 import admin.fe.model.SubGrade;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.SerializableEventListener;
@@ -17,6 +21,11 @@ import java.util.Date;
 import java.util.Map;
 
 public class CompetenciesEditController  extends CommonController {
+
+    @Autowired
+    private ApplicationContext context;
+
+    AppProperties appProperties = (AppProperties) context.getBean("appProperties");
 
     Textbox idDepartment;
 
@@ -57,7 +66,6 @@ public class CompetenciesEditController  extends CommonController {
 
                     private static final long serialVersionUID = -8695776168749565854L;
 
-                    @Override
                     public void onEvent(Event event) throws Exception {
                         int data = (Integer) event.getData();
                         switch (data) {
@@ -81,7 +89,7 @@ public class CompetenciesEditController  extends CommonController {
 
                                     if(result.equals("200")){
                                         Messagebox.show("Data Already Saved");
-                                        navigateTo("layout/Competencies/Competencies.zul",null,self);
+                                        navigateTo(appProperties.getCompetencyHome(),null,self);
                                     }
 
                                 } catch (JsonProcessingException e) {

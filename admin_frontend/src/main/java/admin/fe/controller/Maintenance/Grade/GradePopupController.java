@@ -17,7 +17,7 @@ import java.util.List;
 
 public class GradePopupController extends CommonController {
 
-    List<Grade> gradeList = new ArrayList<>();
+    List<Grade> gradeList = new ArrayList<Grade>();
     SendJSON send = new SendJSON();
     Grade grd = new Grade();
 
@@ -38,7 +38,6 @@ public class GradePopupController extends CommonController {
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Grade) data);
             }

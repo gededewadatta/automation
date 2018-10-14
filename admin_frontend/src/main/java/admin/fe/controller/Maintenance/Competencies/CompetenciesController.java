@@ -1,17 +1,22 @@
 package admin.fe.controller.Maintenance.Competencies;
 
+import admin.fe.constant.AppProperties;
+import admin.fe.StaticContext;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.PopupCallerDepartmentInterface;
-import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
+import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.*;
 
 import java.util.ArrayList;
@@ -19,7 +24,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Controller
 public class CompetenciesController extends CommonController implements PopupCallerDepartmentInterface {
+
+    @Autowired
+    AppProperties appProperties;
 
     Textbox idDepartment;
     Textbox idGrade;
@@ -31,16 +40,17 @@ public class CompetenciesController extends CommonController implements PopupCal
     protected ListModelList modelList;
     Division div = new Division();
     Departement dep = new Departement();
-    List<Competency> competencies = new ArrayList<>();
+    List<Competency> competencies = new ArrayList<Competency>();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
+        String test = appProperties.getCompetencyDetail();
     }
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/Competencies/CompetenciesDetail.zul",null,self);
+        navigateTo(appProperties.getCompetencyDetail(),null,self);
     }
 
     public void onClick$searchButton(){
@@ -60,12 +70,11 @@ public class CompetenciesController extends CommonController implements PopupCal
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Competency)data);
             }
 
-            private void renderDataRow(Row row, Competency competency){
+            private void renderDataRow(Row row, final Competency competency){
 
                 row.setValue(competency);
                 new Label(competency.getDepartementCode()).setParent(row);
@@ -86,7 +95,7 @@ public class CompetenciesController extends CommonController implements PopupCal
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Competencies/CompetenciesView.zul",getArg(competency),self);
+                                    navigateTo(appProperties.getCompetencyView(),getArg(competency),self);
 //                                            getArg(InvestmentModelObj),
 //                                            winBancaFinTransactionSelection);
                                 }
@@ -110,7 +119,7 @@ public class CompetenciesController extends CommonController implements PopupCal
                                     throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Competencies/CompetenciesEdit.zul",getArg(competency),self);
+                                    navigateTo(appProperties.getCompetencyEdit(),getArg(competency),self);
                                 }
                             }
                         });
@@ -140,7 +149,7 @@ public class CompetenciesController extends CommonController implements PopupCal
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+                appProperties.getCompetencyPopup(), self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -151,7 +160,6 @@ public class CompetenciesController extends CommonController implements PopupCal
 
     }
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;

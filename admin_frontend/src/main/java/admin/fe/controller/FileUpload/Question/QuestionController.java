@@ -31,7 +31,7 @@ public class QuestionController extends CommonController {
     protected Textbox idUpload;
     org.zkoss.zul.Row rw;
 
-    List<Question> questions = new ArrayList<>();
+    List<Question> questions = new ArrayList<Question>();
 
     String destination = "Apps/Upload";
 
@@ -73,7 +73,6 @@ public class QuestionController extends CommonController {
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(org.zkoss.zul.Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Question) data);
             }
@@ -97,7 +96,7 @@ public class QuestionController extends CommonController {
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
         String path = "/Apps/Upload/QuestionTemp"+dateString+".xls";
-        List<Question> questionList = new ArrayList<>();
+        List<Question> questionList = new ArrayList<Question>();
         Question question;
         try{
 
@@ -234,14 +233,13 @@ public class QuestionController extends CommonController {
 
                     private static final long serialVersionUID = -8695776168749565854L;
 
-                    @Override
                     public void onEvent(Event event) throws Exception {
                         int data = (Integer) event.getData();
                         switch (data) {
                             case Messagebox.YES:
 
                                 SendJSON send = new SendJSON();
-                                List<Question> quest = new ArrayList<>();
+                                List<Question> quest = new ArrayList<Question>();
                                 try {
                                     for(Question question: questions){
 

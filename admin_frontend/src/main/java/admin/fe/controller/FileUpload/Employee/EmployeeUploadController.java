@@ -7,17 +7,12 @@ import admin.fe.engine.SendJSON;
 import admin.fe.model.Employee;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.sl.usermodel.TextBox;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import org.hibernate.validator.constraints.URL;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -27,7 +22,6 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.Textbox;
 
 import java.io.*;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -41,7 +35,7 @@ public class EmployeeUploadController extends CommonController {
     private AbstractMainWindowTransaction parent;
     Button btnSubmit;
 
-    Set<Employee> emp = new HashSet<>();
+    Set<Employee> emp = new HashSet<Employee>();
 
     String destination = "Apps/Upload";
 
@@ -79,7 +73,6 @@ public class EmployeeUploadController extends CommonController {
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(org.zkoss.zul.Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Employee) data);
             }
@@ -102,7 +95,7 @@ public class EmployeeUploadController extends CommonController {
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
         String path = "/Apps/Upload/EMPLOYEETemp"+dateString+".xls";
-        Set<Employee> employees = new HashSet<>();
+        Set<Employee> employees = new HashSet<Employee>();
         Employee employee;
         try{
 
@@ -269,7 +262,6 @@ public class EmployeeUploadController extends CommonController {
 
                     private static final long serialVersionUID = -8695776168749565854L;
 
-                    @Override
                     public void onEvent(Event event) throws Exception {
                         int data = (Integer) event.getData();
                         switch (data) {
@@ -277,7 +269,7 @@ public class EmployeeUploadController extends CommonController {
 
                                 SendJSON send = new SendJSON();
                                 try {
-                                    Set<Employee> isInserted = new HashSet<>();
+                                    Set<Employee> isInserted = new HashSet<Employee>();
                                     for(Employee employee: emp){
 
                                         if(send.insertEmployee(employee).equals("200")){

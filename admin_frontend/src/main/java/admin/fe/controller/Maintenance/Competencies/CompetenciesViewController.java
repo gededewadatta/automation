@@ -1,10 +1,19 @@
 package admin.fe.controller.Maintenance.Competencies;
 
+import admin.fe.constant.AppProperties;
 import admin.fe.controller.common.CommonController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.Label;
 
 public class CompetenciesViewController extends CommonController {
+
+    @Autowired
+    private ApplicationContext context;
+
+    AppProperties appProperties = (AppProperties) context.getBean("appProperties");
 
     Label idDepartment;
     Label idGrade;
@@ -27,7 +36,7 @@ public class CompetenciesViewController extends CommonController {
     }
 
     public void onClick$backButton(){
-        navigateTo("layout/Competencies/Competencies.zul",null,self);
+        navigateTo(appProperties.getCompetencyHome(),null,self);
     }
 
 

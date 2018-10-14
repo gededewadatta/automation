@@ -34,7 +34,6 @@ public class CompetenciesPopupController extends CommonController {
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Competency) data);
             }

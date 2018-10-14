@@ -38,6 +38,10 @@ public class DepartementDetailController extends CommonController implements Pop
 
     Division div = new Division();
 
+    Departement dep = new Departement();
+
+    SendJSON send = new SendJSON();
+
     @Value("${led.Departement.insert}")
     protected String departementInsert;
 
@@ -60,9 +64,7 @@ public class DepartementDetailController extends CommonController implements Pop
     }
 
     public void onClick$confirmButton(){
-        Departement dep = new Departement();
 
-        SendJSON send = new SendJSON();
 
         if(div.getDivisionCode().equals("") || div.getDivisionCode() == null){
             dep.setDivisionCode("");
@@ -132,7 +134,6 @@ public class DepartementDetailController extends CommonController implements Pop
         }
     }
 
-    @Override
     public void afterSelectDivision(Division division) {
         if(division != null){
             div = division;

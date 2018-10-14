@@ -1,5 +1,7 @@
 package admin.fe.controller.Maintenance.Employee;
 
+import admin.fe.constant.AppProperties;
+import admin.fe.StaticContext;
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
@@ -7,8 +9,6 @@ import admin.fe.engine.*;
 import admin.fe.model.Departement;
 import admin.fe.model.Division;
 import admin.fe.model.Employee;
-import admin.fe.model.Grade;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -16,7 +16,6 @@ import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.event.SerializableEventListener;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
 
 import java.util.HashMap;
@@ -28,11 +27,10 @@ import java.util.Map;
 Author Muhammad Burhanudin
 
  */
-
-@Controller
 public class EmployeeController extends CommonController implements PopupCallerDivisionInterface,
         PopupCallerDepartmentInterface, PopupCallerEmployeeInterface {
 
+    AppProperties appProperties = StaticContext.getContext().getBean(AppProperties.class);
     private Window employeeCont;
     private AbstractMainWindowTransaction parent;
 
@@ -47,14 +45,6 @@ public class EmployeeController extends CommonController implements PopupCallerD
     Division div = new Division();
     Departement dep = new Departement();
     Employee emp = new Employee();
-
-
-    @Autowired
-    PageNavigation pageNavigation;
-
-    @Wire
-    Button addButton;
-
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -94,12 +84,11 @@ public class EmployeeController extends CommonController implements PopupCallerD
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Employee)data);
             }
 
-            private void renderDataRow(Row row, Employee employee){
+            private void renderDataRow(Row row, final Employee employee){
 
                 row.setValue(employee);
                 new Label(employee.getDivisionCode()).setParent(row);
@@ -172,7 +161,6 @@ public class EmployeeController extends CommonController implements PopupCallerD
         return args;
     }
 
-    @Override
     public void afterSelectDivision(Division division) {
 
         if(division != null){
@@ -182,7 +170,6 @@ public class EmployeeController extends CommonController implements PopupCallerD
 
     }
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
@@ -242,7 +229,6 @@ public class EmployeeController extends CommonController implements PopupCallerD
         }
     }
 
-    @Override
     public void afterSelectEmployee(Employee employee) {
 
         if(employee != null){

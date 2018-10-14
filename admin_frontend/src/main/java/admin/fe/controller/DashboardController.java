@@ -63,7 +63,7 @@ public class DashboardController extends CommonController {
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
 
-        List<String> comboList = new ArrayList<>();
+        List<String> comboList = new ArrayList<String>();
 
         comboList.add("--Select--");
         comboList.add("XLS");
@@ -126,7 +126,6 @@ public class DashboardController extends CommonController {
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Dashboard)data);
             }

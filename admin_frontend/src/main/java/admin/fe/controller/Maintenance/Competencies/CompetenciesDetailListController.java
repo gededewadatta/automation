@@ -114,7 +114,6 @@ public class CompetenciesDetailListController extends CommonController implement
     }
 
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
@@ -122,7 +121,6 @@ public class CompetenciesDetailListController extends CommonController implement
         }
     }
 
-    @Override
     public void afterSelectGrade(Grade grade) {
         if(grade != null){
             grd = grade;
@@ -131,7 +129,6 @@ public class CompetenciesDetailListController extends CommonController implement
 
     }
 
-    @Override
     public void afterSelectSubGrade(SubGrade subGrade) {
 
         if(subGrade != null){

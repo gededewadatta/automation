@@ -1,5 +1,6 @@
 package admin.fe.controller.Maintenance.Competencies;
 
+import admin.fe.constant.AppProperties;
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.PopupCallerDepartmentInterface;
@@ -8,6 +9,9 @@ import admin.fe.engine.PopupCallerSubGradeInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -24,6 +28,11 @@ import java.util.List;
 import java.util.Map;
 
 public class CompetenciesDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
+
+    @Autowired
+    private ApplicationContext context;
+
+    AppProperties appProperties = (AppProperties) context.getBean("appProperties");
 
     Vbox boxList;
 
@@ -89,7 +98,7 @@ public class CompetenciesDetailController extends CommonController implements Po
     private void addTransaction() {
 
         System.out.println("TOTAL SIZE : "+competenciesDetailListController.size());
-        Component component = Executions.createComponents("layout/Competencies/CompetenciesDetailList.zul",
+        Component component = Executions.createComponents(appProperties.getCompetencyHome(),
                 boxList, arg);
         competenciesDetailListController.add(component);
     }
@@ -101,7 +110,6 @@ public class CompetenciesDetailController extends CommonController implements Po
 
                     private static final long serialVersionUID = -8695776168749565854L;
 
-                    @Override
                     public void onEvent(Event event) throws Exception {
                         int data = (Integer) event.getData();
                         switch (data) {
@@ -124,7 +132,7 @@ public class CompetenciesDetailController extends CommonController implements Po
 
                                     if(result.equals("200")){
                                         Messagebox.show("Data Already Saved");
-                                        navigateTo("layout/Competencies/Competencies.zul",null,self);
+                                        navigateTo(appProperties.getCompetencyHome(),null,self);
                                     }
 
                                 } catch (JsonProcessingException e) {
@@ -136,7 +144,6 @@ public class CompetenciesDetailController extends CommonController implements Po
                 });
     }
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
@@ -144,7 +151,6 @@ public class CompetenciesDetailController extends CommonController implements Po
         }
     }
 
-    @Override
     public void afterSelectGrade(Grade grade) {
         if(grade != null){
             grd = grade;
@@ -153,7 +159,6 @@ public class CompetenciesDetailController extends CommonController implements Po
 
     }
 
-    @Override
     public void afterSelectSubGrade(SubGrade subGrade) {
 
         if(subGrade != null){

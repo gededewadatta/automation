@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SubGradePopupController extends CommonController {
 
-    List<SubGrade> subGrds = new ArrayList<>();
+    List<SubGrade> subGrds = new ArrayList<SubGrade>();
     SubGrade subgrd = new SubGrade();
 
     Grid hGrid;
@@ -39,7 +39,6 @@ public class SubGradePopupController extends CommonController {
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(SubGrade) data);
             }

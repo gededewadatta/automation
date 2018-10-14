@@ -1,12 +1,16 @@
 package admin.fe.controller.Maintenance.Question;
 
+import admin.fe.constant.AppProperties;
 import admin.fe.constant.QuestionType;
 import admin.fe.controller.common.CommonController;
 import admin.fe.engine.*;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.poi.sl.usermodel.TextBox;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
@@ -20,6 +24,11 @@ import java.util.List;
 
 public class QuestionController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerDivisionInterface,
         PopupCallerGradeInterface,PopupCallerSubGradeInterface,PopupCallerCompetencyInterface {
+
+    @Autowired
+    private ApplicationContext context;
+
+    AppProperties appProperties = (AppProperties) context.getBean("appProperties");
 
     Textbox idDivision;
 
@@ -59,7 +68,7 @@ public class QuestionController extends CommonController implements PopupCallerD
 
     Competency competency = new Competency();
 
-    List<Textbox> textboxList= new ArrayList<>();
+    List<Textbox> textboxList= new ArrayList<Textbox>();
 
     Question quest = new Question();
 
@@ -229,7 +238,6 @@ public class QuestionController extends CommonController implements PopupCallerD
     }
 
 
-    @Override
     public void afterSelectDivision(Division division) {
 
         if(division != null){
@@ -239,7 +247,6 @@ public class QuestionController extends CommonController implements PopupCallerD
 
     }
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
@@ -247,7 +254,6 @@ public class QuestionController extends CommonController implements PopupCallerD
         }
     }
 
-    @Override
     public void afterSelectGrade(Grade grade) {
         if(grade != null){
             grd = grade;
@@ -256,7 +262,6 @@ public class QuestionController extends CommonController implements PopupCallerD
 
     }
 
-    @Override
     public void afterSelectSubGrade(SubGrade subGrade) {
 
         if(subGrade != null){
@@ -265,7 +270,6 @@ public class QuestionController extends CommonController implements PopupCallerD
         }
     }
 
-    @Override
     public void afterSelectCompetencies(Competency competency) {
 
         if(competency != null){

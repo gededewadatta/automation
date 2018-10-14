@@ -2,6 +2,11 @@ package admin.fe.controller;
 
 import admin.fe.engine.PageNavigation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
@@ -17,11 +22,9 @@ Author Muhammad Burhanudin
 
  */
 
-@org.springframework.stereotype.Component
+@Controller("homeController")
+@Scope("prototype")
 public class HomeController extends SelectorComposer<Component>{
-
-    @Autowired
-    PageNavigation pageNavigation;
 
 	@Wire
     Tabs tabs;

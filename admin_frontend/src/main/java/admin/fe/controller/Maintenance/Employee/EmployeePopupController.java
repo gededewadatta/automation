@@ -17,7 +17,7 @@ import java.util.List;
 public class EmployeePopupController extends CommonController {
 
     Window empPopup;
-    List<Employee> employeeList =  new ArrayList<>();
+    List<Employee> employeeList =  new ArrayList<Employee>();
 
     SendJSON send = new SendJSON();
 
@@ -36,7 +36,6 @@ public class EmployeePopupController extends CommonController {
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Employee) data);
             }

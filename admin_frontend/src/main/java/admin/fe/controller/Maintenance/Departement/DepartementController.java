@@ -5,6 +5,7 @@ package admin.fe.controller.Maintenance.Departement;
  *
  */
 
+import admin.fe.constant.AppProperties;
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.PopupCallerDivisionInterface;
@@ -12,6 +13,9 @@ import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Departement;
 import admin.fe.model.Division;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
@@ -24,7 +28,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class DepartementController extends CommonController implements PopupCallerDivisionInterface,PopupCallerDepartmentInterface {
+
+    @Autowired
+    private ApplicationContext context;
+
+    AppProperties appProperties = (AppProperties) context.getBean("appProperties");
 
     private Window departementWindow;
 
@@ -48,12 +58,11 @@ public class DepartementController extends CommonController implements PopupCall
     protected SerializableRowRenderer createGridRowRenderer(){
 
         return new SerializableRowRenderer() {
-            @Override
             public void render(Row row, Object data, int index) throws Exception {
                 renderDataRow(row,(Departement) data);
             }
 
-            private void renderDataRow(Row row, Departement departement){
+            private void renderDataRow(Row row, final Departement departement){
 
                 row.setValue(departement);
                 new Label(departement.getDivisionCode()).setParent(row);
@@ -67,22 +76,20 @@ public class DepartementController extends CommonController implements PopupCall
 
                 bView.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
-                            @Override
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Departement/DepartementViewEdit.zul",getArgs(departement,"VIEW"),departementWindow);
+                                    navigateTo(appProperties.getDepartementViewEdit(),getArgs(departement,"VIEW"),departementWindow);
                                 }
                             }
                         });
 
                 bEdit.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
-                            @Override
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Departement/DepartementViewEdit.zul",getArgs(departement,"EDIT"),departementWindow);
+                                    navigateTo(appProperties.getDepartementViewEdit(),getArgs(departement,"EDIT"),departementWindow);
                                 }
                             }
                         });
@@ -170,7 +177,6 @@ public class DepartementController extends CommonController implements PopupCall
         return args;
     }
 
-    @Override
     public void afterSelectDivision(Division division) {
         if(division != null){
             div = division;
@@ -179,7 +185,6 @@ public class DepartementController extends CommonController implements PopupCall
 
     }
 
-    @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
