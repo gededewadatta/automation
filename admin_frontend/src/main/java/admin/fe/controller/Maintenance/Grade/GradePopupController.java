@@ -83,13 +83,13 @@ public class GradePopupController extends CommonController {
         Division division = (Division) arg.get("division");
         Departement departement = (Departement) arg.get("departement");
 
-        if(division!=null){
+        if(division!=null&&division.getDivisionCode()!=null){
             grd.setDivisionCode(division.getDivisionCode());
         } else {
             grd.setDivisionCode("");
         }
 
-        if(departement!=null){
+        if(departement!=null&&departement.getDepartementCode()!=null){
             grd.setDepartementCode(departement.getDepartementCode());
             if(grd.getDivisionCode().equalsIgnoreCase("")){
                 grd.setDivisionCode(departement.getDivisionCode());

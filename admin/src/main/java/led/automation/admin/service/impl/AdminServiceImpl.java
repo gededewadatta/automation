@@ -77,6 +77,28 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public String updateEmployee(String body) {
+		// TODO Auto-generated method stub
+		try {
+			employee = objectMapper.readValue(body, Employee.class);
+//			Insert employee
+
+//            jsonResponse = new JSONObject(body);
+//            employee = new Employee();
+//            employee.setEmployeeName(jsonResponse.isNull("employeeName") ? "" : jsonResponse.getString("employeeName"));
+//            employee.setEmployeeCode(jsonResponse.isNull("employeeCode") ? "" : jsonResponse.getString("employeeCode"));
+//            employee.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
+//            employee.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
+//            employee.setDepartementCode(jsonResponse.isNull("departmentCode") ? "" : jsonResponse.getString("departmentCode"));
+//            employee.setDivisionCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.updateEmployee(employee) == 0 ? "Failure" : "Success";
+	}
+
+	@Override
 	public String insertGrade(String body) {
 		// TODO Auto-generated method stub
 
@@ -155,6 +177,24 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public String updateDivision(String body) {
+		// TODO Auto-generated method stub
+		try {
+			division = objectMapper.readValue(body,Division.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		/*jsonResponse = new JSONObject(body);
+		division = new Division();
+		division.setDivisonCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
+		division.setDivisionName(jsonResponse.isNull("divisionName") ? "" : jsonResponse.getString("divisionName"));
+		division.setCreatedBy(createdBy);
+		division.setCreatedDate(createdDate);*/
+
+		return adminDAO.updateDivision(division) == 0 ? "Failure" : "Success";
+	}
+
+	@Override
 	public String insertDepartement(String body) {
 		// TODO Auto-generated method stub
 		try {
@@ -183,6 +223,7 @@ public class AdminServiceImpl implements AdminService {
 		subGrade.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
 		subGrade.setSubGradeName(jsonResponse.isNull("subGradeName") ? "" : jsonResponse.getString("subGradeName"));
 		subGrade.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
+		subGrade.setDepartementCode(jsonResponse.isNull("departementCode") ? "" : jsonResponse.getString("departementCode"));
 		subGrade.setCreatedBy(createdBy);
 		subGrade.setCreatedDate(createdDate);
 
@@ -427,6 +468,19 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.searchGradePopup(grd.getDepartementCode(), grd.getDivisionCode(),grd.getGradeCode(),grd.getGradeName());
 	}
 
+	@Override
+	public List<SubGrade> searchSubGradePopup(String body) {
+		// TODO Auto-generated method stub
+		SubGrade subgrd = new SubGrade();
+		try {
+			subgrd = objectMapper.readValue(body, SubGrade.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("INI COBA MASUK");
+
+		return adminDAO.searchSubGradePopup(subgrd.getDepartementCode(), subgrd.getGradeCode(), subgrd.getSubGradeCode(), subgrd.getSubGradeName());
+	}
 
 	@Override
 	public List<Employee> searchEmployee(String body) {

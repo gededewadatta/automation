@@ -2,12 +2,8 @@ package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
-import admin.fe.engine.PopupCallerEmployeeInterface;
-import admin.fe.engine.PopupCallerGradeInterface;
 import admin.fe.engine.PopupCallerSubGradeInterface;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Departement;
-import admin.fe.model.Employee;
 import admin.fe.model.Grade;
 import admin.fe.model.SubGrade;
 import org.zkoss.zk.ui.Component;
@@ -18,7 +14,7 @@ import java.util.List;
 
 public class SubGradePopupController extends CommonController {
 
-    List<SubGrade> subGrds = new ArrayList<>();
+    List<SubGrade> subGradeList = new ArrayList<>();
     SubGrade subgrd = new SubGrade();
 
     Grid hGrid;
@@ -59,7 +55,7 @@ public class SubGradePopupController extends CommonController {
 
     public void onClick$idSelect(){
 
-        if(rgrSearchResult.getSelectedItem().getValue()!=null){
+        if(rgrSearchResult.getSelectedItem()!=null){
             Long id = rgrSearchResult.getSelectedItem().getValue();
             SubGrade grade = (SubGrade) arg.get("object");
             List<SubGrade> subGrdList = modelList;
@@ -82,19 +78,38 @@ public class SubGradePopupController extends CommonController {
     }
 
     public void onClick$searchButton() throws Exception {
+        Grade grade = (Grade) arg.get("grade");
 
-        SubGrade subgrd = new SubGrade();
+        if(grade!=null&&grade.getGradeCode()!=null){
+            subgrd.setGradeCode(grade.getGradeCode());
+            subgrd.setDepartementCode(grade.getDepartementCode());
+        } else {
+            subgrd.setGradeCode("");
+            subgrd.setDepartementCode("");
+        }
 
+        if(idSubGradeCode!=null||idSubGradeCode.equals("")){
             subgrd.setSubGradeCode(idSubGradeCode.getValue());
+        } else {
+            subgrd.setSubGradeCode("");
+        }
 
+        if(idSubGradeName!=null ||idSubGradeName.equals("")){
             subgrd.setSubGradeName(idSubGradeName.getValue());
+        } else {
+            subgrd.setSubGradeName("");
+        }
 
-        subGrds = send.getSubGrade(subgrd);
-        modelList = new ListModelList(subGrds);
+        subGradeList = send.getSubGradePopUp(subgrd);
+
+        if(subGradeList.size()<1){
+            Messagebox.show("Data is not found");
+        }
+
+        modelList = new ListModelList(subGradeList);
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
-
 
     }
 

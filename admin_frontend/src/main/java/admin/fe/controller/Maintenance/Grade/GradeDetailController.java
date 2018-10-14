@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
@@ -41,14 +42,69 @@ public class GradeDetailController extends CommonController implements PopupCall
     @Value("${led.Grade.insert}")
     protected String gradeInsert;
 
+    EventListener event = null;
+
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
     }
 
     public void onClick$submitButton(){
+        Grade grd = new Grade();
+        SubGrade subGrd = new SubGrade();
 
-        showConfirmDialog("Do you want to Insert Data ?");
+        SendJSON send = new SendJSON();
+
+        if(div.getDivisionCode() == null||div.getDivisionCode().equals("")){
+            grd.setDivisionCode("");
+        }else{
+            grd.setDivisionCode(div.getDivisionCode());
+        }
+
+        if(dep.getDepartementCode() == null||dep.getDepartementCode().equals("")){
+            grd.setDepartementCode("");
+            subGrd.setDepartementCode("");
+        }else{
+            grd.setDepartementCode(dep.getDepartementCode());
+            subGrd.setDepartementCode(dep.getDepartementCode());
+        }
+
+        grd.setGradeName(idGradeName.getValue());
+        grd.setGradeCode(idGrade.getValue());
+        subGrd.setGradeCode(grd.getGradeCode());
+        subGrd.setSubGradeCode(idSubGrade.getValue());
+        subGrd.setSubGradeName(idSubGradeName.getValue());
+        grd.setCreatedDate(new Date());
+        grd.setCreatedBy("Burhan");
+        subGrd.setCreatedDate(grd.getCreatedDate());
+        subGrd.setCreatedBy(grd.getCreatedBy());
+
+        Messagebox.show("Are you sure want to save?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new EventListener() {
+            public void onEvent(Event evt) throws InterruptedException {
+                if (evt.getName().equals("onYes")) {
+                    try {
+                        String resultGrade = send.insertGrade(grd);
+                        String resultSubGrade =  send.insertSubGrade(subGrd);
+
+                        if(resultGrade.equals("200")&&resultSubGrade.equals("200")){
+                            Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Grade/Grade.zul",null,self);
+                                }
+                            });
+                        }else if(resultGrade.equals("Failure")&&resultSubGrade.equals("Failure")){
+                            Messagebox.show("Data Already exists");
+
+                        }else{
+                            Messagebox.show("Data Failed To save");
+                        }
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
     }
 
     public void clearTextBox(){
@@ -62,70 +118,6 @@ public class GradeDetailController extends CommonController implements PopupCall
 
     }
 
-    public void showConfirmDialog(String message) {
-        Messagebox.show(message, "confirm",
-                Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
-                Messagebox.NO, new SerializableEventListener() {
-
-                    private static final long serialVersionUID = -8695776168749565854L;
-
-                    @Override
-                    public void onEvent(Event event) throws Exception {
-                        int data = (Integer) event.getData();
-                        switch (data) {
-                            case Messagebox.YES:
-
-                                Grade grd = new Grade();
-                                SubGrade subGrd = new SubGrade();
-
-                                SendJSON send = new SendJSON();
-
-                                if(div.getDivisionCode() == null||div.getDivisionCode().equals("")){
-                                    grd.setDivisionCode("");
-                                }else{
-                                    grd.setDivisionCode(div.getDivisionCode());
-                                }
-
-                                if(dep.getDepartementCode() == null||dep.getDepartementCode().equals("")){
-                                    grd.setDepartementCode("");
-                                }else{
-                                    grd.setDepartementCode(dep.getDepartementCode());
-                                }
-
-                                grd.setGradeName(idGradeName.getValue());
-                                grd.setGradeCode(idGrade.getValue());
-                                subGrd.setGradeCode(grd.getGradeCode());
-                                subGrd.setSubGradeCode(idSubGrade.getValue());
-                                subGrd.setSubGradeName(idSubGradeName.getValue());
-                                grd.setCreatedDate(new Date());
-                                grd.setCreatedBy("Burhan");
-                                subGrd.setCreatedDate(grd.getCreatedDate());
-                                subGrd.setCreatedBy(grd.getCreatedBy());
-
-                                try {
-                                    String resultGrade = send.insertGrade(grd);
-                                    String resultSubGrade =  send.insertSubGrade(subGrd);
-
-                                    if(resultGrade.equals("200") && resultSubGrade.equals("200")){
-                                        Messagebox.show("Data Already Saved");
-                                        clearTextBox();
-                                    }else if(!resultGrade.equals("200")){
-                                        Messagebox.show("Data Failed To save to Table Grade");
-                                    }else if(!resultSubGrade.equals("200")){
-                                        Messagebox.show("Data Failed To save to Table Sub Grade");
-                                    }else{
-                                        Messagebox.show("All data Failed To Save");
-                                    }
-
-                                } catch (JsonProcessingException e) {
-                                    Messagebox.show("All data Failed To Save");
-                                }
-
-                        }
-                    }
-                });
-    }
-
     public void onClick$clearButton(){
         clearTextBox();
     }
@@ -133,8 +125,8 @@ public class GradeDetailController extends CommonController implements PopupCall
     public void onClick$btnDepartment(){
 
         Map<String, Object> args = new HashMap<String, Object>();
-        Departement departement = new Departement();
-        args.put("object", departement);
+        Departement dep = new Departement();
+        args.put("object", dep);
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(

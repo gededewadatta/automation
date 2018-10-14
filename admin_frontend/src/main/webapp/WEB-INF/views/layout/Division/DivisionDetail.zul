@@ -11,7 +11,6 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idDivision"/>
-                                <label id="idDivisionConfirm"/>
                             </hlayout>
                         </hbox>
                     </row>
@@ -20,7 +19,6 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="nameDivision"/>
-                                <label id="nameDivisionConfirm"/>
                             </hlayout>
                         </hbox>
                     </row>
@@ -30,9 +28,6 @@
             <div align="right" style="margin-top:30px">
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
-
-                <button id="confirmButton" label="Confirm" style="float::right"/>
-                <button id="cancelButton" label="Cancel" style="float::right"/>
             </div>
 
         </div>

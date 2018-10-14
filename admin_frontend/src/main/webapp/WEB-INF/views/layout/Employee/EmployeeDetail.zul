@@ -73,6 +73,16 @@
                         </hbox>
 
                     </row>
+
+                    <row>
+                        <label value = "User Name:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idUserName"  />
+                            </hlayout>
+                        </hbox>
+
+                    </row>
                 </rows>
             </grid>
 

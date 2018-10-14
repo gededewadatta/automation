@@ -105,6 +105,27 @@ public class AdminController {
 	}
 
 	// insert data : stop
+
+	// update data : start
+
+	@RequestMapping(value = "/led/api/automation/update/division", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> updateDivision(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+												  HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.updateDivision(body));
+	}
+
+	@RequestMapping(value = "/led/api/automation/update/employee", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> updateEmployee(@RequestBody String body, HttpMethod method,
+												 HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+		System.out.println(body);
+//	    update employee
+		return ResponseEntity.ok(adminService.updateEmployee(body));
+	}
+
+	// update data : stop
+
 	// search data : start
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
@@ -143,6 +164,14 @@ public class AdminController {
 	public List<SubGrade> searchSubGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 										   HttpServletResponse response) throws URISyntaxException {
 		List<SubGrade> subGrade = adminService.searchSubGrade(body);
+		return subGrade;
+	}
+
+	@RequestMapping(value = "/led/api/automation/search/subgradepopup", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<SubGrade> searchSubPopupGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+										 HttpServletResponse response) throws URISyntaxException {
+		List<SubGrade> subGrade = adminService.searchSubGradePopup(body);
 		return subGrade;
 	}
 

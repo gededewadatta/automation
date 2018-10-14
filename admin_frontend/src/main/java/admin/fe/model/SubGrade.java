@@ -15,10 +15,12 @@ import java.util.Date;
 public class SubGrade {
     private Long id;
 	private String gradeCode;
+    private String departementCode;
 	private String subGradeCode;
 	private String subGradeName;
 	private Date createdDate;
 	private String createdBy;
+
 
     public String getGradeCode() {
         return gradeCode;
@@ -66,5 +68,13 @@ public class SubGrade {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDepartementCode() {
+        return departementCode;
+    }
+
+    public void setDepartementCode(String departementCode) {
+        this.departementCode = departementCode;
     }
 }

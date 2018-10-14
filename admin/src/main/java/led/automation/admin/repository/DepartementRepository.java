@@ -3,10 +3,12 @@
  */
 package led.automation.admin.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query; 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import led.automation.admin.model.Departement;
 
 /**
@@ -32,5 +34,15 @@ public interface DepartementRepository extends JpaRepository<Departement, Long>{
 			+ "WHERE UPPER(div.division_code) like %?1", nativeQuery = true)
 	List<String> generateDepartement(String divisionCode, String company);
 //	List<String> findDepartementByDivCode(String gradeCode);
+
+	@Modifying
+	@Query(value = "insert into departement (id,departement_code, departement_name, division_code, created_by, created_date) \n" +
+			"    select distinct * from (select (SELECT next_val FROM departement_seq),?1,?2,?3,?4,?5)  as dep  \n" +
+			"    where not exists(select departement_code from departement where departement_code = ?1)LIMIT 1", nativeQuery = true)
+	int insertDepartement(String departementCode, String departementName, String divisionCode, String createdBy, Date createdDate);
+
+	@Modifying
+	@Query(value = "update departement_seq set next_val=next_val + 1", nativeQuery = true)
+	int updateDepartementSeq();
 
 }

@@ -27,14 +27,6 @@ public class DepartementDetailController extends CommonController implements Pop
     Textbox idDivision;
     Textbox idDepartement;
     Textbox nameDepartement;
-    Label idDivisionConfirm;
-    Label idDepartementConfirm;
-    Label nameDepartementConfirm;
-    Button btnDivSearch;
-    Button submitButton;
-    Button confirmButton;
-    Button clearButton;
-    Button cancelButton;
 
     Division div = new Division();
 
@@ -46,20 +38,9 @@ public class DepartementDetailController extends CommonController implements Pop
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
-        disabledComponent();
     }
 
     public void onClick$submitButton(){
-        showConfirm();
-    }
-
-    public void onClick$clearButton(){
-        idDivision.setValue("");
-        idDepartement.setValue("");
-        nameDepartement.setValue("");
-    }
-
-    public void onClick$confirmButton(){
         Departement dep = new Departement();
 
         SendJSON send = new SendJSON();
@@ -88,6 +69,9 @@ public class DepartementDetailController extends CommonController implements Pop
                                     navigateTo("layout/Departement/Departement.zul",null,self);
                                 }
                             });
+                        }else if(result.equals("Failure")){
+                            Messagebox.show("Data Already exists");
+
                         }else{
                             Messagebox.show("Data Failed To save");
                         }
@@ -99,8 +83,10 @@ public class DepartementDetailController extends CommonController implements Pop
         });
     }
 
-    public void onClick$cancelButton(){
-        showInsert();
+    public void onClick$clearButton(){
+        idDivision.setValue("");
+        idDepartement.setValue("");
+        nameDepartement.setValue("");
     }
 
     public void onClick$idDivision(){
@@ -110,7 +96,6 @@ public class DepartementDetailController extends CommonController implements Pop
     public void onChanging$idDivision(){
         showPopUpDivision();
     }
-
 
     public void onClick$btnDivSearch(){
         showPopUpDivision();
@@ -140,45 +125,4 @@ public class DepartementDetailController extends CommonController implements Pop
         }
     }
 
-    public void disabledComponent(){
-        idDivisionConfirm.setVisible(false);
-        idDepartementConfirm.setVisible(false);
-        nameDepartementConfirm.setVisible(false);
-        confirmButton.setVisible(false);
-        cancelButton.setVisible(false);
-    }
-
-    public void showConfirm(){
-        idDivisionConfirm.setValue(idDivision.getValue());
-        idDepartementConfirm.setValue(idDepartement.getValue());
-        nameDepartementConfirm.setValue(nameDepartement.getValue());
-
-        idDivisionConfirm.setVisible(true);
-        idDepartementConfirm.setVisible(true);
-        nameDepartementConfirm.setVisible(true);
-        confirmButton.setVisible(true);
-        cancelButton.setVisible(true);
-
-        idDivision.setVisible(false);
-        idDepartement.setVisible(false);
-        nameDepartement.setVisible(false);
-        btnDivSearch.setVisible(false);
-        submitButton.setVisible(false);
-        clearButton.setVisible(false);
-    }
-
-    public void showInsert(){
-        idDivisionConfirm.setVisible(false);
-        idDepartementConfirm.setVisible(false);
-        nameDepartementConfirm.setVisible(false);
-        confirmButton.setVisible(false);
-        cancelButton.setVisible(false);
-
-        idDivision.setVisible(true);
-        idDepartement.setVisible(true);
-        nameDepartement.setVisible(true);
-        btnDivSearch.setVisible(true);
-        submitButton.setVisible(true);
-        clearButton.setVisible(true);
-    }
 }

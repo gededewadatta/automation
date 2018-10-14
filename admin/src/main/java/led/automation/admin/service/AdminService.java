@@ -33,6 +33,14 @@ public interface AdminService {
 	public String insertCompetency(String body);
 
 	// insert data : stop
+
+	// update data
+
+	public String updateDivision(String body);
+
+	public String updateEmployee(String body);
+
+	// update data stop
 	// search data : start
 	public List<Dashboard> findDashboard();
 
@@ -45,6 +53,8 @@ public interface AdminService {
 	public List<Grade> searchGrade(String body);
 
 	public List<Grade> searchGradePopup(String body);
+
+	public List<SubGrade> searchSubGradePopup(String body);
 
 	public List<Departement> searchDepartement(String body);
 

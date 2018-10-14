@@ -56,32 +56,26 @@ public class SendJSON {
 			System.out.println("Response isinya adalah :"+responseEntity.getBody());
 			System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-			result = String.valueOf(responseEntity.getStatusCode());
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+                System.out.println("Response isinya adalah :"+responseEntity.getBody());
+                System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+                if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                    result = null;
+                }else{
+                    if(responseEntity.getBody().equals("Failure")){
+                        result = String.valueOf(responseEntity.getBody());
+                    }else{
+                        result = String.valueOf(responseEntity.getStatusCode());
+                    }
+                }
+            }
 
 		}
 		return result;
 	}
 
-
-
-
-	protected String nullString(Object obj) {
-
-		return nullString(obj, 1000);
-	}
-
-	protected String nullString(Object obj, int maxLength) {
-
-		String result = "";
-
-		if (obj != null)
-			result = obj.toString();
-
-		if (result.length() > maxLength)
-			result = result.substring(0, maxLength);
-
-		return result;
-	}
 
 	public String insertGrade(Grade grd) throws JsonProcessingException {
 		String result = null;
@@ -101,14 +95,22 @@ public class SendJSON {
 		ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/insert/grade", HttpMethod.POST, entity,
 				String.class);
 
-		if (responseEntity.getStatusCode() == HttpStatus.OK) {
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
 
-			System.out.println("Response isinya adalah :"+responseEntity.getBody());
-			System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-			result = String.valueOf(responseEntity.getStatusCode());
+            if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                result = null;
+            }else{
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
+            }
 
-		}
+        }
 		return result;
 	}
 
@@ -135,7 +137,21 @@ public class SendJSON {
             System.out.println("Response isinya adalah :"+responseEntity.getBody());
             System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-            result = String.valueOf(responseEntity.getStatusCode());
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+                System.out.println("Response isinya adalah :"+responseEntity.getBody());
+                System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+                if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                    result = null;
+                }else{
+                    if(responseEntity.getBody().equals("Failure")){
+                        result = String.valueOf(responseEntity.getBody());
+                    }else{
+                        result = String.valueOf(responseEntity.getStatusCode());
+                    }
+                }
+            }
 
         }
         return result;
@@ -164,7 +180,21 @@ public class SendJSON {
 			System.out.println("Response isinya adalah :"+responseEntity.getBody());
 			System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-			result = String.valueOf(responseEntity.getStatusCode());
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+                System.out.println("Response isinya adalah :"+responseEntity.getBody());
+                System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+                if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                    result = null;
+                }else{
+                    if(responseEntity.getBody().equals("Failure")){
+                        result = String.valueOf(responseEntity.getBody());
+                    }else{
+                        result = String.valueOf(responseEntity.getStatusCode());
+                    }
+                }
+            }
 
 		}
 		return result;
@@ -199,7 +229,21 @@ public class SendJSON {
 			System.out.println("Response isinya adalah :"+responseEntity.getBody());
 			System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-			result = String.valueOf(responseEntity.getStatusCode());
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+                System.out.println("Response isinya adalah :"+responseEntity.getBody());
+                System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+                if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                    result = null;
+                }else{
+                    if(responseEntity.getBody().equals("Failure")){
+                        result = String.valueOf(responseEntity.getBody());
+                    }else{
+                        result = String.valueOf(responseEntity.getStatusCode());
+                    }
+                }
+            }
 
 		}
 		return result;
@@ -331,68 +375,68 @@ public class SendJSON {
 
 
     public List<GradeJson> getGradeJson(GradeJson grdJson){
+        String result = null;
 
-    String result = null;
+        String body = null;
 
-    String body = null;
-
-    List<GradeJson> gradeJsons = new ArrayList<>();
+        List<GradeJson> gradeJsons = new ArrayList<>();
         try {
 
-        body = mapper.writeValueAsString(grdJson);
+            body = mapper.writeValueAsString(grdJson);
 
-        System.out.println("===== INPUT ==== " + body);
+            System.out.println("===== INPUT ==== " + body);
 
-        RestTemplate restTemplate = new RestTemplate();
+            RestTemplate restTemplate = new RestTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
+            HttpHeaders headers = new HttpHeaders();
 
-        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
-        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
 
-        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
-        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/gradeJson", HttpMethod.POST, entity,
-                String.class);
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/gradeJson", HttpMethod.POST, entity,
+                    String.class);
 
-        System.out.println("Respon entity value is :"+ responseEntity);
-        System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
 
-        String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
 
-        System.out.println("respons VAlue is : "+ respons);
+            System.out.println("respons VAlue is : "+ respons);
 
-        JSONObject jsonResponse = new JSONObject(respons);
+            JSONObject jsonResponse = new JSONObject(respons);
 
-        System.out.println("Json respons VAlue is : "+ jsonResponse);
+            System.out.println("Json respons VAlue is : "+ jsonResponse);
 
-        JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
 
-        System.out.println("jsoon Array VAlue is : "+ jsonArray);
+            System.out.println("jsoon Array VAlue is : "+ jsonArray);
 
-        for (int i = 0; i < jsonArray.length(); i++) {
-            GradeJson grade = new GradeJson();
-            JSONObject jsonObjVal = jsonArray.getJSONObject(i);
-            System.out.println("Json Object Adalah :"+jsonObjVal);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                GradeJson grade = new GradeJson();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
 
-            grade.setIdGrade(jsonObjVal.getLong("idGrade"));
-            grade.setIdSubGrade(jsonObjVal.getLong("idSubGrade"));
-            grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
-            grade.setDepartementCode(jsonObjVal.getString("departementCode"));
-            grade.setGradeCode(jsonObjVal.getString("gradeCode"));
-            grade.setGradeName(jsonObjVal.getString("gradeName"));
-            grade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
-            grade.setSubGradeName(jsonObjVal.getString("subGradeName"));
-            gradeJsons.add(grade);
+                grade.setIdGrade(jsonObjVal.getLong("idGrade"));
+                grade.setIdSubGrade(jsonObjVal.getLong("idSubGrade"));
+                grade.setDivisionCode(jsonObjVal.getString("divisionCode"));
+                grade.setDepartementCode(jsonObjVal.getString("departementCode"));
+                grade.setGradeCode(jsonObjVal.getString("gradeCode"));
+                grade.setGradeName(jsonObjVal.getString("gradeName"));
+                grade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                grade.setSubGradeName(jsonObjVal.getString("subGradeName"));
+                gradeJsons.add(grade);
 
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
-
-    } catch (JsonProcessingException e) {
-        e.printStackTrace();
-    }
 
         return gradeJsons;
 
-}
+
+    }
 
     public List<SubGrade> getSubGrade(SubGrade subGrd){
 
@@ -446,7 +490,61 @@ public class SendJSON {
         }
 
         return subGrades;
+    }
 
+    public List<SubGrade> getSubGradePopUp (SubGrade subgrd){
+
+        String result = null;
+
+        String body = null;
+
+        List<SubGrade> subGrades = new ArrayList<>();
+        try {
+
+            body = mapper.writeValueAsString(subgrd);
+
+            System.out.println("===== INPUT ==== " + body);
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+            headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+            HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+            ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/search/subgradepopup", HttpMethod.POST, entity,
+                    String.class);
+
+            System.out.println("Respon entity value is :"+ responseEntity);
+            System.out.println("Respon entity body value is :"+ responseEntity.getBody());
+
+            String respons = "{\"arrayJson\""+":"+responseEntity.getBody()+"}";
+
+            JSONObject jsonResponse = new JSONObject(respons);
+
+            JSONArray jsonArray = jsonResponse.getJSONArray("arrayJson");
+
+            System.out.println("jsoon Array Value is : "+ jsonArray);
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                SubGrade subGrade = new SubGrade();
+                JSONObject jsonObjVal = jsonArray.getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                subGrade.setId(jsonObjVal.getLong("id"));
+                subGrade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                subGrade.setSubGradeName(jsonObjVal.getString("subGradeName"));
+                subGrade.setGradeCode(jsonObjVal.getString("gradeCode"));
+                subGrade.setDepartementCode(jsonObjVal.getString("departementCode"));
+                subGrades.add(subGrade);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return subGrades;
     }
 
 
@@ -498,6 +596,7 @@ public class SendJSON {
                 employee.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
                 employee.setEmployeeName(jsonObjVal.getString("employeeName"));
                 employee.setEmployeeCode(jsonObjVal.getString("employeeCode"));
+                employee.setUserName(jsonObjVal.getString("userName"));
                 employees.add(employee);
 
             }
@@ -940,13 +1039,21 @@ public class SendJSON {
             System.out.println("Response isinya adalah :"+responseEntity.getBody());
             System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-            result = String.valueOf(responseEntity.getStatusCode());
-
+            if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                result = null;
+            }else{
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
+            }
         }
         return result;
     }
 
     public String insertDepartement(Departement dpr) throws JsonProcessingException {
+
         String result = null;
 
         String body = mapper.writeValueAsString(dpr);
@@ -969,7 +1076,15 @@ public class SendJSON {
             System.out.println("Response isinya adalah :"+responseEntity.getBody());
             System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-            result = String.valueOf(responseEntity.getStatusCode());
+            if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                result = null;
+            }else{
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
+            }
 
         }
         return result;
@@ -1001,7 +1116,11 @@ public class SendJSON {
                 System.out.println("Response isinya adalah :"+responseEntity.getBody());
                 System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-                result = String.valueOf(responseEntity.getStatusCode());
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
 
             }
             return result;
@@ -1030,7 +1149,11 @@ public class SendJSON {
             System.out.println("Response isinya adalah :"+responseEntity.getBody());
             System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
 
-            result = String.valueOf(responseEntity.getStatusCode());
+            if(responseEntity.getBody().equals("Failure")){
+                result = String.valueOf(responseEntity.getBody());
+            }else{
+                result = String.valueOf(responseEntity.getStatusCode());
+            }
 
         }
         return result;
@@ -1088,6 +1211,85 @@ public class SendJSON {
             e.printStackTrace();
         }
         return reports;
+    }
+
+    public String updateDivision(Division div) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(div);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7002/led/api/automation/update/division", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                result = null;
+            }else{
+                if(responseEntity.getBody().equals("Failure")){
+                    result = String.valueOf(responseEntity.getBody());
+                }else{
+                    result = String.valueOf(responseEntity.getStatusCode());
+                }
+            }
+        }
+        return result;
+    }
+
+    public String updateEmployee(Employee emp) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(emp);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7013/led/api/automation/update/employee", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+                System.out.println("Response isinya adalah :"+responseEntity.getBody());
+                System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+                if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                    result = null;
+                }else{
+                    if(responseEntity.getBody().equals("Failure")){
+                        result = String.valueOf(responseEntity.getBody());
+                    }else{
+                        result = String.valueOf(responseEntity.getStatusCode());
+                    }
+                }
+            }
+
+        }
+        return result;
     }
 
 }

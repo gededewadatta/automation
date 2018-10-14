@@ -3,9 +3,11 @@
  */
 package led.automation.admin.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -46,5 +48,14 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 			+ "WHERE dept.departement_code like %?2 AND div.division_code like %?3", nativeQuery = true)
 	List<String> generateGrade(String company, String divisionCode, String departementCode);
 //	List<String> findGradeByDeptCode(String gradeCode);
+	@Modifying
+	@Query(value = "insert into grade (id_grade, grade_code, grade_name, departement_code, division_code, created_by, created_date) \n" +
+			"    select distinct * from (select (SELECT next_val FROM grade_seq),?1,?2,?3,?4,?5,?6)  as grade  \n" +
+			"    where not exists(select grade_code from grade where grade_code = ?1 and departement_code = ?3)LIMIT 1", nativeQuery = true)
+	int insertGrade(String gradeCode, String gradeName, String departementCode, String divisionCode, String createdBy, Date createdDate);
+
+	@Modifying
+	@Query(value = "update grade_seq set next_val=next_val + 1", nativeQuery = true)
+	int updateGradeSeq();
 
 }

@@ -114,7 +114,7 @@ public class GradeEditController extends CommonController {
                 });
     }
 
-    public void clearTextBox(){
+    public void onClick$clearButton(){
 
         idDivision.setValue("");
         idGradeName.setValue("");

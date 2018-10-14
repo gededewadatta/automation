@@ -167,6 +167,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
         args.put("employeeName",obj.getEmployeeName());
         args.put("gradeCode",obj.getGradeCode());
         args.put("subGradeCode",obj.getSubGradeCode());
+        args.put("userName",obj.getUserName());
 
         return args;
     }

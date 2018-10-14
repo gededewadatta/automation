@@ -25,6 +25,8 @@ public class SubGrade {
 
 	@Column(name = "GRADE_CODE")
 	private String gradeCode;
+	@Column(name = "DEPARTEMENT_CODE")
+	private String departementCode;
 	@Column(name = "SUB_GRADE_CODE")
 	private String subGradeCode;
 	@Column(name = "SUB_GRADE_NAME")
@@ -33,6 +35,7 @@ public class SubGrade {
 	private Date createdDate;
 	@Column(name = "CREATED_BY")
 	private String createdBy;
+
 
 	/**
 	 * @return the id
@@ -108,9 +111,18 @@ public class SubGrade {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
+
+	public String getDepartementCode() {
+		return departementCode;
+	}
+
+	public void setDepartementCode(String departementCode) {
+		this.departementCode = departementCode;
+	}
+
 	@Override
 	public String toString() {
-		return "SubGrade [id=" + idSubGrade + ", gradeCode=" + gradeCode + ", subGradeCode=" + subGradeCode + ", subGradeName="
+		return "SubGrade [id=" + idSubGrade + ", gradeCode=" + gradeCode + ", departementCode=" + departementCode + ", subGradeCode=" + subGradeCode + ", subGradeName="
 				+ subGradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + "]";
 	}
 

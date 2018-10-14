@@ -75,7 +75,7 @@ public class DepartementPopupController extends CommonController {
     public void onClick$searchButton() throws Exception {
         Division division = (Division) arg.get("division");
 
-        if(division!=null){
+        if(division!=null&&division.getDivisionCode()!=null){
             dep.setDivisionCode(division.getDivisionCode());
         } else {
             dep.setDivisionCode("");

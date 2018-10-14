@@ -53,33 +53,57 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Autowired
 	ReportRepository reportRepository;
+
+	Departement dep = new Departement();
+
+	Division div = new Division();
+
+	Employee res = new Employee();
 	//insert data :start
 	@Override
 	public int insertEmployee(Employee body) {
 		// TODO Auto-generated method stub
-//		 Insert employee
-		System.out.println("Dao Employee Name is :"+ body.getEmployeeName());
-		System.out.println("Dao Employee Code is :"+ body.getEmployeeCode());
-		Employee res = new Employee();
+
+		int result = employeeRepository.insertEmployee(body.getCreatedBy(),new Date(),body.getDepartementCode(),body.getDivisionCode()
+				,body.getEmployeeCode().toUpperCase(),body.getEmployeeName(),body.getGradeCode(),body.getSubGradeCode(),body.getUserName());
+		if(result > 0){
+			employeeRepository.updateEmployeeSeq();
+		}
+
+		return result==0?0:1;
+	}
+
+	@Override
+	public int updateEmployee(Employee body) {
+		// TODO Auto-generated method stub
 		res = employeeRepository.save(body);
 		return res.getId()==0?0:1;
 	}
 
 	@Override
-	public int insertGrade(Grade body) {
+	public int insertGrade(Grade grade) {
 		// TODO Auto-generated method stub
-		Grade grade = new Grade();
-		grade = gradeRepository.save(body);
-		return grade.getIdGrade()==0?0:1;
+		int a = gradeRepository.insertGrade(grade.getGradeCode().toUpperCase(),grade.getGradeName(),grade.getDepartementCode().toUpperCase(),
+				grade.getDivisionCode().toUpperCase(),grade.getCreatedBy(),grade.getCreatedDate());
+
+		if(a > 0){
+			gradeRepository.updateGradeSeq();
+		}
+
+		return a==0?0:1;
 	}
 
 	@Override
-	public int insertSubGrade(SubGrade body) {
+	public int insertSubGrade(SubGrade subGrade) {
 		// TODO Auto-generated method stub
-		SubGrade subGrade = new SubGrade();
-		subGrade = subGradeRepository.save(body);
+		int a = subGradeRepository.insertSubGrade(subGrade.getSubGradeCode().toUpperCase(),subGrade.getSubGradeName(),subGrade.getGradeCode().toUpperCase(),
+				subGrade.getDepartementCode().toUpperCase(),subGrade.getCreatedBy(),subGrade.getCreatedDate());
 
-		return subGrade.getIdSubGrade()==0?0:1;
+		if(a > 0){
+			subGradeRepository.updateSubGradeSeq();
+		}
+
+		return a==0?0:1;
 	}
 
 	@Override
@@ -93,19 +117,34 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertDivision(Division division) {
 		// TODO Auto-generated method stub
-		Division div = new Division();
-		div = divisionRepository.save(division);
-//		return div.getId()>0?1:0;
-        return div.getId()==0?0:1;
+		int a = divisionRepository.insertDivision(division.getCreatedBy(),division.getCreatedDate(),division.getDivisionCode().toUpperCase(),division.getDivisionName());
+
+		if(a > 0){
+			divisionRepository.updateDivisionSeq();
+		}
+
+		//		return div.getId()>0?1:0;
+        return a==0?0:1;
     }
+
+	@Override
+	public int updateDivision(Division division) {
+		// TODO Auto-generated method stub
+		div = divisionRepository.save(division);
+
+		return div.getId()==0?0:1;
+	}
 
 	@Override
 	public int insertDepartement(Departement departement) {
 		// TODO Auto-generated method stub
-		Departement dep = new Departement();
-		dep = departementRepository.save(departement);
+		int a = departementRepository.insertDepartement(departement.getDepartementCode().toUpperCase(),departement.getDepartementName(),departement.getDivisionCode().toUpperCase(),departement.getCreatedBy(),departement.getCreatedDate());
+
+		if(a > 0){
+			departementRepository.updateDepartementSeq();
+		}
 //		return dep.getId()>0?1:0;
-		return dep.getId()==0?1:0;
+		return a==0?0:1;
 	}
 
 	@Override
@@ -288,6 +327,43 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
+	public List<SubGrade> searchSubGradePopup (String departementCode, String gradeCode, String subGradeCode, String subGradeName) {
+		// TODO Auto-generated method stub
+		List<SubGrade> subGrade = new ArrayList<>();
+
+		if(subGradeCode.equals("")&& subGradeName.equals("")
+				&& departementCode.equals("") && gradeCode.equals("")) {
+			subGrade =  subGradeRepository.findAll();
+		}
+		else if(subGradeCode.equals("")&&!subGradeName.equals("")
+				&& departementCode.equals("") && gradeCode.equals("")){
+			subGrade = subGradeRepository.findBySubGradeName(subGradeName);
+		}
+		else if(!subGradeCode.equals("")&& subGradeName.equals("")
+				&& departementCode.equals("") && gradeCode.equals("")) {
+			subGrade = subGradeRepository.findBySubGradeCode(subGradeCode);
+		}
+		else if(subGradeCode.equals("")&& subGradeName.equals("")
+				&& !departementCode.equals("") && !gradeCode.equals("")) {
+			subGrade =  subGradeRepository.findAll();
+		}
+		else if(subGradeCode.equals("")&& !subGradeName.equals("")
+				&& !departementCode.equals("") && !gradeCode.equals("")) {
+			subGrade = subGradeRepository.findBySubGradeCode(subGradeCode);
+		}
+		else if(!subGradeCode.equals("")&& subGradeName.equals("")
+				&& !departementCode.equals("") && !gradeCode.equals("")) {
+			subGrade = subGradeRepository.findBySubGradeCode(subGradeCode);
+		}
+		else {
+			subGrade = subGradeRepository.findBySubGradeCodeAndName(subGradeCode,subGradeName);
+		}
+
+		return subGrade;
+	}
+
+
+	@Override
 	public List<GradeJson> searchGradeJson(String departmentCode, String divisionCode) {
 		// TODO Auto-generated method stub
 		List<GradeJson> gradeJsons = new ArrayList<>();
@@ -343,7 +419,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		List<Division> division = new ArrayList<>();
 		if(divisionCode.equals("")&&divisionName.equals("")) {
-			division = divisionRepository.findAll();
+			division = (List<Division>) divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){
 			division = divisionRepository.findByDivisionName("%"+divisionName.toUpperCase()+"%");

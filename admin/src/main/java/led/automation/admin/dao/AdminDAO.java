@@ -32,6 +32,13 @@ public interface AdminDAO {
 	
 	public int insertPendingQuestion(PendingQuestion pendingQuestion);
 	//insert data : stop
+
+	//update data
+
+	public int updateDivision(Division division);
+	public int updateEmployee(Employee body);
+
+	//update data stop
 	 
 
 	public List<Departement> searchDepartement(String divisionCode, String departementCode);
@@ -45,6 +52,8 @@ public interface AdminDAO {
 	public List<Grade> searchGradePopup(String departementCode, String divisionCode, String gradeCode, String gradeName);
 
 	public List<SubGrade> searchSubGrade(String gradeCode, String gradeName);
+
+	public List<SubGrade> searchSubGradePopup(String departementCode, String gradeCode, String subGradeCode, String subGradeName);
 
 	public List<GradeJson> searchGradeJson(String departementCode, String departementName);
 
@@ -83,5 +92,5 @@ public interface AdminDAO {
 	public List<String> findGradeByDeptCode(String gradeCode);
 	public List<String> findDepartementByDivCode(String gradeCode);
 
-		//find data parent: stop
+	//find data parent: stop
 }

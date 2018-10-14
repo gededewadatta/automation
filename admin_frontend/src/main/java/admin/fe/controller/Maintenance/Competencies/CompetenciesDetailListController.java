@@ -83,6 +83,7 @@ public class CompetenciesDetailListController extends CommonController implement
         Map<String, Object> args = new HashMap<String, Object>();
         Grade grade = new Grade();
         args.put("objectGrade", grade);
+        args.put("departement", dep);
         args.put("caller", this);
         Component c = Executions.createComponents(
                 "layout/Grade/GradePopup.zul", self, args);
@@ -98,8 +99,9 @@ public class CompetenciesDetailListController extends CommonController implement
     public void onClick$btnSubGrade(){
 
         Map<String, Object> args = new HashMap<String, Object>();
-        SubGrade div = new SubGrade();
-        args.put("object", div);
+        SubGrade subgrd = new SubGrade();
+        args.put("object", subgrd);
+        args.put("grade",grd);
         args.put("caller", this);
         Component c = Executions.createComponents(
                 "layout/Grade/SubGradePopup.zul", self, args);

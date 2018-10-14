@@ -93,5 +93,14 @@ public class CompetenciesEditController  extends CommonController {
                 });
     }
 
+    public void onClick$clearButton(){
+
+        idCompetenciesId.setValue("");
+        idDepartment.setValue("");
+        idSubGrade.setValue("");
+        idGrade.setValue("");
+        idCompetencies.setValue("");
+
+    }
 
 }
