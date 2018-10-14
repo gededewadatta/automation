@@ -464,7 +464,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		List<Division> division = new ArrayList<>();
 		if(divisionCode.equals("")&&divisionName.equals("")) {
-			division = (List<Division>) divisionRepository.findAll();
+			division = divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){
 			division = divisionRepository.findByDivisionName("%"+divisionName.toUpperCase()+"%");

@@ -41,9 +41,13 @@ public class EmployeeUploadController extends CommonController {
     private AbstractMainWindowTransaction parent;
     Button btnSubmit;
 
+    int result = 0;
+
     Set<Employee> emp = new HashSet<>();
 
     String destination = "Apps/Upload";
+
+    List<Employee> isEmpty = new ArrayList<>();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -96,8 +100,7 @@ public class EmployeeUploadController extends CommonController {
         };
     }
 
-    public Set<Employee> loadFileTemp(String extension) {
-        int result = 0;
+    public void loadFileTemp(String extension) {
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
@@ -117,88 +120,112 @@ public class EmployeeUploadController extends CommonController {
                 wb = new HSSFWorkbook(fis);
             }
             Sheet sheet = wb.getSheetAt(0);
-            org.apache.poi.ss.usermodel.Row row = sheet.getRow(0);
-            DataFormatter formatter = new DataFormatter();
+            if(sheet.getRow(0).getCell(0)!=null){
+                org.apache.poi.ss.usermodel.Row row = sheet.getRow(0);
+                DataFormatter formatter = new DataFormatter();
 //			Row row;
-            Cell[][] tempArray = new Cell[sheet.getLastRowNum()][row.getLastCellNum()];
-            int lastColNum = row.getLastCellNum();
-            //Extract Data : start
-            int rowCount = 0;
-            for(int i = 0; i < sheet.getLastRowNum(); i++){
-                row = sheet.getRow(rowCount);
-                for(int j = 0; j < lastColNum; j++){
-                    tempArray[i][j] = row.getCell(j);
+                Cell[][] tempArray = new Cell[sheet.getLastRowNum()][row.getLastCellNum()];
+                int lastColNum = row.getLastCellNum();
+                //Extract Data : start
+                int rowCount = 0;
+                for(int i = 0; i < sheet.getLastRowNum(); i++){
+                    row = sheet.getRow(rowCount);
+                    for(int j = 0; j < lastColNum; j++){
+                        tempArray[i][j] = row.getCell(j);
+                    }
+                    rowCount++;
                 }
-                rowCount++;
-            }
-            //Extract Data : end
+                //Extract Data : end
 
-            //Insert to DB : start
-            System.out.println("tEMP aRRAY lENGTH"+tempArray.length);
-            String val ="";
-            for(int a = 1; a < sheet.getLastRowNum() + 1; a++){
-                employee = new Employee();
-                for(int b = 0; b < tempArray[0].length; b++){
-                    if(a != 0){
-                        if(tempArray[0][b].getStringCellValue().equals("DEPARTEMENT_CODE")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")){
-                                employee.setDepartementCode(val);
-                            }
-                        }else if(tempArray[0][b].getStringCellValue().equals("GRADE_CODE")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")) {
-                                employee.setGradeCode(val);
-                            }
-                        }else if(tempArray[0][b].getStringCellValue().equals("DIVISION_CODE")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")){
-                                employee.setDivisionCode(val);
-                            }
+                //Insert to DB : start
+                System.out.println("tEMP aRRAY lENGTH"+tempArray.length);
+                String val ="";
+                for(int a = 1; a < sheet.getLastRowNum() + 1; a++){
+                    employee = new Employee();
+                    for(int b = 0; b < tempArray[0].length; b++){
+                        if(a != 0){
+                            if(tempArray[0][b].getStringCellValue().equals("DEPARTEMENT_CODE")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("") || val != null){
+                                    employee.setDepartementCode(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
+                            }else if(tempArray[0][b].getStringCellValue().equals("GRADE_CODE")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("")|| val != null) {
+                                    employee.setGradeCode(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
+                            }else if(tempArray[0][b].getStringCellValue().equals("DIVISION_CODE")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("")|| val != null){
+                                    employee.setDivisionCode(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
 
-                        }else if(tempArray[0][b].getStringCellValue().equals("SUB_GRADE_CODE")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")){
-                                employee.setSubGradeCode(val);
-                            }
+                            }else if(tempArray[0][b].getStringCellValue().equals("SUB_GRADE_CODE")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("")|| val != null){
+                                    employee.setSubGradeCode(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
 
-                        }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_CODE")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")){
-                                employee.setEmployeeCode(val);
-                            }
+                            }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_CODE")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("")|| val != null){
+                                    employee.setEmployeeCode(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
 
-                        }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_NAME")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")){
-                                employee.setEmployeeName(val);
-                            }
+                            }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_NAME")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("")|| val != null){
+                                    employee.setEmployeeName(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
 
-                        }else if(tempArray[0][b].getStringCellValue().contains("CREATED_BY")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")){
-                                employee.setCreatedBy(val);
-                            }
+                            }else if(tempArray[0][b].getStringCellValue().contains("CREATED_BY")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("")|| val != null){
+                                    employee.setCreatedBy(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
 
-                        }else if(tempArray[0][b].getStringCellValue().contains("USER_NAME")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            if(!val.equals("")){
-                                employee.setUserName(val);
+                            }else if(tempArray[0][b].getStringCellValue().contains("USER_NAME")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("")|| val != null){
+                                    employee.setUserName(val);
+                                }else{
+                                    isEmpty.add(employee);
+                                }
+
                             }
 
                         }
-
                     }
-                }
-                if(!val.equals("")) {
-
-                    if(emp.contains(employee)){
-                        continue;
+                    if(isEmpty.size() > 0){
+                        result = 0;
+                    }else{
+                        emp.add(employee);
                     }
 
-                    emp.add(employee);
                 }
+            }else{
+
+                result = -1;
+                Messagebox.show("Header of file is empty!");
+                idUpload.setValue("");
+                btnSubmit.setDisabled(true);
+
             }
+
             // Insert to DB : end
         }catch (FileNotFoundException ex){
             ex.printStackTrace();
@@ -207,7 +234,6 @@ public class EmployeeUploadController extends CommonController {
             e.printStackTrace();
         }
 
-        return employees;
     }
 
     private void copyToTemp(Media media) {
@@ -277,24 +303,41 @@ public class EmployeeUploadController extends CommonController {
 
                                 SendJSON send = new SendJSON();
                                 try {
-                                    Set<Employee> isInserted = new HashSet<>();
-                                    for(Employee employee: emp){
 
-                                        if(send.insertEmployee(employee).equals("200")){
-                                            isInserted.add(employee);
+                                    if(result > 0 ){
+
+                                        Set<Employee> isInserted = new HashSet<>();
+                                        for(Employee employee: emp){
+
+                                            if(send.insertEmployee(employee).equals("200")){
+                                                isInserted.add(employee);
+                                            }
+
                                         }
 
+                                        if(isInserted.size() > 0){
+                                            Messagebox.show("Data Success to Save");
+                                            isInserted.clear();
+                                            idUpload.setValue("");
+                                        }else{
+                                            Messagebox.show("Data Already Exists");
+                                            isInserted.clear();
+                                            idUpload.setValue("");
+                                        }
+
+                                    }else if(result == -1){
+
+                                        Messagebox.show("Header of file is empty!");
+                                        idUpload.setValue("");
+
+                                    }else{
+
+                                        Messagebox.show("There is some field still empty");
+                                        idUpload.setValue("");
+                                        isEmpty.clear();
+
                                     }
 
-                                    if(isInserted.size() > 0){
-                                        Messagebox.show("Data Success to Save");
-                                        isInserted.clear();
-                                        idUpload.setValue("");
-                                    }else{
-                                        Messagebox.show("Data Already Exists");
-                                        isInserted.clear();
-                                        idUpload.setValue("");
-                                    }
 
                                     btnSubmit.setDisabled(true);
                                     emp.clear();
