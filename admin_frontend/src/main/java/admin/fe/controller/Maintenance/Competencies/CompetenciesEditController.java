@@ -28,6 +28,8 @@ public class CompetenciesEditController  extends CommonController {
 
     Textbox idCompetenciesId;
 
+    Textbox idCompetenciesName;
+
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
@@ -75,9 +77,10 @@ public class CompetenciesEditController  extends CommonController {
                                     cmp.setSubGradeCode(idSubGrade.getValue());
                                     cmp.setDepartementCode(idDepartment.getValue());
                                     cmp.setGradeCode(idGrade.getValue());
-                                    cmp.setCompetencyName(idCompetencies.getValue());
+                                    cmp.setCompetencyCode(idCompetencies.getValue());
+                                    cmp.setCompetencyName(idCompetenciesName.getValue());
 
-                                    result = send.insertCompetency(cmp);
+                                    result = send.updateCompetency(cmp);
 
                                     if(result.equals("200")){
                                         Messagebox.show("Data Already Saved");

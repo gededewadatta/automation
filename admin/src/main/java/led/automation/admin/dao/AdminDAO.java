@@ -37,6 +37,7 @@ public interface AdminDAO {
 
 	public int updateDivision(Division division);
 	public int updateEmployee(Employee body);
+	public int updateCompetency(Competency competency);
 
 	//update data stop
 	 

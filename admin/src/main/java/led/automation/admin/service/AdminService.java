@@ -40,6 +40,8 @@ public interface AdminService {
 
 	public String updateEmployee(String body);
 
+	public String updateCompetency(String body);
+
 	// update data stop
 	// search data : start
 	public List<Dashboard> findDashboard();

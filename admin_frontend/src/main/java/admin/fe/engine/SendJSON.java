@@ -212,6 +212,50 @@ public class SendJSON {
 
 	}
 
+
+    public String updateCompetency(Competency cmp) throws JsonProcessingException {
+        String result = null;
+
+        String body = mapper.writeValueAsString(cmp);
+
+        System.out.println("===== INPUT ==== " + body);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.add("Content-Type", MediaType.APPLICATION_JSON.toString());
+        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
+
+        HttpEntity<String> entity = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> responseEntity = restTemplate.exchange("http://localhost:7002/led/api/automation/update/competency", HttpMethod.POST, entity,
+                String.class);
+
+        if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+            System.out.println("Response isinya adalah :"+responseEntity.getBody());
+            System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+            if (responseEntity.getStatusCode() == HttpStatus.OK) {
+
+                System.out.println("Response isinya adalah :"+responseEntity.getBody());
+                System.out.println("Response Code isinya adalah :"+responseEntity.getStatusCode());
+
+                if(responseEntity.getBody().equals(null) || responseEntity.getBody() ==  null){
+                    result = null;
+                }else{
+                    if(responseEntity.getBody().equals("Failure")){
+                        result = String.valueOf(responseEntity.getBody());
+                    }else{
+                        result = String.valueOf(responseEntity.getStatusCode());
+                    }
+                }
+            }
+
+        }
+        return result;
+    }
+
 	public String insertCompetency(Competency cmp) throws JsonProcessingException {
 		String result = null;
 

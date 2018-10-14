@@ -114,16 +114,25 @@ public class CompetenciesDetailController extends CommonController implements Po
 
                                 try {
                                     String result = "";
+                                    List<Competency> comp = new ArrayList<>();
+
                                     for (Map<String, Object> cmpList : competencyList) {
 
                                         Competency cmp = (Competency) cmpList.get("Competencies");
                                         result = send.insertCompetency(cmp);
+                                        if(result.equals("200")){
+                                            comp.add(cmp);
+                                        }
+
 
 
                                     }
 
-                                    if(result.equals("200")){
+                                    if(comp.size() > 0){
                                         Messagebox.show("Data Already Saved");
+                                        navigateTo("layout/Competencies/Competencies.zul",null,self);
+                                    }else{
+                                        Messagebox.show("Data Already Exists");
                                         navigateTo("layout/Competencies/Competencies.zul",null,self);
                                     }
 
