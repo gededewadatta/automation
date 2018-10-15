@@ -669,38 +669,38 @@ public class ProxyController {
 
 	// upload data : stop
 	// employee part : start
-	@RequestMapping(value = "/automation/api/search/pendingquestion/{userName}", produces = "application/json", method = RequestMethod.GET)
-	@ResponseBody
-	public String searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-			HttpServletResponse response) throws URISyntaxException {
-		System.out.println("body :" + body);
-		return proxy(employeeSearchQuestion, body, method, request, response);
-		// return body;
-	}
-
-	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
-	public String submitHistory(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeSubmitHistory, body, method, request, response);
-
-	}
-
-	@RequestMapping(value = "/automation/api/insert/question", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
-	public String submitQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-			HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeSubmitQuestion, body, method, request, response);
-
-	}
-
-	@RequestMapping(value = "/test")
-	@ResponseBody
-	public String test(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-			HttpServletResponse response) throws URISyntaxException {
-		System.out.println("TEST 123");
-		return "HELLO";
-	}
+//	@RequestMapping(value = "/automation/api/search/pendingquestion/{userName}", produces = "application/json", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		System.out.println("body :" + body);
+//		return proxy(employeeSearchQuestion, body, method, request, response);
+//		// return body;
+//	}
+//
+//	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String submitHistory(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		return proxy(employeeSubmitHistory, body, method, request, response);
+//
+//	}
+//
+//	@RequestMapping(value = "/automation/api/insert/question", produces = "application/json", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String submitQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		return proxy(employeeSubmitQuestion, body, method, request, response);
+//
+//	}
+//
+//	@RequestMapping(value = "/test")
+//	@ResponseBody
+//	public String test(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		System.out.println("TEST 123");
+//		return "HELLO";
+//	}
 	// employee part : stop
 
 	// integration data with firebase : start
