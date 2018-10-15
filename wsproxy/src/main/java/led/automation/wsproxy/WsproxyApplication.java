@@ -86,6 +86,7 @@ public class WsproxyApplication {
 			data.setCorrectAnswer(jsonObjVal.getString("correctAnswer"));
 			data.setQuestions(jsonObjVal.getString("questions"));
 			data.setUserName(jsonObjVal.getString("userName"));
+			data.setQuestionType(jsonObjVal.getString("questionType"));
 
 		}
 		addPendingQuestions(data);
@@ -263,6 +264,7 @@ public class WsproxyApplication {
 		dataPending.put("id", pending.getId());
 		dataPending.put("questions", pending.getQuestions());
 		dataPending.put("userName", pending.getUserName());
+		dataPending.put("questionType", pending.getQuestionType());
 		ApiFuture<WriteResult> result = docRef.set(dataPending);
 		try {
 			System.out.println("Update time : " + result.get().getUpdateTime());

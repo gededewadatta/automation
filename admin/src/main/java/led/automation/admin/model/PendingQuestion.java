@@ -53,6 +53,8 @@ public class PendingQuestion {
 	private String competency;
 	@Column(name = "LEVEL")
 	private String level;
+	@Column(name = "QUESTION_TYPE")
+	private String questionType;
 	/**
 	 * @return the id
 	 */
@@ -209,6 +211,18 @@ public class PendingQuestion {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+	/**
+	 * @return the questionType
+	 */
+	public String getQuestionType() {
+		return questionType;
+	}
+	/**
+	 * @param questionType the questionType to set
+	 */
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -217,7 +231,9 @@ public class PendingQuestion {
 		return "PendingQuestion [id=" + id + ", userName=" + userName + ", questions=" + questions + ", answer1="
 				+ answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4 + ", answer5="
 				+ answer5 + ", correctAnswer=" + correctAnswer + ", createdDate=" + createdDate + ", createdBy="
-				+ createdBy + ", competency=" + competency + ", level=" + level + "]";
+				+ createdBy + ", competency=" + competency + ", level=" + level + ", questionType=" + questionType
+				+ "]";
 	}
+	 
 	
 }

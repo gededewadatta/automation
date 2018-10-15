@@ -158,6 +158,7 @@ public class AdminServiceImpl implements AdminService {
 				pendingQuestion.setCompetency(question.getCompetency());
 				pendingQuestion.setLevel(question.getLevel());
 				pendingQuestion.setUserName(user);
+				pendingQuestion.setQuestionType(question.getQuestionType());
 				result2 += adminDAO.insertPendingQuestion(pendingQuestion);
 			}
 			// to insert into PendingQuestion Table:stop

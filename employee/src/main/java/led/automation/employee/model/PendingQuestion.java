@@ -53,6 +53,9 @@ public class PendingQuestion {
 	private String competency;
 	@Column(name = "LEVEL")
 	private String level;
+	@Column(name = "QUESTION_TYPE")
+	private String questionType;
+	
 	/**
 	 * @return the id
 	 */
