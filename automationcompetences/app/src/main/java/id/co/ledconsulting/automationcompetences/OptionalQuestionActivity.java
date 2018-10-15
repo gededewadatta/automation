@@ -1,6 +1,6 @@
 package id.co.ledconsulting.automationcompetences;
 
-import android.nfc.Tag;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
