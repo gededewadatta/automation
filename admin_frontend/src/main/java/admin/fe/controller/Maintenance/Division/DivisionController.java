@@ -154,7 +154,7 @@ public class DivisionController extends CommonController implements PopupCallerD
     public void afterSelectDivision(Division division) {
         if(division != null){
             div = division;
-            idDivision.setValue(division.getDivisionName());
+            idDivision.setValue(division.getDivisionCode());
         }
 
     }

@@ -177,4 +177,8 @@ public class GradeDetailController extends CommonController implements PopupCall
         }
     }
 
+    public void onClick$cancelButton(){
+        navigateTo("layout/Grade/GradeDetail.zul",null,self);
+    }
+
 }

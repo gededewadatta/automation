@@ -174,7 +174,7 @@ public class DepartementController extends CommonController implements PopupCall
     public void afterSelectDivision(Division division) {
         if(division != null){
             div = division;
-            idDivision.setValue(division.getDivisionName());
+            idDivision.setValue(division.getDivisionCode());
         }
 
     }
@@ -183,7 +183,7 @@ public class DepartementController extends CommonController implements PopupCall
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
-            idDepartement.setValue(departement.getDepartementName());
+            idDepartement.setValue(departement.getDepartementCode());
         }
     }
 

@@ -125,4 +125,8 @@ public class DepartementDetailController extends CommonController implements Pop
         }
     }
 
+    public void onClick$cancelButton(){
+        navigateTo("layout/Departement/Departement.zul",null,self);
+    }
+
 }

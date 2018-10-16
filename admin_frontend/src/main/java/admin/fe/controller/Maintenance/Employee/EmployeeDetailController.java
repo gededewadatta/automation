@@ -253,4 +253,8 @@ public class EmployeeDetailController extends CommonController implements PopupC
             idSubGrade.setValue(subGrd.getSubGradeCode());
         }
     }
+
+    public void onClick$cancelButton(){
+        navigateTo("layout/Employee/EmployeeDetail.zul",null,self);
+    }
 }

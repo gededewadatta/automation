@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class CompetenciesDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
+public class CompetenciesDetailController extends CommonController {
 
     Vbox boxList;
 
@@ -145,30 +145,8 @@ public class CompetenciesDetailController extends CommonController implements Po
                 });
     }
 
-    @Override
-    public void afterSelectDepartement(Departement departement) {
-        if(departement != null){
-            dep = departement;
-            idDepartment.setValue(departement.getDepartementCode());
-        }
-    }
-
-    @Override
-    public void afterSelectGrade(Grade grade) {
-        if(grade != null){
-            grd = grade;
-            idGrade.setValue(grd.getGradeCode());
-        }
-
-    }
-
-    @Override
-    public void afterSelectSubGrade(SubGrade subGrade) {
-
-        if(subGrade != null){
-            subGrd = subGrade;
-            idSubGrade.setValue(subGrd.getSubGradeCode());
-        }
+    public void onClick$cancelButton(){
+        navigateTo("layout/Competencies/Competencies.zul",null,self);
     }
 
 }

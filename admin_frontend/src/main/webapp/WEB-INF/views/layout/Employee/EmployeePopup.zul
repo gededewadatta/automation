@@ -7,7 +7,7 @@
             <grid>
                 <rows>
                     <row>
-                        <label value = "Employee Id:" />
+                        <label value = "Employee Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idEmployee"  />

@@ -35,6 +35,7 @@ public class DepartementViewEditController extends CommonController implements P
     Button clearButton;
     Button divisionButton;
 
+
     Division div = new Division();
 
     private final String TYPE_SHOW_VIEW = "VIEW";
@@ -76,6 +77,7 @@ public class DepartementViewEditController extends CommonController implements P
             divisionButton.setVisible(false);
             submitButton.setVisible(false);
             clearButton.setVisible(false);
+            backButton.setLabel("Back");
         }
         else if((String) arg.get("type") == TYPE_SHOW_EDIT){
             idDivisionView.setVisible(false);
@@ -83,7 +85,8 @@ public class DepartementViewEditController extends CommonController implements P
             nameDepartementView.setVisible(false);
             idDivisionEdit.setDisabled(true);
             idDepartementEdit.setDisabled(true);
-            backButton.setVisible(false);
+            backButton.setVisible(true);
+            backButton.setLabel("Cancel");
         }
     }
 

@@ -177,7 +177,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
 
         if(division != null){
             div = division;
-            idDivision.setValue(division.getDivisionName());
+            idDivision.setValue(division.getDivisionCode());
         }
 
     }
@@ -186,7 +186,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
-            idDepartment.setValue(departement.getDepartementName());
+            idDepartment.setValue(departement.getDepartementCode());
         }
     }
 

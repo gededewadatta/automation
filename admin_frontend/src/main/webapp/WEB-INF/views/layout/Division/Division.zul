@@ -6,11 +6,23 @@
         <div>
             <grid>
                 <rows>
+
                     <row>
-                        <label value = "Division:" />
+                        <label value = "Company Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision"  />
+                                <textbox id="idCompany" value="ACC" disabled="true" />
+                            </hlayout>
+                        </hbox>
+
+
+                    </row>
+
+                    <row>
+                        <label value = "Division Code:" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idDivision" disabled="true" />
                             </hlayout>
                             <div>
                                 <button id="btnSearchDivision"/>

@@ -67,12 +67,14 @@ public class DivisionViewEditController extends CommonController {
             nameDivisionEdit.setVisible(false);
             submitButton.setVisible(false);
             clearButton.setVisible(false);
+            backButton.setLabel("Back");
         }
         else if((String) arg.get("type") == TYPE_SHOW_EDIT){
             idDivisionView.setVisible(false);
             nameDivisionView.setVisible(false);
             idDivisionEdit.setDisabled(true);
-            backButton.setVisible(false);
+            backButton.setVisible(true);
+            backButton.setLabel("Cancel");
         }
     }
 
@@ -116,4 +118,5 @@ public class DivisionViewEditController extends CommonController {
     public void onClick$clearButton(){
         nameDivisionEdit.setValue("");
     }
+
 }

@@ -7,7 +7,7 @@
             <grid>
                 <rows>
                     <row>
-                        <label value = "Division:" />
+                        <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idDivision"/>
@@ -28,6 +28,7 @@
             <div align="right" style="margin-top:30px">
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
+                <button id="cancelButton" label="Cancel" style="float::right"/>
             </div>
 
         </div>

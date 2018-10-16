@@ -77,5 +77,9 @@ public class DivisionDetailController extends CommonController {
         idDivision.setValue("");
         nameDivision.setValue("");
     }
+    public void onClick$cancelButton(){
+        navigateTo("layout/Division/Division.zul",null,self);
+    }
+
 
 }

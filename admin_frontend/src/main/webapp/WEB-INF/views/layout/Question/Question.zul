@@ -7,7 +7,7 @@
             <grid>
                 <rows id="rowsParent">
                     <row>
-                        <label value = "Division:" />
+                        <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idDivision"  />
@@ -20,7 +20,7 @@
 
                     </row>
                     <row>
-                        <label value = "Department:" />
+                        <label value = "Department Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idDepartment"  />
@@ -32,7 +32,7 @@
 
                     </row>
                     <row>
-                        <label value = "Grade:" />
+                        <label value = "Grade Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idGrade"  />
@@ -45,7 +45,7 @@
 
                     </row>
                     <row>
-                        <label value = "Sub Grade:" />
+                        <label value = "Sub Grade Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idSubGrade"  />

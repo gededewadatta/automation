@@ -195,7 +195,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
 
         if(division != null){
             div = division;
-            idDivision.setValue(division.getDivisionName());
+            idDivision.setValue(division.getDivisionCode());
         }
 
     }
@@ -204,7 +204,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
-            idDepartement.setValue(departement.getDepartementName());
+            idDepartement.setValue(departement.getDepartementCode());
         }
     }
 }

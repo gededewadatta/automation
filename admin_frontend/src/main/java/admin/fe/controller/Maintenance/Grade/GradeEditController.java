@@ -126,4 +126,8 @@ public class GradeEditController extends CommonController {
 
     }
 
+    public void onClick$cancelButton(){
+        navigateTo("layout/Grade/GradeDetail.zul",null,self);
+    }
+
 }
