@@ -325,19 +325,12 @@ public class EmployeeUploadController extends CommonController {
                                             idUpload.setValue("");
                                         }
 
-                                    }else if(result == -1){
-
-                                        Messagebox.show("Header of file is empty!");
-                                        idUpload.setValue("");
-
-                                    }else{
+                                    }else if(result == 0){
 
                                         Messagebox.show("There is some field still empty");
                                         idUpload.setValue("");
                                         isEmpty.clear();
-
                                     }
-
 
                                     btnSubmit.setDisabled(true);
                                     emp.clear();

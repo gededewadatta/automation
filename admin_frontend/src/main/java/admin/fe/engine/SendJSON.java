@@ -37,7 +37,7 @@ public class SendJSON {
 		return insertAndUpdate(mapper.writeValueAsString(emp),"http://localhost:7013/led/api/automation/insert/employee");
 	}
 
-	public String insertGrade(Grade grd) throws JsonProcessingException {
+	public String insertGrade(GradeJson grd) throws JsonProcessingException {
 		return insertAndUpdate(mapper.writeValueAsString(grd),"http://localhost:7013/led/api/automation/insert/grade");
 	}
 
@@ -63,7 +63,7 @@ public class SendJSON {
 
 //    Update
 
-    public String updateGrade(Grade grd) throws JsonProcessingException {
+    public String updateGrade(GradeJson grd) throws JsonProcessingException {
         return insertAndUpdate(mapper.writeValueAsString(grd),"http://localhost:7013/led/api/automation/update/grade");
     }
 
@@ -216,7 +216,6 @@ public class SendJSON {
                 subGrade.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
                 subGrade.setSubGradeName(jsonObjVal.getString("subGradeName"));
                 subGrade.setGradeCode(jsonObjVal.getString("gradeCode"));
-                subGrade.setDepartementCode(jsonObjVal.getString("departementCode"));
                 subGrades.add(subGrade);
 
             }

@@ -50,7 +50,7 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 //	List<String> findGradeByDeptCode(String gradeCode);
 	@Modifying
 	@Query(value = "insert into grade (id_grade, grade_code, grade_name, departement_code, division_code, created_by, created_date) \n" +
-			"    select distinct * from (select (SELECT next_val FROM grade_seq),?1,?2,?3,?4,?5,?6)  as grade  \n" +
+			"    select distinct * from (select (SELECT distinct next_val FROM grade_seq),?1,?2,?3,?4,?5,?6)  as grade  \n" +
 			"    where not exists(select grade_code from grade where grade_code = ?1 and departement_code = ?3)LIMIT 1", nativeQuery = true)
 	int insertGrade(String gradeCode, String gradeName, String departementCode, String divisionCode, String createdBy, Date createdDate);
 

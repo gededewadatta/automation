@@ -116,20 +116,29 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 
 		try {
-			grade = objectMapper.readValue(body, Grade.class);
+			gradeJson = objectMapper.readValue(body, GradeJson.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		grade = new Grade();
-//		jsonResponse = new JSONObject(body);
-//		grade.setDepartementCode(
-//				jsonResponse.isNull("departementcode") ? "" : jsonResponse.getString("departementcode"));
-//		grade.setCreatedBy(createdBy);
-//		grade.setCreatedDate(createdDate);
-//		grade.setGradeCode(jsonResponse.isNull("gradecode") ? "" : jsonResponse.getString("gradecode"));
-//		grade.setGradeName(jsonResponse.isNull("gradename") ? "" : jsonResponse.getString("gradename"));
 
-		return adminDAO.insertGrade(grade) == 0 ? "Failure" : "Success";
+		grade.setGradeCode(gradeJson.getGradeCode());
+		grade.setGradeName(gradeJson.getGradeName());
+		grade.setCreatedDate(new Date());
+		grade.setGradeName(gradeJson.getCreatedBy());
+		grade.setDivisionCode(gradeJson.getDivisionCode());
+		grade.setDepartementCode(gradeJson.getDepartementCode());
+		subGrade.setSubGradeCode(gradeJson.getSubGradeCode());
+		subGrade.setSubGradeName(gradeJson.getSubGradeName());
+		subGrade.setGradeCode(gradeJson.getGradeCode());
+		subGrade.setCreatedBy(gradeJson.getCreatedBy());
+		subGrade.setCreatedDate(new Date());
+
+		int gradeInsertResult = adminDAO.insertGrade(grade);
+		int subGradeInsertResult = adminDAO.insertSubGrade(subGrade);
+
+		int lastResult = gradeInsertResult + subGradeInsertResult;
+
+		return lastResult == 0 ? "Failure" : "Success";
 	}
 
 	@Override
@@ -229,19 +238,30 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public String updateGrade(String body) {
 		// TODO Auto-generated method stub
+
 		try {
-			grade = objectMapper.readValue(body,Grade.class);
+			gradeJson = objectMapper.readValue(body, GradeJson.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*jsonResponse = new JSONObject(body);
-		division = new Division();
-		division.setDivisonCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
-		division.setDivisionName(jsonResponse.isNull("divisionName") ? "" : jsonResponse.getString("divisionName"));
-		division.setCreatedBy(createdBy);
-		division.setCreatedDate(createdDate);*/
+		grade.setGradeCode(gradeJson.getGradeCode());
+		grade.setGradeName(gradeJson.getGradeName());
+		grade.setCreatedDate(new Date());
+		grade.setGradeName(gradeJson.getCreatedBy());
+		grade.setDivisionCode(gradeJson.getDivisionCode());
+		grade.setDepartementCode(gradeJson.getDepartementCode());
+		subGrade.setSubGradeCode(gradeJson.getSubGradeCode());
+		subGrade.setSubGradeName(gradeJson.getSubGradeName());
+		subGrade.setGradeCode(gradeJson.getGradeCode());
+		subGrade.setCreatedBy(gradeJson.getCreatedBy());
+		subGrade.setCreatedDate(new Date());
 
-		return adminDAO.updateGrade(grade) == 0 ? "Failure" : "Success";
+		int gradeUpdateResult = adminDAO.updateGrade(grade);
+		int subGrdUpdateResult = adminDAO.updateSubGrade(subGrade);
+
+		int lastResult = gradeUpdateResult + subGrdUpdateResult;
+
+		return lastResult == 0 ? "Failure" : "Success";
 	}
 
 	@Override
@@ -253,7 +273,6 @@ public class AdminServiceImpl implements AdminService {
 		subGrade.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
 		subGrade.setSubGradeName(jsonResponse.isNull("subGradeName") ? "" : jsonResponse.getString("subGradeName"));
 		subGrade.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
-		subGrade.setDepartementCode(jsonResponse.isNull("departementCode") ? "" : jsonResponse.getString("departementCode"));
 		subGrade.setCreatedBy(createdBy);
 		subGrade.setCreatedDate(createdDate);
 
@@ -289,7 +308,6 @@ public class AdminServiceImpl implements AdminService {
 		subGrade.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
 		subGrade.setSubGradeName(jsonResponse.isNull("subGradeName") ? "" : jsonResponse.getString("subGradeName"));
 		subGrade.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
-		subGrade.setDepartementCode(jsonResponse.isNull("departementCode") ? "" : jsonResponse.getString("departementCode"));
 		subGrade.setCreatedBy(createdBy);
 		subGrade.setCreatedDate(createdDate);
 
@@ -543,11 +561,10 @@ public class AdminServiceImpl implements AdminService {
 		subGrade.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
 		subGrade.setSubGradeName(jsonResponse.isNull("subGradeName") ? "" : jsonResponse.getString("subGradeName"));
 		subGrade.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
-		subGrade.setDepartementCode(jsonResponse.isNull("departementCode") ? "" : jsonResponse.getString("departementCode"));
 		subGrade.setCreatedBy(createdBy);
 		subGrade.setCreatedDate(createdDate);
 
-		return adminDAO.searchSubGradePopup(subGrade.getDepartementCode(), subGrade.getGradeCode(), subGrade.getSubGradeCode(), subGrade.getSubGradeName());
+		return adminDAO.searchSubGradePopup(subGrade.getGradeCode(), subGrade.getSubGradeCode(), subGrade.getSubGradeName());
 	}
 
 	@Override

@@ -1,20 +1,25 @@
 package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.engine.PopupCallerDepartmentInterface;
+import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
-import admin.fe.model.Employee;
-import admin.fe.model.Grade;
-import admin.fe.model.SubGrade;
+import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.SerializableEventListener;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
-public class GradeEditController extends CommonController {
+public class GradeEditController extends CommonController implements PopupCallerDepartmentInterface, PopupCallerDivisionInterface {
 
     Textbox idDivision;
 
@@ -31,6 +36,10 @@ public class GradeEditController extends CommonController {
     Textbox idGradeId;
 
     Textbox idSubGradeId;
+
+    Division div = new Division();
+
+    Departement dep = new Departement();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -73,40 +82,34 @@ public class GradeEditController extends CommonController {
                         switch (data) {
                             case Messagebox.YES:
 
-                                Grade grd = new Grade();
-                                SubGrade subGrd = new SubGrade();
-
+                                GradeJson grdJson = new GradeJson();
                                 SendJSON send = new SendJSON();
 
-                                grd.setIdGrade(Long.valueOf(idGradeId.getValue()));
-                                grd.setGradeName(idGradeName.getValue());
-                                grd.setGradeCode(idGrade.getValue());
-                                grd.setDepartementCode(idDepartment.getValue());
-                                grd.setDivisionCode(idDivision.getValue());
-                                subGrd.setId(Long.valueOf(idSubGradeId.getValue()));
-                                subGrd.setGradeCode(idGrade.getValue());
-                                subGrd.setSubGradeCode(idSubGrade.getValue());
-                                subGrd.setSubGradeName(idSubGradeName.getValue());
-                                subGrd.setDepartementCode(idDepartment.getValue());
-                                grd.setCreatedDate(new Date());
-                                grd.setCreatedBy("Burhan");
-                                subGrd.setCreatedDate(grd.getCreatedDate());
-                                subGrd.setCreatedBy(grd.getCreatedBy());
-
+                                grdJson.setIdGrade(Long.valueOf(idGradeId.getValue()));
+                                grdJson.setGradeName(idGradeName.getValue());
+                                grdJson.setGradeCode(idGrade.getValue());
+                                grdJson.setDepartementCode(idDepartment.getValue());
+                                grdJson.setDivisionCode(idDivision.getValue());
+                                grdJson.setIdSubGrade(Long.valueOf(idSubGradeId.getValue()));
+                                grdJson.setGradeCode(idGrade.getValue());
+                                grdJson.setSubGradeCode(idSubGrade.getValue());
+                                grdJson.setSubGradeName(idSubGradeName.getValue());
+                                grdJson.setDepartementCode(idDepartment.getValue());
+                                grdJson.setCreatedDate(new Date());
+                                grdJson.setCreatedBy("Admin");
                                 try {
-                                    String resultGrade = send.updateGrade(grd);
-                                    String resultSubGrade = send.updateSubGrade(subGrd);
+                                    String resultGrade = send.updateGrade(grdJson);
 
-                                    if(resultGrade.equals("200") && resultSubGrade.equals("200")){
+                                    if(resultGrade.equals("200")){
                                         Messagebox.show("Data Already Updated");
                                         navigateTo("layout/Grade/Grade.zul",null,self);
                                     }else{
-                                        Messagebox.show("Data Failed To save ");
+                                        Messagebox.show("Data Failed To Update ");
                                         navigateTo("layout/Grade/Grade.zul",null,self);
                                     }
 
                                 } catch (JsonProcessingException e) {
-                                    Messagebox.show("All data Failed To Save");
+                                    Messagebox.show("All data Failed To Update");
                                     navigateTo("layout/Grade/Grade.zul",null,self);
                                 }
 
@@ -126,8 +129,59 @@ public class GradeEditController extends CommonController {
 
     }
 
+    public void onClick$btnDepartment() {
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Departement departement = new Departement();
+        args.put("object", departement);
+        args.put("division", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents("layout/Departement/DeptPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    public void onClick$btnDivision() {
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Division div = new Division();
+        args.put("object", div);
+        args.put("caller", this);
+        Component c = Executions.createComponents("layout/Division/DivisionPopup.zul", self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    public void afterSelectDivision(Division division) {
+
+        if (division != null) {
+            div = division;
+            idDivision.setValue(division.getDivisionCode());
+        }
+
+    }
+
+    public void afterSelectDepartement(Departement departement) {
+        if (departement != null) {
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementCode());
+        }
+    }
+
     public void onClick$cancelButton(){
-        navigateTo("layout/Grade/GradeDetail.zul",null,self);
+        navigateTo("layout/Grade/Grade.zul",null,self);
     }
 
 }

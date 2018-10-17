@@ -70,11 +70,4 @@ public class SubGrade {
         this.id = id;
     }
 
-    public String getDepartementCode() {
-        return departementCode;
-    }
-
-    public void setDepartementCode(String departementCode) {
-        this.departementCode = departementCode;
-    }
 }

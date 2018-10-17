@@ -114,7 +114,7 @@ public class QuestionController extends CommonController
 
 		quest.setGrade(idGrade.getValue());
 		quest.setSubGrade(idSubGrade.getValue());
-		quest.setCreatedBy("Burhan");
+		quest.setCreatedBy("Admin");
 		quest.setCreatedDate(new Date());
 		quest.setQuestions(idQuestion.getValue());
 		quest.setCompetency(idCompetencyName.getValue());

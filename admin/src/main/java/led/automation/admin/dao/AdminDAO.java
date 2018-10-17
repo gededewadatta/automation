@@ -57,7 +57,7 @@ public interface AdminDAO {
 
 	public List<SubGrade> searchSubGrade(String gradeCode, String gradeName);
 
-	public List<SubGrade> searchSubGradePopup(String departementCode, String gradeCode, String subGradeCode, String subGradeName);
+	public List<SubGrade> searchSubGradePopup(String gradeCode, String subGradeCode, String subGradeName);
 
 	public List<GradeJson> searchGradeJson(String departementCode, String departementName);
 
