@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.PopupCallerGradeInterface;
 import admin.fe.engine.PopupCallerSubGradeInterface;
@@ -18,12 +19,13 @@ import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Vbox;
 import org.zkoss.zul.Window;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class CompetenciesDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
+public class CompetenciesDetailController extends CommonController {
 
     Vbox boxList;
 
@@ -89,7 +91,7 @@ public class CompetenciesDetailController extends CommonController implements Po
     private void addTransaction() {
 
         System.out.println("TOTAL SIZE : "+competenciesDetailListController.size());
-        Component component = Executions.createComponents("layout/Competencies/CompetenciesDetailList.zul",
+        Component component = Executions.createComponents(Resources.competenciesDetailList,
                 boxList, arg);
         competenciesDetailListController.add(component);
     }
@@ -130,10 +132,10 @@ public class CompetenciesDetailController extends CommonController implements Po
 
                                     if(comp.size() > 0){
                                         Messagebox.show("Data Already Saved");
-                                        navigateTo("layout/Competencies/Competencies.zul",null,self);
+                                        navigateTo(Resources.competenciesHome,null,self);
                                     }else{
                                         Messagebox.show("Data Already Exists");
-                                        navigateTo("layout/Competencies/Competencies.zul",null,self);
+                                        navigateTo(Resources.competenciesHome,null,self);
                                     }
 
                                 } catch (JsonProcessingException e) {
@@ -145,30 +147,8 @@ public class CompetenciesDetailController extends CommonController implements Po
                 });
     }
 
-    @Override
-    public void afterSelectDepartement(Departement departement) {
-        if(departement != null){
-            dep = departement;
-            idDepartment.setValue(departement.getDepartementCode());
-        }
-    }
-
-    @Override
-    public void afterSelectGrade(Grade grade) {
-        if(grade != null){
-            grd = grade;
-            idGrade.setValue(grd.getGradeCode());
-        }
-
-    }
-
-    @Override
-    public void afterSelectSubGrade(SubGrade subGrade) {
-
-        if(subGrade != null){
-            subGrd = subGrade;
-            idSubGrade.setValue(subGrd.getSubGradeCode());
-        }
+    public void onClick$cancelButton(){
+        navigateTo(Resources.competenciesHome,null,self);
     }
 
 }

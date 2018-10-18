@@ -6,6 +6,7 @@ package admin.fe.controller.Maintenance.Division;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class DivisionController extends CommonController implements PopupCallerDivisionInterface {
 
@@ -70,7 +72,7 @@ public class DivisionController extends CommonController implements PopupCallerD
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Division/DivisionViewEdit.zul",getArgs(division,"VIEW"),divisionWindow);
+                                    navigateTo(Resources.divisionViewEdit,getArgs(division,"VIEW"),divisionWindow);
                                 }
                             }
                         });
@@ -81,7 +83,7 @@ public class DivisionController extends CommonController implements PopupCallerD
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Division/DivisionViewEdit.zul",getArgs(division,"EDIT"),divisionWindow);
+                                    navigateTo(Resources.divisionViewEdit,getArgs(division,"EDIT"),divisionWindow);
                                 }
                             }
                         });
@@ -100,7 +102,7 @@ public class DivisionController extends CommonController implements PopupCallerD
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/Division/DivisionDetail.zul",null,self);
+        navigateTo(Resources.divisionDetail,null,self);
 
     }
 
@@ -154,7 +156,7 @@ public class DivisionController extends CommonController implements PopupCallerD
     public void afterSelectDivision(Division division) {
         if(division != null){
             div = division;
-            idDivision.setValue(division.getDivisionName());
+            idDivision.setValue(division.getDivisionCode());
         }
 
     }
@@ -164,8 +166,7 @@ public class DivisionController extends CommonController implements PopupCallerD
         Division div = new Division();
         args.put("object", div);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {

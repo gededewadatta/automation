@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Employee;
 
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.model.Employee;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -40,6 +41,6 @@ public class EmployeeViewController extends CommonController {
     }
 
     public void onClick$backButton(){
-        navigateTo("layout/Employee/Employee.zul",null,self);
+        navigateTo(Resources.employeeHome,null,self);
     }
 }

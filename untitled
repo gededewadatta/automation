@@ -1,0 +1,14 @@
+
+<script src="https://www.gstatic.com/firebasejs/5.5.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDbxz174iw2ndkQTkDTxo5N9XXWuG5TmQs",
+    authDomain: "competences-led.firebaseapp.com",
+    databaseURL: "https://competences-led.firebaseio.com",
+    projectId: "competences-led",
+    storageBucket: "competences-led.appspot.com",
+    messagingSenderId: "1011921657900"
+  };
+  firebase.initializeApp(config);
+</script>

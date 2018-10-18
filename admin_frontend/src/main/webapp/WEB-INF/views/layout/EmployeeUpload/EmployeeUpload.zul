@@ -25,9 +25,9 @@
 
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
-                        <column label="Division" sort="auto(divisionCode)" align="center"/>
-                        <column label="Department" sort="auto(departementCode)" align="center"/>
-                        <column label="Employee Id" sort="auto(employeeCode)" align="center"/>
+                        <column label="Division Code" sort="auto(divisionCode)" align="center"/>
+                        <column label="Department Code" sort="auto(departementCode)" align="center"/>
+                        <column label="Employee Code" sort="auto(employeeCode)" align="center"/>
                         <column label="Employee Name" sort="auto(employeeName)" align="center"/>
                     </columns>
                 </grid>

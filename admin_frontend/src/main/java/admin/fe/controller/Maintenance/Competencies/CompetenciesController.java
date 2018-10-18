@@ -1,10 +1,9 @@
 package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.controller.common.SerializableRowRenderer;
-import admin.fe.engine.PopupCallerDepartmentInterface;
-import admin.fe.engine.PopupCallerDivisionInterface;
-import admin.fe.engine.SendJSON;
+import admin.fe.engine.*;
 import admin.fe.model.*;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -19,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CompetenciesController extends CommonController implements PopupCallerDepartmentInterface {
+public class CompetenciesController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
 
     Textbox idDepartment;
     Textbox idGrade;
@@ -32,6 +31,8 @@ public class CompetenciesController extends CommonController implements PopupCal
     Division div = new Division();
     Departement dep = new Departement();
     List<Competency> competencies = new ArrayList<>();
+    Grade grd = new Grade();
+    SubGrade subGrd = new SubGrade();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -40,7 +41,7 @@ public class CompetenciesController extends CommonController implements PopupCal
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/Competencies/CompetenciesDetail.zul",null,self);
+        navigateTo(Resources.competenciesDetail,null,self);
     }
 
     public void onClick$searchButton(){
@@ -86,7 +87,7 @@ public class CompetenciesController extends CommonController implements PopupCal
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Competencies/CompetenciesView.zul",getArg(competency),self);
+                                    navigateTo(Resources.competenciesView,getArg(competency),self);
 //                                            getArg(InvestmentModelObj),
 //                                            winBancaFinTransactionSelection);
                                 }
@@ -110,7 +111,7 @@ public class CompetenciesController extends CommonController implements PopupCal
                                     throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Competencies/CompetenciesEdit.zul",getArg(competency),self);
+                                    navigateTo(Resources.competenciesEdit,getArg(competency),self);
                                 }
                             }
                         });
@@ -126,6 +127,7 @@ public class CompetenciesController extends CommonController implements PopupCal
 
         args.put("id",obj.getId());
         args.put("subGradeCode",obj.getSubGradeCode());
+        args.put("competencyCode",obj.getCompetencyCode());
         args.put("competencyName",obj.getCompetencyName());
         args.put("gradeCode",obj.getGradeCode());
         args.put("departmentCode",obj.getDepartementCode());
@@ -140,8 +142,7 @@ public class CompetenciesController extends CommonController implements PopupCal
         args.put("object", departement);
         args.put("division", div);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -156,7 +157,58 @@ public class CompetenciesController extends CommonController implements PopupCal
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
-            idDepartment.setValue(departement.getDepartementName());
+            idDepartment.setValue(departement.getDepartementCode());
+        }
+    }
+
+    public void onClick$btnGrade(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        Grade grade = new Grade();
+        args.put("objectGrade", grade);
+        args.put("departement", dep);
+        args.put("caller", this);
+        Component c = Executions.createComponents(Resources.gradePopup, self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+    public void onClick$btnSubGrade(){
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        SubGrade subgrd = new SubGrade();
+        args.put("object", subgrd);
+        args.put("grade",grd);
+        args.put("caller", this);
+        Component c = Executions.createComponents(Resources.subgradeopup, self, args);
+        try {
+            onModalToTop((Window) c);
+        } catch (SuspendNotAllowedException e1) {
+            Messagebox.show(e1.getMessage());
+        } catch (InterruptedException e1) {
+            Messagebox.show(e1.getMessage());
+        }
+
+    }
+
+    public void afterSelectGrade(Grade grade) {
+        if(grade != null){
+            grd = grade;
+            idGrade.setValue(grd.getGradeCode());
+        }
+
+    }
+
+    public void afterSelectSubGrade(SubGrade subGrade) {
+
+        if(subGrade != null){
+            subGrd = subGrade;
+            idSubGrade.setValue(subGrd.getSubGradeCode());
         }
     }
 

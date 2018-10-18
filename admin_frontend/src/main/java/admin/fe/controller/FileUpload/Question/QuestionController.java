@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -20,9 +21,7 @@ import org.zkoss.zul.Textbox;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class QuestionController extends CommonController {
 
@@ -31,7 +30,11 @@ public class QuestionController extends CommonController {
     protected Textbox idUpload;
     org.zkoss.zul.Row rw;
 
+    int result = 0;
+
     List<Question> questions = new ArrayList<>();
+
+    List<Question> isEmpty = new ArrayList<>();
 
     String destination = "Apps/Upload";
 
@@ -56,7 +59,7 @@ public class QuestionController extends CommonController {
         for (Media med : multiMedia) {
 
             idUpload.setValue(med.getName());
-            copyToTemp(med.getStreamData());
+            copyToTemp(med);
         }
 
 
@@ -91,84 +94,97 @@ public class QuestionController extends CommonController {
         };
     }
 
-    public List<Question> loadFileTemp() {
-        int result = 0;
+    public void loadFileTemp(String extension) {
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
         String path = "/Apps/Upload/QuestionTemp"+dateString+".xls";
-        List<Question> questionList = new ArrayList<>();
         Question question;
         try{
 
             Cell cell;
             File file = new File(path);
             FileInputStream fis = new FileInputStream(file);
-            Workbook wb = new HSSFWorkbook(fis);
+            Workbook wb = null;
+            if(extension.equals("xls")){
+                wb = new XSSFWorkbook(fis);
+
+            }else{
+                wb = new HSSFWorkbook(fis);
+            }
             Sheet sheet = wb.getSheetAt(0);
-            org.apache.poi.ss.usermodel.Row row = sheet.getRow(0);
-            DataFormatter formatter = new DataFormatter();
-
+            if(sheet.getRow(0).getCell(0)!=null){
+                org.apache.poi.ss.usermodel.Row row = sheet.getRow(0);
+                DataFormatter formatter = new DataFormatter();
 //			Row row;
-            Cell[][] tempArray = new Cell[sheet.getLastRowNum()][row.getLastCellNum()];
-            int lastColNum = row.getLastCellNum();
-            //Extract Data : start
-            int rowCount = 0;
-            for(int i = 0; i < sheet.getLastRowNum() ; i++){
-                row = sheet.getRow(rowCount);
-                for(int j = 0; j < lastColNum; j++){
-                    tempArray[i][j] = row.getCell(j);
-                }
-                rowCount++;
-            }
-            //Extract Data : end
-
-            //Insert to DB : start
-            System.out.println("tEMP aRRAY lENGTH"+tempArray.length);
-            String val ="";
-            for(int a = 1; a < sheet.getLastRowNum() + 1; a++){
-                question = new Question();
-                for(int b = 0; b < tempArray[0].length; b++){
-                    if(a != 0){
-                        if(tempArray[0][b].getStringCellValue().equals("question")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setQuestions(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("answer1")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setAnswer1(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("answer2")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setAnswer2(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("answer3")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setAnswer3(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("answer4")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setAnswer4(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("answer5")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setAnswer5(val);
-                        }else if(tempArray[0][b].getStringCellValue().contains("correct_answer")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setCorrectAnswer(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("competency")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setCompetency(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("grade")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setGrade(val);
-                        }else if(tempArray[0][b].getStringCellValue().equals("sub_grade")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setSubGrade(String.valueOf(val));
-                        }else if(tempArray[0][b].getStringCellValue().equals("level")){
-                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                            question.setLevel(val);
-                        }
-
+                Cell[][] tempArray = new Cell[sheet.getLastRowNum()][row.getLastCellNum()];
+                int lastColNum = row.getLastCellNum();
+                //Extract Data : start
+                int rowCount = 0;
+                for(int i = 0; i < sheet.getLastRowNum(); i++){
+                    row = sheet.getRow(rowCount);
+                    for(int j = 0; j < lastColNum; j++){
+                        tempArray[i][j] = row.getCell(j);
                     }
+                    rowCount++;
                 }
-                questionList.add(question);
+                //Extract Data : end
+
+                //Insert to DB : start
+                System.out.println("tEMP aRRAY lENGTH"+tempArray.length);
+                String val ="";
+                for(int a = 1; a < sheet.getLastRowNum() + 1; a++){
+                    question = new Question();
+                    for(int b = 0; b < tempArray[0].length; b++){
+                        if(a != 0){
+                            if(tempArray[0][b].getStringCellValue().equals("question")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setQuestions(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("answer1")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setAnswer1(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("answer2")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setAnswer2(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("answer3")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setAnswer3(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("answer4")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setAnswer4(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("answer5")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setAnswer5(val);
+                            }else if(tempArray[0][b].getStringCellValue().contains("correct_answer")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setCorrectAnswer(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("competency")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setCompetency(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("grade")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setGrade(val);
+                            }else if(tempArray[0][b].getStringCellValue().equals("sub_grade")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setSubGrade(String.valueOf(val));
+                            }else if(tempArray[0][b].getStringCellValue().equals("level")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                question.setLevel(val);
+                            }
+
+                        }
+                    }
+                    questions.add(question);
+                }
+            }else{
+
+                result = -1;
+                Messagebox.show("Header of file is empty!");
+                idUpload.setValue("");
+                btnSubmit.setDisabled(true);
+
             }
+
             // Insert to DB : end
         }catch (FileNotFoundException ex){
             ex.printStackTrace();
@@ -177,17 +193,19 @@ public class QuestionController extends CommonController {
             e.printStackTrace();
         }
 
-        return questionList;
     }
 
-    private void copyToTemp(InputStream stream) {
+    private void copyToTemp(Media media) {
         int rpt = 0;
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
         String pathTemp = "/Apps/Upload/QuestionTemp"+dateString+".xls";
         File f = new File(pathTemp);
+
+        InputStream stream = media.getStreamData();
         OutputStream os = null;
+        String extensinos = media.getName().substring(media.getName().lastIndexOf("."),media.getName().length());
         try {
             os = new FileOutputStream(f);
             byte buf[] = new byte[1024];
@@ -217,8 +235,7 @@ public class QuestionController extends CommonController {
                 }
             }
         }
-
-        questions.addAll(loadFileTemp());
+        loadFileTemp(extensinos);
 
     }
 
@@ -243,19 +260,34 @@ public class QuestionController extends CommonController {
                                 SendJSON send = new SendJSON();
                                 List<Question> quest = new ArrayList<>();
                                 try {
-                                    for(Question question: questions){
 
-                                        if(send.insertQuestion(question).equals("200")){
-                                            quest.add(question);
+                                    if(result > 0 ){
+                                        for(Question question: questions){
+
+                                            if(send.insertQuestion(question).equals("200")){
+                                                quest.add(question);
+                                            }
+
                                         }
 
+                                        if(quest.size() >0){
+                                            Messagebox.show("Data Successfully Save");
+                                        }else{
+                                            Messagebox.show("Data already exists");
+                                        }
+                                    }else if(result == -1){
+
+                                        Messagebox.show("Header of file is empty!");
+                                        idUpload.setValue("");
+
+                                    }else{
+
+                                        Messagebox.show("There is some field still empty");
+                                        idUpload.setValue("");
+                                        isEmpty.clear();
+
                                     }
 
-                                    if(quest.size() >0){
-                                        Messagebox.show("Data Successfully Save");
-                                    }else{
-                                        Messagebox.show("Data already exists");
-                                    }
                                     btnSubmit.setDisabled(true);
                                     quest.clear();
                                     questions.clear();

@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return employeeDAO.searchQuestionByUserName(pendingQuestion.getUserName(),pendingQuestion.getCompetency());
+		return employeeDAO.searchQuestionByUserName(pendingQuestion.getUserName());
 	}
 
 	@Override
@@ -71,6 +71,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<String> searchCompetency() {
 		// TODO Auto-generated method stub
 		return employeeDAO.searchCompetency();
+	}
+
+	@Override
+	public List<PendingQuestion> generateQuestion() {
+		// TODO Auto-generated method stub
+		return employeeDAO.generateQuestion();
 	}
 
 }

@@ -1,5 +1,6 @@
 package led.automation.wsproxy;
 
+import java.io.FileInputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -22,6 +23,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.firebase.*;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  *
@@ -128,9 +135,12 @@ public class ProxyController {
 	protected String employeeSubmitHistory;
 	@Value("${led.automation.employee.submit.question}")
 	protected String employeeSubmitQuestion;
+	@Value("${led.automation.employee.generate.question}")
+	protected String generateQuestion;
 
 	// employee : stop
 
+	 
 	@RequestMapping(path = "/test", method = RequestMethod.GET)
 	public TestDTO test() {
 
@@ -483,8 +493,8 @@ public class ProxyController {
 	@RequestMapping(value = "/led/api/automation/search/employee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String employeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-								 HttpServletResponse response) throws URISyntaxException {
-	    System.out.println("body :"+ body);
+			HttpServletResponse response) throws URISyntaxException {
+		System.out.println("body :" + body);
 		return proxy(employeeUrlSearch, body, method, request, response);
 
 	}
@@ -492,7 +502,7 @@ public class ProxyController {
 	@RequestMapping(value = "/automation/api/search/employeeCompetency", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String searchEmployeeCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-								 HttpServletResponse response) throws URISyntaxException {
+			HttpServletResponse response) throws URISyntaxException {
 		return proxy(employeeCompetencyUrlSearch, body, method, request, response);
 
 	}
@@ -508,7 +518,7 @@ public class ProxyController {
 	@RequestMapping(value = "/led/api/automation/search/subgrade", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String subGradeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-							  HttpServletResponse response) throws URISyntaxException {
+			HttpServletResponse response) throws URISyntaxException {
 		return proxy(subgradeUrlSearch, body, method, request, response);
 
 	}
@@ -516,7 +526,7 @@ public class ProxyController {
 	@RequestMapping(value = "/led/api/automation/search/subgradepopup", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String subGradePopupSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-								 HttpServletResponse response) throws URISyntaxException {
+			HttpServletResponse response) throws URISyntaxException {
 		return proxy(subGradePopupUrlSearch, body, method, request, response);
 
 	}
@@ -548,7 +558,7 @@ public class ProxyController {
 	@RequestMapping(value = "/led/api/automation/search/departementpopup", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String departementPopupSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-									HttpServletResponse response) throws URISyntaxException {
+			HttpServletResponse response) throws URISyntaxException {
 		return proxy(departementPopupUrlSearch, body, method, request, response);
 
 	}
@@ -556,7 +566,7 @@ public class ProxyController {
 	@RequestMapping(value = "/led/api/automation/search/gradepopup", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String gradePopupSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-							  HttpServletResponse response) throws URISyntaxException {
+			HttpServletResponse response) throws URISyntaxException {
 		return proxy(gradePopupUrlSearch, body, method, request, response);
 
 	}
@@ -591,12 +601,12 @@ public class ProxyController {
                                                   HttpServletResponse response) throws URISyntaxException {
         return proxy(competencyByGradeCodeUrlSearch, body, method, request, response);
 
-    }
+	}
 
 	@RequestMapping(value = "/led/api/automation/search/reportEmployee", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String reportEmployeeSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-								   HttpServletResponse response) throws URISyntaxException {
+			HttpServletResponse response) throws URISyntaxException {
 		return proxy(reportEmployeeUrlSearch, body, method, request, response);
 
 	}
@@ -679,37 +689,42 @@ public class ProxyController {
 
 	// upload data : stop
 	// employee part : start
-	@RequestMapping(value = "/automation/api/search/pendingquestion/{userName}", produces = "application/json", method = RequestMethod.GET)
-	@ResponseBody
-	public String searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
-			HttpServletResponse response) throws URISyntaxException {
-		System.out.println("body :"+body);
+//	@RequestMapping(value = "/automation/api/search/pendingquestion/{userName}", produces = "application/json", method = RequestMethod.GET)
+//	@ResponseBody
+//	public String searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		System.out.println("body :" + body);
 //		return proxy(employeeSearchQuestion, body, method, request, response);
-		return body;
-	}
-
-	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
-	public String submitHistory(@RequestBody String body, HttpMethod method,
-			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeSubmitHistory, body, method, request, response);
-
-	}
-	@RequestMapping(value = "/automation/api/insert/question", produces = "application/json", method = RequestMethod.POST)
-	@ResponseBody
-	public String submitQuestion(@RequestBody String body, HttpMethod method,
-			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
-		return proxy(employeeSubmitQuestion, body, method, request, response);
-
-	}
-
-	@RequestMapping(value = "/test")
-    @ResponseBody
-    public String test(@RequestBody String body, HttpMethod method,
-                       HttpServletRequest request, HttpServletResponse response)throws URISyntaxException{
-	    System.out.println("TEST 123");
-	    return "HELLO";
-    }
+//		// return body;
+//	}
+//
+//	@RequestMapping(value = "/automation/api/insert/history", produces = "application/json", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String submitHistory(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		return proxy(employeeSubmitHistory, body, method, request, response);
+//
+//	}
+//
+//	@RequestMapping(value = "/automation/api/insert/question", produces = "application/json", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String submitQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		return proxy(employeeSubmitQuestion, body, method, request, response);
+//
+//	}
+//
+//	@RequestMapping(value = "/test")
+//	@ResponseBody
+//	public String test(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+//			HttpServletResponse response) throws URISyntaxException {
+//		System.out.println("TEST 123");
+//		return "HELLO";
+//	}
 	// employee part : stop
+
+	// integration data with firebase : start
+	 
+	// integration data with firebase : stop
 
 }

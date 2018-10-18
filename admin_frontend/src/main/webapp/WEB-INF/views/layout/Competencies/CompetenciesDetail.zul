@@ -17,6 +17,7 @@
 
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
+                <button id="cancelButton" label="Cancel" style="float::right"/>
 
             </div>
 

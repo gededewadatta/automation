@@ -6,6 +6,7 @@ package admin.fe.controller.Maintenance.Division;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Division;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -67,17 +68,19 @@ public class DivisionViewEditController extends CommonController {
             nameDivisionEdit.setVisible(false);
             submitButton.setVisible(false);
             clearButton.setVisible(false);
+            backButton.setLabel("Back");
         }
         else if((String) arg.get("type") == TYPE_SHOW_EDIT){
             idDivisionView.setVisible(false);
             nameDivisionView.setVisible(false);
             idDivisionEdit.setDisabled(true);
-            backButton.setVisible(false);
+            backButton.setVisible(true);
+            backButton.setLabel("Cancel");
         }
     }
 
     public void onClick$backButton(){
-        navigateTo("layout/Division/Division.zul",null,self);
+        navigateTo(Resources.divisionHome,null,self);
     }
 
     public void onClick$submitButton(){
@@ -94,13 +97,13 @@ public class DivisionViewEditController extends CommonController {
                         if (resultGrade.equals("200")) {
                             Messagebox.show("Data Already Updated", "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Division/Division.zul", null, self);
+                                    navigateTo(Resources.divisionHome, null, self);
                                 }
                             });
                         } else if (!resultGrade.equals("200")) {
                             Messagebox.show("Data Failed To update to Table Division" , "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener(){
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Division/Division.zul", null, self);
+                                    navigateTo(Resources.divisionHome, null, self);
                                 }
                             });
                         }
@@ -116,4 +119,5 @@ public class DivisionViewEditController extends CommonController {
     public void onClick$clearButton(){
         nameDivisionEdit.setValue("");
     }
+
 }

@@ -25,12 +25,12 @@ public class SubGrade {
 
 	@Column(name = "GRADE_CODE")
 	private String gradeCode;
-	@Column(name = "DEPARTEMENT_CODE")
-	private String departementCode;
 	@Column(name = "SUB_GRADE_CODE")
 	private String subGradeCode;
 	@Column(name = "SUB_GRADE_NAME")
 	private String subGradeName;
+	@Column(name = "DEPARTEMENT_CODE")
+	private String departementCode;
 	@Column(name = "CREATED_DATE")
 	private Date createdDate;
 	@Column(name = "CREATED_BY")
@@ -122,8 +122,8 @@ public class SubGrade {
 
 	@Override
 	public String toString() {
-		return "SubGrade [id=" + idSubGrade + ", gradeCode=" + gradeCode + ", departementCode=" + departementCode + ", subGradeCode=" + subGradeCode + ", subGradeName="
-				+ subGradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + "]";
+		return "SubGrade [id=" + idSubGrade + ", gradeCode=" + gradeCode + ", subGradeCode=" + subGradeCode + ", subGradeName="
+				+ subGradeName + ", createdDate=" + createdDate + ", createdBy=" + createdBy + ", departementCode=" + departementCode +"]";
 	}
 
 	

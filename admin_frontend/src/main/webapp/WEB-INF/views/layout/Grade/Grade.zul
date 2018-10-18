@@ -7,7 +7,7 @@
             <grid>
                 <rows>
                     <row>
-                        <label value = "Division:" />
+                        <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idDivision" />
@@ -20,7 +20,7 @@
 
                     </row>
                     <row>
-                        <label value = "Department:" />
+                        <label value = "Department Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idDepartement" />

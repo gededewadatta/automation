@@ -33,19 +33,19 @@ import led.automation.employee.service.EmployeeService;
  * @author gede rana dewadatta
  */
 @RestController
-@RequestMapping("/automation/api")
+@RequestMapping("/led/api/automation")
 public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-	@PostMapping(value = "/search/pendingquestion/{userName}", produces = "application/json")
+	@RequestMapping(value = "/search/pendingquestion", produces = "application/json",method= RequestMethod.POST)
 	@ResponseBody
 	public List<PendingQuestion> searchQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		List<PendingQuestion> departement = employeeService.searchQuestion(body);
 		return departement;
 	}
-	@RequestMapping(value = "/insert/history", produces = "application/json", method = RequestMethod.POST)
+	@RequestMapping(value = "/insert/historyanswer", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity<String> submitHistory(@RequestBody String body, HttpMethod method,
 			HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
@@ -66,4 +66,12 @@ public class EmployeeController {
 		List<String> departement = employeeService.searchCompetency();
 		return departement;
 	}
+	@RequestMapping(value = "/generate/pendingquestion", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<PendingQuestion> generateQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		List<PendingQuestion> departement = employeeService.generateQuestion();
+		return departement;
+	}
+	
 }

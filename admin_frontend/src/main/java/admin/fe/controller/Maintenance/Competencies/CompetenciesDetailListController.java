@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.PopupCallerGradeInterface;
@@ -66,8 +67,7 @@ public class CompetenciesDetailListController extends CommonController implement
         Departement departement = new Departement();
         args.put("object", departement);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -85,8 +85,7 @@ public class CompetenciesDetailListController extends CommonController implement
         args.put("objectGrade", grade);
         args.put("departement", dep);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Grade/GradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.gradePopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -103,8 +102,7 @@ public class CompetenciesDetailListController extends CommonController implement
         args.put("object", subgrd);
         args.put("grade",grd);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Grade/SubGradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.subgradeopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {

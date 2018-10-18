@@ -33,9 +33,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Autowired
 	SubmitQuestionRepository submitQuestionRepository;
 	@Override
-	public List<PendingQuestion> searchQuestionByUserName(String userName,String competency) {
+	public List<PendingQuestion> searchQuestionByUserName(String userName) {
 		// TODO Auto-generated method stub
-		return pendingQuestionRepository.searchQuestionByUserName(userName,competency);
+		return pendingQuestionRepository.searchQuestionByUserName(userName);
 	}
 	@Override
 	public int submitQuestion(SubmitQuestion submitQuestion) {
@@ -55,6 +55,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public List<String> searchCompetency() {
 		// TODO Auto-generated method stub
 		return pendingQuestionRepository.searchCompetency();
+	}
+	@Override
+	public List<PendingQuestion> generateQuestion() {
+		// TODO Auto-generated method stub
+		return pendingQuestionRepository.generateQuestionNotAnswer();
 	}
 	 
 	  

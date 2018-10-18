@@ -6,6 +6,7 @@ package admin.fe.controller.Maintenance.Departement;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Departement;
@@ -34,6 +35,7 @@ public class DepartementViewEditController extends CommonController implements P
     Button submitButton;
     Button clearButton;
     Button divisionButton;
+
 
     Division div = new Division();
 
@@ -76,6 +78,7 @@ public class DepartementViewEditController extends CommonController implements P
             divisionButton.setVisible(false);
             submitButton.setVisible(false);
             clearButton.setVisible(false);
+            backButton.setLabel("Back");
         }
         else if((String) arg.get("type") == TYPE_SHOW_EDIT){
             idDivisionView.setVisible(false);
@@ -83,7 +86,8 @@ public class DepartementViewEditController extends CommonController implements P
             nameDepartementView.setVisible(false);
             idDivisionEdit.setDisabled(true);
             idDepartementEdit.setDisabled(true);
-            backButton.setVisible(false);
+            backButton.setVisible(true);
+            backButton.setLabel("Cancel");
         }
     }
 
@@ -92,8 +96,7 @@ public class DepartementViewEditController extends CommonController implements P
         Division div = new Division();
         args.put("object", div);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -113,7 +116,7 @@ public class DepartementViewEditController extends CommonController implements P
     }
 
     public void onClick$backButton(){
-        navigateTo("layout/Departement/Departement.zul",null,self);
+        navigateTo(Resources.departementHome,null,self);
     }
 
     public void onClick$submitButton(){
@@ -131,7 +134,7 @@ public class DepartementViewEditController extends CommonController implements P
                         if (resultGrade.equals("200")) {
                             Messagebox.show("Data Already Updated", "Information", Messagebox.OK, Messagebox.INFORMATION, new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Departement/Departement.zul", null, self);
+                                    navigateTo(Resources.departementHome, null, self);
                                 }
                             });
                         } else if (!resultGrade.equals("200")) {

@@ -26,5 +26,5 @@ public interface EmployeeService {
 	public String submitHistory(String body);
 	public String submitQuestion(String body);
 	public List<String> searchCompetency();
-
+	public List<PendingQuestion> generateQuestion();
 }

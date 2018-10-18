@@ -1,12 +1,17 @@
 /**
- * 
+ *
  */
 package admin.fe.model;
 
 import java.util.Date;
 
-//import javax.persistence.*; 
+//import javax.persistence.*;
 
+/**
+ * @author gederanadewadatta
+ *
+ */
+//@Entity
 /**
  * @author gederanadewadatta
  *
@@ -14,12 +19,12 @@ import java.util.Date;
 //@Entity
 public class SubGrade {
     private Long id;
-	private String gradeCode;
+    private String gradeCode;
     private String departementCode;
-	private String subGradeCode;
-	private String subGradeName;
-	private Date createdDate;
-	private String createdBy;
+    private String subGradeCode;
+    private String subGradeName;
+    private Date createdDate;
+    private String createdBy;
 
 
     public String getGradeCode() {

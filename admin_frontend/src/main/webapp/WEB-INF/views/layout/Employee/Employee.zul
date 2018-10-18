@@ -7,10 +7,10 @@
                 <rows>
 
                     <row>
-                        <label value = "Division:" />
+                        <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision"  />
+                                <textbox id="idDivision" disabled="true" />
                             </hlayout>
                             <div>
                                 <button id="btnDivision"/>
@@ -20,10 +20,10 @@
                     </row>
 
                     <row>
-                        <label value = "Department:" />
+                        <label value = "Department Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment"  />
+                                <textbox id="idDepartment" disabled="true" />
                             </hlayout>
                             <div>
                                 <button id="btnDepartement"/>
@@ -34,10 +34,10 @@
                     </row>
 
                     <row>
-                        <label value = "Employee:" />
+                        <label value = "Employee Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmployee" />
+                                <textbox id="idEmployee" disabled="true" />
                             </hlayout>
                             <div>
                                 <button id="btnEmployee"/>

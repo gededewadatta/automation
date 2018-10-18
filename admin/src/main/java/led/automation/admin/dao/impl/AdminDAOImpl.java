@@ -100,8 +100,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertSubGrade(SubGrade subGrade) {
 		// TODO Auto-generated method stub
-		int a = subGradeRepository.insertSubGrade(subGrade.getSubGradeCode().toUpperCase(),subGrade.getSubGradeName(),subGrade.getGradeCode().toUpperCase(),
-				subGrade.getDepartementCode().toUpperCase(),subGrade.getCreatedBy(),subGrade.getCreatedDate());
+		int a = subGradeRepository.insertSubGrade(subGrade.getSubGradeCode().toUpperCase(),subGrade.getSubGradeName(),subGrade.getGradeCode().toUpperCase(),subGrade.getDepartementCode(),subGrade.getCreatedBy(),subGrade.getCreatedDate());
 
 		if(a > 0){
 			subGradeRepository.updateSubGradeSeq();
@@ -367,45 +366,45 @@ public class AdminDAOImpl implements AdminDAO {
 		return subGrade;
 	}
 
-	@Override
-	public List<SubGrade> searchSubGradePopup (String departementCode, String gradeCode, String subGradeCode, String subGradeName) {
-		// TODO Auto-generated method stub
-		List<SubGrade> subGrade = new ArrayList<>();
+    @Override
+    public List<SubGrade> searchSubGradePopup (String departementCode, String gradeCode, String subGradeCode, String subGradeName) {
+        // TODO Auto-generated method stub
+        List<SubGrade> subGrade = new ArrayList<>();
 
-		if(subGradeCode.equals("")&& subGradeName.equals("")
-				&& departementCode.equals("") && gradeCode.equals("")) {
-			subGrade =  subGradeRepository.findAll();
-		}
-		else if(subGradeCode.equals("")&&!subGradeName.equals("")
-				&& departementCode.equals("") && gradeCode.equals("")){
-			subGrade = subGradeRepository.findBySubGradeName("%"+subGradeName.toUpperCase()+"%");
-		}
-		else if(!subGradeCode.equals("")&& subGradeName.equals("")
-				&& departementCode.equals("") && gradeCode.equals("")) {
-			subGrade = subGradeRepository.findBySubGradeCode("%"+subGradeCode.toUpperCase()+"%");
-		}
-		else if(subGradeCode.equals("")&&!subGradeName.equals("")
-				&& departementCode.equals("") && gradeCode.equals("")){
-			subGrade = subGradeRepository.findBySubGradeCodeAndName("%"+subGradeCode.toUpperCase()+"%","%"+subGradeName.toUpperCase()+"%");
-		}
-		else if(subGradeCode.equals("")&& subGradeName.equals("")
-				&& !departementCode.equals("") && !gradeCode.equals("")) {
-			subGrade =  subGradeRepository.findByGradeCode("%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
-		}
-		else if(subGradeCode.equals("")&& !subGradeName.equals("")
-				&& !departementCode.equals("") && !gradeCode.equals("")) {
-			subGrade = subGradeRepository.findBySubGradeNameAndGradeCode("%"+subGradeName.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
-		}
-		else if(!subGradeCode.equals("")&& subGradeName.equals("")
-				&& !departementCode.equals("") && !gradeCode.equals("")) {
-			subGrade = subGradeRepository.findBySubGradeCodeAndGradeCode("%"+subGradeCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
-		}
-		else {
-			subGrade = subGradeRepository.findBySubGradeCodeAndSubGradeNameAndGradeCode("%"+subGradeCode.toUpperCase()+"%","%"+subGradeName.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
-		}
+        if(subGradeCode.equals("")&& subGradeName.equals("")
+                && departementCode.equals("") && gradeCode.equals("")) {
+            subGrade =  subGradeRepository.findAll();
+        }
+        else if(subGradeCode.equals("")&&!subGradeName.equals("")
+                && departementCode.equals("") && gradeCode.equals("")){
+            subGrade = subGradeRepository.findBySubGradeName("%"+subGradeName.toUpperCase()+"%");
+        }
+        else if(!subGradeCode.equals("")&& subGradeName.equals("")
+                && departementCode.equals("") && gradeCode.equals("")) {
+            subGrade = subGradeRepository.findBySubGradeCode("%"+subGradeCode.toUpperCase()+"%");
+        }
+        else if(subGradeCode.equals("")&&!subGradeName.equals("")
+                && departementCode.equals("") && gradeCode.equals("")){
+            subGrade = subGradeRepository.findBySubGradeCodeAndName("%"+subGradeCode.toUpperCase()+"%","%"+subGradeName.toUpperCase()+"%");
+        }
+        else if(subGradeCode.equals("")&& subGradeName.equals("")
+                && !departementCode.equals("") && !gradeCode.equals("")) {
+            subGrade =  subGradeRepository.findByGradeCode("%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
+        }
+        else if(subGradeCode.equals("")&& !subGradeName.equals("")
+                && !departementCode.equals("") && !gradeCode.equals("")) {
+            subGrade = subGradeRepository.findBySubGradeNameAndGradeCode("%"+subGradeName.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
+        }
+        else if(!subGradeCode.equals("")&& subGradeName.equals("")
+                && !departementCode.equals("") && !gradeCode.equals("")) {
+            subGrade = subGradeRepository.findBySubGradeCodeAndGradeCode("%"+subGradeCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
+        }
+        else {
+            subGrade = subGradeRepository.findBySubGradeCodeAndSubGradeNameAndGradeCode("%"+subGradeCode.toUpperCase()+"%","%"+subGradeName.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%");
+        }
 
-		return subGrade;
-	}
+        return subGrade;
+    }
 
 
 	@Override
@@ -500,7 +499,7 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 		List<Division> division = new ArrayList<>();
 		if(divisionCode.equals("")&&divisionName.equals("")) {
-			division = (List<Division>) divisionRepository.findAll();
+			division = divisionRepository.findAll();
 		}
 		else if(divisionCode.equals("")&&!divisionName.equals("")){
 			division = divisionRepository.findByDivisionName("%"+divisionName.toUpperCase()+"%");

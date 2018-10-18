@@ -7,7 +7,7 @@
             <grid>
                 <rows>
                     <row>
-                        <label value = "Division Id:" />
+                        <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idDivision"  />

@@ -33,7 +33,7 @@ public class QuestionController extends CommonController implements PopupCallerD
     Textbox idValidAns;
     Textbox idTextAnswer;
 
-    int i=0;
+	int i = 0;
 
     Vbox boxAnswer;
     Row btnAnswer;
@@ -121,6 +121,20 @@ public class QuestionController extends CommonController implements PopupCallerD
         }else {
             quest.setLevel(idLevel.getValue());
         }
+
+        String type = idQuestionType.getSelectedItem().getValue();
+        switch (type){
+            case "0":
+                quest.setQuestionType("YES/NO");
+                break;
+            case "1":
+                quest.setQuestionType("FREETEXT");
+                break;
+            case "2":
+                quest.setQuestionType("OPTIONAL");
+                break;
+        }
+
         quest.setCreatedBy("Burhan");
         quest.setCreatedDate(new Date());
         quest.setQuestions(idQuestion.getValue());
@@ -324,7 +338,4 @@ public class QuestionController extends CommonController implements PopupCallerD
         quest.setAnswer4("");
         quest.setAnswer5("");
     }
-
-
-
 }

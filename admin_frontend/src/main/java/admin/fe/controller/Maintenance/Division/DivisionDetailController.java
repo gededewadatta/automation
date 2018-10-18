@@ -6,6 +6,7 @@ package admin.fe.controller.Maintenance.Division;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Division;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -56,7 +57,7 @@ public class DivisionDetailController extends CommonController {
                         if(result.equals("200")){
                             Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Division/Division.zul",null,self);
+                                    navigateTo(Resources.divisionHome,null,self);
                                 }
                             });
                         }else if(result.equals("Failure")){
@@ -77,5 +78,9 @@ public class DivisionDetailController extends CommonController {
         idDivision.setValue("");
         nameDivision.setValue("");
     }
+    public void onClick$cancelButton(){
+        navigateTo(Resources.divisionHome,null,self);
+    }
+
 
 }

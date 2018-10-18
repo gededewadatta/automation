@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
@@ -50,49 +51,46 @@ public class GradeDetailController extends CommonController implements PopupCall
     }
 
     public void onClick$submitButton(){
-        Grade grd = new Grade();
-        SubGrade subGrd = new SubGrade();
 
+        GradeJson grdJson = new GradeJson();
         SendJSON send = new SendJSON();
 
         if(div.getDivisionCode() == null||div.getDivisionCode().equals("")){
-            grd.setDivisionCode("");
+            grdJson.setDivisionCode("");
         }else{
-            grd.setDivisionCode(div.getDivisionCode());
+            grdJson.setDivisionCode(div.getDivisionCode());
         }
 
         if(dep.getDepartementCode() == null||dep.getDepartementCode().equals("")){
-            grd.setDepartementCode("");
-            subGrd.setDepartementCode("");
+            grdJson.setDepartementCode("");
+            grdJson.setDepartementCode("");
         }else{
-            grd.setDepartementCode(dep.getDepartementCode());
-            subGrd.setDepartementCode(dep.getDepartementCode());
+            grdJson.setDepartementCode(dep.getDepartementCode());
+            grdJson.setDepartementCode(dep.getDepartementCode());
         }
 
-        grd.setGradeName(idGradeName.getValue());
-        grd.setGradeCode(idGrade.getValue());
-        subGrd.setGradeCode(grd.getGradeCode());
-        subGrd.setSubGradeCode(idSubGrade.getValue());
-        subGrd.setSubGradeName(idSubGradeName.getValue());
-        grd.setCreatedDate(new Date());
-        grd.setCreatedBy("Burhan");
-        subGrd.setCreatedDate(grd.getCreatedDate());
-        subGrd.setCreatedBy(grd.getCreatedBy());
+        grdJson.setGradeName(idGradeName.getValue());
+        grdJson.setGradeCode(idGrade.getValue());
+        grdJson.setSubGradeCode(idSubGrade.getValue());
+        grdJson.setSubGradeName(idSubGradeName.getValue());
+        grdJson.setCreatedDate(new Date());
+        grdJson.setCreatedBy("Admin");
+        grdJson.setCreatedDate(grdJson.getCreatedDate());
+        grdJson.setCreatedBy(grdJson.getCreatedBy());
 
         Messagebox.show("Are you sure want to save?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new EventListener() {
             public void onEvent(Event evt) throws InterruptedException {
                 if (evt.getName().equals("onYes")) {
                     try {
-                        String resultGrade = send.insertGrade(grd);
-                        String resultSubGrade =  send.insertSubGrade(subGrd);
+                        String resultGrade = send.insertGrade(grdJson);
 
-                        if(resultGrade.equals("200")&&resultSubGrade.equals("200")){
+                        if(resultGrade.equals("200")){
                             Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Grade/Grade.zul",null,self);
+                                    navigateTo(Resources.gradeHome,null,self);
                                 }
                             });
-                        }else if(resultGrade.equals("Failure")&&resultSubGrade.equals("Failure")){
+                        }else if(resultGrade.equals("Failure")){
                             Messagebox.show("Data Already exists");
 
                         }else{
@@ -130,7 +128,7 @@ public class GradeDetailController extends CommonController implements PopupCall
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+                Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -147,7 +145,7 @@ public class GradeDetailController extends CommonController implements PopupCall
         args.put("object", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+                Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -175,6 +173,10 @@ public class GradeDetailController extends CommonController implements PopupCall
             dep = departement;
             idDepartment.setValue(dep.getDepartementName());
         }
+    }
+
+    public void onClick$cancelButton(){
+        navigateTo(Resources.gradeHome,null,self);
     }
 
 }

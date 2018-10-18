@@ -7,11 +7,11 @@
             <grid>
                 <rows>
                     <row>
-                        <label value = "Division:" />
+                        <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
                                 <label id="idDivisionView"  />
-                                <textbox id="idDivisionEdit"/>
+                                <textbox id="idDivisionEdit" disabled="true"/>
                             </hlayout>
                             <div>
                                 <button id="divisionButton"/>
@@ -19,7 +19,7 @@
                         </hbox>
                     </row>
                     <row>
-                        <label value = "Departement:" />
+                        <label value = "Departement Code:" />
                         <hbox>
                             <hlayout>
                                 <label id="idDepartementView"  />
@@ -41,7 +41,7 @@
             </grid>
             <div align="right" style="margin-top:30px">
 
-                <button id="backButton" label="Back" style="float::right"/>
+                <button id="backButton" style="float::right"/>
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
 

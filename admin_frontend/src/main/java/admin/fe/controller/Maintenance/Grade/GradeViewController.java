@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Window;
@@ -36,7 +37,7 @@ public class GradeViewController extends CommonController {
     }
 
     public void onClick$backButton(){
-        navigateTo("layout/Grade/Grade.zul",null,self);
+        navigateTo(Resources.gradeHome,null,self);
     }
 
 
