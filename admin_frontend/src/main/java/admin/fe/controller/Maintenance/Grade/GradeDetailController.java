@@ -176,7 +176,7 @@ public class GradeDetailController extends CommonController implements PopupCall
     }
 
     public void onClick$cancelButton(){
-        navigateTo(Resources.gradeDetail,null,self);
+        navigateTo(Resources.gradeHome,null,self);
     }
 
 }

@@ -245,14 +245,17 @@ public class AdminServiceImpl implements AdminService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		grade.setIdGrade(gradeJson.getIdGrade());
 		grade.setGradeCode(gradeJson.getGradeCode());
 		grade.setGradeName(gradeJson.getGradeName());
 		grade.setCreatedDate(new Date());
 		grade.setGradeName(gradeJson.getCreatedBy());
 		grade.setDivisionCode(gradeJson.getDivisionCode());
 		grade.setDepartementCode(gradeJson.getDepartementCode());
+		subGrade.setIdSubGrade(gradeJson.getIdSubGrade());
 		subGrade.setSubGradeCode(gradeJson.getSubGradeCode());
 		subGrade.setSubGradeName(gradeJson.getSubGradeName());
+		subGrade.setDepartementCode(gradeJson.getDepartementCode());
 		subGrade.setGradeCode(gradeJson.getGradeCode());
 		subGrade.setCreatedBy(gradeJson.getCreatedBy());
 		subGrade.setCreatedDate(new Date());

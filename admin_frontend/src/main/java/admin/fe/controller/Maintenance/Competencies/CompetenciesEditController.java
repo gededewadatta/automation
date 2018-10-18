@@ -56,7 +56,8 @@ public class CompetenciesEditController  extends CommonController implements Pop
         idDepartment.setValue((String) arg.get("departmentCode"));
         idSubGrade.setValue((String)arg.get("subGradeCode"));
         idGrade.setValue((String)arg.get("gradeCode"));
-        idCompetencies.setValue((String)arg.get("competencyName"));
+        idCompetencies.setValue((String)arg.get("competencyCode"));
+        idCompetenciesName.setValue((String)arg.get("competencyName"));
 
     }
 

@@ -251,6 +251,6 @@ public class EmployeeDetailController extends CommonController implements PopupC
     }
 
     public void onClick$cancelButton(){
-        navigateTo(Resources.employeeDetail,null,self);
+        navigateTo(Resources.employeeHome,null,self);
     }
 }
