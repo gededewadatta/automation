@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
@@ -86,7 +87,7 @@ public class GradeDetailController extends CommonController implements PopupCall
                         if(resultGrade.equals("200")){
                             Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Grade/Grade.zul",null,self);
+                                    navigateTo(Resources.gradeHome,null,self);
                                 }
                             });
                         }else if(resultGrade.equals("Failure")){
@@ -127,7 +128,7 @@ public class GradeDetailController extends CommonController implements PopupCall
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+                Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -144,7 +145,7 @@ public class GradeDetailController extends CommonController implements PopupCall
         args.put("object", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+                Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -175,7 +176,7 @@ public class GradeDetailController extends CommonController implements PopupCall
     }
 
     public void onClick$cancelButton(){
-        navigateTo("layout/Grade/GradeDetail.zul",null,self);
+        navigateTo(Resources.gradeDetail,null,self);
     }
 
 }

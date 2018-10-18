@@ -6,6 +6,7 @@ package admin.fe.controller.Maintenance.Departement;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Departement;
@@ -66,7 +67,7 @@ public class DepartementDetailController extends CommonController implements Pop
                         if(result.equals("200")){
                             Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Departement/Departement.zul",null,self);
+                                    navigateTo(Resources.departementHome,null,self);
                                 }
                             });
                         }else if(result.equals("Failure")){
@@ -106,8 +107,7 @@ public class DepartementDetailController extends CommonController implements Pop
         Division div = new Division();
         args.put("object", div);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -126,7 +126,7 @@ public class DepartementDetailController extends CommonController implements Pop
     }
 
     public void onClick$cancelButton(){
-        navigateTo("layout/Departement/Departement.zul",null,self);
+        navigateTo(Resources.departementHome,null,self);
     }
 
 }

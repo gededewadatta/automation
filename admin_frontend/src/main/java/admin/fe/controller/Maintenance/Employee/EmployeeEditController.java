@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Employee;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.*;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -17,6 +18,7 @@ import org.zkoss.zul.Window;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 public class EmployeeEditController extends CommonController implements PopupCallerDepartmentInterface, PopupCallerDivisionInterface, PopupCallerGradeInterface,
         PopupCallerSubGradeInterface {
@@ -86,7 +88,7 @@ public class EmployeeEditController extends CommonController implements PopupCal
 
                                     if(result.equals("200")){
                                         Messagebox.show("Data Already Updated");
-                                        navigateTo("layout/Employee/Employee.zul",null,self);
+                                        navigateTo(Resources.employeeHome,null,self);
                                     }else{
                                         Messagebox.show("Data Failed To save");
                                         idDepartment.setText("");
@@ -135,7 +137,7 @@ public class EmployeeEditController extends CommonController implements PopupCal
     }
 
     public void onClick$cancelButton(){
-        navigateTo("layout/Employee/EmployeeDetail.zul",null,self);
+        navigateTo(Resources.employeeHome,null,self);
     }
 
     public void onClick$btnDepartment() {
@@ -145,7 +147,7 @@ public class EmployeeEditController extends CommonController implements PopupCal
         args.put("object", departement);
         args.put("division", div);
         args.put("caller", this);
-        Component c = Executions.createComponents("layout/Departement/DeptPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -162,7 +164,7 @@ public class EmployeeEditController extends CommonController implements PopupCal
         Division div = new Division();
         args.put("object", div);
         args.put("caller", this);
-        Component c = Executions.createComponents("layout/Division/DivisionPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -181,7 +183,7 @@ public class EmployeeEditController extends CommonController implements PopupCal
         grade.setDivisionCode(idDivision.getValue());
         args.put("objectGrade", grade);
         args.put("caller", this);
-        Component c = Executions.createComponents("layout/Grade/GradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.gradePopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -199,7 +201,7 @@ public class EmployeeEditController extends CommonController implements PopupCal
         div.setSubGradeCode(idGrade.getValue());
         args.put("object", div);
         args.put("caller", this);
-        Component c = Executions.createComponents("layout/Grade/SubGradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.subgradeopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {

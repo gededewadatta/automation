@@ -6,6 +6,7 @@ package admin.fe.controller.Maintenance.Departement;
  */
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.PopupCallerDepartmentInterface;
@@ -71,7 +72,7 @@ public class DepartementController extends CommonController implements PopupCall
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Departement/DepartementViewEdit.zul",getArgs(departement,"VIEW"),departementWindow);
+                                    navigateTo(Resources.departementViewEdit,getArgs(departement,"VIEW"),departementWindow);
                                 }
                             }
                         });
@@ -82,7 +83,7 @@ public class DepartementController extends CommonController implements PopupCall
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Departement/DepartementViewEdit.zul",getArgs(departement,"EDIT"),departementWindow);
+                                    navigateTo(Resources.departementViewEdit,getArgs(departement,"EDIT"),departementWindow);
                                 }
                             }
                         });
@@ -101,7 +102,7 @@ public class DepartementController extends CommonController implements PopupCall
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/Departement/DepartementDetail.zul",null,self);
+        navigateTo(Resources.departementDetail,null,self);
     }
 
     public void onClick$btnDivision(){
@@ -192,8 +193,7 @@ public class DepartementController extends CommonController implements PopupCall
         Division div = new Division();
         args.put("object", div);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -209,8 +209,7 @@ public class DepartementController extends CommonController implements PopupCall
         args.put("object", departement);
         args.put("division", div);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {

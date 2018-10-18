@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
@@ -102,15 +103,15 @@ public class GradeEditController extends CommonController implements PopupCaller
 
                                     if(resultGrade.equals("200")){
                                         Messagebox.show("Data Already Updated");
-                                        navigateTo("layout/Grade/Grade.zul",null,self);
+                                        navigateTo(Resources.gradeHome,null,self);
                                     }else{
                                         Messagebox.show("Data Failed To Update ");
-                                        navigateTo("layout/Grade/Grade.zul",null,self);
+                                        navigateTo(Resources.gradeHome,null,self);
                                     }
 
                                 } catch (JsonProcessingException e) {
                                     Messagebox.show("All data Failed To Update");
-                                    navigateTo("layout/Grade/Grade.zul",null,self);
+                                    navigateTo(Resources.gradeHome,null,self);
                                 }
 
                         }
@@ -136,7 +137,7 @@ public class GradeEditController extends CommonController implements PopupCaller
         args.put("object", departement);
         args.put("division", div);
         args.put("caller", this);
-        Component c = Executions.createComponents("layout/Departement/DeptPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -153,7 +154,7 @@ public class GradeEditController extends CommonController implements PopupCaller
         Division div = new Division();
         args.put("object", div);
         args.put("caller", this);
-        Component c = Executions.createComponents("layout/Division/DivisionPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -181,7 +182,7 @@ public class GradeEditController extends CommonController implements PopupCaller
     }
 
     public void onClick$cancelButton(){
-        navigateTo("layout/Grade/Grade.zul",null,self);
+        navigateTo(Resources.gradeHome,null,self);
     }
 
 }

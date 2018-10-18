@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Employee;
 
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.*;
 import admin.fe.model.Departement;
@@ -70,7 +71,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
 
     public void onClick$btnSubmit(){
         System.out.println("Ini button Submit2");
-        navigateTo("layout/Employee/EmployeeDetail.zul",null,self);
+        navigateTo(Resources.employeeDetail,null,self);
     }
 
     public void onClick$searchButton(){
@@ -120,7 +121,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Employee/EmployeeView.zul",getArg(employee),employeeCont);
+                                    navigateTo(Resources.employeeView,getArg(employee),employeeCont);
 //                                            getArg(InvestmentModelObj),
 //                                            winBancaFinTransactionSelection);
                                 }
@@ -144,7 +145,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
                                     throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Employee/EmployeeEdit.zul",getArg(employee),employeeCont);
+                                    navigateTo(Resources.employeeEdit,getArg(employee),employeeCont);
                                 }
                             }
                         });
@@ -198,7 +199,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+                Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -215,7 +216,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
         args.put("object", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+                Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -232,7 +233,7 @@ public class EmployeeController extends CommonController implements PopupCallerD
         args.put("object", emp);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Employee/EmployeePopup.zul", self, args);
+                Resources.employeePopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {

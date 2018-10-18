@@ -44,14 +44,14 @@ public class Resources {
     public static String departementHome = getWebApplicationProperties("departement.home");
     public static String departementDetail = getWebApplicationProperties("departement.detail");
     public static String departementPopup = getWebApplicationProperties("departement.popup");
-    public static String departementViewEdit = getWebApplicationProperties("departement.edit");
+    public static String departementViewEdit = getWebApplicationProperties("department.view.edit");
     //Departement stop
 
     //Division start :
     public static String divisionHome = getWebApplicationProperties("division.home");
     public static String divisionDetail = getWebApplicationProperties("division.detail");
     public static String divisionPopup = getWebApplicationProperties("division.popup");
-    public static String divisionViewEdit = getWebApplicationProperties("division.popup");
+    public static String divisionViewEdit = getWebApplicationProperties("division.view.edit");
     //Division stop :
 
     //Employee Start :
@@ -78,6 +78,8 @@ public class Resources {
     public static String gradeView = getWebApplicationProperties("grade.view");
     public static String subgradeopup = getWebApplicationProperties("subgrade.popup");
     //Grade stop :
+
+    public static String proxyHost = getWebApplicationProperties("proxy.host");
 
 
 

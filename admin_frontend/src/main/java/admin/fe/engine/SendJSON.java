@@ -3,6 +3,7 @@
  */
 package admin.fe.engine;
 
+import admin.fe.controller.common.Resources;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,45 +31,39 @@ public class SendJSON {
 	ObjectMapper mapper = new ObjectMapper();
 
 	Employee emp = new Employee();
-	@Value("${led.Employee.insert}")
-	protected String employeeInsert;
 
 	public String insertEmployee(Employee emp) throws JsonProcessingException {
-		return insertAndUpdate(mapper.writeValueAsString(emp),"http://localhost:7013/led/api/automation/insert/employee");
+		return insertAndUpdate(mapper.writeValueAsString(emp),Resources.proxyHost+"led/api/automation/insert/employee");
 	}
 
 	public String insertGrade(GradeJson grd) throws JsonProcessingException {
-		return insertAndUpdate(mapper.writeValueAsString(grd),"http://localhost:7013/led/api/automation/insert/grade");
+		return insertAndUpdate(mapper.writeValueAsString(grd),Resources.proxyHost+"led/api/automation/insert/grade");
 	}
 
-    public String insertSubGrade(SubGrade subGrd) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(subGrd),"http://localhost:7013/led/api/automation/insert/subgrade");
-    }
-
 	public String insertQuestion(Question quest) throws JsonProcessingException {
-		return insertAndUpdate(mapper.writeValueAsString(quest),"http://localhost:7013/led/api/automation/insert/question");
+		return insertAndUpdate(mapper.writeValueAsString(quest),Resources.proxyHost+"led/api/automation/insert/question");
 	}
 
     public String insertDivision(Division div) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(div),"http://localhost:7013/led/api/automation/insert/division");
+        return insertAndUpdate(mapper.writeValueAsString(div),Resources.proxyHost+"led/api/automation/insert/division");
     }
 
     public String insertDepartement(Departement dpr) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(dpr),"http://localhost:7013/led/api/automation/insert/departement");
+        return insertAndUpdate(mapper.writeValueAsString(dpr),Resources.proxyHost+"led/api/automation/insert/departement");
     }
 
 	public String insertCompetency(Competency cmp) throws JsonProcessingException {
-		return insertAndUpdate(mapper.writeValueAsString(cmp),"http://localhost:7013/led/api/automation/insert/competency");
+		return insertAndUpdate(mapper.writeValueAsString(cmp),Resources.proxyHost+"led/api/automation/insert/competency");
 	}
 
 //    Update
 
     public String updateGrade(GradeJson grd) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(grd),"http://localhost:7013/led/api/automation/update/grade");
+        return insertAndUpdate(mapper.writeValueAsString(grd),Resources.proxyHost+"led/api/automation/update/grade");
     }
 
     public String updateSubGrade(SubGrade subGrd) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(subGrd),"http://localhost:7013/led/api/automation/update/subgrade");
+        return insertAndUpdate(mapper.writeValueAsString(subGrd),Resources.proxyHost+"led/api/automation/update/subgrade");
     }
 
     public String updateDivision(Division div) throws JsonProcessingException {
@@ -80,7 +75,7 @@ public class SendJSON {
     }
 
     public String updateEmployee(Employee emp) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(emp),"http://localhost:7013/led/api/automation/update/employee");
+        return insertAndUpdate(mapper.writeValueAsString(emp),Resources.proxyHost+"led/api/automation/update/employee");
     }
 
     public String updateCompetency(Competency cmp) throws JsonProcessingException {
@@ -96,9 +91,9 @@ public class SendJSON {
         List<Dashboard> dashboards = new ArrayList<>();
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(new Dashboard()), "http://localhost:7013/led/api/automation/search/dashboard").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(new Dashboard()), Resources.proxyHost+"led/api/automation/search/dashboard").length(); i++) {
                 Dashboard dashboard = new Dashboard();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(new Dashboard()), "http://localhost:7013/led/api/automation/search/dashboard").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(new Dashboard()), Resources.proxyHost+"led/api/automation/search/dashboard").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 dashboard.setEmployeeId(jsonObjVal.getString("employeeId"));
@@ -121,9 +116,9 @@ public class SendJSON {
         List<Grade> gradeList = new ArrayList<>();
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(grd), "http://localhost:7013/led/api/automation/search/grade").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(grd), Resources.proxyHost+"led/api/automation/search/grade").length(); i++) {
                 Grade grade = new Grade();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(grd), "http://localhost:7013/led/api/automation/search/grade").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(grd), Resources.proxyHost+"led/api/automation/search/grade").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 grade.setIdGrade(jsonObjVal.getLong("idGrade"));
@@ -156,9 +151,9 @@ public class SendJSON {
 
         List<GradeJson> gradeJsons = new ArrayList<>();
         try {
-            for (int i = 0; i < getData(mapper.writeValueAsString(grdJson),"http://localhost:7013/led/api/automation/search/gradeJson").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(grdJson),Resources.proxyHost+"led/api/automation/search/gradeJson").length(); i++) {
                 GradeJson grade = new GradeJson();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(grdJson),"http://localhost:7013/led/api/automation/search/gradeJson").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(grdJson),Resources.proxyHost+"led/api/automation/search/gradeJson").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 grade.setIdGrade(jsonObjVal.getLong("idGrade"));
@@ -186,9 +181,9 @@ public class SendJSON {
 
         List<SubGrade> subGrades = new ArrayList<>();
         try {
-            for (int i = 0; i < getData(mapper.writeValueAsString(subGrd),"http://localhost:7013/led/api/automation/search/subgrade").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(subGrd),Resources.proxyHost+"led/api/automation/search/subgrade").length(); i++) {
                 SubGrade subGrade = new SubGrade();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(subGrd),"http://localhost:7013/led/api/automation/search/subgrade").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(subGrd),Resources.proxyHost+"led/api/automation/search/subgrade").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 subGrade.setId(jsonObjVal.getLong("idSubGrade"));
@@ -207,9 +202,9 @@ public class SendJSON {
         List<SubGrade> subGrades = new ArrayList<>();
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(subgrd),"http://localhost:7013/led/api/automation/search/subgradepopup").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(subgrd),Resources.proxyHost+"led/api/automation/search/subgradepopup").length(); i++) {
                 SubGrade subGrade = new SubGrade();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(subgrd),"http://localhost:7013/led/api/automation/search/subgradepopup").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(subgrd),Resources.proxyHost+"led/api/automation/search/subgradepopup").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 subGrade.setId(jsonObjVal.getLong("idSubGrade"));
@@ -232,9 +227,9 @@ public class SendJSON {
 
         List<Employee> employees = new ArrayList<>();
         try {
-            for (int i = 0; i < getData(mapper.writeValueAsString(emp),"http://localhost:7013/led/api/automation/search/employee").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(emp),Resources.proxyHost+"led/api/automation/search/employee").length(); i++) {
                 Employee employee = new Employee();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(emp),"http://localhost:7013/led/api/automation/search/employee").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(emp),Resources.proxyHost+"led/api/automation/search/employee").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 employee.setId(String.valueOf(jsonObjVal.get("id")));
@@ -261,9 +256,9 @@ public class SendJSON {
 
         List<Question> questions = new ArrayList<>();
         try {
-            for (int i = 0; i < getData(mapper.writeValueAsString(quest),"http://localhost:7013//led/api/automation/search/question").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(quest),Resources.proxyHost+"/led/api/automation/search/question").length(); i++) {
                 Question question = new Question();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(quest),"http://localhost:7013//led/api/automation/search/question").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(quest),Resources.proxyHost+"/led/api/automation/search/question").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
                 question.setGrade(jsonObjVal.getString("grade"));
                 question.setSubGrade(jsonObjVal.getString("subGrade"));
@@ -294,9 +289,9 @@ public class SendJSON {
         List<Competency> competencies = new ArrayList<>();
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(comp),"http://localhost:7013/led/api/automation/search/competency").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(comp),Resources.proxyHost+"led/api/automation/search/competency").length(); i++) {
                 Competency competency = new Competency();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(comp),"http://localhost:7013/led/api/automation/search/competency").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(comp),Resources.proxyHost+"led/api/automation/search/competency").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 competency.setId(String.valueOf(jsonObjVal.getLong("id")));
@@ -321,9 +316,9 @@ public class SendJSON {
 
         List<Competency> competencies = new ArrayList<>();
         try {
-            for (int i = 0; i < getData(mapper.writeValueAsString(comp),"http://localhost:7013/led/api/automation/search/competencyByGradeCode").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(comp),Resources.proxyHost+"led/api/automation/search/competencyByGradeCode").length(); i++) {
                 Competency competency = new Competency();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(comp),"http://localhost:7013/led/api/automation/search/competencyByGradeCode").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(comp),Resources.proxyHost+"led/api/automation/search/competencyByGradeCode").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 competency.setId(String.valueOf(jsonObjVal.getLong("id")));
@@ -349,9 +344,9 @@ public class SendJSON {
 
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(div),"http://localhost:7013/led/api/automation/search/division").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(div),Resources.proxyHost+"led/api/automation/search/division").length(); i++) {
                 Division division = new Division();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(div),"http://localhost:7013/led/api/automation/search/division").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(div),Resources.proxyHost+"led/api/automation/search/division").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 division.setId(jsonObjVal.getLong("id"));
@@ -373,9 +368,9 @@ public class SendJSON {
         List<Departement> departements = new ArrayList<>();
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(dep),"http://localhost:7013/led/api/automation/search/departement").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(dep),Resources.proxyHost+"led/api/automation/search/departement").length(); i++) {
                 Departement departement = new Departement();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(dep),"http://localhost:7013/led/api/automation/search/departement").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(dep),Resources.proxyHost+"led/api/automation/search/departement").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 departement.setId(jsonObjVal.getLong("id"));
@@ -397,9 +392,9 @@ public class SendJSON {
 
         List<Departement> departements = new ArrayList<>();
         try {
-            for (int i = 0; i < getData(mapper.writeValueAsString(dep),"http://localhost:7013/led/api/automation/search/departementpopup" ).length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(dep),Resources.proxyHost+"led/api/automation/search/departementpopup" ).length(); i++) {
                 Departement departement = new Departement();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(dep),"http://localhost:7013/led/api/automation/search/departementpopup" ).getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(dep),Resources.proxyHost+"led/api/automation/search/departementpopup" ).getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 departement.setId(jsonObjVal.getLong("id"));
@@ -421,9 +416,9 @@ public class SendJSON {
         List<Grade> gradeList = new ArrayList<>();
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(grd),"http://localhost:7013/led/api/automation/search/gradepopup").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(grd),Resources.proxyHost+"led/api/automation/search/gradepopup").length(); i++) {
                 Grade grade = new Grade();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(grd),"http://localhost:7013/led/api/automation/search/gradepopup").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(grd),Resources.proxyHost+"led/api/automation/search/gradepopup").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 grade.setIdGrade(jsonObjVal.getLong("idGrade"));
@@ -450,9 +445,9 @@ public class SendJSON {
 
         try {
 
-            for (int i = 0; i < getData(mapper.writeValueAsString(rpt),"http://localhost:7013/led/api/automation/search/reportEmployee").length(); i++) {
+            for (int i = 0; i < getData(mapper.writeValueAsString(rpt),Resources.proxyHost+"led/api/automation/search/reportEmployee").length(); i++) {
                 Report report = new Report();
-                JSONObject jsonObjVal = getData(mapper.writeValueAsString(rpt),"http://localhost:7013/led/api/automation/search/reportEmployee").getJSONObject(i);
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(rpt),Resources.proxyHost+"led/api/automation/search/reportEmployee").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
 
                 report.setEmployeeCode(jsonObjVal.getString("employeeCode"));

@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.AbstractMainWindowTransaction;
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.PopupCallerDivisionInterface;
@@ -46,7 +47,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
 
     public void onClick$addButton(){
         System.out.println("Ini button Submit");
-        navigateTo("layout/Grade/GradeDetail.zul",null,self);
+        navigateTo(Resources.gradeDetail,null,self);
 
     }
 
@@ -104,7 +105,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                        navigateTo("layout/Grade/GradeView.zul",getArg(gradeJson),gradeCont);
+                                        navigateTo(Resources.gradeView,getArg(gradeJson),gradeCont);
 //                                            getArg(InvestmentModelObj),
 //                                            winBancaFinTransactionSelection);
                                 }
@@ -128,7 +129,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
                                     throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo("layout/Grade/GradeEdit.zul",getArg(gradeJson),gradeCont);
+                                    navigateTo(Resources.gradeEdit,getArg(gradeJson),gradeCont);
                                 }
                             }
                         });
@@ -162,7 +163,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+                Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -179,7 +180,7 @@ public class GradeController extends CommonController implements PopupCallerDivi
         args.put("object", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+                Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {

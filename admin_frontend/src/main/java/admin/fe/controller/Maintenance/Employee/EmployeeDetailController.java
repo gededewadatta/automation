@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Employee;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.*;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -100,27 +101,27 @@ public class EmployeeDetailController extends CommonController implements PopupC
                         if(result.equals("200")){
                             Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Employee/Employee.zul",null,self);
+                                    navigateTo(Resources.employeeHome,null,self);
                                 }
                             });
                         }else if(result.equals("Failure")){
                             Messagebox.show("Data Already exists","Information", Messagebox.OK , Messagebox.INFORMATION, event = new EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Employee/Employee.zul",null,self);
+                                    navigateTo(Resources.employeeHome,null,self);
                                 }
                             });
 
                         }else{
                             Messagebox.show("Data Failed to Save","Error",Messagebox.OK, Messagebox.ERROR,event = new EventListener(){
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Employee/Employee.zul",null,self);
+                                    navigateTo(Resources.employeeHome,null,self);
                                 }
                             });
                         }
                     } catch (JsonProcessingException e) {
                         Messagebox.show("Data Failed to Save","Error",Messagebox.OK, Messagebox.ERROR,event = new EventListener(){
                             public void onEvent(Event evt) throws InterruptedException {
-                                navigateTo("layout/Employee/Employee.zul",null,self);
+                                navigateTo(Resources.employeeHome,null,self);
                             }
                         });
                     }
@@ -138,7 +139,7 @@ public class EmployeeDetailController extends CommonController implements PopupC
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+                Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -155,7 +156,7 @@ public class EmployeeDetailController extends CommonController implements PopupC
         args.put("object", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
+                Resources.divisionPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -175,7 +176,7 @@ public class EmployeeDetailController extends CommonController implements PopupC
         args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Grade/GradePopup.zul", self, args);
+                Resources.gradePopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -193,7 +194,7 @@ public class EmployeeDetailController extends CommonController implements PopupC
         args.put("object", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Grade/SubGradePopup.zul", self, args);
+                Resources.subgradeopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -250,6 +251,6 @@ public class EmployeeDetailController extends CommonController implements PopupC
     }
 
     public void onClick$cancelButton(){
-        navigateTo("layout/Employee/EmployeeDetail.zul",null,self);
+        navigateTo(Resources.employeeDetail,null,self);
     }
 }
