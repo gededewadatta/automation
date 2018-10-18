@@ -41,11 +41,6 @@ Author Muhammad Burhanudin
 @Controller
 public class EmployeeDetailController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerDivisionInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
 
-    @Autowired
-    ServletRegistrationBean dHtmlLayoutServlet;
-
-    private final Object HttpServletRequest = dHtmlLayoutServlet;
-
     private Textbox idDivision;
 
     private Textbox idDepartment;

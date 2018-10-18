@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.*;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -97,7 +98,7 @@ public class CompetenciesEditController  extends CommonController implements Pop
 
                                     if(result.equals("200")){
                                         Messagebox.show("Data Already Saved");
-                                        navigateTo("layout/Competencies/Competencies.zul",null,self);
+                                        navigateTo(Resources.competenciesHome,null,self);
                                     }
 
                                 } catch (JsonProcessingException e) {
@@ -126,7 +127,7 @@ public class CompetenciesEditController  extends CommonController implements Pop
         args.put("object", departement);
         args.put("division", div);
         args.put("caller", this);
-        Component c = Executions.createComponents("layout/Departement/DeptPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -161,8 +162,7 @@ public class CompetenciesEditController  extends CommonController implements Pop
         args.put("objectGrade", grade);
         args.put("departement", dep);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Grade/GradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.gradePopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -179,8 +179,7 @@ public class CompetenciesEditController  extends CommonController implements Pop
         args.put("object", subgrd);
         args.put("grade",grd);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Grade/SubGradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.subgradeopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -225,7 +224,7 @@ public class CompetenciesEditController  extends CommonController implements Pop
     }
 
     public void onClick$cancelButton(){
-        navigateTo("layout/Competencies/Competencies.zul",null,self);
+        navigateTo(Resources.competenciesHome,null,self);
     }
 
 }

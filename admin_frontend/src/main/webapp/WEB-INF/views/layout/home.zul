@@ -43,23 +43,23 @@
 							<tabpanels>
 								<tabpanel>
 									<vbox>
-										<toolbarbutton label="Employee" onClick="@command('addTabOne',pProgr='layout/EmployeeUpload/EmployeeUpload')"/>
-										<toolbarbutton label="Question" onClick="@command('addTabOne',pProgr='layout/QuestionUpload/QuestionUpload')"/>
+										<toolbarbutton label="Employee" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/EmployeeUpload/EmployeeUpload')"/>
+										<toolbarbutton label="Question" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/QuestionUpload/QuestionUpload')"/>
 									</vbox>
 								</tabpanel>
 								<tabpanel>
 									<vbox>
-										<toolbarbutton id="toolbarLabel1" label="Division" onClick="@command('addTabOne',pProgr='layout/Division/Division')"/>
-										<toolbarbutton id="toolbarLabel2" label="Department" onClick="@command('addTabOne',pProgr='layout/Departement/Departement')"/>
-										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='layout/Grade/Grade')" />
-										<toolbarbutton id="toolbarLabel4" label="Employee" onClick="@command('addTabOne',pProgr='layout/Employee/Employee')"/>
-										<toolbarbutton id="toolbarLabel5" label="Competencies" onClick="@command('addTabOne',pProgr='layout/Competencies/Competencies')"/>
-										<toolbarbutton id="toolbarLabel6" label="Question" onClick="@command('addTabOne',pProgr='layout/Question/QuestionSearch')"/>
+										<toolbarbutton id="toolbarLabel1" label="Division" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Division/Division')"/>
+										<toolbarbutton id="toolbarLabel2" label="Department" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Departement/Departement')"/>
+										<toolbarbutton id="toolbarLabel3" label="Grade" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Grade/Grade')" />
+										<toolbarbutton id="toolbarLabel4" label="Employee" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Employee/Employee')"/>
+										<toolbarbutton id="toolbarLabel5" label="Competencies" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Competencies/Competencies')"/>
+										<toolbarbutton id="toolbarLabel6" label="Question" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Question/QuestionSearch')"/>
 									</vbox>
 								</tabpanel>
 								<tabpanel>
 									<vbox>
-										<toolbarbutton label="Report Employee" onClick="@command('addTabOne',pProgr='layout/Report/ReportEmployee')"/>
+										<toolbarbutton label="Report Employee" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Report/ReportEmployee')"/>
 									</vbox>
 								</tabpanel>
 							</tabpanels>
@@ -77,7 +77,7 @@
 			            	
 			            <tabpanels id="tabpanels">
 			            	<tabpanel>
-			            		<include src="layout/Dashboard.zul"/>
+			            		<include src="WEB-INF/views/layout/Dashboard.zul"/>
 			            	</tabpanel>
 			            </tabpanels>
 			        </tabbox>

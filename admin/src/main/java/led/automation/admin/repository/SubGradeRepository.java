@@ -27,12 +27,12 @@ public interface SubGradeRepository extends JpaRepository<SubGrade, Long> {
 	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Sub_Grade_code) like %?1 AND UPPER(Sub_Grade_NAME) like %?2", nativeQuery = true)
 	List<SubGrade> findBySubGradeCodeAndName(String SubGradeCode, String SubGradeName);
 	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Grade_code) like %?1 AND UPPER(departement_code) like %?2", nativeQuery = true)
-	List<SubGrade> findByGradeCode(String gradeCode);
-	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Sub_Grade_NAME) like %?1 AND UPPER(Grade_code) like %?2", nativeQuery = true)
-	List<SubGrade> findBySubGradeNameAndGradeCode(String SubGradeName,String gradeCode);
-	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Sub_Grade_code) like %?1 AND UPPER(Grade_code) like %?2", nativeQuery = true)
-	List<SubGrade> findBySubGradeCodeAndGradeCode(String subGradeCode,String gradeCode);
-	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Sub_Grade_code) like %?1 AND UPPER(Sub_Grade_NAME) like %?2 AND UPPER(Grade_code) like %?3", nativeQuery = true)
+	List<SubGrade> findByGradeCode(String gradeCode, String departementCode);
+	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Sub_Grade_NAME) like %?1 AND UPPER(Grade_code) like %?2 AND UPPER(departement_code) like %?3", nativeQuery = true)
+	List<SubGrade> findBySubGradeNameAndGradeCode(String SubGradeName,String gradeCode, String departementCode);
+	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Sub_Grade_code) like %?1 AND UPPER(Grade_code) like %?2 AND UPPER(departement_code) like %?3", nativeQuery = true)
+	List<SubGrade> findBySubGradeCodeAndGradeCode(String subGradeCode,String gradeCode, String departementCode);
+	@Query(value = "SELECT * FROM SubGrade WHERE UPPER(Sub_Grade_code) like %?1 AND UPPER(Sub_Grade_NAME) like %?2 AND UPPER(Grade_code) like %?3 AND UPPER(departement_code) like %?4", nativeQuery = true)
 	List<SubGrade> findBySubGradeCodeAndSubGradeNameAndGradeCode(String subGradeCode,String SubGradeName, String gradeCode, String departementCode);
 	@Query(value = "SELECT * FROM Employee WHERE Employee_CODE like %?1 AND Employee_NAME like %?2", nativeQuery = true)
 	List<String> generateSubGrade(String divisionCode, String departementCode, String gradeCode);

@@ -562,10 +562,11 @@ public class AdminServiceImpl implements AdminService {
 		subGrade.setSubGradeCode(jsonResponse.isNull("subGradeCode") ? "" : jsonResponse.getString("subGradeCode"));
 		subGrade.setSubGradeName(jsonResponse.isNull("subGradeName") ? "" : jsonResponse.getString("subGradeName"));
 		subGrade.setGradeCode(jsonResponse.isNull("gradeCode") ? "" : jsonResponse.getString("gradeCode"));
+		subGrade.setDepartementCode(jsonResponse.isNull("departementCode") ? "" : jsonResponse.getString("departementCode"));
 		subGrade.setCreatedBy(createdBy);
 		subGrade.setCreatedDate(createdDate);
 
-		return adminDAO.searchSubGradePopup(subGrade.getGradeCode(), subGrade.getSubGradeCode(), subGrade.getSubGradeName());
+		return adminDAO.searchSubGradePopup(subGrade.getDepartementCode(), subGrade.getGradeCode(), subGrade.getSubGradeCode(), subGrade.getSubGradeName());
 	}
 
 	@Override

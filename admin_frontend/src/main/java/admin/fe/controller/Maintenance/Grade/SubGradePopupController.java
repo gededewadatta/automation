@@ -82,8 +82,10 @@ public class SubGradePopupController extends CommonController {
 
         if(grade!=null&&grade.getGradeCode()!=null){
             subgrd.setGradeCode(grade.getGradeCode());
+            subgrd.setDepartementCode(grade.getDepartementCode());
         } else {
             subgrd.setGradeCode("");
+            subgrd.setDepartementCode("");
         }
 
         if(idSubGradeCode!=null||idSubGradeCode.equals("")){

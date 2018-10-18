@@ -1,6 +1,7 @@
 package admin.fe.controller.Maintenance.Competencies;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zul.Label;
 
@@ -27,7 +28,7 @@ public class CompetenciesViewController extends CommonController {
     }
 
     public void onClick$backButton(){
-        navigateTo("layout/Competencies/Competencies.zul",null,self);
+        navigateTo(Resources.competenciesHome,null,self);
     }
 
 
