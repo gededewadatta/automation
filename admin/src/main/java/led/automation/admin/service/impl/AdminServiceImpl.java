@@ -130,6 +130,7 @@ public class AdminServiceImpl implements AdminService {
 		subGrade.setSubGradeCode(gradeJson.getSubGradeCode());
 		subGrade.setSubGradeName(gradeJson.getSubGradeName());
 		subGrade.setGradeCode(gradeJson.getGradeCode());
+		subGrade.setDepartementCode(gradeJson.getDepartementCode());
 		subGrade.setCreatedBy(gradeJson.getCreatedBy());
 		subGrade.setCreatedDate(new Date());
 

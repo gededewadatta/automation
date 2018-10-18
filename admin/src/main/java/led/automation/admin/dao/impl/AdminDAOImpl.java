@@ -100,7 +100,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertSubGrade(SubGrade subGrade) {
 		// TODO Auto-generated method stub
-		int a = subGradeRepository.insertSubGrade(subGrade.getSubGradeCode().toUpperCase(),subGrade.getSubGradeName(),subGrade.getGradeCode().toUpperCase(),subGrade.getCreatedBy(),subGrade.getCreatedDate());
+		int a = subGradeRepository.insertSubGrade(subGrade.getSubGradeCode().toUpperCase(),subGrade.getSubGradeName(),subGrade.getGradeCode().toUpperCase(),subGrade.getDepartementCode(),subGrade.getCreatedBy(),subGrade.getCreatedDate());
 
 		if(a > 0){
 			subGradeRepository.updateSubGradeSeq();
