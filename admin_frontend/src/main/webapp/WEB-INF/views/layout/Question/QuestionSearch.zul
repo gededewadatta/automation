@@ -24,10 +24,11 @@
             <vbox>
                 <grid id="hGrid"  mold="paging" pageSize="4" style="margin-top:10px">
                     <columns>
-                        <column label="Question Code"  />
-                        <column label="Question Type" align="center"/>
-                        <column label="Question" sort="auto(questions)" align="center"/>
-                        <column label="Correct Answer" sort="auto(correctAnswer)" align="center"/>
+                        <column label="Departement" align="center"/>
+                        <column label="Grade" align="center"/>
+                        <column label="Competency" align="center"/>
+                        <column label="Question" align="center"/>
+                        <column label="Correct Answer" align="center"/>
                         <column label="Action"  align="center"/>
                     </columns>
                 </grid>

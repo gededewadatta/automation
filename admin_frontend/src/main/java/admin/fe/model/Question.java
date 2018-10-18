@@ -12,6 +12,7 @@ import java.util.Date;
  
 public class Question {
 
+	private Long id;
 	private String grade;
 	private String subGrade;
 	private String questions;
@@ -25,7 +26,16 @@ public class Question {
 	private String createdBy;
 	private String competency;
 	private String level;
+	private String departementCode;
 
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getGrade() {
 		return grade;
@@ -129,5 +139,13 @@ public class Question {
 
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+	public String getDepartementCode() {
+		return departementCode;
+	}
+
+	public void setDepartementCode(String departementCode) {
+		this.departementCode = departementCode;
 	}
 }

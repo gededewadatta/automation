@@ -30,6 +30,8 @@ public interface AdminService {
 
 	public String insertQuestion(String body);
 
+	public String insertQuestions(String body);
+
 	public String insertCompetency(String body);
 
 	// insert data : stop
@@ -75,6 +77,8 @@ public interface AdminService {
 	public Employee searchEmployeeByCode(String body);
 
     public List<Competency> searchCompetency(String body);
+
+	public List<Competency> searchCompetencyPopup(String body);
 
     public List<Competency> searchCompetencyByGradeCode(String gradeCode);
 

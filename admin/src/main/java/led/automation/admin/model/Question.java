@@ -49,6 +49,8 @@ public class Question {
 	private String competency;
 	@Column(name = "LEVEL")
 	private String level;
+	@Column(name = "DEPARTEMENT_CODE")
+	private String departementCode;
 	public Long getId() {
 		return id;
 	}
@@ -133,12 +135,21 @@ public class Question {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
+	public String getDepartementCode() {
+		return departementCode;
+	}
+
+	public void setDepartementCode(String departementCode) {
+		this.departementCode = departementCode;
+	}
+
 	@Override
 	public String toString() {
 		return "Question [id=" + id + ", grade=" + grade + ", subGrade=" + subGrade + ", questions=" + questions
 				+ ", answer1=" + answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4
 				+ ", answer5=" + answer5 + ", correctAnswer=" + correctAnswer + ", createdDate=" + createdDate
-				+ ", createdBy=" + createdBy + ", competency=" + competency + ", level=" + level + "]";
+				+ ", createdBy=" + createdBy + ", competency=" + competency + ", level=" + level + ", departementCode=" + departementCode +"]";
 	}
  
 	

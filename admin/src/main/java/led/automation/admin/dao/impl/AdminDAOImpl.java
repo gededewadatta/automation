@@ -439,14 +439,50 @@ public class AdminDAOImpl implements AdminDAO {
 			competency = competencyRepository.findAll();
 		}
 		else if(competencyCode.equals("")&&!competencyName.equals("")){
-			competency = competencyRepository.findByCompetencyName(competencyName);
+			competency = competencyRepository.findByCompetencyName("%"+competencyName.toUpperCase()+"%");
 		}
 		else if(!competencyCode.equals("")&& competencyName.equals("")) {
-			competency = competencyRepository.findByCompetencyCode(competencyCode);
+			competency = competencyRepository.findByCompetencyCode("%"+competencyCode.toUpperCase()+"%");
 		}else {
-			competency = competencyRepository.findByCompetencyCodeAndName(competencyCode,competencyName);
+			competency = competencyRepository.findByCompetencyCodeAndName("%"+competencyCode.toUpperCase()+"%","%"+competencyName.toUpperCase()+"%");
 		}
+		return competency;
+	}
 
+	@Override
+	public List<Competency> searchCompetencyPopup(String competencyCode, String competencyName, String departementCode, String gradeCode, String subGradeCode) {
+		// TODO Auto-generated method stub
+		List<Competency> competency = new ArrayList<>();
+		if(competencyCode.equals("")&&competencyName.equals("")
+				&&departementCode.equals("")&&gradeCode.equals("")&&subGradeCode.equals("")) {
+			competency = competencyRepository.findAll();
+		}
+		else if(competencyCode.equals("")&&!competencyName.equals("")
+				&&departementCode.equals("")&&gradeCode.equals("")&&subGradeCode.equals("")){
+			competency = competencyRepository.findByCompetencyName("%"+competencyName.toUpperCase()+"%");
+		}
+		else if(!competencyCode.equals("")&& competencyName.equals("")
+				&&departementCode.equals("")&&gradeCode.equals("")&&subGradeCode.equals("")) {
+			competency = competencyRepository.findByCompetencyCode("%"+competencyCode.toUpperCase()+"%");
+		}
+		else if(!competencyCode.equals("")&& !competencyName.equals("")
+				&&departementCode.equals("")&&gradeCode.equals("")&&subGradeCode.equals("")) {
+			competency = competencyRepository.findByCompetencyCodeAndName("%"+competencyCode.toUpperCase()+"%","%"+competencyName.toUpperCase()+"%");
+		}
+		else if(competencyCode.equals("")&& competencyName.equals("")
+				&&!departementCode.equals("")&&!gradeCode.equals("")&&!subGradeCode.equals("")) {
+			competency = competencyRepository.findByDepartementCodeGradeCodeSubGradeCode("%"+departementCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+subGradeCode.toUpperCase()+"%");
+		}
+		else if(competencyCode.equals("")&& !competencyName.equals("")
+				&&!departementCode.equals("")&&!gradeCode.equals("")&&!subGradeCode.equals("")) {
+			competency = competencyRepository.findByCompetencyNameDepartementCodeGradeCodeSubGradeCode("%"+competencyName.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+subGradeCode.toUpperCase()+"%");
+		}
+		else if(!competencyCode.equals("")&& competencyName.equals("")
+				&&!departementCode.equals("")&&!gradeCode.equals("")&&!subGradeCode.equals("")) {
+			competency = competencyRepository.findByCompetenencyCodeDepartementCodeGradeCodeSubGradeCode("%"+competencyCode.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+subGradeCode.toUpperCase()+"%");
+		}else {
+			competency = competencyRepository.findByAllParams("%"+competencyCode.toUpperCase()+"%","%"+competencyName.toUpperCase()+"%","%"+departementCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+subGradeCode.toUpperCase()+"%");
+		}
 		return competency;
 	}
 

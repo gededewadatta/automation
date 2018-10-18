@@ -18,12 +18,20 @@ import led.automation.admin.model.Competency;
  *
  */
 public interface CompetencyRepository extends JpaRepository<Competency, Long>{
-	@Query(value = "SELECT * FROM COMPETENCY WHERE COMPETENCY_NAME like %?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_NAME) like %?1", nativeQuery = true)
 	List<Competency> findByCompetencyName(String competencyName);
-	@Query(value = "SELECT * FROM COMPETENCY WHERE COMPETENCY_CODE like %?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_CODE) like %?1", nativeQuery = true)
 	List<Competency> findByCompetencyCode(String competencyCode);
-	@Query(value = "SELECT * FROM COMPETENCY WHERE COMPETENCY_CODE like %?1 AND COMPETENCY_NAME like %?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_CODE) like %?1 AND UPPER(COMPETENCY_NAME) like %?2", nativeQuery = true)
 	List<Competency> findByCompetencyCodeAndName(String competencyCode, String competencyName);
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(DEPARTEMENT_CODE) like %?1 AND UPPER(GRADE_CODE) like %?2 AND UPPER(SUB_GRADE_CODE) like %?3", nativeQuery = true)
+	List<Competency> findByDepartementCodeGradeCodeSubGradeCode(String departementCode, String gradeCode, String subGradeCode);
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_NAME) like %?1 AND UPPER(DEPARTEMENT_CODE) like %?2 AND UPPER(GRADE_CODE) like %?3 AND UPPER(SUB_GRADE_CODE) like %?4", nativeQuery = true)
+	List<Competency> findByCompetencyNameDepartementCodeGradeCodeSubGradeCode(String competencyName, String departementCode, String gradeCode, String subGradeCode);
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_CODE) like %?1 AND UPPER(DEPARTEMENT_CODE) like %?2 AND UPPER(GRADE_CODE) like %?3 AND UPPER(SUB_GRADE_CODE) like %?4", nativeQuery = true)
+	List<Competency> findByCompetenencyCodeDepartementCodeGradeCodeSubGradeCode(String competencyCode, String departementCode, String gradeCode, String subGradeCode);
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_CODE) like %?1 AND UPPER(COMPETENCY_NAME) like %?2 AND UPPER(DEPARTEMENT_CODE) like %?3 AND UPPER(GRADE_CODE) like %?4 AND UPPER(SUB_GRADE_CODE) like %?5", nativeQuery = true)
+	List<Competency> findByAllParams(String competencyCode, String competencyName, String departementCode, String gradeCode, String subGradeCode);
 	@Query(value = "SELECT dept.departement_name,g.grade_name,sub.SUB_GRADE_NAME,com.competency_name"
 			+ " FROM Competency com join Departement dept on com.departement_code = dept.departement_code"
 			+ "join Grade g on com.grade_code = g.grade_code"

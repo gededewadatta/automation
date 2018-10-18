@@ -38,6 +38,8 @@ public class ProxyController {
 	protected String subgradeUrlInsert;
 	@Value("${led.automation.admin.insert.question}")
 	protected String questionUrlInsert;
+	@Value("${led.automation.admin.insert.questions}")
+	protected String questionsUrlInsert;
 	@Value("${led.automation.admin.insert.departement}")
 	protected String departementUrlInsert;
 	@Value("${led.automation.admin.insert.division}")
@@ -70,6 +72,8 @@ public class ProxyController {
 	protected String divisionUrlSearch;
 	@Value("${led.automation.admin.search.competency}")
 	protected String competencyUrlSearch;
+	@Value("${led.automation.admin.search.competencypopup}")
+	protected String competencyPopupUrlSearch;
     @Value("${led.automation.admin.search.competencyByGradeCode}")
     protected String competencyByGradeCodeUrlSearch;
 	@Value("${led.automation.admin.search.gradeJson}")
@@ -376,6 +380,14 @@ public class ProxyController {
 
 	}
 
+	@RequestMapping(value = "/led/api/automation/insert/questions", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String questionsInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+								 HttpServletResponse response) throws URISyntaxException {
+		return proxy(questionsUrlInsert, body, method, request, response);
+
+	}
+
 	@RequestMapping(value = "/led/api/automation/insert/departement", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String departementInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
@@ -562,6 +574,14 @@ public class ProxyController {
 	public String competencySearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		return proxy(competencyUrlSearch, body, method, request, response);
+
+	}
+
+	@RequestMapping(value = "/led/api/automation/search/competencypopup", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String competencyPopupSearch(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+								   HttpServletResponse response) throws URISyntaxException {
+		return proxy(competencyPopupUrlSearch, body, method, request, response);
 
 	}
 

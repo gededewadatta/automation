@@ -83,6 +83,13 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.insertQuestion(body));
 	}
 
+	@RequestMapping(value = "/led/api/automation/insert/questions", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public  ResponseEntity<String> insertQuestions(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+												  HttpServletResponse response) throws URISyntaxException {
+		return ResponseEntity.ok(adminService.insertQuestions(body));
+	}
+
 	@RequestMapping(value = "/led/api/automation/insert/competency", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public  ResponseEntity<String> insertCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
@@ -255,6 +262,13 @@ public class AdminController {
 	public List<Competency> searchCompetency(@RequestBody String body, HttpMethod method, HttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
 		List<Competency> competency = adminService.searchCompetency(body);
+		return competency;
+	}
+	@RequestMapping(value = "/led/api/automation/search/competencypopup", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Competency> searchCompetencyPopup(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+											 HttpServletResponse response) throws URISyntaxException {
+		List<Competency> competency = adminService.searchCompetencyPopup(body);
 		return competency;
 	}
 

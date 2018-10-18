@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.*;
 import org.zkoss.zul.Window;
@@ -18,57 +20,36 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class QuestionController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerDivisionInterface,
+public class QuestionController extends CommonController implements PopupCallerDepartmentInterface,
         PopupCallerGradeInterface,PopupCallerSubGradeInterface,PopupCallerCompetencyInterface {
 
     Textbox idDivision;
-
     Textbox idDepartment;
-
     Textbox idGrade;
-
     Textbox idSubGrade;
-
     Textbox idCompetencyCode;
-
-    Textbox idCompetencyName;
-
+    Textbox idLevel;
     Textbox idQuestion;
-
     Textbox idValidAns;
-
     Textbox idTextAnswer;
 
     int i=0;
 
     Vbox boxAnswer;
-
     Row btnAnswer;
-
     Row textAnswer;
-
     Listbox idQuestionType;
-
-    Division div = new Division();
-
     Departement dep = new Departement();
-
     Grade grd = new Grade();
-
     SubGrade subGrd = new SubGrade();
-
-    Competency competency = new Competency();
-
+    Competency competence = new Competency();
     List<Textbox> textboxList= new ArrayList<>();
-
     Question quest = new Question();
-
-    SendJSON send = new SendJSON();
-
-
 
     @Value("${led.question.insert}")
     protected String questionInsert;
+
+    EventListener event = null;
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -105,42 +86,82 @@ public class QuestionController extends CommonController implements PopupCallerD
         idGrade.setValue("");
         idSubGrade.setValue("");
         idCompetencyCode.setValue("");
-        idCompetencyName.setValue("");
+        idLevel.setValue("");
         idQuestion.setValue("");
         idValidAns.setValue("");
     }
 
     public void onClick$submitButton(){
+        SendJSON send = new SendJSON();
+
         System.out.println("Ini Fucking Submit");
 
-        quest.setGrade(idGrade.getValue());
-        quest.setSubGrade(idSubGrade.getValue());
+        if(dep.getDepartementCode().equals("")||dep.getDepartementCode()==null){
+            quest.setDepartementCode("");
+        }else {
+            quest.setDepartementCode(dep.getDepartementCode());
+        }
+        if(grd.getGradeCode().equals("")||grd.getGradeCode()==null){
+            quest.setGrade("");
+        }else {
+            quest.setGrade(grd.getGradeCode());
+        }
+        if(subGrd.getSubGradeCode().equals("")||subGrd.getSubGradeCode()==null){
+            quest.setSubGrade("");
+        }else {
+            quest.setSubGrade(subGrd.getSubGradeCode());
+        }
+        if(competence.getCompetencyCode().equals("")||competence.getCompetencyCode()==null){
+            quest.setCompetency("");
+        }else {
+            quest.setCompetency(competence.getCompetencyCode());
+        }
+        if(idLevel.getValue().equals("")||idLevel.getValue()==null){
+            quest.setLevel("");
+        }else {
+            quest.setLevel(idLevel.getValue());
+        }
         quest.setCreatedBy("Burhan");
         quest.setCreatedDate(new Date());
         quest.setQuestions(idQuestion.getValue());
-        quest.setCompetency(idCompetencyName.getValue());
         quest.setCorrectAnswer(idValidAns.getValue());
         setAnswer();
-        try {
-            String result = send.insertQuestion(quest);
-            clearAnswer();
-            textboxList.clear();
-            idTextAnswer.setValue("");
-            clearObject();
-            if(result.equals("200")){
-                Messagebox.show("Data Already Saved");
-            }else{
-                Messagebox.show("Data Failed To save");
-            }
 
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        Messagebox.show("Are you sure want to save?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new org.zkoss.zk.ui.event.EventListener() {
+            public void onEvent(org.zkoss.zk.ui.event.Event evt) throws InterruptedException {
+                if (evt.getName().equals("onYes")) {
+                    try {
+                        String result = send.insertQuestion(quest);
+                        clearAnswer();
+                        textboxList.clear();
+                        idTextAnswer.setValue("");
+                        clearObject();
+
+                        if(result.equals("200")){
+                            Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new org.zkoss.zk.ui.event.EventListener() {
+                                public void onEvent(Event evt) throws InterruptedException {
+                                    navigateTo("layout/Question/QuestionSearch.zul",null,self);
+                                }
+                            });
+                        }else if(result.equals("Failure")){
+                            Messagebox.show("Data Already exists");
+
+                        }else{
+                            Messagebox.show("Data Failed To save");
+                        }
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     public void onClick$btnCompetencyCode(){
         Map<String, Object> args = new HashMap<String, Object>();
         Competency competency = new Competency();
+        args.put("grade",grd);
+        args.put("subgrade",subGrd);
         args.put("object", competency);
         args.put("caller", this);
         Component c = Executions.createComponents(
@@ -155,11 +176,9 @@ public class QuestionController extends CommonController implements PopupCallerD
     }
 
     public void onClick$btnDepartment(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Departement departement = new Departement();
         args.put("object", departement);
-        args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(
                 "layout/Departement/DeptPopup.zul", self, args);
@@ -170,33 +189,13 @@ public class QuestionController extends CommonController implements PopupCallerD
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
-    }
-    public void onClick$btnDivision(){
-
-        Map<String, Object> args = new HashMap<String, Object>();
-        Division div = new Division();
-        args.put("object", div);
-        args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Division/DivisionPopup.zul", self, args);
-        try {
-            onModalToTop((Window) c);
-        } catch (SuspendNotAllowedException e1) {
-            Messagebox.show(e1.getMessage());
-        } catch (InterruptedException e1) {
-            Messagebox.show(e1.getMessage());
-        }
-
     }
 
     public void onClick$btnGrade(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Grade grade = new Grade();
-        grade.setDepartementCode(idDepartment.getValue());
-        grade.setDivisionCode(idDivision.getValue());
-        args.put("objectGrade", grade);
+        args.put("object", grade);
+        args.put("departement", dep);
         args.put("caller", this);
         Component c = Executions.createComponents(
                 "layout/Grade/GradePopup.zul", self, args);
@@ -207,14 +206,12 @@ public class QuestionController extends CommonController implements PopupCallerD
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
     public void onClick$btnSubGrade(){
-
         Map<String, Object> args = new HashMap<String, Object>();
-        SubGrade div = new SubGrade();
-        div.setSubGradeCode(idGrade.getValue());
-        args.put("object", div);
+        SubGrade subGrd = new SubGrade();
+        args.put("grade",grd);
+        args.put("object", subGrd);
         args.put("caller", this);
         Component c = Executions.createComponents(
                 "layout/Grade/SubGradePopup.zul", self, args);
@@ -225,25 +222,14 @@ public class QuestionController extends CommonController implements PopupCallerD
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
 
-
-    @Override
-    public void afterSelectDivision(Division division) {
-
-        if(division != null){
-            div = division;
-            idDivision.setValue(division.getDivisionCode());
-        }
-
-    }
 
     @Override
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
-            idDepartment.setValue(departement.getDepartementCode());
+            idDepartment.setValue(departement.getDepartementName());
         }
     }
 
@@ -251,29 +237,24 @@ public class QuestionController extends CommonController implements PopupCallerD
     public void afterSelectGrade(Grade grade) {
         if(grade != null){
             grd = grade;
-            idGrade.setValue(grd.getGradeCode());
+            idGrade.setValue(grd.getGradeName());
         }
-
     }
 
     @Override
     public void afterSelectSubGrade(SubGrade subGrade) {
-
         if(subGrade != null){
             subGrd = subGrade;
-            idSubGrade.setValue(subGrd.getSubGradeCode());
+            idSubGrade.setValue(subGrd.getSubGradeName());
         }
     }
 
     @Override
     public void afterSelectCompetencies(Competency competency) {
-
         if(competency != null){
-            this.competency = competency;
-            idCompetencyCode.setValue(this.competency.getCompetencyCode());
-            idCompetencyName.setValue(this.competency.getCompetencyName());
+            competence = competency;
+            idCompetencyCode.setValue(competence.getCompetencyName());
         }
-
     }
 
     public void onSelect$idQuestionType(){
@@ -288,12 +269,10 @@ public class QuestionController extends CommonController implements PopupCallerD
             btnAnswer.setVisible(true);
             boxAnswer.setVisible(true);
         }
-
     }
 
 
     public void onClick$add(){
-
         Textbox textBoxAnswer = new Textbox();
         String value = idQuestionType.getSelectedItem().getValue();
         if(value.equals("0")){
@@ -321,8 +300,6 @@ public class QuestionController extends CommonController implements PopupCallerD
                 System.out.println("count textBox add = "+i);
             }
         }
-
-
         textboxList.add(textBoxAnswer);
 
     }
@@ -341,13 +318,11 @@ public class QuestionController extends CommonController implements PopupCallerD
     }
 
     public void clearObject(){
-
         quest.setAnswer1("");
         quest.setAnswer2("");
         quest.setAnswer3("");
         quest.setAnswer4("");
         quest.setAnswer5("");
-
     }
 
 

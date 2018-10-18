@@ -172,6 +172,19 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public String insertQuestions(String body) {
+		// TODO Auto-generated method stub
+
+		try {
+			question = objectMapper.readValue(body, Question.class);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.insertQuestion(question) == 0 ? "Failure" : "Success";
+	}
+
+	@Override
 	public String insertDivision(String body) {
 		// TODO Auto-generated method stub
 		try {
@@ -442,6 +455,18 @@ public class AdminServiceImpl implements AdminService {
 			e.printStackTrace();
 		}
 		return adminDAO.searchCompetency(competency.getCompetencyCode(),competency.getCompetencyName());
+	}
+
+	@Override
+	public List<Competency> searchCompetencyPopup(String body) {
+		// TODO Auto-generated method stub
+		Competency competency = new Competency();
+		try {
+			competency = objectMapper.readValue(body, Competency.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return adminDAO.searchCompetencyPopup(competency.getCompetencyCode(),competency.getCompetencyName(),competency.getDepartementCode(),competency.getGradeCode(),competency.getSubGradeCode());
 	}
 
 	@Override

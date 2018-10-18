@@ -7,19 +7,6 @@
             <grid>
                 <rows id="rowsParent">
                     <row>
-                        <label value = "Division:" />
-                        <hbox>
-                            <hlayout>
-                                <textbox id="idDivision"  />
-                            </hlayout>
-                            <div>
-                                <button id="btnDivision"/>
-                            </div>
-                        </hbox>
-
-
-                    </row>
-                    <row>
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
@@ -68,10 +55,10 @@
                         </hbox>
                     </row>
                     <row>
-                        <label value = "Competencies Name" />
+                        <label value = "Level" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idCompetencyName" />
+                                <textbox id="idLevel" />
                             </hlayout>
                         </hbox>
                     </row>

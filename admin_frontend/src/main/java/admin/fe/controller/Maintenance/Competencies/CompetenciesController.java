@@ -129,6 +129,7 @@ public class CompetenciesController extends CommonController implements PopupCal
         args.put("competencyName",obj.getCompetencyName());
         args.put("gradeCode",obj.getGradeCode());
         args.put("departmentCode",obj.getDepartementCode());
+        args.put("competencyCode",obj.getCompetencyCode());
         return args;
     }
 

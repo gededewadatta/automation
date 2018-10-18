@@ -63,6 +63,8 @@ public interface AdminDAO {
 
 	public List<Competency> searchCompetency(String competencyCode, String competencyName);
 
+	public List<Competency> searchCompetencyPopup(String competencyCode, String competencyName, String departementCode, String gradeCode, String subGradeCode);
+
 	public List<Competency> searchCompetencyByGradeCode(String gradeCode);
 
 	public List<Division> searchDivision(String divisionCode, String divisionName);
