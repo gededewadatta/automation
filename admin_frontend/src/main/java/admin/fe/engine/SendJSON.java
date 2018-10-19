@@ -312,6 +312,34 @@ public class SendJSON {
 
     }
 
+    public List<Competency> getCompetencyPopup(Competency comp){
+
+        List<Competency> competencies = new ArrayList<>();
+        try {
+
+            for (int i = 0; i < getData(mapper.writeValueAsString(comp),Resources.proxyHost+"led/api/automation/search/competencypopup").length(); i++) {
+                Competency competency = new Competency();
+                JSONObject jsonObjVal = getData(mapper.writeValueAsString(comp),Resources.proxyHost+"led/api/automation/search/competencypopup").getJSONObject(i);
+                System.out.println("Json Object Adalah :"+jsonObjVal);
+
+                competency.setId(String.valueOf(jsonObjVal.getLong("id")));
+                competency.setDepartementCode(jsonObjVal.getString("departementCode"));
+                competency.setGradeCode(jsonObjVal.getString("gradeCode"));
+                competency.setCompetencyName(jsonObjVal.getString("competencyName"));
+                competency.setCompetencyCode(jsonObjVal.getString("competencyCode"));
+                competency.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                competencies.add(competency);
+
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return competencies;
+
+    }
+
     public List<Competency> getCompetencyByGradeCode(Competency comp){
 
         List<Competency> competencies = new ArrayList<>();
