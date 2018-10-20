@@ -59,15 +59,10 @@ public class QuestionController extends CommonController {
             copyToTemp(med);
         }
 
-
         modelList = new ListModelList(questions);
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
-
-
-
-
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -119,9 +114,11 @@ public class QuestionController extends CommonController {
                 //Extract Data : start
                 int rowCount = 0;
                 for(int i = 0; i < sheet.getLastRowNum(); i++){
-                    row = sheet.getRow(rowCount);
-                    for(int j = 0; j < lastColNum; j++){
-                        tempArray[i][j] = row.getCell(j);
+                    if(sheet.getRow(rowCount)!=null){
+                        row = sheet.getRow(rowCount);
+                        for(int j = 0; j < lastColNum; j++){
+                            tempArray[i][j] = row.getCell(j);
+                        }
                     }
                     rowCount++;
                 }
@@ -134,117 +131,118 @@ public class QuestionController extends CommonController {
                     question = new Question();
                     for(int b = 0; b < tempArray[0].length; b++){
                         if(a != 0){
-                            if(tempArray[0][b].getStringCellValue().equals("question")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setQuestions(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                            if(sheet.getRow(a)!=null){
+                                if(tempArray[0][b].getStringCellValue().equals("question")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setQuestions(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("answer1")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setAnswer1(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("answer1")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setAnswer1(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("answer2")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setAnswer2(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("answer2")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setAnswer2(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("answer3")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setAnswer3(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("answer3")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setAnswer3(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("answer4")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setAnswer4(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("answer4")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setAnswer4(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("answer5")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setAnswer5(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("answer5")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setAnswer5(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().contains("correct_answer")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setCorrectAnswer(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().contains("correct_answer")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setCorrectAnswer(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("competency")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setCompetency(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("competency")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setCompetency(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("grade")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setGrade(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("grade")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setGrade(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("sub_grade")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setSubGrade(String.valueOf(val));
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("sub_grade")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setSubGrade(String.valueOf(val));
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("level")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setLevel(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("level")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setLevel(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("questioncode")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setQuestionCode(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
-                            }else if(tempArray[0][b].getStringCellValue().equals("departmentcode")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setDepartementCode(val);
-                                }else{
-                                    isEmpty.add(question);
-                                }
-                            }else if(tempArray[0][b].getStringCellValue().equals("questiontype")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    question.setQuestionType(val);
-                                }else{
-                                    isEmpty.add(question);
+                                }else if(tempArray[0][b].getStringCellValue().equals("questioncode")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setQuestionCode(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
+                                }else if(tempArray[0][b].getStringCellValue().equals("departmentcode")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setDepartementCode(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
+                                }else if(tempArray[0][b].getStringCellValue().equals("questiontype")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        question.setQuestionType(val);
+                                    }else{
+                                        isEmpty.add(question);
+                                    }
                                 }
                             }
-
                         }
                     }
 
