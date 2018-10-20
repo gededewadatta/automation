@@ -60,6 +60,7 @@
 								<tabpanel>
 									<vbox>
 										<toolbarbutton label="Report Employee" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Report/ReportEmployee')"/>
+										<toolbarbutton label="Report Employee" onClick="@command('addTabOne',pProgr='WEB-INF/views/layout/Report/ReportEmployee')"/>
 									</vbox>
 								</tabpanel>
 							</tabpanels>

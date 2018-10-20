@@ -24,6 +24,12 @@ public interface CompetencyRepository extends JpaRepository<Competency, Long>{
 	List<Competency> findByCompetencyCode(String competencyCode);
 	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_CODE) like %?1 AND UPPER(COMPETENCY_NAME) like %?2", nativeQuery = true)
 	List<Competency> findByCompetencyCodeAndName(String competencyCode, String competencyName);
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(DEPARTEMENT_CODE) like %?1", nativeQuery = true)
+	List<Competency> findByDepartementCode(String departementCode);
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(GRADE_CODE) like %?1", nativeQuery = true)
+	List<Competency> findByGradeCode(String gradeCode);
+	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(SUB_GRADE_CODE) like %?1", nativeQuery = true)
+	List<Competency> findBySubGradeCode(String subGradeCode);
 	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(DEPARTEMENT_CODE) like %?1 AND UPPER(GRADE_CODE) like %?2 AND UPPER(SUB_GRADE_CODE) like %?3", nativeQuery = true)
 	List<Competency> findByDepartementCodeGradeCodeSubGradeCode(String departementCode, String gradeCode, String subGradeCode);
 	@Query(value = "SELECT * FROM COMPETENCY WHERE UPPER(COMPETENCY_NAME) like %?1 AND UPPER(DEPARTEMENT_CODE) like %?2 AND UPPER(GRADE_CODE) like %?3 AND UPPER(SUB_GRADE_CODE) like %?4", nativeQuery = true)

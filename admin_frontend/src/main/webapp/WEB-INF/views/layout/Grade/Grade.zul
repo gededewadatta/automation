@@ -10,7 +10,7 @@
                         <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" />
+                                <textbox id="idDivision" disabled="true"/>
                             </hlayout>
                             <div>
                                 <button id="btnDivision"/>
@@ -23,7 +23,7 @@
                         <label value = "Department Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartement" />
+                                <textbox id="idDepartement" disabled="true"/>
                             </hlayout>
                             <div>
                                 <button id="btnDepartment"/>

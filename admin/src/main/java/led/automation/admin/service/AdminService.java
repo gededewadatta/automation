@@ -80,7 +80,7 @@ public interface AdminService {
 
 	public List<Competency> searchCompetencyPopup(String body);
 
-    public List<Competency> searchCompetencyByGradeCode(String gradeCode);
+    public List<Competency> searchCompetencyByGradeCode(String body);
 
 	public List<Report> searchReportEmployee(String body);
 

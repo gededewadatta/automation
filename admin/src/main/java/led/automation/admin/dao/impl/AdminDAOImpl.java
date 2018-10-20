@@ -67,6 +67,9 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertEmployee(Employee body) {
 		// TODO Auto-generated method stub
+		if(body.getUserName()==null||body.getUserName().equals("")){
+			body.setUserName("");
+		}
 
 		int result = employeeRepository.insertEmployee(body.getCreatedBy(),new Date(),body.getDepartementCode(),body.getDivisionCode()
 				,body.getEmployeeCode().toUpperCase(),body.getEmployeeName(),body.getGradeCode(),body.getSubGradeCode(),body.getUserName());
@@ -486,10 +489,20 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<Competency> searchCompetencyByGradeCode(String gradeCode) {
+	public List<Competency> searchCompetencyByGradeCode(String gradeCode, String subGradeCode, String departementCode) {
 		// TODO Auto-generated method stub
 		List<Competency> competency = new ArrayList<>();
-		competency = competencyRepository.findAll();
+		if(departementCode.equals("")&&gradeCode.equals("")&&subGradeCode.equals("")){
+			competency = competencyRepository.findAll();
+		}else if(!departementCode.equals("")&&gradeCode.equals("")&&subGradeCode.equals("")){
+			competency = competencyRepository.findByDepartementCode("%"+departementCode.toUpperCase()+"%");
+		}else if(departementCode.equals("")&&!gradeCode.equals("")&&subGradeCode.equals("")){
+			competency = competencyRepository.findByGradeCode("%"+gradeCode.toUpperCase()+"%");
+		}else if(departementCode.equals("")&&gradeCode.equals("")&&!subGradeCode.equals("")){
+			competency = competencyRepository.findBySubGradeCode("%"+subGradeCode.toUpperCase()+"%");
+		}else {
+			competency = competencyRepository.findByDepartementCodeGradeCodeSubGradeCode("%"+departementCode.toUpperCase()+"%","%"+gradeCode.toUpperCase()+"%","%"+subGradeCode.toUpperCase()+"%");
+		}
 
 		return competency;
 	}

@@ -1,7 +1,7 @@
 <zk>
 
     <window width="auto" border="none"
-            apply="admin.fe.controller.Maintenance.Competencies.CompetenciesEditController">
+            apply="admin.fe.controller.Maintenance.Competencies.CompetenciesViewEditController">
 
             <div>
                 <grid>
@@ -11,13 +11,11 @@
                             <hbox>
                                 <hlayout>
                                     <textbox id="idDepartment" disabled="true" />
+                                    <label id="idDepartmentView"  />
                                 </hlayout>
                                 <div>
                                     <button id="btnDepartement"/>
                                 </div>
-                                <hlayout>
-                                    <textbox id="idCompetenciesId"  visible="false" />
-                                </hlayout>
                             </hbox>
                         </row>
                         <row>
@@ -25,6 +23,7 @@
                             <hbox>
                                 <hlayout>
                                     <textbox id="idGrade" disabled="true" />
+                                    <label id="idGradeView"  />
                                 </hlayout>
                                 <div>
                                     <button id="btnGrade"/>
@@ -39,6 +38,7 @@
                             <hbox>
                                 <hlayout>
                                     <textbox id="idSubGrade" disabled="true" />
+                                    <label id="idSubGradeView"  />
                                 </hlayout>
                                 <div>
                                     <button id="btnSubGrade"/>
@@ -52,6 +52,7 @@
                             <hbox>
                                 <hlayout>
                                     <textbox id="idCompetencies"  />
+                                    <label id="idCompetenciesView"  />
                                 </hlayout>
                             </hbox>
 
@@ -61,6 +62,7 @@
                             <hbox>
                                 <hlayout>
                                     <textbox id="idCompetenciesName"  />
+                                    <label id="idCompetenciesNameView"  />
                                 </hlayout>
                             </hbox>
 
@@ -72,7 +74,7 @@
 
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
-                <button id="cancelButton" label="Cancel" style="float::right"/>
+                <button id="backButton" style="float::right"/>
 
             </div>
 

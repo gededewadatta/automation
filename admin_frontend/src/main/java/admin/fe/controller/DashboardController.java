@@ -1,6 +1,7 @@
 package admin.fe.controller;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Dashboard;
@@ -42,7 +43,6 @@ public class DashboardController extends CommonController {
 
     String filename = "DashboardResults";
     String filenameprint = null;
-    String destination = "Apps/Report";
     String pattern = "ddMMyyyy_HHmmss";
     SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
     Date date = new Date();
@@ -83,9 +83,9 @@ public class DashboardController extends CommonController {
                     filenameprint = null;
                     filenameprint = filename+"_"+dateFormat.format(date)+".pdf";
 
-                    if(FileUtil.generatePDFFile("/"+destination+"/"+filenameprint,ddbLIst)){
+                    if(FileUtil.generatePDFFile("/"+Resources.destinationDownload +"/"+filenameprint,ddbLIst)){
                         try {
-                            File file = new File("/"+destination+"/"+filenameprint);
+                            File file = new File("/"+Resources.destinationDownload+"/"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
                             Filedownload.save(inStream, "application/pdf", filenameprint);
                         } catch (IOException e){
@@ -103,10 +103,10 @@ public class DashboardController extends CommonController {
                     filenameprint = null;
                     filenameprint = filename+"_"+dateFormat.format(date)+".xls";
 
-                    if(FileUtil.GenerateXLSFile(0,"/"+destination+"/"+filenameprint,1,FileUtil.generateHeader(),1,
+                    if(FileUtil.GenerateXLSFile(0,"/"+Resources.destinationDownload+"/"+filenameprint,1,FileUtil.generateHeader(),1,
                             ddbLIst,1,"Dashboard Report")){
                         try {
-                            File file = new File("/"+destination+"/"+filenameprint);
+                            File file = new File("/"+Resources.destinationDownload+"/"+filenameprint);
                             FileInputStream inStream = new FileInputStream(file);
                             Filedownload.save(inStream, "application/ms-excel", filenameprint);
                         } catch (IOException e){
@@ -143,15 +143,15 @@ public class DashboardController extends CommonController {
     }
 
     public void createDirDestination(){
-        String[] listdestinations = destination.split("/");
+        String[] listdestinations = Resources.destinationDownload.split("/");
         String destinationCreate = "";
         for (String destinations: listdestinations){
             destinationCreate = destinationCreate+"/"+destinations;
             File file = new File(destinationCreate);
-            System.out.println("Destination : "+destination);
+            System.out.println("Destination : "+Resources.destinationDownload);
             if(!file.exists()){
                 if(file.mkdir()){
-                    System.out.println(destination+" Destination directory successfull created");
+                    System.out.println(Resources.destinationDownload+" Destination directory successfull created");
                 } else{
                     System.out.println("Failed created destination directory");
                 }

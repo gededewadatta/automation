@@ -355,6 +355,7 @@ public class SendJSON {
                 competency.setCompetencyName(jsonObjVal.getString("competencyName"));
                 competency.setCompetencyCode(jsonObjVal.getString("competencyCode"));
                 competency.setSubGradeCode(jsonObjVal.getString("subGradeCode"));
+                competency.setCreatedBy(jsonObjVal.getString("createdBy"));
                 competencies.add(competency);
             }
 

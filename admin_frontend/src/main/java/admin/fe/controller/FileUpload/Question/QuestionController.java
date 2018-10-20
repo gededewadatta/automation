@@ -1,6 +1,7 @@
 package admin.fe.controller.FileUpload.Question;
 
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Employee;
@@ -33,11 +34,7 @@ public class QuestionController extends CommonController {
     int result = 0;
 
     List<Question> questions = new ArrayList<>();
-
     List<Question> isEmpty = new ArrayList<>();
-
-    String destination = "Apps/Upload";
-
     Button btnSubmit;
 
     public void doAfterCompose(Component comp) throws Exception {
@@ -98,7 +95,7 @@ public class QuestionController extends CommonController {
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
-        String path = "/Apps/Upload/QuestionTemp"+dateString+".xls";
+        String path = Resources.destinationUpload+"/QuestionTemp"+dateString+".xls";
         Question question;
         try{
 
@@ -200,7 +197,7 @@ public class QuestionController extends CommonController {
 
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
-        String pathTemp = "/Apps/Upload/QuestionTemp"+dateString+".xls";
+        String pathTemp = Resources.destinationUpload+"/QuestionTemp"+dateString+".xls";
         File f = new File(pathTemp);
 
         InputStream stream = media.getStreamData();
@@ -302,15 +299,15 @@ public class QuestionController extends CommonController {
     }
 
     public void createDirDestination(){
-        String[] listdestinations = destination.split("/");
+        String[] listdestinations = Resources.destinationUpload.split("/");
         String destinationCreate = "";
         for (String destinations: listdestinations){
             destinationCreate = destinationCreate+"/"+destinations;
             File file = new File(destinationCreate);
-            System.out.println("Destination : "+destination);
+            System.out.println("Destination : "+Resources.destinationUpload);
             if(!file.exists()){
                 if(file.mkdir()){
-                    System.out.println(destination+" Destination directory successfull created");
+                    System.out.println(Resources.destinationUpload+" Destination directory successfull created");
                 } else{
                     System.out.println("Failed created destination directory");
                 }

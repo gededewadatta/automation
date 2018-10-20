@@ -35,8 +35,7 @@ public class Resources {
     public static String competenciesHome = getWebApplicationProperties("competencies.home");
     public static String competenciesDetail = getWebApplicationProperties("competencies.detail");
     public static String competenciesDetailList = getWebApplicationProperties("competencies.detail.list");
-    public static String competenciesEdit = getWebApplicationProperties("competencies.edit");
-    public static String competenciesView = getWebApplicationProperties("competencies.view");
+    public static String competenciesViewEdit = getWebApplicationProperties("competencies.view.edit");
     public static String competenciesPopup = getWebApplicationProperties("competencies.popup");
     //Competencies stop :
 
@@ -80,6 +79,9 @@ public class Resources {
     //Grade stop :
 
     public static String proxyHost = getWebApplicationProperties("proxy.host");
+
+    public static String destinationDownload = getWebApplicationProperties("path.download");
+    public static String destinationUpload = getWebApplicationProperties("path.upload");
 
 
 

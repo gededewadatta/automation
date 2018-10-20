@@ -41,9 +41,9 @@
             </grid>
             <div align="right" style="margin-top:30px">
 
-                <button id="backButton" style="float::right"/>
                 <button id="submitButton" label="Submit" style="float::right"/>
                 <button id="clearButton" label="Clear" style="float::right"/>
+                <button id="backButton" style="float::right"/>
 
             </div>
 

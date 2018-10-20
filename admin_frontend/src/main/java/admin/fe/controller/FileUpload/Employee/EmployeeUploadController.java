@@ -129,9 +129,11 @@ public class EmployeeUploadController extends CommonController {
                 //Extract Data : start
                 int rowCount = 0;
                 for(int i = 0; i < sheet.getLastRowNum(); i++){
-                    row = sheet.getRow(rowCount);
-                    for(int j = 0; j < lastColNum; j++){
-                        tempArray[i][j] = row.getCell(j);
+                    if(sheet.getRow(rowCount)!=null){
+                        row = sheet.getRow(rowCount);
+                        for(int j = 0; j < lastColNum; j++){
+                            tempArray[i][j] = row.getCell(j);
+                        }
                     }
                     rowCount++;
                 }
@@ -144,70 +146,71 @@ public class EmployeeUploadController extends CommonController {
                     employee = new Employee();
                     for(int b = 0; b < tempArray[0].length; b++){
                         if(a != 0){
-                            if(tempArray[0][b].getStringCellValue().equals("DEPARTEMENT_CODE")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("") || val != null){
-                                    employee.setDepartementCode(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
-                            }else if(tempArray[0][b].getStringCellValue().equals("GRADE_CODE")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("")|| val != null) {
-                                    employee.setGradeCode(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
-                            }else if(tempArray[0][b].getStringCellValue().equals("DIVISION_CODE")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("")|| val != null){
-                                    employee.setDivisionCode(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
+                            if(sheet.getRow(a)!=null){
+                                if(tempArray[0][b].getStringCellValue().equals("DEPARTEMENT_CODE")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("") || val != null){
+                                        employee.setDepartementCode(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
+                                }else if(tempArray[0][b].getStringCellValue().equals("GRADE_CODE")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("")|| val != null) {
+                                        employee.setGradeCode(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
+                                }else if(tempArray[0][b].getStringCellValue().equals("DIVISION_CODE")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("")|| val != null){
+                                        employee.setDivisionCode(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("SUB_GRADE_CODE")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("")|| val != null){
-                                    employee.setSubGradeCode(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("SUB_GRADE_CODE")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("")|| val != null){
+                                        employee.setSubGradeCode(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_CODE")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("")|| val != null){
-                                    employee.setEmployeeCode(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_CODE")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("")|| val != null){
+                                        employee.setEmployeeCode(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_NAME")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("")|| val != null){
-                                    employee.setEmployeeName(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_NAME")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("")|| val != null){
+                                        employee.setEmployeeName(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().contains("CREATED_BY")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("")|| val != null){
-                                    employee.setCreatedBy(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().contains("CREATED_BY")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("")|| val != null){
+                                        employee.setCreatedBy(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
 
-                            }else if(tempArray[0][b].getStringCellValue().contains("USER_NAME")){
-                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                if(!val.equals("")|| val != null){
-                                    employee.setUserName(val);
-                                }else{
-                                    isEmpty.add(employee);
-                                }
+                                }else if(tempArray[0][b].getStringCellValue().contains("USER_NAME")){
+                                    val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                    if(!val.equals("")|| val != null){
+                                        employee.setUserName(val);
+                                    }else{
+                                        isEmpty.add(employee);
+                                    }
 
+                                }
                             }
-
                         }
                     }
                     if(isEmpty.size() > 0){
@@ -308,11 +311,11 @@ public class EmployeeUploadController extends CommonController {
 
                                         Set<Employee> isInserted = new HashSet<>();
                                         for(Employee employee: emp){
-
-                                            if(send.insertEmployee(employee).equals("200")){
-                                                isInserted.add(employee);
+                                            if(employee!=null){
+                                                if(send.insertEmployee(employee).equals("200")){
+                                                    isInserted.add(employee);
+                                                }
                                             }
-
                                         }
 
                                         if(isInserted.size() > 0){

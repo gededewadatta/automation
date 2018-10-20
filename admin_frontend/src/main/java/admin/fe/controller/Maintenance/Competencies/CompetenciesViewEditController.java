@@ -10,55 +10,94 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.SuspendNotAllowedException;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.SerializableEventListener;
-import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
-import org.zkoss.zul.Window;
+import org.zkoss.zul.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CompetenciesEditController  extends CommonController implements PopupCallerDepartmentInterface, PopupCallerDivisionInterface, PopupCallerGradeInterface,
+public class CompetenciesViewEditController extends CommonController implements PopupCallerDepartmentInterface, PopupCallerGradeInterface,
         PopupCallerSubGradeInterface {
 
     Textbox idDepartment;
-
     Textbox idGrade;
-
     Textbox idSubGrade;
-
     Textbox idCompetencies;
-
-    Textbox idCompetenciesId;
-
     Textbox idCompetenciesName;
+    Label idDepartmentView;
+    Label idGradeView;
+    Label idSubGradeView;
+    Label idCompetenciesView;
+    Label idCompetenciesNameView;
+    Button btnDepartement;
+    Button btnGrade;
+    Button btnSubGrade;
+    Button backButton;
+    Button submitButton;
+    Button clearButton;
 
-//    Textbox idDivision;
-
-    Division div = new Division();
+    private final String TYPE_SHOW_VIEW = "VIEW";
+    private final String TYPE_SHOW_EDIT = "EDIT";
 
     Departement dep = new Departement();
-
     Grade grd = new Grade();
-
     SubGrade subGrd = new SubGrade();
+    Competency comp = new Competency();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
         comp.setAttribute("controller", this, true);
+        getAllData();
         initView();
     }
 
+    public void getAllData(){
+        comp.setId((String)arg.get("id"));
+        comp.setDepartementCode((String) arg.get("departmentCode"));
+        comp.setSubGradeCode((String)arg.get("subGradeCode"));
+        comp.setGradeCode((String)arg.get("gradeCode"));
+        comp.setCompetencyCode((String)arg.get("competencyCode"));
+        comp.setCompetencyName((String)arg.get("competencyName"));
+        comp.setCreatedBy((String)arg.get("createdBy"));
+    }
+
     public void initView(){
+        idDepartment.setValue(comp.getDepartementCode());
+        idDepartmentView.setValue(comp.getDepartementCode());
+        idGrade.setValue(comp.getGradeCode());
+        idGradeView.setValue(comp.getGradeCode());
+        idSubGrade.setValue(comp.getSubGradeCode());
+        idSubGradeView.setValue(comp.getSubGradeCode());
+        idCompetencies.setValue(comp.getCompetencyCode());
+        idCompetenciesView.setValue(comp.getCompetencyCode());
+        idCompetenciesName.setValue(comp.getCompetencyName());
+        idCompetenciesNameView.setValue(comp.getCompetencyName());
+        disableComponent();
+    }
 
-        idCompetenciesId.setValue((String)arg.get("id"));
-        idDepartment.setValue((String) arg.get("departmentCode"));
-        idSubGrade.setValue((String)arg.get("subGradeCode"));
-        idGrade.setValue((String)arg.get("gradeCode"));
-        idCompetencies.setValue((String)arg.get("competencyCode"));
-        idCompetenciesName.setValue((String)arg.get("competencyName"));
-
+    public void disableComponent(){
+        if((String) arg.get("type") == TYPE_SHOW_VIEW){
+            idDepartment.setVisible(false);
+            idGrade.setVisible(false);
+            idSubGrade.setVisible(false);
+            idCompetencies.setVisible(false);
+            idCompetenciesName.setVisible(false);
+            btnDepartement.setVisible(false);
+            btnGrade.setVisible(false);
+            btnSubGrade.setVisible(false);
+            submitButton.setVisible(false);
+            clearButton.setVisible(false);
+            backButton.setLabel("Cancel");
+        }
+        else if((String) arg.get("type") == TYPE_SHOW_EDIT ){
+            idDepartmentView.setVisible(false);
+            idGradeView.setVisible(false);
+            idSubGradeView.setVisible(false);
+            idCompetenciesView.setVisible(false);
+            idCompetenciesNameView.setVisible(false);
+            backButton.setLabel("Cancel");
+        }
     }
 
     public void onClick$submitButton(){
@@ -88,12 +127,13 @@ public class CompetenciesEditController  extends CommonController implements Pop
 
                                     Competency cmp = new Competency();
 
-                                    cmp.setId(idCompetenciesId.getValue());
+                                    cmp.setId(comp.getId());
                                     cmp.setSubGradeCode(idSubGrade.getValue());
                                     cmp.setDepartementCode(idDepartment.getValue());
                                     cmp.setGradeCode(idGrade.getValue());
                                     cmp.setCompetencyCode(idCompetencies.getValue());
                                     cmp.setCompetencyName(idCompetenciesName.getValue());
+                                    cmp.setCreatedBy(comp.getCreatedBy());
 
                                     result = send.updateCompetency(cmp);
 
@@ -113,11 +153,11 @@ public class CompetenciesEditController  extends CommonController implements Pop
 
     public void onClick$clearButton(){
 
-        idCompetenciesId.setValue("");
         idDepartment.setValue("");
         idSubGrade.setValue("");
         idGrade.setValue("");
         idCompetencies.setValue("");
+        idCompetenciesName.setValue("");
 
     }
 
@@ -126,7 +166,6 @@ public class CompetenciesEditController  extends CommonController implements Pop
         Map<String, Object> args = new HashMap<String, Object>();
         Departement departement = new Departement();
         args.put("object", departement);
-        args.put("division", div);
         args.put("caller", this);
         Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
@@ -139,22 +178,6 @@ public class CompetenciesEditController  extends CommonController implements Pop
 
     }
 
-    public void onClick$btnDivision() {
-
-//        Map<String, Object> args = new HashMap<String, Object>();
-//        Division div = new Division();
-//        args.put("object", div);
-//        args.put("caller", this);
-//        Component c = Executions.createComponents("layout/Division/DivisionPopup.zul", self, args);
-//        try {
-//            onModalToTop((Window) c);
-//        } catch (SuspendNotAllowedException e1) {
-//            Messagebox.show(e1.getMessage());
-//        } catch (InterruptedException e1) {
-//            Messagebox.show(e1.getMessage());
-//        }
-
-    }
 
     public void onClick$btnGrade(){
 
@@ -192,15 +215,6 @@ public class CompetenciesEditController  extends CommonController implements Pop
     }
 
 
-    public void afterSelectDivision(Division division) {
-
-        if (division != null) {
-            div = division;
-//            idDivision.setValue(division.getDivisionCode());
-        }
-
-    }
-
     public void afterSelectDepartement(Departement departement) {
         if (departement != null) {
             dep = departement;
@@ -224,7 +238,7 @@ public class CompetenciesEditController  extends CommonController implements Pop
         }
     }
 
-    public void onClick$cancelButton(){
+    public void onClick$backButton(){
         navigateTo(Resources.competenciesHome,null,self);
     }
 

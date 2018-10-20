@@ -46,7 +46,21 @@ public class CompetenciesController extends CommonController implements PopupCal
 
     public void onClick$searchButton(){
 
-        comp.setGradeCode(idGrade.getValue());
+        if(idGrade.getValue()!=null||!idGrade.getValue().equals("")){
+            comp.setGradeCode(idGrade.getValue());
+        }else {
+            comp.setGradeCode("");
+        }
+        if(idSubGrade.getValue()!=null||!idSubGrade.getValue().equals("")){
+            comp.setSubGradeCode(idSubGrade.getValue());
+        }else {
+            comp.setSubGradeCode("");
+        }
+        if(idDepartment.getValue()!=null||!idDepartment.getValue().equals("")){
+            comp.setDepartementCode(idDepartment.getValue());
+        }else {
+            comp.setDepartementCode("");
+        }
 
         competencies = send.getCompetencyByGradeCode(comp);
 
@@ -77,6 +91,8 @@ public class CompetenciesController extends CommonController implements PopupCal
                 Hbox hbox1 = new Hbox();
 
                 Button view = new Button("View");
+                Button edit = new Button("Edit");
+
                 view.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
                             /**
@@ -87,19 +103,11 @@ public class CompetenciesController extends CommonController implements PopupCal
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo(Resources.competenciesView,getArg(competency),self);
-//                                            getArg(InvestmentModelObj),
-//                                            winBancaFinTransactionSelection);
+                                    navigateTo(Resources.competenciesViewEdit,getArg(competency,"VIEW"),self);
+
                                 }
                             }
                         });
-                hbox1.appendChild(view);
-
-                Separator separator = new Separator("vertical");
-                separator.setWidth("10px");
-                separator.setParent(hbox1);
-
-                Button edit = new Button("Edit");
                 edit.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
                             /**
@@ -111,17 +119,23 @@ public class CompetenciesController extends CommonController implements PopupCal
                                     throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
-                                    navigateTo(Resources.competenciesEdit,getArg(competency),self);
+                                    navigateTo(Resources.competenciesViewEdit,getArg(competency,"EDIT"),self);
                                 }
                             }
                         });
+
+                Separator separator = new Separator("vertical");
+                separator.setWidth("10px");
+
+                hbox1.appendChild(view);
+                separator.setParent(hbox1);
                 hbox1.appendChild(edit);
                 row.appendChild(hbox1);
             }
         };
     }
 
-    public Map<String, Object> getArg(Competency obj) {
+    public Map<String, Object> getArg(Competency obj,String type) {
 
         Map<String, Object> args = new HashMap<String, Object>();
 
@@ -132,6 +146,8 @@ public class CompetenciesController extends CommonController implements PopupCal
         args.put("gradeCode",obj.getGradeCode());
         args.put("departmentCode",obj.getDepartementCode());
         args.put("competencyCode",obj.getCompetencyCode());
+        args.put("createdBy",obj.getCreatedBy());
+        args.put("type",type);
         return args;
     }
 

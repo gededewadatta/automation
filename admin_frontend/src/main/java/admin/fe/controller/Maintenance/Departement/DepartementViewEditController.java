@@ -86,7 +86,6 @@ public class DepartementViewEditController extends CommonController implements P
             nameDepartementView.setVisible(false);
             idDivisionEdit.setDisabled(true);
             idDepartementEdit.setDisabled(true);
-            backButton.setVisible(true);
             backButton.setLabel("Cancel");
         }
     }

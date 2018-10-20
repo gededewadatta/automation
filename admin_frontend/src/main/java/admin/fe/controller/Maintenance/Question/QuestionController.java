@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Question;
 
 import admin.fe.constant.QuestionType;
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.*;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -178,8 +179,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         args.put("subgrade",subGrd);
         args.put("object", competency);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Competencies/CompetencyPopUp.zul", self, args);
+        Component c = Executions.createComponents(Resources.competenciesPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -194,8 +194,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         Departement departement = new Departement();
         args.put("object", departement);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -211,8 +210,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         args.put("object", grade);
         args.put("departement", dep);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Grade/GradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.gradePopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -227,8 +225,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         args.put("grade",grd);
         args.put("object", subGrd);
         args.put("caller", this);
-        Component c = Executions.createComponents(
-                "layout/Grade/SubGradePopup.zul", self, args);
+        Component c = Executions.createComponents(Resources.subgradeopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {

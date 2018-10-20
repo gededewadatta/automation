@@ -74,7 +74,6 @@ public class DivisionViewEditController extends CommonController {
             idDivisionView.setVisible(false);
             nameDivisionView.setVisible(false);
             idDivisionEdit.setDisabled(true);
-            backButton.setVisible(true);
             backButton.setLabel("Cancel");
         }
     }

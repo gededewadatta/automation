@@ -124,7 +124,7 @@ public class AdminServiceImpl implements AdminService {
 		grade.setGradeCode(gradeJson.getGradeCode());
 		grade.setGradeName(gradeJson.getGradeName());
 		grade.setCreatedDate(new Date());
-		grade.setGradeName(gradeJson.getCreatedBy());
+		grade.setCreatedBy(gradeJson.getCreatedBy());
 		grade.setDivisionCode(gradeJson.getDivisionCode());
 		grade.setDepartementCode(gradeJson.getDepartementCode());
 		subGrade.setSubGradeCode(gradeJson.getSubGradeCode());
@@ -262,7 +262,7 @@ public class AdminServiceImpl implements AdminService {
 		grade.setGradeCode(gradeJson.getGradeCode());
 		grade.setGradeName(gradeJson.getGradeName());
 		grade.setCreatedDate(new Date());
-		grade.setGradeName(gradeJson.getCreatedBy());
+		grade.setCreatedBy(gradeJson.getCreatedBy());
 		grade.setDivisionCode(gradeJson.getDivisionCode());
 		grade.setDepartementCode(gradeJson.getDepartementCode());
 		subGrade.setIdSubGrade(gradeJson.getIdSubGrade());
@@ -501,7 +501,7 @@ public class AdminServiceImpl implements AdminService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return adminDAO.searchCompetencyByGradeCode(competency.getGradeCode());
+		return adminDAO.searchCompetencyByGradeCode(competency.getGradeCode(),competency.getSubGradeCode(),competency.getDepartementCode());
 	}
 
     @Override
