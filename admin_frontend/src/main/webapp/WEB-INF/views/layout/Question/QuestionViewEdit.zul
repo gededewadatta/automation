@@ -1,7 +1,7 @@
 <zk>
 
     <window width="auto" border="none"
-            apply="admin.fe.controller.Maintenance.Question.QuestionController">
+            apply="admin.fe.controller.Maintenance.Question.QuestionViewEdit">
 
         <div>
             <grid>
@@ -11,6 +11,8 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idDepartment"  />
+                                <label id="lblDepartment"/>
+                                <textbox id="idQuestionId" visible="false"/>
                             </hlayout>
                             <div>
                                 <button id="btnDepartment"/>
@@ -23,6 +25,7 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idGrade"  />
+                                <label id="lblGrade"/>
                             </hlayout>
                             <div>
                                 <button id="btnGrade"/>
@@ -36,6 +39,7 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idSubGrade"  />
+                                <label id="lblSubGrade"/>
                             </hlayout>
                             <div>
                                 <button id="btnSubGrade"/>
@@ -48,6 +52,7 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idCompetencyCode"  />
+                                <label id="lblCompetencyCode"/>
                             </hlayout>
                             <div>
                                 <button id="btnCompetencyCode"/>
@@ -59,6 +64,7 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idLevel" />
+                                <label id="lblLevel"/>
                             </hlayout>
                         </hbox>
                     </row>
@@ -66,7 +72,8 @@
                         <label value = "Question Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idQuestionCode"/>
+                                <textbox id="idQuestionCode" disabled="true" />
+                                <label id="lblQuestionCode"/>
                             </hlayout>
                         </hbox>
 
@@ -76,6 +83,7 @@
                         <hbox>
                             <hlayout>
                                 <textbox id="idQuestion"  width="380px" height="100px" />
+                                <label id="lblQuestion"/>
                             </hlayout>
                         </hbox>
 
@@ -85,6 +93,7 @@
                         <hbox>
                             <hlayout>
                                 <listbox id="idQuestionType" mold="select" rows="1" />
+                                <label id="lblQuestionType"/>
                             </hlayout>
                         </hbox>
 
@@ -92,11 +101,19 @@
 
                     <row>
                         <label/>
-                        <vbox id="boxAnswer"/>
+                        <vbox id="boxAnswer">
+                            <label id="answer1" />
+                            <label id="answer2" />
+                            <label id="answer3" />
+                            <label id="answer4" />
+                            <label id="answer5" />
+                        </vbox>
+
                     </row>
                     <row>
                         <label/>
                     </row>
+
                     <row id="btnAnswer">
                         <label/>
                         <hbox>
@@ -108,20 +125,21 @@
                     <row id="textAnswer">
                         <label/>
                         <textbox id="idTextAnswer" rows="3"/>
+                        <label id="lblTextAnswer" />
                     </row>
                     <row>
                         <label value = "Valid Answer:" />
                         <hbox>
                             <hlayout>
                                 <textbox id="idValidAns"  />
+                                <label id="lblValidAns" />
                             </hlayout>
                         </hbox>
                     </row>
                 </rows>
             </grid>
             <div align="right" style="margin-top:10px">
-
-                <button id="backButton" label="Cancel" style="float::right"/>
+                <button id="backButton" style="float::right"/>
                 <button id="submitButton" label="Submit" style="float::center"/>
                 <button id="clearButton" label="Clear" style="float::center"/>
 

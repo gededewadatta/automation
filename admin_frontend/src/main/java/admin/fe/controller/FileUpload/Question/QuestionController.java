@@ -136,42 +136,127 @@ public class QuestionController extends CommonController {
                         if(a != 0){
                             if(tempArray[0][b].getStringCellValue().equals("question")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setQuestions(val);
+                                if(!val.equals("") || val != null){
+                                    question.setQuestions(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("answer1")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setAnswer1(val);
+                                if(!val.equals("") || val != null){
+                                    question.setAnswer1(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("answer2")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setAnswer2(val);
+                                if(!val.equals("") || val != null){
+                                    question.setAnswer2(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("answer3")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setAnswer3(val);
+                                if(!val.equals("") || val != null){
+                                    question.setAnswer3(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("answer4")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setAnswer4(val);
+                                if(!val.equals("") || val != null){
+                                    question.setAnswer4(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("answer5")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setAnswer5(val);
+                                if(!val.equals("") || val != null){
+                                    question.setAnswer5(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().contains("correct_answer")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setCorrectAnswer(val);
+                                if(!val.equals("") || val != null){
+                                    question.setCorrectAnswer(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("competency")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setCompetency(val);
+                                if(!val.equals("") || val != null){
+                                    question.setCompetency(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("grade")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setGrade(val);
+                                if(!val.equals("") || val != null){
+                                    question.setGrade(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("sub_grade")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setSubGrade(String.valueOf(val));
+                                if(!val.equals("") || val != null){
+                                    question.setSubGrade(String.valueOf(val));
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
                             }else if(tempArray[0][b].getStringCellValue().equals("level")){
                                 val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
-                                question.setLevel(val);
+                                if(!val.equals("") || val != null){
+                                    question.setLevel(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+
+                            }else if(tempArray[0][b].getStringCellValue().equals("questioncode")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("") || val != null){
+                                    question.setQuestionCode(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+                            }else if(tempArray[0][b].getStringCellValue().equals("departmentcode")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("") || val != null){
+                                    question.setDepartementCode(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
+                            }else if(tempArray[0][b].getStringCellValue().equals("questiontype")){
+                                val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                                if(!val.equals("") || val != null){
+                                    question.setQuestionType(val);
+                                }else{
+                                    isEmpty.add(question);
+                                }
                             }
 
                         }
                     }
-                    questions.add(question);
+
+                    if(isEmpty.size() > 0){
+                        result = 0;
+                    }else{
+                        result +=1;
+                        if(!val.equals("")) {
+                            questions.add(question);
+                        }
+
+                    }
                 }
             }else{
 
@@ -269,8 +354,12 @@ public class QuestionController extends CommonController {
 
                                         if(quest.size() >0){
                                             Messagebox.show("Data Successfully Save");
+                                            quest.clear();
+                                            idUpload.setValue("");
                                         }else{
                                             Messagebox.show("Data already exists");
+                                            quest.clear();
+                                            idUpload.setValue("");
                                         }
                                     }else if(result == -1){
 

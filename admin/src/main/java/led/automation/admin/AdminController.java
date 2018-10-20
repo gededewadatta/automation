@@ -161,6 +161,15 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.updateCompetency(body));
 	}
 
+	@RequestMapping(value = "led/api/automation/update/question", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> updateQuestion(@RequestBody String body, HttpMethod method,
+												   HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+		System.out.println(body);
+//	    update question
+		return ResponseEntity.ok(adminService.updateQuestion(body));
+	}
+
 	// update data : stop
 
 	// search data : start

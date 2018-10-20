@@ -84,10 +84,15 @@ public class EmployeeController extends CommonController implements PopupCallerD
 
         employeeList = send.getEmployee(emp);
 
-        modelList = new ListModelList(employeeList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
+        if(employeeList.size() > 0){
+            modelList = new ListModelList(employeeList);
+            hGrid.setModel(modelList);
+            hGrid.setPageSize(5);
+            hGrid.setRowRenderer(createGridRowRenderer());
+        }else{
+            Messagebox.show("Data not found");
+        }
+
 
 
     }

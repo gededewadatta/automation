@@ -109,7 +109,7 @@ public class CompetenciesPopupController extends CommonController {
             competency.setCompetencyName("");
         }
 
-        competencyList = send.getCompetencyPopup(competency);
+        competencyList = send.getCompetency(competency);
 
         if(competencyList.size()<1){
             Messagebox.show("Data is not found");

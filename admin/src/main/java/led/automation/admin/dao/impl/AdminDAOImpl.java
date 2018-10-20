@@ -88,6 +88,30 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
+	public int updateQuestion(Question body) {
+		// TODO Auto-generated method stub
+		int quest = questionRepository.updateQuestion(body.getAnswer1(),body.getAnswer2(),body.getAnswer3()
+				,body.getAnswer4(),body.getAnswer5(),body.getCompetency(),body.getCorrectAnswer(),body.getCreatedBy()
+				,body.getCreatedDate(),body.getDepartementCode(),body.getGrade(),body.getLevel(),body.getQuestionType()
+				,body.getQuestionCode(),body.getQuestions(),body.getSubGrade());
+
+		return quest==0?0:1;
+	}
+
+	@Override
+	public int updatePendingQuestion(PendingQuestion pendingQuestion) {
+		// TODO Auto-generated method stub
+			int pendQuest = questionRepository.updatePendingQuestion(pendingQuestion.getAnswer1()
+					,pendingQuestion.getAnswer2(),pendingQuestion.getAnswer3()
+					,pendingQuestion.getAnswer4(),pendingQuestion.getAnswer5()
+					,pendingQuestion.getCompetency(),pendingQuestion.getCorrectAnswer(),pendingQuestion.getCreatedBy()
+					,pendingQuestion.getCreatedDate(),pendingQuestion.getLevel(),pendingQuestion.getQuestionType()
+					,pendingQuestion.getQuestions(),pendingQuestion.getUserName());
+
+		return pendQuest==0?0:1;
+	}
+
+	@Override
 	public int insertGrade(Grade grade) {
 		// TODO Auto-generated method stub
 		int a = gradeRepository.insertGrade(grade.getGradeCode().toUpperCase(),grade.getGradeName(),grade.getDepartementCode().toUpperCase(),
@@ -115,9 +139,16 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertQuestion(Question body) {
 		// TODO Auto-generated method stub
-		Question question = new Question();
-		question = questionRepository.save(body);
-		return question.getId()>0?1:0;
+		int question = questionRepository.insertQuestion(body.getAnswer1(),body.getAnswer2(),body.getAnswer3(),
+				body.getAnswer4(),body.getAnswer5(),body.getCompetency(),body.getCorrectAnswer(),body.getCreatedBy()
+				,body.getCreatedDate(),body.getDepartementCode(),body.getGrade(),body.getLevel()
+				,body.getQuestionType(),body.getQuestionCode(),body.getQuestions(),body.getSubGrade());
+
+		if(question>0){
+			questionRepository.updateQuestionSeq();
+		}
+
+		return question >0?1:0;
 	}
 
 	@Override
@@ -556,6 +587,27 @@ public class AdminDAOImpl implements AdminDAO {
 		// TODO Auto-generated method stub
 
 		return questionRepository.findByGrade(gradeCode);
+	}
+
+	@Override
+	public List<Question> searchQuestionByCompetencies(String competencies) {
+		// TODO Auto-generated method stub
+
+		return questionRepository.findByCompetency(competencies);
+	}
+
+	@Override
+	public List<Question> searchQuestionByGradeAndCompetencies(String gradeCode, String competencies) {
+		// TODO Auto-generated method stub
+
+		return questionRepository.findByGradeAndCompetency(gradeCode,competencies);
+	}
+
+	@Override
+	public List<Question> searchQuestionAll() {
+		// TODO Auto-generated method stub
+
+		return questionRepository.findAll();
 	}
 
 	@Override

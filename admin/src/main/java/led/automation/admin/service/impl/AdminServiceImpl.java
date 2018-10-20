@@ -154,28 +154,31 @@ public class AdminServiceImpl implements AdminService {
 			username = adminDAO.searchEmployeeByGradeAndSubGrade(question.getGrade(), question.getSubGrade());
 			// get data username based on question grade and sub grade : stop
 
+			result2 =adminDAO.insertQuestion(question);
 			// to insert into PendingQuestion Table:start
-			for (String user : username) {
-				pendingQuestion.setQuestions(question.getQuestions());
-				pendingQuestion.setAnswer1(question.getAnswer1());
-				pendingQuestion.setAnswer2(question.getAnswer2());
-				pendingQuestion.setAnswer3(question.getAnswer3());
-				pendingQuestion.setAnswer4(question.getAnswer4());
-				pendingQuestion.setAnswer5(question.getAnswer5());
-				pendingQuestion.setCorrectAnswer(question.getCorrectAnswer());
-				pendingQuestion.setCreatedDate(question.getCreatedDate());
-				pendingQuestion.setCreatedBy(question.getCreatedBy());
-				pendingQuestion.setCompetency(question.getCompetency());
-				pendingQuestion.setLevel(question.getLevel());
-				pendingQuestion.setUserName(user);
-				pendingQuestion.setQuestionType(question.getQuestionType());
-				result2 += adminDAO.insertPendingQuestion(pendingQuestion);
+			if(result2 > 0){
+				for (String user : username) {
+					pendingQuestion.setQuestions(question.getQuestionCode());
+					pendingQuestion.setAnswer1(question.getAnswer1());
+					pendingQuestion.setAnswer2(question.getAnswer2());
+					pendingQuestion.setAnswer3(question.getAnswer3());
+					pendingQuestion.setAnswer4(question.getAnswer4());
+					pendingQuestion.setAnswer5(question.getAnswer5());
+					pendingQuestion.setCorrectAnswer(question.getCorrectAnswer());
+					pendingQuestion.setCreatedDate(question.getCreatedDate());
+					pendingQuestion.setCreatedBy(question.getCreatedBy());
+					pendingQuestion.setCompetency(question.getCompetency());
+					pendingQuestion.setLevel(question.getLevel());
+					pendingQuestion.setUserName(user);
+					pendingQuestion.setQuestionType(question.getQuestionType());
+					result2 += adminDAO.insertPendingQuestion(pendingQuestion);
+				}
 			}
+
+			System.out.println("result insert Question is :"+result2);
 			// to insert into PendingQuestion Table:stop
-			if (result2 > 0)
-				result = adminDAO.insertQuestion(question) == 0 ? "Failure" : "Success";
-			else
-				result = "Failure";
+			result = result2 <= 1 ? "Failure" : "Success";
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -294,6 +297,50 @@ public class AdminServiceImpl implements AdminService {
 		subGrade.setCreatedDate(createdDate);
 
 		return adminDAO.updateSubGrade(subGrade) == 0 ? "Failure" : "Success";
+	}
+
+	@Override
+	public String updateQuestion(String body) {
+		// TODO Auto-generated method stub
+		try {
+			question = objectMapper.readValue(body,Question.class);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		int result =0;
+
+		List<String>username = adminDAO.searchEmployeeByGradeAndSubGrade(question.getGrade(), question.getSubGrade());
+		// get data username based on question grade and sub grade : stop
+
+		result = adminDAO.updateQuestion(question);
+		// to insert into PendingQuestion Table:start
+		if( result > 0){
+			for (String user : username) {
+				pendingQuestion.setQuestions(question.getQuestionCode());
+				pendingQuestion.setAnswer1(question.getAnswer1());
+				pendingQuestion.setAnswer2(question.getAnswer2());
+				pendingQuestion.setAnswer3(question.getAnswer3());
+				pendingQuestion.setAnswer4(question.getAnswer4());
+				pendingQuestion.setAnswer5(question.getAnswer5());
+				pendingQuestion.setCorrectAnswer(question.getCorrectAnswer());
+				pendingQuestion.setCreatedDate(question.getCreatedDate());
+				pendingQuestion.setCreatedBy(question.getCreatedBy());
+				pendingQuestion.setCompetency(question.getCompetency());
+				pendingQuestion.setLevel(question.getLevel());
+				pendingQuestion.setUserName(user);
+				result += adminDAO.updatePendingQuestion(pendingQuestion);
+			}
+		}
+
+		/*jsonResponse = new JSONObject(body);
+		division = new Division();
+		division.setDivisonCode(jsonResponse.isNull("divisionCode") ? "" : jsonResponse.getString("divisionCode"));
+		division.setDivisionName(jsonResponse.isNull("divisionName") ? "" : jsonResponse.getString("divisionName"));
+		division.setCreatedBy(createdBy);
+		division.setCreatedDate(createdDate);*/
+
+		return result == 0 ? "Failure" : "Success";
 	}
 
 	@Override
@@ -455,17 +502,27 @@ public class AdminServiceImpl implements AdminService {
 	public List<Question> searchQuestion(String body) {
 		// TODO Auto-generated method stub
 
+		List<Question> questions = new ArrayList<>();
 		try {
 			question = objectMapper.readValue(body, Question.class);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// get grade : stop
 
-		// get question : start
+		if((question.getGrade() == null || question.getGrade().equalsIgnoreCase(""))
+				&& (question.getCompetency() == null || question.getCompetency().equalsIgnoreCase(""))){
+			questions.addAll(adminDAO.searchQuestionAll());
+		}else if((question.getGrade() != null || !question.getGrade().equalsIgnoreCase(""))
+				&& (question.getCompetency() == null || question.getCompetency().equalsIgnoreCase(""))){
+			questions.addAll(adminDAO.searchQuestionByGrade(question.getGrade()));
+		}else if((question.getGrade() == null || question.getGrade().equalsIgnoreCase(""))
+				&& (question.getCompetency() != null || !question.getCompetency().equalsIgnoreCase(""))){
+			questions.addAll(adminDAO.searchQuestionByCompetencies(question.getCompetency()));
+		}else{
+			questions.addAll(adminDAO.searchQuestionByGradeAndCompetencies(question.getGrade(),question.getCompetency()));
+		}
 
-		// get question : stop
-		return adminDAO.searchQuestionByGrade(question.getGrade());
+		return questions;
 	}
 
 	@Override

@@ -127,10 +127,15 @@ public class DepartementController extends CommonController implements PopupCall
 
         departementList = send.getDepartment(dep);
 
-        modelList = new ListModelList(departementList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
+        if(departementList.size() > 0){
+            modelList = new ListModelList(departementList);
+            hGrid.setModel(modelList);
+            hGrid.setPageSize(5);
+            hGrid.setRowRenderer(createGridRowRenderer());
+        }else{
+            Messagebox.show("Data Not Found");
+        }
+
     }
 
     public void onClick$cancelButton(){

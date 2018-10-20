@@ -5,13 +5,27 @@
             <grid>
                 <rows>
                     <row>
-                        <label value="Question Code" />
-                        <textbox id="idQuestionCode"  />
+                        <label value="Grade Code" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idGradeCode" disabled="true" />
+                            </hlayout>
+                            <div>
+                                <button id="btnGrade" />
+                            </div>
+                        </hbox>
                     </row>
 
                     <row>
                         <label value="Competency" />
-                        <textbox id="idCompetency" />
+                        <hbox>
+                            <hlayout>
+                                <textbox id="idCompetency" disabled="true" />
+                            </hlayout>
+                            <div>
+                                <button id="btnCompetencyCode" />
+                            </div>
+                        </hbox>
                     </row>
                 </rows>
             </grid>

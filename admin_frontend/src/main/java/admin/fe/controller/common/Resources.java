@@ -78,6 +78,15 @@ public class Resources {
     public static String subgradeopup = getWebApplicationProperties("subgrade.popup");
     //Grade stop :
 
+    //Question start :
+
+    public static  String questionPopup = getWebApplicationProperties("question.popup");
+    public static  String questionHome = getWebApplicationProperties("question.home");
+    public static  String questionsearch = getWebApplicationProperties("question.search");
+    public static  String questionViewEdit = getWebApplicationProperties("question.viewedit");
+
+    //Question stop :
+
     public static String proxyHost = getWebApplicationProperties("proxy.host");
 
     public static String destinationDownload = getWebApplicationProperties("path.download");

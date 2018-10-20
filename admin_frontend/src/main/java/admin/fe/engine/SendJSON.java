@@ -67,19 +67,23 @@ public class SendJSON {
     }
 
     public String updateDivision(Division div) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(div),"http://localhost:7002/led/api/automation/update/division");
+        return insertAndUpdate(mapper.writeValueAsString(div),Resources.proxyHost+"/led/api/automation/update/division");
     }
 
     public String updateDepartement(Departement dep) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(dep),"http://localhost:7002/led/api/automation/update/departement");
+        return insertAndUpdate(mapper.writeValueAsString(dep),Resources.proxyHost+"/led/api/automation/update/departement");
     }
 
     public String updateEmployee(Employee emp) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(emp),Resources.proxyHost+"led/api/automation/update/employee");
+        return insertAndUpdate(mapper.writeValueAsString(emp),Resources.proxyHost+"/led/api/automation/update/employee");
     }
 
     public String updateCompetency(Competency cmp) throws JsonProcessingException {
-        return insertAndUpdate(mapper.writeValueAsString(cmp),"http://localhost:7002/led/api/automation/update/competency");
+        return insertAndUpdate(mapper.writeValueAsString(cmp),Resources.proxyHost+"/led/api/automation/update/competency");
+    }
+
+    public String updateQuestion(Question question) throws JsonProcessingException {
+        return insertAndUpdate(mapper.writeValueAsString(question),Resources.proxyHost+"/led/api/automation/update/question");
     }
 
 //  end update
@@ -260,6 +264,7 @@ public class SendJSON {
                 Question question = new Question();
                 JSONObject jsonObjVal = getData(mapper.writeValueAsString(quest),Resources.proxyHost+"/led/api/automation/search/question").getJSONObject(i);
                 System.out.println("Json Object Adalah :"+jsonObjVal);
+                question.setId(jsonObjVal.getLong("id"));
                 question.setGrade(jsonObjVal.getString("grade"));
                 question.setSubGrade(jsonObjVal.getString("subGrade"));
                 question.setQuestions(jsonObjVal.getString("questions"));
@@ -271,6 +276,9 @@ public class SendJSON {
                 question.setCorrectAnswer(jsonObjVal.getString("correctAnswer"));
                 question.setCompetency(jsonObjVal.getString("competency"));
                 question.setLevel(jsonObjVal.getString("level"));
+                question.setDepartementCode(jsonObjVal.getString("departementCode"));
+                question.setQuestionType(jsonObjVal.getString("questionType"));
+                question.setQuestionCode(jsonObjVal.getString("questionCode"));
                 questions.add(question);
 
             }

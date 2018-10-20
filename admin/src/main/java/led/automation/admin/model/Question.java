@@ -27,6 +27,8 @@ public class Question {
 	private String grade;
 	@Column(name = "SUB_GRADE")
 	private String subGrade;
+	@Column(name = "QUESTION_CODE")
+	private String questionCode;
 	@Column(name = "QUESTIONS")
 	private String questions;
 	@Column(name = "ANSWER_1")
@@ -60,11 +62,11 @@ public class Question {
 	 */
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", grade=" + grade + ", subGrade=" + subGrade + ", questions=" + questions
-				+ ", answer1=" + answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4
-				+ ", answer5=" + answer5 + ", correctAnswer=" + correctAnswer + ", createdDate=" + createdDate
-				+ ", createdBy=" + createdBy + ", competency=" + competency + ", level=" + level
-				+ ", departementCode=" + departementCode + ", questionType=" + questionType + "]";
+		return "Question [grade=" + grade + ", subGrade=" + subGrade + ", questions=" + questions + ", answer1="
+				+ answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4 + ", answer5="
+				+ answer5 + ", correctAnswer=" + correctAnswer + ", createdDate=" + createdDate + ", createdBy="
+				+ createdBy + ", competency=" + competency + ", level=" + level + ", departementCode=" + departementCode
+				+ ", questionType=" + questionType + ", questionCode=" + questionCode+ "]";
 	}
 	/**
 	 * @return the id
@@ -78,6 +80,15 @@ public class Question {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getQuestionCode() {
+		return questionCode;
+	}
+
+	public void setQuestionCode(String questionCode) {
+		this.questionCode = questionCode;
+	}
+
 	/**
 	 * @return the grade
 	 */
