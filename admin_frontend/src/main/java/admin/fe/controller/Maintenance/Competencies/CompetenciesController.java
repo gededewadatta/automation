@@ -50,10 +50,15 @@ public class CompetenciesController extends CommonController implements PopupCal
 
         competencies = send.getCompetencyByGradeCode(comp);
 
-        modelList = new ListModelList(competencies);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
+        if(competencies.size() > 0){
+            modelList = new ListModelList(competencies);
+            hGrid.setModel(modelList);
+            hGrid.setPageSize(5);
+            hGrid.setRowRenderer(createGridRowRenderer());
+
+        }else{
+            Messagebox.show("Data Not found");
+        }
 
 
     }

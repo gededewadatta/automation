@@ -67,10 +67,14 @@ public class GradeController extends CommonController implements PopupCallerDivi
 
         gradeList = send.getGradeJson(grd);
 
-        modelList = new ListModelList(gradeList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
+        if(gradeList.size() > 0){
+            modelList = new ListModelList(gradeList);
+            hGrid.setModel(modelList);
+            hGrid.setPageSize(5);
+            hGrid.setRowRenderer(createGridRowRenderer());
+        }else{
+            Messagebox.show("Data not found");
+        }
 
 
     }

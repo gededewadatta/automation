@@ -41,6 +41,8 @@ public interface AdminDAO {
 	public int updateSubGrade(SubGrade subGrade);
 	public int updateEmployee(Employee body);
 	public int updateCompetency(Competency competency);
+	public int updateQuestion(Question body);
+	public int updatePendingQuestion(PendingQuestion pendingQuestion);
 
 	//update data stop
 	 
@@ -74,6 +76,9 @@ public interface AdminDAO {
 	public String searchEmployeeByName(String employeeName);
 
 	public List<Question> searchQuestionByGrade(String gradeCode);
+	public List<Question> searchQuestionByCompetencies(String gradeCode);
+	public List<Question> searchQuestionByGradeAndCompetencies(String gradeCode, String competencies);
+	public List<Question> searchQuestionAll();
 
 	public List<String> generateEmployee(String divisionCode, String employeeCode, String departementCode);
 

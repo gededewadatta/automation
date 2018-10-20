@@ -213,7 +213,11 @@ public class EmployeeUploadController extends CommonController {
                     if(isEmpty.size() > 0){
                         result = 0;
                     }else{
-                        emp.add(employee);
+                        if(!val.equals("")) {
+                            result +=1;
+                            emp.add(employee);
+                        }
+
                     }
 
                 }

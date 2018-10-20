@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Question;
 
 import admin.fe.constant.QuestionType;
 import admin.fe.controller.common.CommonController;
+import admin.fe.controller.common.Resources;
 import admin.fe.engine.*;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,6 +33,7 @@ public class QuestionController extends CommonController implements PopupCallerD
     Textbox idQuestion;
     Textbox idValidAns;
     Textbox idTextAnswer;
+    Textbox idQuestionCode;
 
 	int i = 0;
 
@@ -46,9 +48,6 @@ public class QuestionController extends CommonController implements PopupCallerD
     List<Textbox> textboxList= new ArrayList<>();
     Question quest = new Question();
 
-    @Value("${led.question.insert}")
-    protected String questionInsert;
-
     EventListener event = null;
 
     public void doAfterCompose(Component comp) throws Exception {
@@ -60,6 +59,10 @@ public class QuestionController extends CommonController implements PopupCallerD
         idQuestionType.appendItem(QuestionType.YESNO.getValue(),QuestionType.YESNO.getCode());
         idQuestionType.appendItem(QuestionType.FREETEXT.getValue(),QuestionType.FREETEXT.getCode());
         idQuestionType.appendItem(QuestionType.OPTIONAL.getValue(),QuestionType.OPTIONAL.getCode());
+    }
+
+    public void onClick$backButton(){
+        navigateTo(Resources.questionsearch,null,self);
     }
 
     public void setAnswer(){
@@ -76,7 +79,7 @@ public class QuestionController extends CommonController implements PopupCallerD
             quest.setAnswer2(textboxList.get(1).getValue());
             quest.setAnswer3(textboxList.get(2).getValue());
             quest.setAnswer4(textboxList.get(3).getValue());
-            quest.setAnswer5("");
+            quest.setAnswer5(textboxList.get(4).getValue());
         }
     }
 
@@ -93,8 +96,6 @@ public class QuestionController extends CommonController implements PopupCallerD
 
     public void onClick$submitButton(){
         SendJSON send = new SendJSON();
-
-        System.out.println("Ini Fucking Submit");
 
         if(dep.getDepartementCode().equals("")||dep.getDepartementCode()==null){
             quest.setDepartementCode("");
@@ -139,6 +140,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         quest.setCreatedDate(new Date());
         quest.setQuestions(idQuestion.getValue());
         quest.setCorrectAnswer(idValidAns.getValue());
+        quest.setQuestionCode(idQuestionCode.getValue());
         setAnswer();
 
         Messagebox.show("Are you sure want to save?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new org.zkoss.zk.ui.event.EventListener() {
@@ -154,7 +156,7 @@ public class QuestionController extends CommonController implements PopupCallerD
                         if(result.equals("200")){
                             Messagebox.show("Data Already Saved", "Information", Messagebox.OK , Messagebox.INFORMATION, event = new org.zkoss.zk.ui.event.EventListener() {
                                 public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo("layout/Question/QuestionSearch.zul",null,self);
+                                    navigateTo(Resources.questionsearch,null,self);
                                 }
                             });
                         }else if(result.equals("Failure")){
@@ -179,7 +181,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         args.put("object", competency);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Competencies/CompetencyPopUp.zul", self, args);
+                Resources.competenciesPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -195,7 +197,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         args.put("object", departement);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Departement/DeptPopup.zul", self, args);
+                Resources.departementPopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -212,7 +214,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         args.put("departement", dep);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Grade/GradePopup.zul", self, args);
+                Resources.gradePopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -228,7 +230,7 @@ public class QuestionController extends CommonController implements PopupCallerD
         args.put("object", subGrd);
         args.put("caller", this);
         Component c = Executions.createComponents(
-                "layout/Grade/SubGradePopup.zul", self, args);
+                Resources.subgradeopup, self, args);
         try {
             onModalToTop((Window) c);
         } catch (SuspendNotAllowedException e1) {
@@ -243,7 +245,7 @@ public class QuestionController extends CommonController implements PopupCallerD
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
-            idDepartment.setValue(departement.getDepartementName());
+            idDepartment.setValue(departement.getDepartementCode());
         }
     }
 
@@ -251,7 +253,7 @@ public class QuestionController extends CommonController implements PopupCallerD
     public void afterSelectGrade(Grade grade) {
         if(grade != null){
             grd = grade;
-            idGrade.setValue(grd.getGradeName());
+            idGrade.setValue(grd.getGradeCode());
         }
     }
 
@@ -259,7 +261,7 @@ public class QuestionController extends CommonController implements PopupCallerD
     public void afterSelectSubGrade(SubGrade subGrade) {
         if(subGrade != null){
             subGrd = subGrade;
-            idSubGrade.setValue(subGrd.getSubGradeName());
+            idSubGrade.setValue(subGrd.getSubGradeCode());
         }
     }
 
@@ -267,7 +269,7 @@ public class QuestionController extends CommonController implements PopupCallerD
     public void afterSelectCompetencies(Competency competency) {
         if(competency != null){
             competence = competency;
-            idCompetencyCode.setValue(competence.getCompetencyName());
+            idCompetencyCode.setValue(competence.getCompetencyCode());
         }
     }
 
@@ -282,6 +284,7 @@ public class QuestionController extends CommonController implements PopupCallerD
             textAnswer.setVisible(false);
             btnAnswer.setVisible(true);
             boxAnswer.setVisible(true);
+            i=0;
         }
     }
 
@@ -307,7 +310,7 @@ public class QuestionController extends CommonController implements PopupCallerD
                 textBoxAnswer.setDisabled(true);
             }
         }else if(value.equals("2")){
-            if(i<4){
+            if(i<5){
                 textBoxAnswer.setId("textBoxAnswer"+i);
                 textBoxAnswer.setParent(boxAnswer);
                 i++;

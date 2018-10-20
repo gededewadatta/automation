@@ -50,6 +50,8 @@ public interface AdminService {
 
 	public String updateCompetency(String body);
 
+	public String updateQuestion(String body);
+
 	// update data stop
 	// search data : start
 	public List<Dashboard> findDashboard();

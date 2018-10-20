@@ -13,6 +13,7 @@ import java.util.Date;
 public class Question {
 
 	private Long id;
+	private String questionCode;
 	private String grade;
 	private String subGrade;
 	private String questions;
@@ -29,6 +30,7 @@ public class Question {
 	private String departementCode;
 	private String questionType;
 
+
 	public Long getId() {
 		return id;
 	}
@@ -37,6 +39,13 @@ public class Question {
 		this.id = id;
 	}
 
+	public String getQuestionCode() {
+		return questionCode;
+	}
+
+	public void setQuestionCode(String questionCode) {
+		this.questionCode = questionCode;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -47,7 +56,7 @@ public class Question {
 				+ answer1 + ", answer2=" + answer2 + ", answer3=" + answer3 + ", answer4=" + answer4 + ", answer5="
 				+ answer5 + ", correctAnswer=" + correctAnswer + ", createdDate=" + createdDate + ", createdBy="
 				+ createdBy + ", competency=" + competency + ", level=" + level + ", departementCode=" + departementCode
-				+ ", questionType=" + questionType + "]";
+				+ ", questionType=" + questionType + ", questionCode=" + questionCode+ "]";
 	}
 	/**
 	 * @return the grade

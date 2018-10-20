@@ -121,10 +121,15 @@ public class DivisionController extends CommonController implements PopupCallerD
 
         divisionList = send.getDivision(div);
 
-        modelList = new ListModelList(divisionList);
-        hGrid.setModel(modelList);
-        hGrid.setPageSize(5);
-        hGrid.setRowRenderer(createGridRowRenderer());
+        if(divisionList.size() >0 ){
+            modelList = new ListModelList(divisionList);
+            hGrid.setModel(modelList);
+            hGrid.setPageSize(5);
+            hGrid.setRowRenderer(createGridRowRenderer());
+        }else{
+            Messagebox.show("Data Not Found");
+        }
+
     }
 
     public void onClick$cancelButton(){
