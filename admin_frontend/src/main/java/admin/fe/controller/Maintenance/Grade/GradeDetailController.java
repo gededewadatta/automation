@@ -69,14 +69,14 @@ public class GradeDetailController extends CommonController implements PopupCall
             grdJson.setDepartementCode(dep.getDepartementCode());
         }
 
-        grdJson.setGradeName(idGradeName.getValue());
-        grdJson.setGradeCode(idGrade.getValue());
-        grdJson.setSubGradeCode(idSubGrade.getValue());
-        grdJson.setSubGradeName(idSubGradeName.getValue());
+        grdJson.setGradeName("\""+idGradeName.getValue()+"\"");
+        grdJson.setGradeCode("\""+idGrade.getValue()+"\"");
+        grdJson.setSubGradeCode("\""+idSubGrade.getValue()+"\"");
+        grdJson.setSubGradeName("\""+idSubGradeName.getValue()+"\"");
         grdJson.setCreatedDate(new Date());
         grdJson.setCreatedBy("Admin");
         grdJson.setCreatedDate(grdJson.getCreatedDate());
-        grdJson.setCreatedBy(grdJson.getCreatedBy());
+        grdJson.setCreatedBy("\""+grdJson.getCreatedBy()+"\"");
 
         Messagebox.show("Are you sure want to save?", "Confirm Dialog", Messagebox.YES | Messagebox.NO, Messagebox.QUESTION, event = new EventListener() {
             public void onEvent(Event evt) throws InterruptedException {
@@ -162,7 +162,7 @@ public class GradeDetailController extends CommonController implements PopupCall
 
         if(division != null){
             div = division;
-            idDivision.setValue(div.getDivisionName());
+            idDivision.setValue(div.getDivisionCode());
         }
 
     }
@@ -171,7 +171,7 @@ public class GradeDetailController extends CommonController implements PopupCall
     public void afterSelectDepartement(Departement departement) {
         if(departement != null){
             dep = departement;
-            idDepartment.setValue(dep.getDepartementName());
+            idDepartment.setValue(dep.getDepartementCode());
         }
     }
 

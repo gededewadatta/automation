@@ -10,7 +10,7 @@
                         <label value = "Department:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment"  />
+                                <textbox id="idDepartment" disabled="true"  />
                                 <label id="lblDepartment"/>
                                 <textbox id="idQuestionId" visible="false"/>
                             </hlayout>
@@ -24,7 +24,7 @@
                         <label value = "Grade Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idGrade"  />
+                                <textbox id="idGrade" disabled="true" />
                                 <label id="lblGrade"/>
                             </hlayout>
                             <div>
@@ -38,7 +38,7 @@
                         <label value = "Sub Grade Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idSubGrade"  />
+                                <textbox id="idSubGrade"  disabled="true" />
                                 <label id="lblSubGrade"/>
                             </hlayout>
                             <div>
@@ -51,7 +51,7 @@
                         <label value = "Competencies Code" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idCompetencyCode"  />
+                                <textbox id="idCompetencyCode" disabled="true" />
                                 <label id="lblCompetencyCode"/>
                             </hlayout>
                             <div>
@@ -63,7 +63,7 @@
                         <label value = "Level" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idLevel" />
+                                <textbox id="idLevel" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
                                 <label id="lblLevel"/>
                             </hlayout>
                         </hbox>
@@ -82,7 +82,7 @@
                         <label value = "Question:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idQuestion"  width="380px" height="100px" />
+                                <textbox id="idQuestion"  width="380px" height="100px" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
                                 <label id="lblQuestion"/>
                             </hlayout>
                         </hbox>
@@ -124,14 +124,14 @@
                     </row>
                     <row id="textAnswer">
                         <label/>
-                        <textbox id="idTextAnswer" rows="3"/>
+                        <textbox id="idTextAnswer" rows="3" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                         <label id="lblTextAnswer" />
                     </row>
                     <row>
                         <label value = "Valid Answer:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idValidAns"  />
+                                <textbox id="idValidAns" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
                                 <label id="lblValidAns" />
                             </hlayout>
                         </hbox>

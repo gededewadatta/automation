@@ -10,7 +10,7 @@
                         <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision" />
+                                <textbox id="idDivision"  disabled="true"/>
                             </hlayout>
                             <div>
                                 <button id ="btnDivSearch"/>
@@ -21,7 +21,7 @@
                         <label value = "Departement Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartement"/>
+                                <textbox id="idDepartement" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
 
@@ -31,7 +31,7 @@
                         <label value = "Departement Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="nameDepartement"/>
+                                <textbox id="nameDepartement" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
 

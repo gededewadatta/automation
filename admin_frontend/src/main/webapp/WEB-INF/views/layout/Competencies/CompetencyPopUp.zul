@@ -10,7 +10,7 @@
                         <label value = "Competency Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idCompetencyCode"  />
+                                <textbox id="idCompetencyCode" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
 
@@ -20,7 +20,7 @@
                         <label value = "Competency Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idCompetencyName" />
+                                <textbox id="idCompetencyName" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
 

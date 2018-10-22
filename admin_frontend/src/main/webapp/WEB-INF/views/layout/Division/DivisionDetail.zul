@@ -10,7 +10,7 @@
                         <label value = "Division Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDivision"/>
+                                <textbox id="idDivision" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
                     </row>
@@ -18,7 +18,7 @@
                         <label value = "Division Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="nameDivision"/>
+                                <textbox id="nameDivision" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
                     </row>

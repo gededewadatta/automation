@@ -19,7 +19,7 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface DivisionRepository extends JpaRepository<Division, Long> {
-	@Query(value = "SELECT * FROM Division WHERE UPPER(Division_NAME) like %?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Division WHERE UPPER(Division_NAME) like %?1%", nativeQuery = true)
 	List<Division> findByDivisionName(String DivisionName);
 	@Query(value = "SELECT * FROM Division WHERE UPPER(Division_CODE) like %?1", nativeQuery = true)
 	List<Division> findByDivisionCode(String DivisionCode);

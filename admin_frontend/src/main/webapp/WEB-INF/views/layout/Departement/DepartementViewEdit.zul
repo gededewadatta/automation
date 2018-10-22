@@ -23,7 +23,7 @@
                         <hbox>
                             <hlayout>
                                 <label id="idDepartementView"  />
-                                <textbox id="idDepartementEdit"/>
+                                <textbox id="idDepartementEdit" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
                             </hlayout>
                         </hbox>
                     </row>
@@ -32,7 +32,7 @@
                         <hbox>
                             <hlayout>
                                 <label id="nameDepartementView"  />
-                                <textbox id="nameDepartementEdit"/>
+                                <textbox id="nameDepartementEdit" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
                     </row>

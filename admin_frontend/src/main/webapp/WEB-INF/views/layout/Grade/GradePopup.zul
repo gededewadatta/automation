@@ -11,7 +11,7 @@
                         <label value = "Grade Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idGradeCode"  />
+                                <textbox id="idGradeCode" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
                             </hlayout>
                         </hbox>
                     </row>
@@ -19,7 +19,7 @@
                         <label value = "Grade Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idGradeName" />
+                                <textbox id="idGradeName" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
                             </hlayout>
                         </hbox>
 

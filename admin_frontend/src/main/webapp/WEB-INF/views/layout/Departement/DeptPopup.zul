@@ -10,7 +10,7 @@
                         <label value = "Department Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartment" />
+                                <textbox id="idDepartment" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
 
@@ -20,7 +20,7 @@
                         <label value = "Department Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idDepartmentName" />
+                                <textbox id="idDepartmentName" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
 

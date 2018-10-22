@@ -10,7 +10,7 @@
                         <label value = "Uplooad File Question:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idUpload"  />
+                                <textbox id="idUpload" disabled="true" />
                             </hlayout>
                             <div>
                                 <button id="browseButton" label="Browse" upload="true,maxsize=819200" autodisable="false"/>

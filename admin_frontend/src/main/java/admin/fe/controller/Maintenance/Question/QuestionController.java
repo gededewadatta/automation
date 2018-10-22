@@ -73,7 +73,7 @@ public class QuestionController extends CommonController implements PopupCallerD
             quest.setAnswer4("");
             quest.setAnswer5("");
         }else if(idQuestionType.getSelectedItem().getValue().equals("1")){
-            quest.setAnswer1(idTextAnswer.getValue());
+            quest.setAnswer1("\""+idTextAnswer.getValue()+"\"");
         }else{
             quest.setAnswer1(textboxList.get(0).getValue());
             quest.setAnswer2(textboxList.get(1).getValue());

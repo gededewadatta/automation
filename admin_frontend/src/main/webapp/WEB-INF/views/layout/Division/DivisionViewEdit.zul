@@ -11,7 +11,7 @@
                         <hbox>
                             <hlayout>
                                 <label id="idDivisionView"  />
-                                <textbox id="idDivisionEdit"/>
+                                <textbox id="idDivisionEdit" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
                     </row>
@@ -20,7 +20,7 @@
                         <hbox>
                             <hlayout>
                                 <label id="nameDivisionView"  />
-                                <textbox id="nameDivisionEdit"/>
+                                <textbox id="nameDivisionEdit" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
                     </row>

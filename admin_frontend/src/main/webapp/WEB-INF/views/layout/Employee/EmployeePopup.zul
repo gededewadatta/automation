@@ -10,7 +10,7 @@
                         <label value = "Employee Code:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmployee"  />
+                                <textbox id="idEmployee"  constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
                             </hlayout>
                         </hbox>
 
@@ -20,7 +20,7 @@
                         <label value = "Employee Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmpName" />
+                                <textbox id="idEmpName" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
                             </hlayout>
                         </hbox>
 
