@@ -63,7 +63,7 @@
                         <label value = "Level" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idLevel" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
+                                <textbox id="idLevel"  />
                                 <label id="lblLevel"/>
                             </hlayout>
                         </hbox>
@@ -82,7 +82,7 @@
                         <label value = "Question:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idQuestion"  width="380px" height="100px" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
+                                <textbox id="idQuestion"  width="380px" height="100px"  />
                                 <label id="lblQuestion"/>
                             </hlayout>
                         </hbox>
@@ -124,14 +124,14 @@
                     </row>
                     <row id="textAnswer">
                         <label/>
-                        <textbox id="idTextAnswer" rows="3" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
+                        <textbox id="idTextAnswer" rows="3" />
                         <label id="lblTextAnswer" />
                     </row>
                     <row>
                         <label value = "Valid Answer:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idValidAns" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
+                                <textbox id="idValidAns"  />
                                 <label id="lblValidAns" />
                             </hlayout>
                         </hbox>

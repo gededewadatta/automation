@@ -71,7 +71,7 @@
                         <label value = "Employee Name:" />
                         <hbox>
                             <hlayout>
-                                <textbox id="idEmployeeName"  constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space"/>
+                                <textbox id="idEmployeeName"  />
                             </hlayout>
                         </hbox>
 

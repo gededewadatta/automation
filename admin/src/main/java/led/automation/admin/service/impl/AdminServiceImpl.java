@@ -3,14 +3,19 @@
  */
 package led.automation.admin.service.impl;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import led.automation.admin.model.*;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +32,8 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDAO adminDAO;
 	@Autowired
 	private Employee employee;
+    @Autowired
+    private UploadFile uploadFile;
 	@Autowired
 	private Grade grade;
 	@Autowired
@@ -49,6 +56,10 @@ public class AdminServiceImpl implements AdminService {
 	static String createdBy = "ADMIN";
 	static Date createdDate = new Date();
 	ObjectMapper objectMapper = new ObjectMapper();
+
+	int result = 0;
+
+    String destination = "Apps/Upload";
 
 	// insert data : start
 //            Maap gw ganti pake object Mapper
@@ -76,7 +87,318 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.insertEmployee(employee) == 0 ? "Failure" : "Success";
 	}
 
-	@Override
+    @Override
+    public String insertUpload(String body) {
+        // TODO Auto-generated method stub
+        try {
+
+            uploadFile = objectMapper.readValue(body, UploadFile.class);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return loadFileTemp(uploadFile.getGetMediaFile(),uploadFile.getExtensions(),uploadFile.getUploadType());
+    }
+
+    public String loadFileTemp(String fileName, String extension, String uplooadType) {
+
+		int resultInsert =0;
+		try{
+
+            Cell cell;
+            File file = new File(fileName);
+            FileInputStream fis = new FileInputStream(file);
+            Workbook wb = null;
+            if(extension.equals("xls")||extension.equals(".xls")){
+                wb = new HSSFWorkbook(fis);
+
+            }else{
+                wb = new XSSFWorkbook(fis);
+            }
+            Sheet sheet = wb.getSheetAt(0);
+            if(sheet.getRow(0).getCell(0)!=null){
+                org.apache.poi.ss.usermodel.Row row = sheet.getRow(0);
+                DataFormatter formatter = new DataFormatter();
+//			Row row;
+                Cell[][] tempArray = new Cell[sheet.getLastRowNum()][row.getLastCellNum()];
+                int lastColNum = row.getLastCellNum();
+                //Extract Data : start
+                int rowCount = 0;
+                for(int i = 0; i < sheet.getLastRowNum(); i++){
+                    if(sheet.getRow(rowCount)!=null){
+                        row = sheet.getRow(rowCount);
+                        for(int j = 0; j < lastColNum; j++){
+                            tempArray[i][j] = row.getCell(j);
+                        }
+                    }
+                    rowCount++;
+                }
+                //Extract Data : end
+                //Insert to DB : start
+                System.out.println("tEMP aRRAY lENGTH"+tempArray.length);
+                String val ="";
+
+                if(uplooadType.equals("EMPLOYEE")){
+                    resultInsert += insertUploadEmployee(sheet,tempArray,val,formatter,new ArrayList<>(),new ArrayList<>());
+                }else{
+                    resultInsert += insertUploadQuestion(sheet,tempArray,val, formatter,new ArrayList<>(),new ArrayList<>());
+                }
+
+            }
+            // Insert to DB : end
+        }catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return resultInsert == 0 ? "Failure" : "Success";
+
+    }
+
+    public int insertUploadQuestion(Sheet sheet,Cell[][] tempArray,String val,DataFormatter formatter,
+                                    List<Question> isEmpty,List<Question>questionListt){
+        int resultInsert=0;
+
+        for(int a = 1; a < sheet.getLastRowNum() + 1; a++){
+            question = new Question();
+            for(int b = 0; b < tempArray[0].length; b++){
+                if(a != 0){
+                    if(sheet.getRow(a)!=null){
+                        if(tempArray[0][b].getStringCellValue().equals("question")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setQuestions(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer1")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setAnswer1(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer2")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setAnswer2(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer3")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setAnswer3(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer4")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setAnswer4(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("answer5")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setAnswer5(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().contains("correct_answer")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setCorrectAnswer(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("competency")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setCompetency(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("grade")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setGrade(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("sub_grade")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setSubGrade(String.valueOf(val));
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("level")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setLevel(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("questioncode")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setQuestionCode(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+                        }else if(tempArray[0][b].getStringCellValue().equals("departmentcode")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setDepartementCode(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+                        }else if(tempArray[0][b].getStringCellValue().equals("questiontype")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                question.setQuestionType(val);
+                            }else{
+                                isEmpty.add(question);
+                            }
+                        }
+                    }
+                }
+            }
+
+            if(isEmpty.size() > 0){
+                result = 0;
+            }else{
+                result +=1;
+                if(!val.equals("")) {
+                    questionListt.add(question);
+                }
+
+            }
+        }
+
+        for(Question question : questionListt){
+
+            resultInsert += adminDAO.insertQuestion(question);
+
+        }
+
+        return  resultInsert;
+
+    }
+
+
+    public int insertUploadEmployee(Sheet sheet,Cell[][] tempArray,String val,DataFormatter formatter,
+                                    List<Employee> isEmpty,List<Employee>employeeListt){
+
+	    int resultInsert=0;
+
+        for(int a = 1; a < sheet.getLastRowNum() + 1; a++){
+            employee = new Employee();
+            for(int b = 0; b < tempArray[0].length; b++){
+                if(a != 0){
+                    if(sheet.getRow(a)!=null){
+                        if(tempArray[0][b].getStringCellValue().equals("DEPARTEMENT_CODE")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("") || val != null){
+                                employee.setDepartementCode(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+                        }else if(tempArray[0][b].getStringCellValue().equals("GRADE_CODE")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")|| val != null) {
+                                employee.setGradeCode(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+                        }else if(tempArray[0][b].getStringCellValue().equals("DIVISION_CODE")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")|| val != null){
+                                employee.setDivisionCode(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("SUB_GRADE_CODE")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")|| val != null){
+                                employee.setSubGradeCode(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_CODE")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")|| val != null){
+                                employee.setEmployeeCode(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().equals("EMPLOYEE_NAME")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")|| val != null){
+                                employee.setEmployeeName(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().contains("CREATED_BY")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")|| val != null){
+                                employee.setCreatedBy(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+
+                        }else if(tempArray[0][b].getStringCellValue().contains("USER_NAME")){
+                            val = formatter.formatCellValue(sheet.getRow(a).getCell(b));
+                            if(!val.equals("")|| val != null){
+                                employee.setUserName(val);
+                            }else{
+                                isEmpty.add(employee);
+                            }
+
+                        }
+                    }
+                }
+            }
+            if(isEmpty.size() > 0){
+                result = 0;
+            }else{
+                if(!val.equals("")) {
+                    result +=1;
+                    employeeListt.add(employee);
+                }
+            }
+
+        }
+
+        for(Employee emp : employeeListt){
+
+            resultInsert += adminDAO.insertEmployee(emp);
+
+        }
+
+        return resultInsert;
+
+    }
+
 	public String updateEmployee(String body) {
 		// TODO Auto-generated method stub
 		try {

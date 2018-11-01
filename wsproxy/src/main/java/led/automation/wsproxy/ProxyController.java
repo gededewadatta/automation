@@ -37,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 @RestController
 public class ProxyController {
 	// insert : start
+
 	@Value("${led.automation.admin.insert.employee}")
 	protected String employeeUrlInsert;
 	@Value("${led.automation.admin.insert.grade}")
@@ -109,6 +110,8 @@ public class ProxyController {
 	protected String employeeUrlUpload;
 	@Value("${led.automation.admin.upload.question}")
 	protected String questionUrlUpload;
+	@Value("${led.automation.admin.upload.insertEmployee}")
+	protected  String employeeUrlUploadInsert;
 	// upload : stop##
 	// generate : start##
 	@Value("${led.automation.admin.generate.employee}")
@@ -161,6 +164,10 @@ public class ProxyController {
 		switch (name) {
 
 //        	case  "employee" : result = employeeURL; break;  led.automation.admin.update.question
+		case "employeeUrlUploadInsert":
+			result =employeeUrlUploadInsert;
+			break;
+
 		case "employeeUrlInsert":
 			result = employeeUrlInsert;
 			break;
@@ -671,6 +678,15 @@ public class ProxyController {
 
 	// generate data : stop
 	// upload data : start
+
+	@RequestMapping(value = "/led/api/automation/insert/uploadFile", produces = "application/json", method = RequestMethod.POST)
+	@ResponseBody
+	public String uploadInsert(@RequestBody String body, HttpMethod method, HttpServletRequest request,
+								 HttpServletResponse response) throws URISyntaxException {
+		return proxy(employeeUrlUploadInsert, body, method, request, response);
+
+	}
+
 	@RequestMapping(value = "/led/api/automation/upload/question", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public String uploadQuestion(@RequestBody String body, HttpMethod method, HttpServletRequest request,

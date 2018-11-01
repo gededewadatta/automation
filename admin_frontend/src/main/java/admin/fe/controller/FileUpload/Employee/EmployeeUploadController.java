@@ -5,19 +5,15 @@ import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Employee;
+import admin.fe.model.UploadFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.sl.usermodel.TextBox;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import org.hibernate.validator.constraints.URL;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -27,7 +23,6 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.Textbox;
 
 import java.io.*;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -41,6 +36,9 @@ public class EmployeeUploadController extends CommonController {
     private AbstractMainWindowTransaction parent;
     Button btnSubmit;
 
+    String stream;
+    String extensinos;
+
     int result = 0;
 
     Set<Employee> emp = new HashSet<>();
@@ -48,6 +46,7 @@ public class EmployeeUploadController extends CommonController {
     String destination = "Apps/Upload";
 
     List<Employee> isEmpty = new ArrayList<>();
+    UploadFile empUpload = new UploadFile();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -243,17 +242,13 @@ public class EmployeeUploadController extends CommonController {
 
     }
 
-    private void copyToTemp(Media media) {
-        int rpt = 0;
-//        path for temporary
+    private void writeToTempFile(InputStream stream, String ext){
+
         SimpleDateFormat format = new SimpleDateFormat("DDMMYYYY");
         String dateString = format.format( new Date()   );
         String pathTemp = "/Apps/Upload/EMPLOYEETemp"+dateString+".xls";
         File f = new File(pathTemp);
-
-        InputStream stream = media.getStreamData();
         OutputStream os = null;
-        String extensinos = media.getName().substring(media.getName().lastIndexOf("."),media.getName().length());
         try {
 
             os = new FileOutputStream(f);
@@ -284,7 +279,22 @@ public class EmployeeUploadController extends CommonController {
                 }
             }
         }
-       loadFileTemp(extensinos);
+
+        empUpload.setExtensions(ext);
+        empUpload.setGetMediaFile(pathTemp);
+        empUpload.setUploadType("EMPLOYEE");
+
+        loadFileTemp(extensinos);
+
+    }
+
+
+    private void copyToTemp(Media media) {
+//        path for temporary
+
+        extensinos = media.getName().substring(media.getName().lastIndexOf("."),media.getName().length());
+
+        writeToTempFile(media.getStreamData(),extensinos);
 
     }
 
@@ -312,11 +322,10 @@ public class EmployeeUploadController extends CommonController {
                                 try {
 
                                     if(result > 0 ){
-
                                         Set<Employee> isInserted = new HashSet<>();
                                         for(Employee employee: emp){
                                             if(employee!=null){
-                                                if(send.insertEmployee(employee).equals("200")){
+                                                if(send.insertUpload(empUpload).equals("200")){
                                                     isInserted.add(employee);
                                                 }
                                             }

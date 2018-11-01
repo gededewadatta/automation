@@ -6,6 +6,7 @@ import admin.fe.controller.common.SerializableRowRenderer;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Employee;
 import admin.fe.model.Question;
+import admin.fe.model.UploadFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -36,6 +37,7 @@ public class QuestionController extends CommonController {
     List<Question> questions = new ArrayList<>();
     List<Question> isEmpty = new ArrayList<>();
     Button btnSubmit;
+    UploadFile questupload = new UploadFile();
 
     public void doAfterCompose(Component comp) throws Exception {
         super.doAfterCompose(comp);
@@ -315,6 +317,11 @@ public class QuestionController extends CommonController {
                 }
             }
         }
+
+        questupload.setGetMediaFile(pathTemp);
+        questupload.setExtensions(extensinos);
+        questupload.setUploadType("QUESTION");
+
         loadFileTemp(extensinos);
 
     }
@@ -344,7 +351,7 @@ public class QuestionController extends CommonController {
                                     if(result > 0 ){
                                         for(Question question: questions){
 
-                                            if(send.insertQuestion(question).equals("200")){
+                                            if(send.insertUpload(questupload).equals("200")){
                                                 quest.add(question);
                                             }
 

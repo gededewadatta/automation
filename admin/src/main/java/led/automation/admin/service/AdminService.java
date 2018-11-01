@@ -92,6 +92,8 @@ public interface AdminService {
 	public int uploadQuestion(String body);
 
 	public int uploadEmployee(String body);
+
+	public String insertUpload(String body);
 	// upload data : stop
 
 	// generate data : start
