@@ -28,7 +28,6 @@ import java.util.Map;
 public class DepartementController extends CommonController implements PopupCallerDivisionInterface,PopupCallerDepartmentInterface {
 
     private Window departementWindow;
-
     protected Grid hGrid;
     protected ListModelList modelList;
     Textbox idCompanyName;
@@ -39,7 +38,6 @@ public class DepartementController extends CommonController implements PopupCall
     Departement dep = new Departement();
     List<Departement> departementList;
     SendJSON send = new SendJSON();
-
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
@@ -55,7 +53,6 @@ public class DepartementController extends CommonController implements PopupCall
             }
 
             private void renderDataRow(Row row, Departement departement){
-
                 row.setValue(departement);
                 new Label(departement.getDivisionCode()).setParent(row);
                 new Label(departement.getDepartementCode()).setParent(row);
@@ -95,7 +92,6 @@ public class DepartementController extends CommonController implements PopupCall
                 separator.setParent(hbox);
                 hbox.appendChild(bEdit);
                 row.appendChild(hbox);
-
             }
         };
     }

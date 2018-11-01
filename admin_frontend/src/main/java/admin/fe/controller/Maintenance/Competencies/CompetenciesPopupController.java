@@ -13,14 +13,15 @@ import java.util.List;
 
 public class CompetenciesPopupController extends CommonController {
 
-    List<Competency> competencyList;
     Textbox idCompetencyCode;
     Textbox idCompetencyName;
-    SendJSON send = new SendJSON();
     ListModelList modelList;
     Grid hGrid;
     Window compPopup;
     Radiogroup rgrSearchResult;
+
+    List<Competency> competencyList;
+    SendJSON send = new SendJSON();
     Competency competency = new Competency();
 
 
@@ -39,21 +40,17 @@ public class CompetenciesPopupController extends CommonController {
             }
 
             private void renderDataRow(Row row, Competency competency){
-
-
                 row.setValue(competency);
                 Radio rdo = new Radio();
                 rdo.setValue(competency.getId());
                 rdo.setParent(row);
                 new Label(competency.getCompetencyCode()).setParent(row);
                 new Label(competency.getCompetencyName()).setParent(row);
-
             }
         };
     }
 
     public void onClick$addSelect(){
-
         if(rgrSearchResult.getSelectedItem()!=null){
             String id = rgrSearchResult.getSelectedItem().getValue();
             Competency competency = (Competency) arg.get("object");
@@ -73,7 +70,6 @@ public class CompetenciesPopupController extends CommonController {
 
             compPopup.onClose();
         }
-
     }
 
     public void onClick$searchButton() throws Exception {
@@ -109,7 +105,7 @@ public class CompetenciesPopupController extends CommonController {
             competency.setCompetencyName("");
         }
 
-        competencyList = send.getCompetency(competency);
+        competencyList = send.getCompetencyPopup(competency);
 
         if(competencyList.size()<1){
             Messagebox.show("Data is not found");
@@ -119,15 +115,10 @@ public class CompetenciesPopupController extends CommonController {
         hGrid.setModel(modelList);
         hGrid.setPageSize(5);
         hGrid.setRowRenderer(createGridRowRenderer());
-
     }
 
 
     public void onClick$cancelButton(){
         compPopup.onClose();
     }
-
-
-
-
 }

@@ -2,6 +2,7 @@ package admin.fe.controller.Maintenance.Grade;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.Resources;
+import admin.fe.controller.popup.PopupShowController;
 import admin.fe.engine.PopupCallerDepartmentInterface;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
@@ -39,6 +40,7 @@ public class GradeDetailController extends CommonController implements PopupCall
 
     Division div = new Division();
     Departement dep = new Departement();
+    PopupShowController popup = new PopupShowController();
 
     @Value("${led.Grade.insert}")
     protected String gradeInsert;
@@ -122,20 +124,7 @@ public class GradeDetailController extends CommonController implements PopupCall
 
     public void onClick$btnDepartment(){
 
-        Map<String, Object> args = new HashMap<String, Object>();
-        Departement dep = new Departement();
-        args.put("object", dep);
-        args.put("division", div);
-        args.put("caller", this);
-        Component c = Executions.createComponents(
-                Resources.departementPopup, self, args);
-        try {
-            onModalToTop((Window) c);
-        } catch (SuspendNotAllowedException e1) {
-            Messagebox.show(e1.getMessage());
-        } catch (InterruptedException e1) {
-            Messagebox.show(e1.getMessage());
-        }
+        popup.showPopUpDepartement(this,div);
 
     }
     public void onClick$btnDivision(){

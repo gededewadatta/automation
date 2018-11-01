@@ -21,24 +21,15 @@ import java.util.Map;
 public class CompetenciesDetailListController extends CommonController implements PopupCallerDepartmentInterface,PopupCallerGradeInterface,PopupCallerSubGradeInterface {
 
     Textbox idDepartment;
-
     Textbox idGrade;
-
     Textbox idSubGrade;
-
     Textbox idCompetencyCode;
-
     Textbox idCompetencyName;
-
-
     Window competenciesDetailListWdw;
 
     Division div = new Division();
-
     Departement dep = new Departement();
-
     Grade grd = new Grade();
-
     SubGrade subGrd = new SubGrade();
 
     public void doAfterCompose(Component comp) throws Exception {
@@ -48,9 +39,9 @@ public class CompetenciesDetailListController extends CommonController implement
     }
 
     public Map<String, Object> getArgs() {
-
         Map<String, Object> args = new HashMap<String, Object>();
         Competency competency = new Competency();
+
         competency.setGradeCode(idGrade.getValue());
         competency.setSubGradeCode(idSubGrade.getValue());
         competency.setCompetencyCode(idCompetencyCode.getValue());
@@ -62,9 +53,9 @@ public class CompetenciesDetailListController extends CommonController implement
     }
 
     public void onClick$btnDepartement(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Departement departement = new Departement();
+
         args.put("object", departement);
         args.put("caller", this);
         Component c = Executions.createComponents(Resources.departementPopup, self, args);
@@ -75,13 +66,20 @@ public class CompetenciesDetailListController extends CommonController implement
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
+    }
 
+    @Override
+    public void afterSelectDepartement(Departement departement) {
+        if(departement != null){
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementCode());
+        }
     }
 
     public void onClick$btnGrade(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Grade grade = new Grade();
+
         args.put("objectGrade", grade);
         args.put("departement", dep);
         args.put("caller", this);
@@ -93,12 +91,20 @@ public class CompetenciesDetailListController extends CommonController implement
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
-    public void onClick$btnSubGrade(){
 
+    @Override
+    public void afterSelectGrade(Grade grade) {
+        if(grade != null){
+            grd = grade;
+            idGrade.setValue(grd.getGradeCode());
+        }
+    }
+
+    public void onClick$btnSubGrade(){
         Map<String, Object> args = new HashMap<String, Object>();
         SubGrade subgrd = new SubGrade();
+
         args.put("object", subgrd);
         args.put("grade",grd);
         args.put("caller", this);
@@ -110,30 +116,10 @@ public class CompetenciesDetailListController extends CommonController implement
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
-    }
-
-
-    @Override
-    public void afterSelectDepartement(Departement departement) {
-        if(departement != null){
-            dep = departement;
-            idDepartment.setValue(departement.getDepartementCode());
-        }
-    }
-
-    @Override
-    public void afterSelectGrade(Grade grade) {
-        if(grade != null){
-            grd = grade;
-            idGrade.setValue(grd.getGradeCode());
-        }
-
     }
 
     @Override
     public void afterSelectSubGrade(SubGrade subGrade) {
-
         if(subGrade != null){
             subGrd = subGrade;
             idSubGrade.setValue(subGrd.getSubGradeCode());

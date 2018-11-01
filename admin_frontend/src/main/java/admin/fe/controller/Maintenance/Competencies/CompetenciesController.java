@@ -23,11 +23,11 @@ public class CompetenciesController extends CommonController implements PopupCal
     Textbox idDepartment;
     Textbox idGrade;
     Textbox idSubGrade;
+    protected Grid hGrid;
+    protected ListModelList modelList;
 
     Competency comp = new Competency();
     SendJSON send = new SendJSON();
-    protected Grid hGrid;
-    protected ListModelList modelList;
     Division div = new Division();
     Departement dep = new Departement();
     List<Competency> competencies = new ArrayList<>();
@@ -69,12 +69,9 @@ public class CompetenciesController extends CommonController implements PopupCal
             hGrid.setModel(modelList);
             hGrid.setPageSize(5);
             hGrid.setRowRenderer(createGridRowRenderer());
-
         }else{
             Messagebox.show("Data Not found");
         }
-
-
     }
 
     protected SerializableRowRenderer createGridRowRenderer(){
@@ -86,7 +83,6 @@ public class CompetenciesController extends CommonController implements PopupCal
             }
 
             private void renderDataRow(Row row, Competency competency){
-
                 row.setValue(competency);
                 new Label(competency.getDepartementCode()).setParent(row);
                 new Label(competency.getGradeCode()).setParent(row);
@@ -100,24 +96,17 @@ public class CompetenciesController extends CommonController implements PopupCal
 
                 view.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
-                            /**
-                             *
-                             */
                             private static final long serialVersionUID = 2726307190666012319L;
 
                             public void onEvent(Event event) throws Exception {
                                 String eventName = event.getName();
                                 if (eventName.equals(Events.ON_CLICK)) {
                                     navigateTo(Resources.competenciesViewEdit,getArg(competency,"VIEW"),self);
-
                                 }
                             }
                         });
                 edit.addEventListener(Events.ON_CLICK,
                         new SerializableEventListener() {
-                            /**
-                             *
-                             */
                             private static final long serialVersionUID = 5680895575895846548L;
 
                             public void onEvent(Event event)
@@ -141,7 +130,6 @@ public class CompetenciesController extends CommonController implements PopupCal
     }
 
     public Map<String, Object> getArg(Competency obj,String type) {
-
         Map<String, Object> args = new HashMap<String, Object>();
 
         args.put("id",obj.getId());
@@ -153,13 +141,14 @@ public class CompetenciesController extends CommonController implements PopupCal
         args.put("competencyCode",obj.getCompetencyCode());
         args.put("createdBy",obj.getCreatedBy());
         args.put("type",type);
+
         return args;
     }
 
     public void onClick$btnDepartement(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Departement departement = new Departement();
+
         args.put("object", departement);
         args.put("division", div);
         args.put("caller", this);
@@ -171,7 +160,6 @@ public class CompetenciesController extends CommonController implements PopupCal
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
 
     @Override
@@ -183,9 +171,9 @@ public class CompetenciesController extends CommonController implements PopupCal
     }
 
     public void onClick$btnGrade(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Grade grade = new Grade();
+
         args.put("objectGrade", grade);
         args.put("departement", dep);
         args.put("caller", this);
@@ -197,12 +185,19 @@ public class CompetenciesController extends CommonController implements PopupCal
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
-    public void onClick$btnSubGrade(){
 
+    public void afterSelectGrade(Grade grade) {
+        if(grade != null){
+            grd = grade;
+            idGrade.setValue(grd.getGradeCode());
+        }
+    }
+
+    public void onClick$btnSubGrade(){
         Map<String, Object> args = new HashMap<String, Object>();
         SubGrade subgrd = new SubGrade();
+
         args.put("object", subgrd);
         args.put("grade",grd);
         args.put("caller", this);
@@ -214,19 +209,9 @@ public class CompetenciesController extends CommonController implements PopupCal
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
-    }
-
-    public void afterSelectGrade(Grade grade) {
-        if(grade != null){
-            grd = grade;
-            idGrade.setValue(grd.getGradeCode());
-        }
-
     }
 
     public void afterSelectSubGrade(SubGrade subGrade) {
-
         if(subGrade != null){
             subGrd = subGrade;
             idSubGrade.setValue(subGrd.getSubGradeCode());

@@ -7,6 +7,7 @@ package admin.fe.controller.Maintenance.Departement;
 
 import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.Resources;
+import admin.fe.controller.popup.PopupShowController;
 import admin.fe.engine.PopupCallerDivisionInterface;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Departement;
@@ -30,6 +31,7 @@ public class DepartementDetailController extends CommonController implements Pop
     Textbox nameDepartement;
 
     Division div = new Division();
+    PopupShowController popup = new PopupShowController();
 
     @Value("${led.Departement.insert}")
     protected String departementInsert;
@@ -91,30 +93,15 @@ public class DepartementDetailController extends CommonController implements Pop
     }
 
     public void onClick$idDivision(){
-        showPopUpDivision();
+        popup.showPopUpDivision(this);
     }
 
     public void onChanging$idDivision(){
-        showPopUpDivision();
+        popup.showPopUpDivision(this);
     }
 
     public void onClick$btnDivSearch(){
-        showPopUpDivision();
-    }
-
-    public void showPopUpDivision(){
-        Map<String, Object> args = new HashMap<String, Object>();
-        Division div = new Division();
-        args.put("object", div);
-        args.put("caller", this);
-        Component c = Executions.createComponents(Resources.divisionPopup, self, args);
-        try {
-            onModalToTop((Window) c);
-        } catch (SuspendNotAllowedException e1) {
-            Messagebox.show(e1.getMessage());
-        } catch (InterruptedException e1) {
-            Messagebox.show(e1.getMessage());
-        }
+        popup.showPopUpDivision(this);
     }
 
     @Override

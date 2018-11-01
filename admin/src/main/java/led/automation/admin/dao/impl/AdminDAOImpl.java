@@ -296,12 +296,12 @@ public class AdminDAOImpl implements AdminDAO {
 			employee = employeeRepository.findAll();
 		}
 		else if(employeeCode.equals("")&&!employeeName.equals("")){
-			employee = employeeRepository.findByEmployeeName(employeeName);
+			employee = employeeRepository.findByEmployeeName("%"+employeeName.toUpperCase()+"&");
 		}
 		else if(!employeeCode.equals("")&& employeeName.equals("")) {
-			employee = employeeRepository.findByEmployeeCode(employeeCode);
+			employee = employeeRepository.findByEmployeeCode("%"+employeeCode.toUpperCase()+"%");
 		}else {
-			employee = employeeRepository.findByEmployeeCodeAndName(employeeCode,employeeName);
+			employee = employeeRepository.findByEmployeeCodeAndName("%"+employeeCode.toUpperCase()+"%","%"+employeeName.toUpperCase()+"&");
 		}
 
 		return employee;

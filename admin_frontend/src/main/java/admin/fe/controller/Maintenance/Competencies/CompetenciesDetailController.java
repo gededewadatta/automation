@@ -27,27 +27,18 @@ import java.util.Map;
 
 public class CompetenciesDetailController extends CommonController {
 
+    private Window competenciesCont;
+    private AbstractMainWindowTransaction parent;
     Vbox boxList;
-
     Textbox idDepartment;
-
     Textbox idGrade;
-
     Textbox idSubGrade;
-
     Textbox idCompetencies;
 
     List<Component> competenciesDetailListController = new ArrayList<Component>();
-
-    private Window competenciesCont;
-    private AbstractMainWindowTransaction parent;
-
     Division div = new Division();
-
     Departement dep = new Departement();
-
     Grade grd = new Grade();
-
     SubGrade subGrd = new SubGrade();
 
     public void doAfterCompose(Component comp) throws Exception {
@@ -67,16 +58,15 @@ public class CompetenciesDetailController extends CommonController {
              composer = (CompetenciesDetailListController) c.getAttribute("controller");
             args.add(composer.getArgs());
         }
+
         return args;
     }
-
 
     public void onClick$deleteButton(){
         deleteTransaction();
     }
 
     public void onClick$submitButton(){
-
         showConfirmDialog("Do you want to save the data?");
     }
 
@@ -89,7 +79,6 @@ public class CompetenciesDetailController extends CommonController {
     }
 
     private void addTransaction() {
-
         System.out.println("TOTAL SIZE : "+competenciesDetailListController.size());
         Component component = Executions.createComponents(Resources.competenciesDetailList,
                 boxList, arg);
@@ -110,24 +99,19 @@ public class CompetenciesDetailController extends CommonController {
                             case Messagebox.YES:
 
                                 SendJSON send = new SendJSON();
-
                                 ArrayList<Map<String, Object>> competencyList = retrieveDetailsArg();
-
 
                                 try {
                                     String result = "";
                                     List<Competency> comp = new ArrayList<>();
 
                                     for (Map<String, Object> cmpList : competencyList) {
-
                                         Competency cmp = (Competency) cmpList.get("Competencies");
+
                                         result = send.insertCompetency(cmp);
                                         if(result.equals("200")){
                                             comp.add(cmp);
                                         }
-
-
-
                                     }
 
                                     if(comp.size() > 0){
@@ -141,7 +125,6 @@ public class CompetenciesDetailController extends CommonController {
                                 } catch (JsonProcessingException e) {
                                     e.printStackTrace();
                                 }
-
                         }
                     }
                 });
@@ -150,5 +133,4 @@ public class CompetenciesDetailController extends CommonController {
     public void onClick$cancelButton(){
         navigateTo(Resources.competenciesHome,null,self);
     }
-
 }

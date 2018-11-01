@@ -19,11 +19,11 @@ import led.automation.admin.model.Employee;
  */
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
-	@Query(value = "SELECT * FROM Employee WHERE Employee_NAME like %?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Employee WHERE UPPER(Employee_NAME) like %?1", nativeQuery = true)
 	List<Employee> findByEmployeeName(String EmployeeName);
-	@Query(value = "SELECT * FROM Employee WHERE Employee_CODE like %?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM Employee WHERE UPPER(Employee_CODE) like %?1", nativeQuery = true)
 	List<Employee> findByEmployeeCode(String EmployeeCode);
-	@Query(value = "SELECT * FROM Employee WHERE Employee_CODE like %?1 AND Employee_NAME like %?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM Employee WHERE UPPER(Employee_CODE) like %?1 AND UPPER(Employee_NAME) like %?2", nativeQuery = true)
 	List<Employee> findByEmployeeCodeAndName(String EmployeeCode, String EmployeeName);
 	@Query(value = "SELECT div.division_name,dept.departement_name,emp.employee_code,emp.employee_name"
 			+ " FROM Employee emp join Departement dept on emp.departement_code = dept.departement_code"

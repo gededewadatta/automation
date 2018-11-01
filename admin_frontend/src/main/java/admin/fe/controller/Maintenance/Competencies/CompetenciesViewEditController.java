@@ -121,7 +121,6 @@ public class CompetenciesViewEditController extends CommonController implements 
 
                                 SendJSON send = new SendJSON();
 
-
                                 try {
                                     String result = "";
 
@@ -152,19 +151,17 @@ public class CompetenciesViewEditController extends CommonController implements 
     }
 
     public void onClick$clearButton(){
-
         idDepartment.setValue("");
         idSubGrade.setValue("");
         idGrade.setValue("");
         idCompetencies.setValue("");
         idCompetenciesName.setValue("");
-
     }
 
     public void onClick$btnDepartement() {
-
         Map<String, Object> args = new HashMap<String, Object>();
         Departement departement = new Departement();
+
         args.put("object", departement);
         args.put("caller", this);
         Component c = Executions.createComponents(Resources.departementPopup, self, args);
@@ -175,14 +172,19 @@ public class CompetenciesViewEditController extends CommonController implements 
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
 
+    public void afterSelectDepartement(Departement departement) {
+        if (departement != null) {
+            dep = departement;
+            idDepartment.setValue(departement.getDepartementCode());
+        }
+    }
 
     public void onClick$btnGrade(){
-
         Map<String, Object> args = new HashMap<String, Object>();
         Grade grade = new Grade();
+
         args.put("objectGrade", grade);
         args.put("departement", dep);
         args.put("caller", this);
@@ -194,12 +196,19 @@ public class CompetenciesViewEditController extends CommonController implements 
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
     }
-    public void onClick$btnSubGrade(){
 
+    public void afterSelectGrade(Grade grade) {
+        if (grade != null) {
+            grd = grade;
+            idGrade.setValue(grd.getGradeCode());
+        }
+    }
+
+    public void onClick$btnSubGrade(){
         Map<String, Object> args = new HashMap<String, Object>();
         SubGrade subgrd = new SubGrade();
+
         args.put("object", subgrd);
         args.put("grade",grd);
         args.put("caller", this);
@@ -211,23 +220,6 @@ public class CompetenciesViewEditController extends CommonController implements 
         } catch (InterruptedException e1) {
             Messagebox.show(e1.getMessage());
         }
-
-    }
-
-
-    public void afterSelectDepartement(Departement departement) {
-        if (departement != null) {
-            dep = departement;
-            idDepartment.setValue(departement.getDepartementCode());
-        }
-    }
-
-    public void afterSelectGrade(Grade grade) {
-        if (grade != null) {
-            grd = grade;
-            idGrade.setValue(grd.getGradeCode());
-        }
-
     }
 
     public void afterSelectSubGrade(SubGrade subGrade) {
@@ -241,5 +233,4 @@ public class CompetenciesViewEditController extends CommonController implements 
     public void onClick$backButton(){
         navigateTo(Resources.competenciesHome,null,self);
     }
-
 }
