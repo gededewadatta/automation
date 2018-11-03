@@ -54,7 +54,7 @@
                                 <hlayout>
                                     <textbox id="idCompetencies"  />
                                     <label id="idCompetenciesView"  />
-                                    <textbox id="idCompetencies" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
+                                    <textbox id="idCompetencies"  />
                                 </hlayout>
                             </hbox>
 
@@ -65,7 +65,7 @@
                                 <hlayout>
                                     <textbox id="idCompetenciesName"  />
                                     <label id="idCompetenciesNameView"  />
-                                    <textbox id="idCompetenciesName" constraint="no empty, /^[a-zA-Z@''.]+\s?[a-zA-Z@''.]+$/:there is an illegal character or has a white space" />
+                                    <textbox id="idCompetenciesName"  />
                                 </hlayout>
                             </hbox>
 

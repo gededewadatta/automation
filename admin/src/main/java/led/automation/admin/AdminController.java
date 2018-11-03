@@ -62,6 +62,14 @@ public class AdminController {
 		return ResponseEntity.ok(adminService.insertEmployee(body));
 	}
 
+    @RequestMapping(value = "/led/api/automation/insert/uploadFile", produces = "application/json", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> uploadInsert(@RequestBody String body, HttpMethod method,
+                                                 HttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
+        System.out.println(body);
+        return ResponseEntity.ok(adminService.insertUpload(body));
+    }
+
 	@RequestMapping(value = "/led/api/automation/insert/grade", produces = "application/json", method = RequestMethod.POST)
 	@ResponseBody
 	public  ResponseEntity<String> insertGrade(@RequestBody String body, HttpMethod method, HttpServletRequest request,

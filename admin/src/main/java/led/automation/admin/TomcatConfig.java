@@ -93,6 +93,9 @@ public class TomcatConfig {
     }
 
     @Bean
+    public UploadFile employeeUpload(){return new UploadFile();}
+
+    @Bean
     public SubmitQuestion submitQuestion() {
         return new SubmitQuestion();
     }

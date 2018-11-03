@@ -7,6 +7,7 @@ import admin.fe.controller.common.Resources;
 import admin.fe.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,8 +33,13 @@ public class SendJSON {
 
     Employee emp = new Employee();
 
+
     public String insertEmployee(Employee emp) throws JsonProcessingException {
         return insertAndUpdate(mapper.writeValueAsString(emp),Resources.proxyHost+"led/api/automation/insert/employee");
+    }
+
+    public String insertUpload(UploadFile empUp) throws JsonProcessingException {
+        return insertAndUpdate(mapper.writeValueAsString(empUp),Resources.proxyHost+"led/api/automation/insert/uploadFile");
     }
 
     public String insertGrade(GradeJson grd) throws JsonProcessingException {

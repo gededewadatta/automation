@@ -8,8 +8,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+import org.zkoss.zul.Textbox;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,6 +18,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FileUtil {
 
@@ -313,6 +314,28 @@ public class FileUtil {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public static int validateRegex(List<Textbox> textboxes){
+
+        String regex ="^[a-zA-Z@''.]+\\s?[a-zA-Z@''.]+$";
+        int i = 0;
+
+        Pattern pattern = Pattern.compile(regex);
+
+        for(Textbox tb : textboxes){
+
+            Matcher matcher = pattern.matcher(tb.getValue());
+
+            if(matcher.matches() == false){
+                i++;
+            }
+
+
+        }
+
+        return i;
+
     }
 
 }

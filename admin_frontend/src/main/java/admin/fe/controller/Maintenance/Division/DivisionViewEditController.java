@@ -9,6 +9,7 @@ import admin.fe.controller.common.CommonController;
 import admin.fe.controller.common.Resources;
 import admin.fe.engine.SendJSON;
 import admin.fe.model.Division;
+import admin.fe.util.FileUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Event;
@@ -20,7 +21,9 @@ import org.zkoss.zul.Textbox;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DivisionViewEditController extends CommonController {
 
@@ -39,6 +42,7 @@ public class DivisionViewEditController extends CommonController {
     SendJSON send = new SendJSON();
 
     EventListener event = null;
+    List<Textbox> textboxes = new ArrayList<>();
 
     public void doAfterCompose(Component comp) throws Exception{
         super.doAfterCompose(comp);
@@ -78,6 +82,7 @@ public class DivisionViewEditController extends CommonController {
         }
     }
 
+
     public void onClick$backButton(){
         navigateTo(Resources.divisionHome,null,self);
     }
@@ -91,21 +96,31 @@ public class DivisionViewEditController extends CommonController {
             public void onEvent(Event evt) throws InterruptedException {
                 if (evt.getName().equals("onYes")) {
                     try {
-                        String resultGrade = send.updateDivision(div);
 
-                        if (resultGrade.equals("200")) {
-                            Messagebox.show("Data Already Updated", "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener() {
-                                public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo(Resources.divisionHome, null, self);
-                                }
-                            });
-                        } else if (!resultGrade.equals("200")) {
-                            Messagebox.show("Data Failed To update to Table Division" , "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener(){
-                                public void onEvent(Event evt) throws InterruptedException {
-                                    navigateTo(Resources.divisionHome, null, self);
-                                }
-                            });
+                        textboxes.add(idDivisionEdit);
+                        textboxes.add(nameDivisionEdit);
+
+                        if(FileUtil.validateRegex(textboxes) == 0){
+                            String resultGrade = send.updateDivision(div);
+
+                            if (resultGrade.equals("200")) {
+                                Messagebox.show("Data Already Updated", "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener() {
+                                    public void onEvent(Event evt) throws InterruptedException {
+                                        navigateTo(Resources.divisionHome, null, self);
+                                    }
+                                });
+                            } else if (!resultGrade.equals("200")) {
+                                Messagebox.show("Data Failed To update to Table Division" , "Information", Messagebox.OK, Messagebox.INFORMATION, event = new EventListener(){
+                                    public void onEvent(Event evt) throws InterruptedException {
+                                        navigateTo(Resources.divisionHome, null, self);
+                                    }
+                                });
+                            }
+                        }else{
+
+                            Messagebox.show("there is an illegal character or has a white space");
                         }
+
 
                     } catch (JsonProcessingException e) {
                         Messagebox.show("All data Failed To Update");
