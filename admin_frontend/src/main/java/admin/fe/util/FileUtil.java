@@ -318,7 +318,7 @@ public class FileUtil {
 
     public static int validateRegex(List<Textbox> textboxes){
 
-        String regex ="^[a-zA-Z@''.]+\\s?[a-zA-Z@''.]+$";
+        String regex ="^[a-zA-Z0-9@''.]+\\s?[a-zA-Z0-9@''.]+$";
         int i = 0;
 
         Pattern pattern = Pattern.compile(regex);
